@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class StoreTest : MonoBehaviour
 {
+    [SerializeField] string ItemID = "003_PASTRYCHEF";
     PlayFabStore store = null;
-    // Start is called before the first frame update
+    PlayFabInventory inventory = null;
+    PlayFabPlayerData playerdata = null;
+    bool m_isRequest = false;       // リクエスト中かどうか
+
     void Start()
     {
         store = GameObject.Find("PlayFabManager").GetComponent<PlayFabStore>();
+        inventory = GameObject.Find("PlayFabManager").GetComponent<PlayFabInventory>();
+        playerdata = GameObject.Find("PlayFabManager").GetComponent<PlayFabPlayerData>();
     }
 
     // Update is called once per frame
@@ -21,8 +27,34 @@ public class StoreTest : MonoBehaviour
         }
         if(Input.GetMouseButtonDown(1))
         {
-            // ダミーアイテムの購入
-            store.BuyItem("2","HA");
+            // アイテムの購入
+            store.BuyItem(ItemID, "HA");
+        }
+
+        // アイテムの装備
+        // 更新要求中でなければ入力受付
+        if (!m_isRequest)
+        {
+            if (Input.GetMouseButtonDown(2))
+            {
+                // インベントリ情報を更新
+                inventory.RequestUpdate();
+                m_isRequest = true;
+            }
+        }
+        else
+        {
+            // 更新要求中は更新が終わったかを確認する
+            if(inventory.m_isGet)
+            {
+                // プレイヤーが装備を持っていたら
+                if (inventory.IsHaveItem(ItemID))
+                {
+                    // プレイヤーの装備を更新する
+                    playerdata.SetPlayerData(ItemID);
+                }
+                m_isRequest = false;
+            }
         }
     }
 }

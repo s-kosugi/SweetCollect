@@ -13,9 +13,10 @@ public class BaseScene : MonoBehaviour
     // シーンフェード状態
     public enum FADE_STATE
     {
-        FADEIN,
-        FADEOUT,
-        NONE,
+        FADEIN,     // 明るくなる
+        FADEOUT,    // 暗くなる
+        NONE,       // フェードキャンバス無し
+        BLACK,      // 真っ暗
     };
 
     private FADE_STATE FadeState;
@@ -29,17 +30,12 @@ public class BaseScene : MonoBehaviour
                 if (fadeCanvas)
                 {
                     // 指定されたフェード状態に応じて初期値を代入する
-                    if (value == FADE_STATE.FADEIN)
+                    switch( value )
                     {
-                        m_FadeImage.Range = FADE_MAX;
-                    }
-                    if (value == FADE_STATE.FADEOUT)
-                    {
-                        m_FadeImage.Range = FADE_MIN;
-                    }
-                    if (value == FADE_STATE.NONE)
-                    {
-                        m_FadeImage.Range = FADE_MIN;
+                        case FADE_STATE.FADEIN: m_FadeImage.Range = FADE_MAX; break;
+                        case FADE_STATE.FADEOUT: m_FadeImage.Range = FADE_MIN; break;
+                        case FADE_STATE.NONE: m_FadeImage.Range = FADE_MIN; break;
+                        case FADE_STATE.BLACK: m_FadeImage.Range = FADE_MAX; break;
                     }
                 }
                     
@@ -65,6 +61,7 @@ public class BaseScene : MonoBehaviour
             case FADE_STATE.FADEIN: FadeIn(); break;
             case FADE_STATE.FADEOUT: FadeOut(); break;
             case FADE_STATE.NONE: break;
+            case FADE_STATE.BLACK: break;
         }
     }
 

@@ -3,14 +3,18 @@
 public class GameMainManager : BaseScene
 {
     [SerializeField] float GameOverTime = 2.0f;
+    [SerializeField] GameObject Player = null;
     private float GameOverCount = 0.0f;
     private ScoreManager m_ScoreManager = null;
     private bool isScoreSend = false;
     private PlayFabStatistics m_PlayFabStatistics = null;
     private PlayFabVirtualCurrency m_PlayFabVirtualCurrency = null;
+    private PlayerAvatar m_PlayerAvatar = null;
+
     // ゲームメイン状態
     public enum STATE
     {
+        PREPRATION,
         FADEIN,
         START,
         MAIN,
@@ -31,13 +35,16 @@ public class GameMainManager : BaseScene
     override protected void Start()
     {
         GameOverCount = 0.0f;
-        state = STATE.FADEIN;
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         m_PlayFabStatistics = GameObject.Find("PlayFabManager").GetComponent<PlayFabStatistics>();
         m_PlayFabVirtualCurrency = GameObject.Find("PlayFabManager").GetComponent<PlayFabVirtualCurrency>();
+        m_PlayerAvatar = Player.GetComponent<PlayerAvatar>();
         SoundManager.Instance.PlayBGM("MainGame");
 
         base.Start();
+
+        state = STATE.PREPRATION;
+        fadeState = FADE_STATE.BLACK;
     }
 
     // Update is called once per frame
@@ -45,6 +52,7 @@ public class GameMainManager : BaseScene
     {
         switch( state )
         {
+            case STATE.PREPRATION: GamePreParation(); break;
             case STATE.FADEIN: GameFadeIn(); break;
             case STATE.START: GameStart(); break;
             case STATE.MAIN: GameMain(); break;
@@ -53,6 +61,17 @@ public class GameMainManager : BaseScene
         }
 
         base.Update();
+    }
+
+    // 準備状態
+    void GamePreParation()
+    {
+        // プレイヤーのアバターチェンジが終わったら
+        if(m_PlayerAvatar.m_isAvatarChange)
+        {
+            state = STATE.FADEIN;
+            fadeState = FADE_STATE.FADEIN;
+        }
     }
 
     // フェードイン状態

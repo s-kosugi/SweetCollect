@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour
     private bool JumpFlag;      // ジャンプ中かどうか
     private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
     private GameMainManager GameMainManager = null;  // ゲームメインマネージャー
-    ScoreManager ScoreManager = null;
-    EffekseerEffectAsset m_JumpEffect = null;
-    EffekseerEffectAsset m_HeartEffect = null;
-    EffekseerEffectAsset m_DeadEffect = null;
-    Rigidbody2D m_RigidBody = null;
+    private ScoreManager ScoreManager = null;
+    private EffekseerEffectAsset m_JumpEffect = null;
+    private EffekseerEffectAsset m_HeartEffect = null;
+    private EffekseerEffectAsset m_DeadEffect = null;
+    private Rigidbody2D m_RigidBody = null;
 
     // Start is called before the first frame update
     void Start()
@@ -60,22 +60,6 @@ public class PlayerController : MonoBehaviour
             }
             
         }
-
-        //// マウスのボタンが押されたらプレイヤーをマウスの場所へ移動させる
-        //if (Input.GetMouseButton(0))
-        //{
-        //    Vector3 v = Input.mousePosition;
-        //    v.z = 10.0f;
-        //    //v - gameObject.transform.position;
-        //    // スクリーン座標をワールド座標に変換
-        //    gameObject.transform.position = Camera.main.ScreenToWorldPoint(v);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    // リソースからロード
-        //    GameObject obj = (GameObject)Resources.Load("Effect\\FireEffect");
-        //    Instantiate(obj, transform);
-        //}
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 51051812}
   - component: {fileID: 51051811}
   - component: {fileID: 51051814}
+  - component: {fileID: 51051815}
   m_Layer: 0
   m_Name: PlayFabManager
   m_TagString: Untagged
@@ -190,6 +191,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28507b671107134480f7d50595d6c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &51051815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51051810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DataName: EClothes
 --- !u!1 &100782659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,6 +2405,8 @@ GameObject:
   - component: {fileID: 1953754669}
   - component: {fileID: 1953754670}
   - component: {fileID: 1953754668}
+  - component: {fileID: 1953754672}
+  - component: {fileID: 1953754671}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -2523,6 +2539,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1953754671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953754664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DataName: EClothes
+--- !u!114 &1953754672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953754664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4421d3501cff414fac3723872c3084a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Normal: {fileID: 21300000, guid: 390e72eac1c51f4448b679e7b41d1c1b, type: 3}
+  Santa: {fileID: 21300000, guid: 0485116e4ee818d4f8ebb75653ec1a76, type: 3}
+  PastryChef: {fileID: 21300000, guid: 2e53d608a027cae4486b84b714fe1764, type: 3}
 --- !u!1 &2040733008
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,6 +2599,7 @@ MonoBehaviour:
   FadeSpeed: 0.02
   NextSceneName: ResultScene
   GameOverTime: 2
+  Player: {fileID: 1953754664}
 --- !u!4 &2040733010
 Transform:
   m_ObjectHideFlags: 0
