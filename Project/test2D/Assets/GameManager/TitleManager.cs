@@ -8,14 +8,15 @@ using UnityEngine.UIElements;
 public class TitleManager : BaseScene
 {
     [SerializeField] GameObject textBox = null;
-    private GameObject playFabManager;
+    private GameObject m_PlayFabManager;
+    private PlayFabPlayerData m_PlayFabPlayerData = null;
 
     override protected void Start()
     {
         SoundManager.Instance.PlayBGM("MainGame");
 
-        playFabManager = GameObject.Find("PlayFabManager");
-
+        m_PlayFabManager = GameObject.Find("PlayFabManager");
+        m_PlayFabPlayerData = m_PlayFabManager.GetComponent<PlayFabPlayerData>();
         NextSceneName = "GameMainScene";
 
         base.Start();
@@ -55,7 +56,13 @@ public class TitleManager : BaseScene
         if (textBox.GetComponent<InputField>().text != ""  && fadeState!=FADE_STATE.FADEOUT)
         {
             // ユーザー名の更新
-            playFabManager.GetComponent<PlayFabUserProfiel>().SetUserName(textBox.GetComponent<InputField>().text);
+            m_PlayFabManager.GetComponent<PlayFabUserProfiel>().SetUserName(textBox.GetComponent<InputField>().text);
+
+            // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
+            if(!m_PlayFabPlayerData.m_isGet)
+            {
+                m_PlayFabPlayerData.SetPlayerData("001_NORAML");
+            }
 
             // フェードアウト状態にする
             fadeState = FADE_STATE.FADEOUT;

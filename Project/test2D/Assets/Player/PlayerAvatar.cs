@@ -6,6 +6,8 @@ public class PlayerAvatar : MonoBehaviour
 {
     private PlayFabPlayerData m_AvatarData = null;
     private SpriteRenderer m_SpriteRenderer = null;
+    private float m_Timer = 0;
+    private float TIMEOUT = 1.5f;
     public bool m_isAvatarChange { get; private set; }
 
     [SerializeField] Sprite Normal = null;
@@ -40,6 +42,12 @@ public class PlayerAvatar : MonoBehaviour
 
                     default: m_SpriteRenderer.sprite = Normal; break;
                 }
+                m_isAvatarChange = true;
+            }
+            m_Timer += Time.deltaTime;
+            // タイムアウトしたらデフォルトの服にする
+            if (m_Timer >= TIMEOUT)
+            {
                 m_isAvatarChange = true;
             }
         }
