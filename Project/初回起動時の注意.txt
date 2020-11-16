@@ -1,0 +1,11 @@
+①EffekseerのiOSフォルダについて
+Assets\Effekseer\Plugins内にある
+"iOSフォルダ"がgithub利用の関係上、100MBを超えてしまっているのでプッシュをしていません。
+同梱しているpackageの中から"Effekseer.unitypackage"を展開して頂くか、
+D26サーバー→GamePG\s_kosugi\Gitフォルダ内にある"iOS"フォルダを同階層にコピーしてください。
+
+②Advertisementsのエラーについて(UnityAds)
+初回起動時にAdvertisementsが見つからないというエラーが出る事があります。
+Unityエディタのメニューバー→ウィンドウ→一般→サービスと開くとServicesウィンドウが開くので、
+Ads→Monetize your gamesの右にあるボタンを一度オフにしてもう一度オンにしてください。
+オンにし直す事でUnityAdsに必要な項目が使えるようになります。
