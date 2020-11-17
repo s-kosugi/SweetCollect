@@ -37,7 +37,8 @@ public class ShelfController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ItemID = PalyFabStore.StoreItems[Number].ItemId;
+        if(PalyFabStore.m_isStoreGet)
+            ItemID = PalyFabStore.StoreItems[Number].ItemId;
     }
     //===========================================================================================================
     //子供関連
