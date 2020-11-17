@@ -6,15 +6,9 @@ using System.Collections.Generic;
 public class PlayFabVirtualCurrency : MonoBehaviour
 {
     // 取得済みかどうか？
-    private bool IsGet = false;
-    public bool isGet
-    {
-        get { return this.IsGet; }
-    }
+    public bool isGet{ get; private set; }
 
-
-    // 取得リクエスト中かどうか
-    private bool IsGetRequest = false;
+    private PlayFabAutoRequest m_AutoRequest = null;
 
     // 仮想通貨の連想配列
     private Dictionary<string, int> m_DicVirtualCurrency = new Dictionary<string,int>();
@@ -26,21 +20,18 @@ public class PlayFabVirtualCurrency : MonoBehaviour
 
     void Start()
     {
-        IsGetRequest = false;
+        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // 取得済みの場合は自動で取得しない
-        if (!IsGet)
+        if (!isGet)
         {
             // Playfabにログイン済みかを確認する
-            if (PlayFabClientAPI.IsClientLoggedIn())
-            {
-                IsGet = true;
+            if(m_AutoRequest.IsRequest())
                 GetUserVirtualCurrency();
-            }
         }
     }
     /// <summary>
@@ -48,20 +39,12 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     /// </summary>
     public void GetUserVirtualCurrency()
     {
-        if (!IsGetRequest)
-        {
-            IsGetRequest = true;
-            //GetUserInventoryRequestのインスタンスを生成
-            var userInventoryRequest = new GetUserInventoryRequest();
+        //GetUserInventoryRequestのインスタンスを生成
+        var userInventoryRequest = new GetUserInventoryRequest();
 
-            //インベントリの情報の取得
-            Debug.Log($"仮想通貨の情報の取得開始");
-            PlayFabClientAPI.GetUserInventory(userInventoryRequest, OnSuccessGet, OnErrorGet);
-        }
-        else
-        {
-            Debug.Log("仮想通貨の情報の取得中");
-        }
+        //インベントリの情報の取得
+        Debug.Log($"仮想通貨の情報の取得開始");
+        PlayFabClientAPI.GetUserInventory(userInventoryRequest, OnSuccessGet, OnErrorGet);
     }
 
     //仮想通貨の情報の取得に成功
@@ -81,14 +64,14 @@ public class PlayFabVirtualCurrency : MonoBehaviour
             else
                 m_DicVirtualCurrency[virtualCurrency.Key] = virtualCurrency.Value;
         }
-        IsGetRequest = false;
+
+        isGet = true;
     }
 
     //仮想通貨の情報の取得に失敗
     private void OnErrorGet(PlayFabError error)
     {
         Debug.LogError($"仮想通貨の情報の取得に失敗\n{error.GenerateErrorReport()}");
-        IsGetRequest = false;
     }
 
 

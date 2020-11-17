@@ -17,7 +17,7 @@ public class PlayerAvatar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_AvatarData = GetComponent<PlayFabPlayerData>();
+        m_AvatarData = transform.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_isAvatarChange = false;
     }

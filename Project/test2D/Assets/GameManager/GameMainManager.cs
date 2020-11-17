@@ -40,7 +40,7 @@ public class GameMainManager : BaseScene
     {
         GameOverCount = 0.0f;
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        m_PlayFabStatistics = GameObject.Find("PlayFabManager").GetComponent<PlayFabStatistics>();
+        m_PlayFabStatistics = GameObject.Find("PlayFabManager").transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
         m_PlayFabVirtualCurrency = GameObject.Find("PlayFabManager").GetComponent<PlayFabVirtualCurrency>();
         m_PlayerAvatar = Player.GetComponent<PlayerAvatar>();
         m_PlayerCotroller = Player.GetComponent<PlayerController>();

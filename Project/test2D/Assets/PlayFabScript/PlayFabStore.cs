@@ -12,20 +12,13 @@ public class PlayFabStore : MonoBehaviour
     [SerializeField] string CatalogName = "clothes";
     [SerializeField] string StoreName = "StandardStore";
 
-    /// <summary>
-    /// 問い合わせ間隔
-    /// </summary>
-    private const float REQ_INTERVAL = 1.0f;
-    /// <summary>
-    ///  問い合わせ用タイマー
-    /// </summary>
-    private float m_RequestTimer = 0.0f;
-
+    private PlayFabAutoRequest m_AutoRequest = null;
 
     void Start()
     {
         m_isCatalogGet = false;
         m_isStoreGet = false;
+        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
     }
 
     void Update()
@@ -33,17 +26,10 @@ public class PlayFabStore : MonoBehaviour
         // ストア情報は2回以上取得しない
         if (m_isCatalogGet == false && m_isStoreGet == false)
         {
-            // Playfabにログイン済みかを確認する
-            if (PlayFabClientAPI.IsClientLoggedIn())
+            if(m_AutoRequest.IsRequest())
             {
-                m_RequestTimer += Time.deltaTime;
-                // 問い合わせタイマーを満たしていたら問い合わせる
-                if (m_RequestTimer >= REQ_INTERVAL)
-                {
-                    m_RequestTimer = 0.0f;
-                    if( !m_isCatalogGet) GetCatalogData();
-                    if (!m_isStoreGet) GetStoreData();
-                }
+                if ( !m_isCatalogGet ) GetCatalogData();
+                if ( !m_isStoreGet ) GetStoreData();
             }
         }
     }

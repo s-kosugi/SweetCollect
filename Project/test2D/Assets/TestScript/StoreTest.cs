@@ -12,9 +12,9 @@ public class StoreTest : MonoBehaviour
 
     void Start()
     {
-        store = GameObject.Find("PlayFabManager").GetComponent<PlayFabStore>();
-        inventory = GameObject.Find("PlayFabManager").GetComponent<PlayFabInventory>();
-        playerdata = GameObject.Find("PlayFabManager").GetComponent<PlayFabPlayerData>();
+        store = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
+        inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
+        playerdata = GameObject.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
     }
 
     // Update is called once per frame

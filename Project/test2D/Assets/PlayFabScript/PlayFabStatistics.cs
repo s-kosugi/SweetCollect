@@ -7,42 +7,24 @@ using PlayFab.ClientModels;
 public class PlayFabStatistics : MonoBehaviour
 {
     // 統計情報を取得したかどうか
-    private bool m_isGet = false;
-    public bool isGet
-    {
-        get {return m_isGet;}
-    }
+    public bool isGet{ get; private set;}
+    private PlayFabAutoRequest m_AutoRequest = null;
 
     // 統計情報リスト
     private List<StatisticValue> m_ValueList;
 
-    /// <summary>
-    /// 問い合わせ間隔
-    /// </summary>
-    private const float REQ_INTERVAL = 1.0f;
-    /// <summary>
-    ///  問い合わせ用タイマー
-    /// </summary>
-    private float m_RequestTimer = 0.0f;
-
     void Start()
     {
         m_ValueList = new List<StatisticValue>();
-        m_isGet = false;
-        m_RequestTimer = 0.0f;
+        isGet = false;
+        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
     }
     void Update()
     {
         // 自動でPlayFabから統計情報の取得をしておく
-        if(!m_isGet)
+        if(!isGet)
         {
-            m_RequestTimer += Time.deltaTime;
-            // 問い合わせタイマーを満たしていたら問い合わせる
-            if (m_RequestTimer >= REQ_INTERVAL)
-            {
-                GetPlayerStatistics();
-                m_RequestTimer = 0;
-            }
+            if(m_AutoRequest.IsRequest()) GetPlayerStatistics();
         }
     }
 
@@ -124,7 +106,7 @@ public class PlayFabStatistics : MonoBehaviour
             Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
         }
 
-        m_isGet = true;
+        isGet = true;
     }
 
     /// <summary>

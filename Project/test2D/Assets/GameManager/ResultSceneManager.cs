@@ -47,7 +47,7 @@ public class ResultSceneManager : BaseScene
     override protected void Start()
     {
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_VirtualCurrency = PlayFabManager.GetComponent<PlayFabVirtualCurrency>();
+        m_VirtualCurrency = PlayFabManager.transform.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
 
         // 出現前にUIを画面外に配置しておく
         AppearGroup1.transform.localPosition = new Vector3(AppearPos, 0);

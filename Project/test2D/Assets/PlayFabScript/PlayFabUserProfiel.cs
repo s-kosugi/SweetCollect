@@ -8,26 +8,21 @@ using PlayFab.ClientModels;
 public class PlayFabUserProfiel : MonoBehaviour
 {
     // ユーザー名
-    private string DisplayName = "";
-    public string displayName
+    public string DisplayName { get; private set;}
+    public bool isGet { get; private set; }
+    private PlayFabAutoRequest m_AutoRequest = null;
+
+    private void Start()
     {
-        get { return DisplayName; }
+        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
     }
 
-    // 問い合わせ用タイマー
-    private float RequestTimer = 0.5f;
     public void Update()
     {
         // ユーザー名が未取得の場合は取得する。
-        if(displayName == "")
+        if(!isGet)
         {
-            // 1秒毎にユーザー名を問い合わせする
-            RequestTimer += Time.deltaTime;
-            if (RequestTimer > 1.0f)
-            {
-                RequestTimer = 0f;
-                GetUserName();
-            }
+            if(m_AutoRequest.IsRequest()) GetUserName();
         }
     }
 
@@ -35,7 +30,7 @@ public class PlayFabUserProfiel : MonoBehaviour
     public void SetUserName(string userName)
     {
         // 取得した名前と同じだった場合は更新しない
-        if (userName == displayName) return;
+        if (userName == DisplayName) return;
 
         var request = new UpdateUserTitleDisplayNameRequest { DisplayName = userName };
 
@@ -62,7 +57,7 @@ public class PlayFabUserProfiel : MonoBehaviour
             PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest
             {
 
-                PlayFabId = GetComponent<PlayFabLogin>()._PlayfabID,
+                PlayFabId = transform.parent.GetComponent<PlayFabLogin>()._PlayfabID,
                 ProfileConstraints = new PlayerProfileViewConstraints
                 {
                     ShowDisplayName = true
@@ -72,6 +67,7 @@ public class PlayFabUserProfiel : MonoBehaviour
             {
                 DisplayName = result.PlayerProfile.DisplayName;
                 Debug.Log($"DisplayName: {DisplayName}");
+                isGet = true;
             },
             error =>
             {

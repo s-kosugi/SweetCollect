@@ -8,19 +8,14 @@ public class PlayFabInventory : MonoBehaviour
 {
     public bool m_isGet { get; private set; }
 
-    /// <summary>
-    /// 問い合わせ間隔
-    /// </summary>
-    private const float REQ_INTERVAL = 1.0f;
-    /// <summary>
-    ///  問い合わせ用タイマー
-    /// </summary>
-    private float m_RequestTimer = 0.0f;
+    // 自動リクエストクラス
+    private PlayFabAutoRequest m_Request = null;
 
 
     void Start()
     {
         m_isGet = false;
+        m_Request = GetComponent<PlayFabAutoRequest>();
     }
 
 
@@ -29,17 +24,7 @@ public class PlayFabInventory : MonoBehaviour
         // インベントリ情報は2回以上自動取得しない
         if (!m_isGet)
         {
-            // Playfabにログイン済みかを確認する
-            if (PlayFabClientAPI.IsClientLoggedIn())
-            {
-                m_RequestTimer += Time.deltaTime;
-                // 問い合わせタイマーを満たしていたら問い合わせる
-                if (m_RequestTimer >= REQ_INTERVAL)
-                {
-                    m_RequestTimer = 0.0f;
-                    GetUserInventory();
-                }
-            }
+            if(m_Request.IsRequest()) GetUserInventory();
         }
     }
 
@@ -80,7 +65,6 @@ public class PlayFabInventory : MonoBehaviour
     public void RequestUpdate()
     {
         m_isGet = false;
-        m_RequestTimer = REQ_INTERVAL;
     }
 
     /// <summary>

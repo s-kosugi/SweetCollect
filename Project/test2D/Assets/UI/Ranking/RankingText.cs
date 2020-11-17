@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class RankingText : MonoBehaviour
 {
-    private GameObject PlayFabManager = null;
+    private PlayFabLeaderBoard m_PlayFabLeaderBoard = null;
+    private TextMeshProUGUI m_Text = null;
     private bool IsGetRank = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayFabManager = GameObject.Find("PlayFabManager");
+        m_PlayFabLeaderBoard = GameObject.Find("PlayFabLeaderBoard").GetComponent<PlayFabLeaderBoard>();
+        m_Text = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -19,23 +21,21 @@ public class RankingText : MonoBehaviour
     {
         if (!IsGetRank)
         {
-            if (PlayFabManager != null )
+            if (m_PlayFabLeaderBoard != null )
             {
-                TextMeshProUGUI textComp = gameObject.GetComponent<TextMeshProUGUI>();
-
-                string oldText = textComp.text;
+                string oldText = m_Text.text;
                 // ランキング取得関数がデリゲートで非同期の為、更新で参照する。
-                textComp.text = PlayFabManager.GetComponent<PlayFabLeaderBoard>().m_RankingText;
+                m_Text.text = m_PlayFabLeaderBoard.m_RankingText;
 
                 // テキストがリーダーボードによって更新済みになった場合
-                if (oldText != textComp.text)
+                if (oldText != m_Text.text)
                 {
                     IsGetRank = true;
                 }
             }
             else
             {
-                Debug.Log("PlayFabManager is null");
+                Debug.LogError("m_PlayFabLeaderBoard is null");
             }
         }
     }

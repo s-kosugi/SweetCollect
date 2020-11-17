@@ -10,13 +10,15 @@ public class TitleManager : BaseScene
     [SerializeField] GameObject textBox = null;
     private GameObject m_PlayFabManager;
     private PlayFabPlayerData m_PlayFabPlayerData = null;
+    private PlayFabUserProfiel m_PlayFabUserProfiel = null;
 
     override protected void Start()
     {
         SoundManager.Instance.PlayBGM("MainGame");
 
         m_PlayFabManager = GameObject.Find("PlayFabManager");
-        m_PlayFabPlayerData = m_PlayFabManager.GetComponent<PlayFabPlayerData>();
+        m_PlayFabPlayerData = m_PlayFabManager.transform.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
+        m_PlayFabUserProfiel = m_PlayFabManager.transform.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
         NextSceneName = "GameMainScene";
 
         base.Start();
@@ -56,7 +58,7 @@ public class TitleManager : BaseScene
         if (textBox.GetComponent<InputField>().text != ""  && fadeState!=FADE_STATE.FADEOUT)
         {
             // ユーザー名の更新
-            m_PlayFabManager.GetComponent<PlayFabUserProfiel>().SetUserName(textBox.GetComponent<InputField>().text);
+            m_PlayFabUserProfiel.SetUserName(textBox.GetComponent<InputField>().text);
 
             // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
             if(!m_PlayFabPlayerData.m_isGet)

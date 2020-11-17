@@ -10,7 +10,7 @@ public class ResultVC : MonoBehaviour
 
     void Start()
     {
-        playFabVirtualCurrency = GameObject.Find("PlayFabManager").GetComponent<PlayFabVirtualCurrency>();
+        playFabVirtualCurrency = GameObject.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
         text = gameObject.GetComponent<TextMeshProUGUI>();
     }
 

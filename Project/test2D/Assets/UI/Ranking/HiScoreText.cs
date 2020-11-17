@@ -9,7 +9,7 @@ public class HiScoreText : MonoBehaviour
     private PlayFabStatistics m_Statistics = null;
     void Start()
     {
-        m_Statistics = GameObject.Find("PlayFabManager").GetComponent<PlayFabStatistics>();
+        m_Statistics = GameObject.Find("PlayFabManager").transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
         m_Text = gameObject.GetComponent<TextMeshProUGUI>();
     }
 

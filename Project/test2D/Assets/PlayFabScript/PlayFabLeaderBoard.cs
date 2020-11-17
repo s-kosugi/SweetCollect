@@ -11,49 +11,24 @@ public class PlayFabLeaderBoard : MonoBehaviour
     [SerializeField] string RankingName="";
     [SerializeField] int StartPosition = 0;
     [SerializeField] int MaxResultsCount = 3;
-    private bool m_Success = false;
-    /// <summary>
-    /// 問い合わせ間隔
-    /// </summary>
-    private const float REQ_INTERVAL = 1.0f;
-    /// <summary>
-    ///  問い合わせ用タイマー
-    /// </summary>
-    private float m_RequestTimer = 0.0f;
+    private PlayFabAutoRequest m_AutoRequest = null;
 
     /// <summary>
     /// リーダーボード取得済みか
     /// </summary>
-    public bool success
-    {
-        get
-        { return m_Success; }
-    }
-
-    // 開始時にリーダーボードの取得をする
+    public bool isGet { get; private set; }
     private void Start()
     {
-        m_RequestTimer = REQ_INTERVAL;
+        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
     }
+
     private void Update()
     {
         // リーダーボードは2回以上取得しない
-        if (m_Success == false)
+        if (isGet == false)
         {
-            // Playfabにログイン済みかを確認する
-            if (PlayFabClientAPI.IsClientLoggedIn())
-            {
-                m_RequestTimer += Time.deltaTime;
-                // 問い合わせタイマーを満たしていたら問い合わせる
-                if (m_RequestTimer >= REQ_INTERVAL)
-                {
-                    m_RequestTimer = 0.0f;
-
-                    // リーダーボードの取得に成功するまで続ける
-                    GetLeaderboard(RankingName, StartPosition, MaxResultsCount);
-                }
-            }
-            
+            // リーダーボードの取得に成功するまで続ける
+            if(m_AutoRequest.IsRequest()) GetLeaderboard(RankingName, StartPosition, MaxResultsCount);
         }
     }
     /// <summary>
@@ -85,7 +60,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
         {
             m_RankingText += $"\n順位 : {entry.Position+1} スコア : {entry.StatValue} なまえ : {entry.DisplayName}";
         }
-        m_Success = true;
+        isGet = true;
     }
 
     //ランキング(リーダーボード)の取得失敗

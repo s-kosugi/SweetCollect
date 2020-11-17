@@ -9,20 +9,13 @@ public class PlayFabPlayerData : MonoBehaviour
     public string m_Value { get; private set; }
 
     private PlayFabLogin m_PlayFabLogin = null;
-
+    private PlayFabAutoRequest m_AutoRequest = null;
     public bool m_isGet { get; private set; }
-    /// <summary>
-    /// 問い合わせ間隔
-    /// </summary>
-    private const float REQ_INTERVAL = 1.0f;
-    /// <summary>
-    ///  問い合わせ用タイマー
-    /// </summary>
-    private float m_RequestTimer = 0.5f;
 
     public void Start()
     {
         m_PlayFabLogin = GameObject.Find("PlayFabManager").GetComponent<PlayFabLogin>();
+        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
         m_isGet = false;
         m_Value = "";
     }
@@ -31,17 +24,7 @@ public class PlayFabPlayerData : MonoBehaviour
         // ユーザー情報は2回以上自動取得しない
         if (!m_isGet)
         {
-            // Playfabにログイン済みかを確認する
-            if (PlayFabClientAPI.IsClientLoggedIn())
-            {
-                m_RequestTimer += Time.deltaTime;
-                // 問い合わせタイマーを満たしていたら問い合わせる
-                if (m_RequestTimer >= REQ_INTERVAL)
-                {
-                    m_RequestTimer = 0.0f;
-                    GetUserData();
-                }
-            }
+            if (m_AutoRequest.IsRequest()) GetUserData();
         }
     }
 

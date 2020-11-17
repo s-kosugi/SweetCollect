@@ -49,8 +49,8 @@ public class RankingSceneManager : BaseScene
     override protected void Start()
     {
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_LeaderBoard = PlayFabManager.GetComponent<PlayFabLeaderBoard>();
-        m_Statistics = PlayFabManager.GetComponent<PlayFabStatistics>();
+        m_LeaderBoard = PlayFabManager.transform.Find("PlayFabLeaderBoard").GetComponent<PlayFabLeaderBoard>();
+        m_Statistics = PlayFabManager.transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
 
         // 出現前にUIを画面外に配置しておく
         AppearGroup1.transform.localPosition = new Vector3(AppearPos, 0);
@@ -84,7 +84,7 @@ public class RankingSceneManager : BaseScene
     void Preparation()
     {
         // リーダーボードの取得+ハイスコア取得に成功したら出現状態へ移行する
-        if (m_LeaderBoard.success && m_Statistics.isGet)
+        if (m_LeaderBoard.isGet && m_Statistics.isGet)
             state = STATE.FADEIN;
 
         // タイムアウトになったら強制的に状態遷移を行う

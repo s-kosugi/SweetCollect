@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 public class UserNameTextBox : MonoBehaviour
 {
-    GameObject playFabManager = null;
+    PlayFabUserProfiel m_PlayFabUserProfiel = null;
     private bool IsNameSet = false;
     // Start is called before the first frame update
     void Start()
     {
-        playFabManager = GameObject.Find("PlayFabManager");
+        m_PlayFabUserProfiel = GameObject.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
     }
 
     // Update is called once per frame
@@ -21,12 +21,12 @@ public class UserNameTextBox : MonoBehaviour
         // PlayFabから名前未設定の場合はテキストに名前をセットする
         if (!IsNameSet)
         {
-            // Playfabにログイン済みかを確認する
-            if (PlayFabClientAPI.IsClientLoggedIn())
+            if (m_PlayFabUserProfiel.isGet)
             {
-                string displayName = playFabManager.GetComponent<PlayFabUserProfiel>().displayName;
+                string displayName = m_PlayFabUserProfiel.DisplayName;
                 if (displayName != "")
                 {
+                    Debug.Log("NameSet:" + displayName);
                     // ログインしてたらユーザーネームをセットする
                     gameObject.GetComponent<InputField>().text = displayName;
                     IsNameSet = true;

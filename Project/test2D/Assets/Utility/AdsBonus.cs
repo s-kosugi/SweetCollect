@@ -12,7 +12,7 @@ public class AdsBonus : MonoBehaviour
     void Start()
     {
         m_Ads = gameObject.GetComponent<Ads>();
-        m_PlayFabVirtualCurrency = GameObject.Find("PlayFabManager").GetComponent<PlayFabVirtualCurrency>();
+        m_PlayFabVirtualCurrency = GameObject.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         isAdd = false;
     }
