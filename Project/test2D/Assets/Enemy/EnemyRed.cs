@@ -18,13 +18,15 @@ public class EnemyRed : EnemyBase
     // Update is called once per frame
     protected override void Update()
     {
-        Angle += SinSpeed;
-        // とりあえずサインカーブで動かす
-        float MoveY = Mathf.Sin(Mathf.Deg2Rad * Angle) * SinWidth;
-        Vector3 pos = transform.position;
-        pos.y += MoveY;
-        transform.position = pos;
-
+        if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
+        {
+            Angle += SinSpeed;
+            // とりあえずサインカーブで動かす
+            float MoveY = Mathf.Sin(Mathf.Deg2Rad * Angle) * SinWidth;
+            Vector3 pos = transform.position;
+            pos.y += MoveY;
+            transform.position = pos;
+        }
         base.Update();
     }
 }

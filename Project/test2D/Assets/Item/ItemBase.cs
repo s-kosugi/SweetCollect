@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ItemBase : MonoBehaviour
 {
-    protected int Score = 1;
-    protected float MoveSpeed = 1.0f;
+    [SerializeField] protected float MoveSpeed = 10.0f;
+    [SerializeField] protected int Score = 1;
     private bool MainCameraIn = false;
+    // ゲームメインはアイテム管理で設定する
+    public GameMainManager m_GameMainManager = null;
 
     public int score
     {
@@ -21,10 +23,12 @@ public class ItemBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        Vector3 pos = transform.position;
-        pos.x -= MoveSpeed;
-        transform.position = pos;
-
+        if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
+        {
+            Vector3 pos = transform.position;
+            pos.x -= MoveSpeed * Time.deltaTime;
+            transform.position = pos;
+        }
         CheckAreaOut();
     }
 

@@ -5,6 +5,7 @@ using Effekseer;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] float AnimationJumpPower = 2000.0f;
     private bool JumpFlag;      // ジャンプ中かどうか
     private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
     private GameMainManager GameMainManager = null;  // ゲームメインマネージャー
@@ -61,6 +62,12 @@ public class PlayerController : MonoBehaviour
             
         }
     }
+    public void StartJumpAnimation()
+    {
+        // 歩きアニメーションをする。
+        Vector2 v = new Vector2(0.0f, AnimationJumpPower);
+        m_RigidBody.AddForce(v);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // アイテムを取ったらスコア加算をする
@@ -83,16 +90,19 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         // 地面についたらジャンプ可能にする
         if (collision.gameObject.tag == "Ground")
         {
             JumpFlag = false;
             TwoJumpFlag = false;
-
-            // 歩きアニメーションをする。
-            Vector2 v = new Vector2(0.0f, 2000.0f);
-            m_RigidBody.AddForce(v);
+                
+            // ゲームメイン時のみアニメーションさせる
+            if (GameMainManager.state == GameMainManager.STATE.MAIN)
+            {
+                // 歩きアニメーションをする。
+                Vector2 v = new Vector2(0.0f, AnimationJumpPower);
+                m_RigidBody.AddForce(v);
+            }
         }
 
         // 敵に触ったら消える
