@@ -96,9 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00940ffc5783b384cb5b7b04ec5e43c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
+  MoveSpeed: 100
   RotateSpeed: 4
   MaxRotateAngle: 10
+  m_GameMainManager: {fileID: 0}
   SinSpeed: 8
   SinWidth: 2
 --- !u!58 &-392263722042491700

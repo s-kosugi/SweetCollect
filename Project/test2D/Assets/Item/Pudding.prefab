@@ -102,8 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdb6ef20d5681443b4ee69e56138fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SCORE: 3
-  MOVESPEED: 1.5
+  MoveSpeed: 100
+  Score: 3
+  m_GameMainManager: {fileID: 0}
 --- !u!212 &8915787825150737472
 SpriteRenderer:
   m_ObjectHideFlags: 0

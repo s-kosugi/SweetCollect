@@ -8,6 +8,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float MoveSpeed = 2.0f;
     [SerializeField] protected float RotateSpeed = 4.0f;
     [SerializeField] protected float MaxRotateAngle = 10.0f;
+    // ゲームメインは敵管理で設定する
+    public GameMainManager m_GameMainManager = null;
     protected float SinAngle = 0f;
     // Start is called before the first frame update
     protected virtual void Start()
@@ -18,16 +20,18 @@ public class EnemyBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        // 移動
-        Vector3 pos = transform.position;
-        pos.x -= MoveSpeed;
-        transform.position = pos;
+        if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
+        {
+            // 移動
+            Vector3 pos = transform.position;
+            pos.x -= MoveSpeed * Time.deltaTime;
+            transform.position = pos;
 
 
-        // 回転値を指定して回転させる
-        SinAngle += RotateSpeed;
-        transform.eulerAngles = new Vector3(0.0f,0.0f, Mathf.Sin(SinAngle * Mathf.Deg2Rad) * MaxRotateAngle);
-
+            // 回転値を指定して回転させる
+            SinAngle += RotateSpeed;
+            transform.eulerAngles = new Vector3(0.0f, 0.0f, Mathf.Sin(SinAngle * Mathf.Deg2Rad) * MaxRotateAngle);
+        }
         CheckAreaOut();
     }
 

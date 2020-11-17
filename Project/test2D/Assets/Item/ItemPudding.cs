@@ -2,19 +2,20 @@
 
 public class ItemPudding : ItemBase
 {
-    [SerializeField] int SCORE = 3;
-    [SerializeField] float MOVESPEED = 2.0f;
-
+    private Rigidbody2D rb = null;
     // Start is called before the first frame update
     protected override void Start()
     {
-        Score = SCORE;
-        MoveSpeed = MOVESPEED;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     protected override void Update()
     {
-
+        if (m_GameMainManager.state != GameMainManager.STATE.MAIN)
+        {
+            rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
         base.Update();
     }
 

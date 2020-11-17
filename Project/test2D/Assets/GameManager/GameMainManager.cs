@@ -4,12 +4,16 @@ public class GameMainManager : BaseScene
 {
     [SerializeField] float GameOverTime = 2.0f;
     [SerializeField] GameObject Player = null;
+    [SerializeField] GameObject StartUIObject = null;
+    private StartUI m_StartUI = null;
+
     private float GameOverCount = 0.0f;
     private ScoreManager m_ScoreManager = null;
     private bool isScoreSend = false;
     private PlayFabStatistics m_PlayFabStatistics = null;
     private PlayFabVirtualCurrency m_PlayFabVirtualCurrency = null;
     private PlayerAvatar m_PlayerAvatar = null;
+    private PlayerController m_PlayerCotroller = null;
 
     // ゲームメイン状態
     public enum STATE
@@ -39,7 +43,10 @@ public class GameMainManager : BaseScene
         m_PlayFabStatistics = GameObject.Find("PlayFabManager").GetComponent<PlayFabStatistics>();
         m_PlayFabVirtualCurrency = GameObject.Find("PlayFabManager").GetComponent<PlayFabVirtualCurrency>();
         m_PlayerAvatar = Player.GetComponent<PlayerAvatar>();
+        m_PlayerCotroller = Player.GetComponent<PlayerController>();
         SoundManager.Instance.PlayBGM("MainGame");
+
+        m_StartUI = StartUIObject.GetComponent<StartUI>();
 
         base.Start();
 
@@ -78,17 +85,27 @@ public class GameMainManager : BaseScene
     void GameFadeIn()
     {
         // フェードインが終わったら状態を遷移させる
-        if (IsFadeEnd()) state = STATE.START;
+        if (IsFadeEnd())
+        {
+            state = STATE.START;
+            // 開始演出UIを有効化する
+            StartUIObject.SetActive(true);
+        }
     }
     // ゲーム開始状態
     void GameStart()
     {
-        state = STATE.MAIN;
+        // UI演出が終了したらメイン状態に移る
+        if (m_StartUI.isEnd)
+        {
+            state = STATE.MAIN;
+            // プレイヤーのジャンプアニメーションを開始する
+            m_PlayerCotroller.StartJumpAnimation();
+        }
     }
     // ゲームメイン状態
     void GameMain()
     {
-
     }
     // ゲームオーバー状態
     void GameOver()
