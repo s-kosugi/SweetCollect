@@ -10,11 +10,14 @@ public class PlayFabPlayerData : MonoBehaviour
 
     private PlayFabLogin m_PlayFabLogin = null;
     private PlayFabAutoRequest m_AutoRequest = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
     public bool m_isGet { get; private set; }
 
     public void Start()
     {
-        m_PlayFabLogin = GameObject.Find("PlayFabManager").GetComponent<PlayFabLogin>();
+        GameObject playFabManager = GameObject.Find("PlayFabManager");
+        m_PlayFabLogin = playFabManager.GetComponent<PlayFabLogin>();
+        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
         m_isGet = false;
         m_Value = "";
@@ -34,6 +37,9 @@ public class PlayFabPlayerData : MonoBehaviour
     /// <param name="data">データ内容</param>
     public void SetPlayerData(string data)
     {
+        // 通信待ちに設定する
+        m_WaitConnect.SetWait(transform, true);
+
         var change = new Dictionary<string, string>
         {
             { DataName, data }
@@ -45,9 +51,15 @@ public class PlayFabPlayerData : MonoBehaviour
         {
             Debug.Log("ユーザーデータの更新に成功");
             m_Value = data;
+
+            // 通信終了
+            m_WaitConnect.SetWait(transform, false);
         }, error =>
         {
             Debug.Log(error.GenerateErrorReport());
+
+            // 通信終了
+            m_WaitConnect.SetWait(transform, false);
         });
     }
 
@@ -57,6 +69,9 @@ public class PlayFabPlayerData : MonoBehaviour
     /// <param name="name">データ名</param>
     public void GetUserData()
     {
+        // 通信待ちに設定する
+        m_WaitConnect.SetWait(transform, true);
+
         PlayFabClientAPI.GetUserData(new GetUserDataRequest()
         {
             PlayFabId = m_PlayFabLogin._PlayfabID
@@ -64,8 +79,12 @@ public class PlayFabPlayerData : MonoBehaviour
             Debug.Log(result.Data[DataName].Value);
             m_Value = result.Data[DataName].Value;
             m_isGet = true;
+            // 通信終了
+            m_WaitConnect.SetWait(transform, false);
         }, error => {
             Debug.Log(error.GenerateErrorReport());
+            // 通信終了
+            m_WaitConnect.SetWait(transform, false);
         });
     }
 }

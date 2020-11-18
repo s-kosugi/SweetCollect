@@ -11,10 +11,14 @@ public class PlayFabUserProfiel : MonoBehaviour
     public string DisplayName { get; private set;}
     public bool isGet { get; private set; }
     private PlayFabAutoRequest m_AutoRequest = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
 
     private void Start()
     {
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
+
+        GameObject playFabManager = GameObject.Find("PlayFabManager");
+        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
     }
 
     public void Update()
@@ -32,6 +36,9 @@ public class PlayFabUserProfiel : MonoBehaviour
         // 取得した名前と同じだった場合は更新しない
         if (userName == DisplayName) return;
 
+        // 通信待ちに設定する
+        m_WaitConnect.SetWait(transform, true);
+
         var request = new UpdateUserTitleDisplayNameRequest { DisplayName = userName };
 
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, OnError);
@@ -40,11 +47,15 @@ public class PlayFabUserProfiel : MonoBehaviour
         {
             Debug.Log("SetDisplayName : success! " + result.DisplayName);
             DisplayName = result.DisplayName;
+            // 通信終了
+            m_WaitConnect.SetWait(transform, false);
         }
 
         void OnError(PlayFabError error)
         {
             Debug.Log($"{error.Error}");
+            // 通信終了
+            m_WaitConnect.SetWait(transform, false);
         }
     }
 
@@ -54,6 +65,9 @@ public class PlayFabUserProfiel : MonoBehaviour
         // PlayFabにログイン済みかどうかを確認する
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
+            // 通信待ちに設定する
+            m_WaitConnect.SetWait(transform, true);
+
             PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest
             {
 
@@ -68,10 +82,14 @@ public class PlayFabUserProfiel : MonoBehaviour
                 DisplayName = result.PlayerProfile.DisplayName;
                 Debug.Log($"DisplayName: {DisplayName}");
                 isGet = true;
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
             },
             error =>
             {
                 Debug.LogError(error.GenerateErrorReport());
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
             }
             );
         }

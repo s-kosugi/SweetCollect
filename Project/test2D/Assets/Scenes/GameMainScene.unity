@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 51051813}
   - component: {fileID: 51051812}
+  - component: {fileID: 51051811}
   m_Layer: 0
   m_Name: PlayFabManager
   m_TagString: Untagged
@@ -138,6 +139,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &51051811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51051810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43ae12782d991ad438d8a3f34d88c495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &51051812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2916,9 +2929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4421d3501cff414fac3723872c3084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Normal: {fileID: 21300000, guid: 390e72eac1c51f4448b679e7b41d1c1b, type: 3}
-  Santa: {fileID: 21300000, guid: 0485116e4ee818d4f8ebb75653ec1a76, type: 3}
-  PastryChef: {fileID: 21300000, guid: 2e53d608a027cae4486b84b714fe1764, type: 3}
 --- !u!1 &2040733008
 GameObject:
   m_ObjectHideFlags: 0

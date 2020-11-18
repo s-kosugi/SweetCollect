@@ -7,11 +7,6 @@ using PlayFab.ClientModels;
 public class PlayFabAutoRequest : MonoBehaviour
 {
     /// <summary>
-    /// 取得済みかどうか
-    /// </summary>
-    public bool m_isGet { get; private set; }
-
-    /// <summary>
     /// 問い合わせ間隔
     /// </summary>
     [SerializeField] float RequestInterval = 1.0f;

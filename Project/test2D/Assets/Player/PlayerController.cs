@@ -33,31 +33,34 @@ public class PlayerController : MonoBehaviour
         // マウスがクリックされたらプレイヤーをジャンプ状態にする。
         if (Input.GetMouseButtonDown(0))
         {
-            if (JumpFlag == false)
+            if (GameMainManager.state == GameMainManager.STATE.MAIN)
             {
-                JumpFlag = true;
-                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
-                m_RigidBody.AddForce(new Vector2(0.0f, 250.0f), ForceMode2D.Impulse);
-
-                // エフェクトの取得
-                EffekseerSystem.PlayEffect(m_JumpEffect, transform.position+new Vector3(0f,-10f));
-
-                // ジャンプ音を再生
-                SoundManager.Instance.PlaySE("Jump");
-            }
-            else if(TwoJumpFlag == false)
-            {
+                if (JumpFlag == false)
                 {
-                    TwoJumpFlag = true;
-                    m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x,0.0f);
-                    m_RigidBody.AddForce( new Vector2(0.0f,250.0f),ForceMode2D.Impulse);
+                    JumpFlag = true;
+                    m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
+                    m_RigidBody.AddForce(new Vector2(0.0f, 250.0f), ForceMode2D.Impulse);
+
                     // エフェクトの取得
                     EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
 
                     // ジャンプ音を再生
                     SoundManager.Instance.PlaySE("Jump");
                 }
+                else if (TwoJumpFlag == false)
+                {
+                    {
+                        TwoJumpFlag = true;
+                        m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
+                        m_RigidBody.AddForce(new Vector2(0.0f, 250.0f), ForceMode2D.Impulse);
+                        // エフェクトの取得
+                        EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
 
+                        // ジャンプ音を再生
+                        SoundManager.Instance.PlaySE("Jump");
+                    }
+
+                }
             }
             
         }

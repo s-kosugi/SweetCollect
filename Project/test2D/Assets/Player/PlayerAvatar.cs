@@ -10,19 +10,15 @@ public class PlayerAvatar : MonoBehaviour
     private float TIMEOUT = 1.5f;
     public bool m_isAvatarChange { get; private set; }
 
-    [SerializeField] Sprite Normal = null;
-    [SerializeField] Sprite Santa = null;
-    [SerializeField] Sprite PastryChef = null;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // 着用している衣服データを取得
         m_AvatarData = transform.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_isAvatarChange = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckAvatarData();
@@ -34,13 +30,10 @@ public class PlayerAvatar : MonoBehaviour
             // アバターのデータ取得完了済みかどうか。※一旦通信タイムアウトは考えない
             if (m_AvatarData.m_isGet)
             {
-                switch (m_AvatarData.m_Value)
+                Sprite sprite = Resources.Load<Sprite>("Player\\" + m_AvatarData.m_Value);
+                if (sprite)
                 {
-                    case "001_NORMAL": m_SpriteRenderer.sprite = Normal; break;
-                    case "002_SANTA": m_SpriteRenderer.sprite = Santa; break;
-                    case "003_PASTRYCHEF": m_SpriteRenderer.sprite = PastryChef; break;
-
-                    default: m_SpriteRenderer.sprite = Normal; break;
+                    m_SpriteRenderer.sprite = sprite;
                 }
                 m_isAvatarChange = true;
             }

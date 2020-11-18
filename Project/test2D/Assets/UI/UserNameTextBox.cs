@@ -26,7 +26,6 @@ public class UserNameTextBox : MonoBehaviour
                 string displayName = m_PlayFabUserProfiel.DisplayName;
                 if (displayName != "")
                 {
-                    Debug.Log("NameSet:" + displayName);
                     // ログインしてたらユーザーネームをセットする
                     gameObject.GetComponent<InputField>().text = displayName;
                     IsNameSet = true;
