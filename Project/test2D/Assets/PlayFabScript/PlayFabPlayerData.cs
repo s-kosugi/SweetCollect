@@ -55,14 +55,14 @@ public class PlayFabPlayerData : MonoBehaviour
                 Debug.Log("ユーザーデータの更新に成功");
                 m_Value = data;
 
-            // 通信終了
-            m_WaitConnect.SetWait(transform, false);
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
             }, error =>
             {
                 Debug.Log(error.GenerateErrorReport());
 
-            // 通信終了
-            m_WaitConnect.SetWait(transform, false);
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
             });
         }
     }
@@ -84,11 +84,12 @@ public class PlayFabPlayerData : MonoBehaviour
                 PlayFabId = m_PlayFabLogin._PlayfabID
             }, result =>
             {
-                Debug.Log(result.Data[DataName].Value);
-                m_Value = result.Data[DataName].Value;
                 m_isGet = true;
                 // 通信終了
                 m_WaitConnect.SetWait(transform, false);
+
+                Debug.Log(result.Data[DataName].Value);
+                m_Value = result.Data[DataName].Value;
             }, error =>
             {
                 Debug.Log(error.GenerateErrorReport());
