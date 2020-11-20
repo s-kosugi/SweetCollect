@@ -35,27 +35,30 @@ public class PlayFabUserProfiel : MonoBehaviour
     {
         // 取得した名前と同じだった場合は更新しない
         if (userName == DisplayName) return;
-
-        // 通信待ちに設定する
-        m_WaitConnect.SetWait(transform, true);
-
-        var request = new UpdateUserTitleDisplayNameRequest { DisplayName = userName };
-
-        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, OnError);
-
-        void OnSuccess(UpdateUserTitleDisplayNameResult result)
+        // 通信待ちでなかったら通信開始
+        if (!m_WaitConnect.GetWait(transform))
         {
-            Debug.Log("SetDisplayName : success! " + result.DisplayName);
-            DisplayName = result.DisplayName;
-            // 通信終了
-            m_WaitConnect.SetWait(transform, false);
-        }
+            // 通信待ちに設定する
+            m_WaitConnect.SetWait(transform, true);
 
-        void OnError(PlayFabError error)
-        {
-            Debug.Log($"{error.Error}");
-            // 通信終了
-            m_WaitConnect.SetWait(transform, false);
+            var request = new UpdateUserTitleDisplayNameRequest { DisplayName = userName };
+
+            PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, OnError);
+
+            void OnSuccess(UpdateUserTitleDisplayNameResult result)
+            {
+                Debug.Log("SetDisplayName : success! " + result.DisplayName);
+                DisplayName = result.DisplayName;
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+            }
+
+            void OnError(PlayFabError error)
+            {
+                Debug.Log($"{error.Error}");
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+            }
         }
     }
 
@@ -65,33 +68,37 @@ public class PlayFabUserProfiel : MonoBehaviour
         // PlayFabにログイン済みかどうかを確認する
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
-            // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
-
-            PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest
+            // 通信待ちでなかったら通信開始
+            if (!m_WaitConnect.GetWait(transform))
             {
+                // 通信待ちに設定する
+                m_WaitConnect.SetWait(transform, true);
 
-                PlayFabId = transform.parent.GetComponent<PlayFabLogin>()._PlayfabID,
-                ProfileConstraints = new PlayerProfileViewConstraints
+                PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest
                 {
-                    ShowDisplayName = true
+
+                    PlayFabId = transform.parent.GetComponent<PlayFabLogin>()._PlayfabID,
+                    ProfileConstraints = new PlayerProfileViewConstraints
+                    {
+                        ShowDisplayName = true
+                    }
+                },
+                result =>
+                {
+                    DisplayName = result.PlayerProfile.DisplayName;
+                    Debug.Log($"DisplayName: {DisplayName}");
+                    isGet = true;
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+                },
+                error =>
+                {
+                    Debug.LogError(error.GenerateErrorReport());
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
                 }
-            },
-            result =>
-            {
-                DisplayName = result.PlayerProfile.DisplayName;
-                Debug.Log($"DisplayName: {DisplayName}");
-                isGet = true;
-                // 通信終了
-                m_WaitConnect.SetWait(transform, false);
-            },
-            error =>
-            {
-                Debug.LogError(error.GenerateErrorReport());
-                // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                );
             }
-            );
         }
     }
 }

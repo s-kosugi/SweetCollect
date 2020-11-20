@@ -14,7 +14,7 @@ public class PlayerAvatar : MonoBehaviour
     void Start()
     {
         // 着用している衣服データを取得
-        m_AvatarData = transform.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
+        m_AvatarData = GameObject.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_isAvatarChange = false;
     }
@@ -36,11 +36,15 @@ public class PlayerAvatar : MonoBehaviour
                     m_SpriteRenderer.sprite = sprite;
                 }
                 m_isAvatarChange = true;
+                Debug.Log("PlayerAvaterChanged");
+
+                return;
             }
             m_Timer += Time.deltaTime;
             // タイムアウトしたらデフォルトの服にする
             if (m_Timer >= TIMEOUT)
             {
+                Debug.Log("PlayerAvaterTimeOut");
                 m_isAvatarChange = true;
             }
         }

@@ -13,12 +13,15 @@ public class PlayFabStore : MonoBehaviour
     [SerializeField] string StoreName = "StandardStore";
 
     private PlayFabAutoRequest m_AutoRequest = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
 
     void Start()
     {
+        GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_isCatalogGet = false;
         m_isStoreGet = false;
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
+        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
     }
 
     void Update()
@@ -81,34 +84,47 @@ public class PlayFabStore : MonoBehaviour
     /// <param name="virtualCurrency">通貨コード</param>
     public void BuyItem(string itemID,string virtualCurrency)
     {
-        PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest()
+        // 通信待ちでなかったら通信開始
+        if (!m_WaitConnect.GetWait(transform))
         {
-            CatalogVersion = CatalogName,
-            StoreId = StoreName,
-            ItemId = itemID,
-            VirtualCurrency = virtualCurrency,
-            Price = (int)StoreItems.Find(x=>x.ItemId == itemID).VirtualCurrencyPrices[virtualCurrency],
-            // キャラクターを使う場合は CharacterId のセットも必要
-        }, purchaseResult =>
-        {
-            Debug.Log($"{purchaseResult.Items[0].DisplayName}購入成功！");
-            PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
-            , result =>
+            // 通信待ちに設定する
+            m_WaitConnect.SetWait(transform, true);
+
+            PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest()
             {
-                Debug.Log("購入後のお金は " + result.VirtualCurrency[virtualCurrency].ToString("#,0") + "だよ");
+                CatalogVersion = CatalogName,
+                StoreId = StoreName,
+                ItemId = itemID,
+                VirtualCurrency = virtualCurrency,
+                Price = (int)StoreItems.Find(x => x.ItemId == itemID).VirtualCurrencyPrices[virtualCurrency],
+                // キャラクターを使う場合は CharacterId のセットも必要
+            }, purchaseResult =>
+            {
+
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+                Debug.Log($"{purchaseResult.Items[0].DisplayName}購入成功！");
+                PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
+                , result =>
+                {
+                    Debug.Log("購入後のお金は " + result.VirtualCurrency[virtualCurrency].ToString("#,0") + "だよ");
+                }, error =>
+                {
+                    Debug.Log(error.GenerateErrorReport());
+                });
             }, error =>
             {
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+
+                // 金額不足
+                if (error.Error == PlayFabErrorCode.InsufficientFunds)
+                {
+                    Debug.Log("金額が不足しているため購入できません。");
+                }
                 Debug.Log(error.GenerateErrorReport());
             });
-        }, error =>
-        {
-            // 金額不足
-            if (error.Error == PlayFabErrorCode.InsufficientFunds)
-            {
-                Debug.Log("金額が不足しているため購入できません。");
-            }
-            Debug.Log(error.GenerateErrorReport());
-        });
+        }
     }
 
     /// <summary>

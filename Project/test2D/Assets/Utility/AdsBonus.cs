@@ -25,7 +25,7 @@ public class AdsBonus : MonoBehaviour
             Debug.Log("Add:AdsBonus");
             if ( m_Ads.rate > 1.0f)
                 // 仮想通貨を倍率文のみ加算する(ゲームオーバー時に等倍は加算済み)
-                m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", (int)((float)m_ScoreManager.GetScore() * m_Ads.rate - m_ScoreManager.GetScore()));
+                m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", (int)((float)(m_ScoreManager.GetScore()) * m_Ads.rate - (float)(m_ScoreManager.GetScore())));
             isAdd = true;
         }
     }

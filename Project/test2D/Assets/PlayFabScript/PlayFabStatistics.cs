@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 
 public class PlayFabStatistics : MonoBehaviour
 {
     // 統計情報を取得したかどうか
     public bool isGet{ get; private set;}
     private PlayFabAutoRequest m_AutoRequest = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
 
     // 統計情報リスト
     private List<StatisticValue> m_ValueList;
 
     void Start()
     {
+        GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_ValueList = new List<StatisticValue>();
         isGet = false;
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
+        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
     }
     void Update()
     {
@@ -36,23 +40,30 @@ public class PlayFabStatistics : MonoBehaviour
         // Playfabにログイン済みかを確認する
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
-            //UpdatePlayerStatisticsRequestのインスタンスを生成
-            var request = new UpdatePlayerStatisticsRequest
+            // 通信待ちでなかったら通信開始
+            if (!m_WaitConnect.GetWait(transform))
             {
-                Statistics = new List<StatisticUpdate>{
-                new StatisticUpdate{
-                StatisticName = rankingName,   //ランキング名(統計情報名)
-                Value = score, //スコア(int)
-                }
-            }
-            };
-            Debug.Log($"統計情報名:" + rankingName + " Value:" + score);
+                // 通信待ちに設定する
+                m_WaitConnect.SetWait(transform, true);
 
-            //スコア情報の更新
-            Debug.Log($"スコア(統計情報)の更新開始");
-            PlayFabClientAPI.UpdatePlayerStatistics(request,
-                OnUpdatePlayerStatisticsSuccess,
-                OnUpdatePlayerStatisticsFailure);
+                //UpdatePlayerStatisticsRequestのインスタンスを生成
+                var request = new UpdatePlayerStatisticsRequest
+                {
+                    Statistics = new List<StatisticUpdate>{
+                        new StatisticUpdate{
+                        StatisticName = rankingName,   //ランキング名(統計情報名)
+                        Value = score, //スコア(int)
+                        }
+                    }
+                };
+                Debug.Log($"統計情報名:" + rankingName + " Value:" + score);
+
+                //スコア情報の更新
+                Debug.Log($"スコア(統計情報)の更新開始");
+                PlayFabClientAPI.UpdatePlayerStatistics(request,
+                    OnUpdatePlayerStatisticsSuccess,
+                    OnUpdatePlayerStatisticsFailure);
+            }
         }
         else
         {
@@ -62,12 +73,18 @@ public class PlayFabStatistics : MonoBehaviour
     //スコア(統計情報)の更新成功
     private void OnUpdatePlayerStatisticsSuccess(UpdatePlayerStatisticsResult result)
     {
+        // 通信終了
+        m_WaitConnect.SetWait(transform, false);
+
         Debug.Log($"スコア(統計情報)の更新が成功しました");
     }
 
     //スコア(統計情報)の更新失敗
     private void OnUpdatePlayerStatisticsFailure(PlayFabError error)
     {
+        // 通信終了
+        m_WaitConnect.SetWait(transform, false);
+
         Debug.LogError($"スコア(統計情報)更新に失敗しました\n{error.GenerateErrorReport()}");
     }
 
@@ -79,17 +96,26 @@ public class PlayFabStatistics : MonoBehaviour
         // Playfabにログイン済みかを確認する
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
+            // 通信待ちでなかったら通信開始
+            if (!m_WaitConnect.GetWait(transform))
+            {
+                // 通信待ちに設定する
+                m_WaitConnect.SetWait(transform, true);
+
                 PlayFabClientAPI.GetPlayerStatistics(
-            new GetPlayerStatisticsRequest(),
-            OnGetStatistics,
-            error => Debug.LogError(error.GenerateErrorReport())
-            );
+                new GetPlayerStatisticsRequest(),
+                OnGetStatistics,
+                OnGetErrorStatistics
+                );
+            }
         }
         else 
         {
             Debug.Log("統計情報取得に失敗：PlayFabに未ログイン");
         }
     }
+
+
     /// <summary>
     /// 統計情報の取得に成功
     /// </summary>
@@ -98,6 +124,8 @@ public class PlayFabStatistics : MonoBehaviour
     {
         m_ValueList.Clear();
 
+        // 通信終了
+        m_WaitConnect.SetWait(transform, false);
 
         Debug.Log("スコア(統計情報)の取得に成功:");
         foreach (var eachStat in result.Statistics)
@@ -107,6 +135,13 @@ public class PlayFabStatistics : MonoBehaviour
         }
 
         isGet = true;
+    }
+
+    private void OnGetErrorStatistics(PlayFabError obj)
+    {
+        // 通信終了
+        m_WaitConnect.SetWait(transform, false);
+        Debug.LogError("統計情報の取得に失敗しました。");
     }
 
     /// <summary>
