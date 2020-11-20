@@ -10,12 +10,16 @@ public class PlayFabInventory : MonoBehaviour
 
     // 自動リクエストクラス
     private PlayFabAutoRequest m_Request = null;
+    // 通信待ちクラス
+    private PlayFabWaitConnect m_WaitConnect = null;
 
 
     void Start()
     {
+        GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_isGet = false;
         m_Request = GetComponent<PlayFabAutoRequest>();
+        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
     }
 
 
@@ -35,29 +39,40 @@ public class PlayFabInventory : MonoBehaviour
     /// </summary>
     private void GetUserInventory()
     {
-        //インベントリの情報の取得
-        Debug.Log($"インベントリの情報の取得開始");
-        PlayFabClientAPI.GetUserInventory( new GetUserInventoryRequest()
+        // 通信待ちでなかったら通信開始
+        if (!m_WaitConnect.GetWait(transform))
         {
-        }, result =>
-        {
-            m_InventoryItems.Clear();
+            // 通信待ちに設定する
+            m_WaitConnect.SetWait(transform, true);
 
-            //result.Inventoryがインベントリの情報
-            Debug.Log($"インベントリの情報の取得に成功 : インベントリに入ってるアイテム数 {result.Inventory.Count}個");
-            //インベントリに入ってる各アイテムの情報をログで表示
-            foreach (ItemInstance item in result.Inventory)
+            //インベントリの情報の取得
+            Debug.Log($"インベントリの情報の取得開始");
+            PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
             {
-                Debug.Log($"ID : {item.ItemId}, Name : {item.DisplayName}, ItemInstanceId : {item.ItemInstanceId}");
-                // ローカルに保存
-                m_InventoryItems.Add(item.ItemId, item);
-            }
-            // 取得済みフラグON
-            m_isGet = true;
-        }, error =>
-        {
-            Debug.LogError($"インベントリの情報の取得に失敗\n{error.GenerateErrorReport()}");
-        });
+            }, result =>
+            {
+                m_InventoryItems.Clear();
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+
+                //result.Inventoryがインベントリの情報
+                Debug.Log($"インベントリの情報の取得に成功 : インベントリに入ってるアイテム数 {result.Inventory.Count}個");
+                //インベントリに入ってる各アイテムの情報をログで表示
+                foreach (ItemInstance item in result.Inventory)
+                {
+                    Debug.Log($"ID : {item.ItemId}, Name : {item.DisplayName}, ItemInstanceId : {item.ItemInstanceId}");
+                    // ローカルに保存
+                    m_InventoryItems.Add(item.ItemId, item);
+                }
+                // 取得済みフラグON
+                m_isGet = true;
+            }, error =>
+            {
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+                Debug.LogError($"インベントリの情報の取得に失敗\n{error.GenerateErrorReport()}");
+            });
+        }
 
     }
 

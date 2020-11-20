@@ -12,8 +12,9 @@ public class GameMainManager : BaseScene
     private bool isScoreSend = false;
     private PlayFabStatistics m_PlayFabStatistics = null;
     private PlayFabVirtualCurrency m_PlayFabVirtualCurrency = null;
-    private PlayerAvatar m_PlayerAvatar = null;
     private PlayerController m_PlayerCotroller = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
+    private PlayerAvatar m_Avatar = null;
 
     // ゲームメイン状態
     public enum STATE
@@ -40,10 +41,12 @@ public class GameMainManager : BaseScene
     {
         GameOverCount = 0.0f;
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        m_PlayFabStatistics = GameObject.Find("PlayFabManager").transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
-        m_PlayFabVirtualCurrency = GameObject.Find("PlayFabManager").GetComponent<PlayFabVirtualCurrency>();
-        m_PlayerAvatar = Player.GetComponent<PlayerAvatar>();
+        GameObject playFabManager = GameObject.Find("PlayFabManager");
+        m_PlayFabStatistics = playFabManager.transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
+        m_PlayFabVirtualCurrency = playFabManager.GetComponent<PlayFabVirtualCurrency>();
+        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
         m_PlayerCotroller = Player.GetComponent<PlayerController>();
+        m_Avatar = Player.GetComponent<PlayerAvatar>();
         SoundManager.Instance.PlayBGM("MainGame");
 
         m_StartUI = StartUIObject.GetComponent<StartUI>();
@@ -73,8 +76,8 @@ public class GameMainManager : BaseScene
     // 準備状態
     void GamePreParation()
     {
-        // プレイヤーのアバターチェンジが終わったら
-        if(m_PlayerAvatar.m_isAvatarChange)
+        // 通信待ちが終わった
+        if(!m_WaitConnect.IsWait() && m_Avatar.m_isAvatarChange)
         {
             state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;

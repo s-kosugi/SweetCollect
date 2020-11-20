@@ -37,30 +37,34 @@ public class PlayFabPlayerData : MonoBehaviour
     /// <param name="data">データ内容</param>
     public void SetPlayerData(string data)
     {
-        // 通信待ちに設定する
-        m_WaitConnect.SetWait(transform, true);
+        // 通信待ちでなかったら通信開始
+        if (!m_WaitConnect.GetWait(transform))
+        {
+            // 通信待ちに設定する
+            m_WaitConnect.SetWait(transform, true);
 
-        var change = new Dictionary<string, string>
-        {
-            { DataName, data }
-        };
-        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
-        {
-            Data = change
-        }, result =>
-        {
-            Debug.Log("ユーザーデータの更新に成功");
-            m_Value = data;
-
-            // 通信終了
-            m_WaitConnect.SetWait(transform, false);
-        }, error =>
-        {
-            Debug.Log(error.GenerateErrorReport());
+            var change = new Dictionary<string, string>
+            {
+                { DataName, data }
+            };
+            PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
+            {
+                Data = change
+            }, result =>
+            {
+                Debug.Log("ユーザーデータの更新に成功");
+                m_Value = data;
 
             // 通信終了
             m_WaitConnect.SetWait(transform, false);
-        });
+            }, error =>
+            {
+                Debug.Log(error.GenerateErrorReport());
+
+            // 通信終了
+            m_WaitConnect.SetWait(transform, false);
+            });
+        }
     }
 
     /// <summary>
@@ -69,22 +73,28 @@ public class PlayFabPlayerData : MonoBehaviour
     /// <param name="name">データ名</param>
     public void GetUserData()
     {
-        // 通信待ちに設定する
-        m_WaitConnect.SetWait(transform, true);
-
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        // 通信待ちでなかったら通信開始
+        if (!m_WaitConnect.GetWait(transform))
         {
-            PlayFabId = m_PlayFabLogin._PlayfabID
-        }, result => {
-            Debug.Log(result.Data[DataName].Value);
-            m_Value = result.Data[DataName].Value;
-            m_isGet = true;
-            // 通信終了
-            m_WaitConnect.SetWait(transform, false);
-        }, error => {
-            Debug.Log(error.GenerateErrorReport());
-            // 通信終了
-            m_WaitConnect.SetWait(transform, false);
-        });
+            // 通信待ちに設定する
+            m_WaitConnect.SetWait(transform, true);
+
+            PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+            {
+                PlayFabId = m_PlayFabLogin._PlayfabID
+            }, result =>
+            {
+                Debug.Log(result.Data[DataName].Value);
+                m_Value = result.Data[DataName].Value;
+                m_isGet = true;
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+            }, error =>
+            {
+                Debug.Log(error.GenerateErrorReport());
+                // 通信終了
+                m_WaitConnect.SetWait(transform, false);
+            });
+        }
     }
 }

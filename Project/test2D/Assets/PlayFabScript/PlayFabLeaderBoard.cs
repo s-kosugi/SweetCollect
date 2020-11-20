@@ -12,6 +12,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
     [SerializeField] int StartPosition = 0;
     [SerializeField] int MaxResultsCount = 3;
     private PlayFabAutoRequest m_AutoRequest = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
 
     /// <summary>
     /// リーダーボード取得済みか
@@ -19,7 +20,9 @@ public class PlayFabLeaderBoard : MonoBehaviour
     public bool isGet { get; private set; }
     private void Start()
     {
+        GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
+        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
     }
 
     private void Update()
@@ -36,23 +39,33 @@ public class PlayFabLeaderBoard : MonoBehaviour
     /// </summary>
     public void GetLeaderboard(string rankingName, int startPosition, int maxResultsCount)
     {
-        //GetLeaderboardRequestのインスタンスを生成
-        var request = new GetLeaderboardRequest
+        // 通信待ちでなかったら通信開始
+        if (!m_WaitConnect.GetWait(transform))
         {
-            StatisticName = rankingName,            //ランキング名(統計情報名)
-            StartPosition = startPosition,          //何位以降のランキングを取得するか
-            MaxResultsCount = maxResultsCount       //ランキングデータを何件取得するか(最大100)
-        };
+            // 通信待ちに設定する
+            m_WaitConnect.SetWait(transform, true);
 
-        //ランキング(リーダーボード)を取得
-        Debug.Log($"ランキング(リーダーボード)の取得開始");
-        PlayFabClientAPI.GetLeaderboard(request, OnGetLeaderboardSuccess, OnGetLeaderboardFailure);
+            //GetLeaderboardRequestのインスタンスを生成
+            var request = new GetLeaderboardRequest
+            {
+                StatisticName = rankingName,            //ランキング名(統計情報名)
+                StartPosition = startPosition,          //何位以降のランキングを取得するか
+                MaxResultsCount = maxResultsCount       //ランキングデータを何件取得するか(最大100)
+            };
+
+            //ランキング(リーダーボード)を取得
+            Debug.Log($"ランキング(リーダーボード)の取得開始");
+            PlayFabClientAPI.GetLeaderboard(request, OnGetLeaderboardSuccess, OnGetLeaderboardFailure);
+        }
     }
 
     //ランキング(リーダーボード)の取得成功
     private void OnGetLeaderboardSuccess(GetLeaderboardResult result)
     {
         Debug.Log($"ランキング(リーダーボード)の取得に成功しました");
+
+        // 通信終了
+        m_WaitConnect.SetWait(transform, false);
 
         //result.Leaderboardに各順位の情報(PlayerLeaderboardEntry)が入っている
         m_RankingText = "";
@@ -66,6 +79,9 @@ public class PlayFabLeaderBoard : MonoBehaviour
     //ランキング(リーダーボード)の取得失敗
     private void OnGetLeaderboardFailure(PlayFabError error)
     {
+        // 通信終了
+        m_WaitConnect.SetWait(transform, false);
+
         Debug.LogError($"ランキング(リーダーボード)の取得に失敗しました\n{error.GenerateErrorReport()}");
     }
 }
