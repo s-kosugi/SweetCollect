@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using PlayFab.MultiplayerModels;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,11 +12,15 @@ public class ShelfController : MonoBehaviour
     [SerializeField] private List<Image> ShelfChild = new List<Image>();    //自分の子供リスト
     [SerializeField] private int Column = 4;                                //列
     [SerializeField] private int row = 4;                                   //行
-    [SerializeField] private Sprite Sprite;                                 //画像
+    [SerializeField] private Sprite Sprite = null;                          //画像
     [SerializeField] private Vector2 Size = new Vector2(50.0f, 50.0f);      //画像サイズ
 
-    [SerializeField] private string ItemID;
+    [SerializeField] private string ItemID = default;
     [SerializeField] private int Number = 0;
+
+    Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>();
+
+    [SerializeField] private string TestName;
 
     enum PAGE
     {
@@ -23,12 +29,24 @@ public class ShelfController : MonoBehaviour
         MAX
     }
 
+    enum SHELFSTATE
+    {
+        NONE = -1,
+        WAIT = 0,
+        LOAD,
+        CHANGE,
+        PREVIEW,
+        MAX,
+    }
+    [SerializeField] SHELFSTATE State;      //状態
+
 
     // Start is called before the first frame update
     void Start()
     {
         PalyFabStore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
 
+        State = SHELFSTATE.WAIT;
         FindChild();
         SortImage();
         SetImage();
@@ -37,9 +55,67 @@ public class ShelfController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PalyFabStore.m_isStoreGet)
-            ItemID = PalyFabStore.StoreItems[Number].ItemId;
+        switch (State)
+        {
+            case SHELFSTATE.WAIT: Wait(); break;
+            case SHELFSTATE.LOAD: Load(); break;
+            case SHELFSTATE.CHANGE: Change(); break;
+            case SHELFSTATE.PREVIEW:Preview(); break;
+        }    
     }
+
+    //===========================================================================================================
+    //状態関連
+    private void Wait()
+    {
+        if (PalyFabStore.m_isStoreGet)
+        {  
+            State = SHELFSTATE.LOAD;
+        }
+    }
+
+    private void Load()
+    {
+        for (int i = 0; i < PalyFabStore.StoreItems.Count; i++)
+        {
+            SpriteDictionary.Add(PalyFabStore.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + PalyFabStore.StoreItems[i].ItemId));
+        }
+        ItemID = PalyFabStore.StoreItems[Number].ItemId; //今の自分の服のストリング
+
+        State = SHELFSTATE.CHANGE;
+    }
+    private void Change()
+    {
+        for(int i = 0; i < ShelfChild.Count; i++)
+        {
+            if(i < PalyFabStore.StoreItems.Count)
+            {
+                //情報があった場合
+                ShelfInfo ItemInfo = ShelfChild[i].transform.gameObject.GetComponent<ShelfInfo>();
+                if (!ItemInfo)
+                {
+                    ItemInfo = ShelfChild[i].transform.gameObject.AddComponent<ShelfInfo>();
+                }
+                ItemInfo.SetItemInfo(PalyFabStore.StoreItems[i]);
+
+                ShelfChild[i].sprite = SpriteDictionary[PalyFabStore.StoreItems[i].ItemId];        
+            }
+            else
+            {
+                //情報がなかった場合
+                ShelfChild[i].sprite = Sprite;
+            }
+        }
+
+        State = SHELFSTATE.PREVIEW;
+    } 
+    private void Preview()
+    {
+        TestName = SpriteDictionary[PalyFabStore.StoreItems[Number].ItemId].name;
+    }
+
+
+    //===========================================================================================================
     //===========================================================================================================
     //子供関連
     //自分の子供を検索
@@ -58,7 +134,7 @@ public class ShelfController : MonoBehaviour
 
         for(int y = 0; y < row; y++)
         {
-            for (int x = 0; x < row; x++)
+            for (int x = 0; x < Column; x++)
             {
                 ShelfChild[Number].transform.localPosition = new Vector3(Size.x * x, -Size.y * y, 0.0f);
 
