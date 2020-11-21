@@ -34,7 +34,7 @@ public class TitleManager : BaseScene
         base.Start();
 
 
-        // フェードイン状態にする
+        // 黒画面にする
         fadeState = FADE_STATE.BLACK;
     }
 
@@ -99,5 +99,11 @@ public class TitleManager : BaseScene
                 m_State = STATE.FADEOUT;
             }
         }
+    }
+    // シーン名を指定してシーン変更
+    public void NextScene(string sceneName)
+    {
+        NextSceneName = sceneName;
+        NextScene();
     }
 }

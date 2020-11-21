@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartButton : MonoBehaviour
+public class ButtonTap : MonoBehaviour
 {
     public void Click()
     {
