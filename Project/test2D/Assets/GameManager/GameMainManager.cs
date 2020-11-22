@@ -14,7 +14,6 @@ public class GameMainManager : BaseScene
     private PlayFabVirtualCurrency m_PlayFabVirtualCurrency = null;
     private PlayerController m_PlayerCotroller = null;
     private PlayFabWaitConnect m_WaitConnect = null;
-    private PlayerAvatar m_Avatar = null;
 
     // ゲームメイン状態
     public enum STATE
@@ -46,7 +45,6 @@ public class GameMainManager : BaseScene
         m_PlayFabVirtualCurrency = playFabManager.transform.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
         m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
         m_PlayerCotroller = Player.GetComponent<PlayerController>();
-        m_Avatar = Player.GetComponent<PlayerAvatar>();
         SoundManager.Instance.PlayBGM("MainGame");
 
         m_StartUI = StartUIObject.GetComponent<StartUI>();
@@ -77,7 +75,7 @@ public class GameMainManager : BaseScene
     void GamePreParation()
     {
         // 通信待ちが終わった
-        if(!m_WaitConnect.IsWait() && m_Avatar.m_isAvatarChange)
+        if(!m_WaitConnect.IsWait() )
         {
             state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;

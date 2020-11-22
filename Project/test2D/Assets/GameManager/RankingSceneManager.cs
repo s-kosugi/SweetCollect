@@ -9,8 +9,8 @@ using UnityEngine.Assertions.Must;
 
 public class RankingSceneManager : BaseScene
 {
-    private PlayFabLeaderBoard m_LeaderBoard = null;
-    private PlayFabStatistics m_Statistics = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
+
     private float m_AppearTimer = 0.0f;
     [SerializeField] float AppearPos = -1000;
     [SerializeField] float AppearEndTime = 2.0f;
@@ -49,8 +49,7 @@ public class RankingSceneManager : BaseScene
     override protected void Start()
     {
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_LeaderBoard = PlayFabManager.transform.Find("PlayFabLeaderBoard").GetComponent<PlayFabLeaderBoard>();
-        m_Statistics = PlayFabManager.transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
+        m_WaitConnect = PlayFabManager.GetComponent<PlayFabWaitConnect>();
 
         // 出現前にUIを画面外に配置しておく
         AppearGroup1.transform.localPosition = new Vector3(AppearPos, 0);
@@ -83,8 +82,8 @@ public class RankingSceneManager : BaseScene
     // 準備
     void Preparation()
     {
-        // リーダーボードの取得+ハイスコア取得に成功したら出現状態へ移行する
-        if (m_LeaderBoard.isGet && m_Statistics.isGet)
+        // 通信待ちをしていなかったら出現状態へ移行する
+        if (!m_WaitConnect.IsWait())
             state = STATE.FADEIN;
 
         // タイムアウトになったら強制的に状態遷移を行う

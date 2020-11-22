@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class ResultSceneManager : BaseScene
 {
-    private PlayFabVirtualCurrency m_VirtualCurrency = null;
+    private PlayFabWaitConnect m_WaitConnect = null;
     private float m_AppearTimer = 0.0f;
     [SerializeField] float AppearPos = -1000;
     [SerializeField] float AppearEndTime = 2.0f;
@@ -47,7 +47,7 @@ public class ResultSceneManager : BaseScene
     override protected void Start()
     {
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_VirtualCurrency = PlayFabManager.transform.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
+        m_WaitConnect = PlayFabManager.GetComponent<PlayFabWaitConnect>();
 
         // 出現前にUIを画面外に配置しておく
         AppearGroup1.transform.localPosition = new Vector3(AppearPos, 0);
@@ -82,8 +82,8 @@ public class ResultSceneManager : BaseScene
     // 準備
     void Preparation()
     {
-        // 仮想通貨の取得に成功したらフェードイン状態へ移行する
-        if (m_VirtualCurrency.isGet)
+        // 通信が終了したらフェードインへ移行する
+        if (!m_WaitConnect.IsWait())
             state = STATE.FADEIN;
 
         // タイムアウトになったら強制的に状態遷移を行う
@@ -154,11 +154,6 @@ public class ResultSceneManager : BaseScene
     // メイン状態
     void GameMain()
     {
-        // クリックして状態移行
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    state = STATE.FADEOUT;
-        //}
     }
     // フェードアウト状態
     void GameFadeOut()

@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using PlayFab;
 
 
 // PlayFab通信待ち管理クラス
@@ -48,7 +48,7 @@ public class PlayFabWaitConnect : MonoBehaviour
     public bool IsWait()
     {
         // 通信待ちがあれば通信待ちを返す
-        if (m_WaitList.ContainsValue(true)) return true;
+        if (m_WaitList.ContainsValue(true) || !PlayFabClientAPI.IsClientLoggedIn()) return true;
 
         return false;
     }

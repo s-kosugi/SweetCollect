@@ -13,7 +13,7 @@ public class PlayFabAutoRequest : MonoBehaviour
     /// <summary>
     ///  問い合わせ用タイマー
     /// </summary>
-    private float m_RequestTimer = 0.5f;
+    private float m_RequestTimer = 1.0f;
 
 
     private void Update()
