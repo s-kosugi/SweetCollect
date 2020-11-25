@@ -14,6 +14,8 @@ public class Price_Text : MonoBehaviour
     {
         Text_Price = this.GetComponent<TextMeshProUGUI>();
         Price = 0;
+
+        SetPrice(Price);
     }
 
     // Update is called once per frame
