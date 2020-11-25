@@ -59,4 +59,12 @@ public class EnemyBase : MonoBehaviour
             MainCameraIn = true;
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // プレイヤーに当たったら消去
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

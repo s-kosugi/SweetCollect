@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 859138494373210777}
   - component: {fileID: -146191709213724252}
   - component: {fileID: 7904771891142430754}
+  - component: {fileID: 1864099383976560284}
   m_Layer: 8
   m_Name: NeedleBall_Red
   m_TagString: Enemy
@@ -130,3 +131,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1864099383976560284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4343031456996579754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4019618f368518144a8460c064abb7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MAXHP: 1
+  HP: 1
+  ATK: 100

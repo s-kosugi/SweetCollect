@@ -6,15 +6,15 @@ public class ItemBase : MonoBehaviour
 {
     [SerializeField] protected float MoveSpeed = 10.0f;
     [SerializeField] protected int Score = 1;
+    [SerializeField] protected float RecoverValue = 10f;
     private bool MainCameraIn = false;
     // ゲームメインはアイテム管理で設定する
     public GameMainManager m_GameMainManager = null;
 
     public int score
-    {
-    get { return Score; }
-    }
-    // Start is called before the first frame update
+    { get { return Score; } }
+    public float recoverValue { get { return this.RecoverValue; } }
+
     protected virtual void Start()
     {
         Score = 1;
