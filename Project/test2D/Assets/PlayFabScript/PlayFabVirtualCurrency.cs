@@ -37,6 +37,12 @@ public class PlayFabVirtualCurrency : MonoBehaviour
                 GetUserVirtualCurrency();
         }
     }
+    // 仮想通貨の更新要求
+    public void RequestUpdate()
+    {
+        isGet = false;
+    }
+
     /// <summary>
     /// 仮想通貨の情報を取得
     /// </summary>
