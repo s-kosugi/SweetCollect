@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7194495426571602132}
   - component: {fileID: -392263722042491700}
   - component: {fileID: 383537509319210339}
+  - component: {fileID: 8966719373104015774}
   m_Layer: 8
   m_Name: NeedleBall_Green
   m_TagString: Enemy
@@ -130,3 +131,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8966719373104015774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760448521769712248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4019618f368518144a8460c064abb7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MAXHP: 1
+  HP: 1
+  ATK: 300
