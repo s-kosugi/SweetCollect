@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 8915787825150737468}
   - component: {fileID: 8915787825150737466}
   - component: {fileID: 8915787825150737471}
-  - component: {fileID: 8915787825150737469}
   - component: {fileID: 8915787825150737472}
   - component: {fileID: 8915787825150737473}
+  - component: {fileID: -7313520172308062659}
+  - component: {fileID: -9179646412865130116}
+  - component: {fileID: 1715243638804719018}
   m_Layer: 12
   m_Name: Pudding
   m_TagString: Item
@@ -90,22 +92,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8915787825150737469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8915787825150737475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbdb6ef20d5681443b4ee69e56138fc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 100
-  Score: 3
-  RecoverValue: 50
-  m_GameMainManager: {fileID: 0}
 --- !u!212 &8915787825150737472
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -168,6 +154,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7313520172308062659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915787825150737475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3f12b54965b1142abda6bd0bfe7802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-9179646412865130116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915787825150737475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ebf10c5aef27848a6aadd1538f3c20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTagName: Player
+--- !u!114 &1715243638804719018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915787825150737475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2068d0c717123d4c94559707a711b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 100
 --- !u!1 &8915787825960354217
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8915787825960354214}
   - component: {fileID: 8915787825960354215}
+  - component: {fileID: 404780954619064150}
   m_Layer: 9
   m_Name: PuddingPlayerCol
   m_TagString: Item
@@ -215,3 +240,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 16
+--- !u!114 &404780954619064150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915787825960354217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048bf1a82fdc48940978a8ecbaf438f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score: 3
+  RecoverValue: 50

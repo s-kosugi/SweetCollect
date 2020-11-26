@@ -47,8 +47,6 @@ public class ItemManager : MonoBehaviour
                         case SweetsTableItem.SweetsID.PUDDING: popItem = ItemPudding; break;
                         default: return;
                     }
-                    // ゲームメインを渡す
-                    popItem.GetComponent<ItemBase>().m_GameMainManager = m_GameMain;
                     // リソースからロード
                     Instantiate(popItem, pos, Quaternion.identity, transform);
                 }

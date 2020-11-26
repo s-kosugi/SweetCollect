@@ -49,8 +49,7 @@ public class EnemyManager : MonoBehaviour
                         case EnemyTableItem.EnemyID.ENEMY_BLUE: popEnemy = EnemyBlue; break;
                         default: return;
                     }
-                    // ゲームメインを渡す
-                    popEnemy.GetComponent<EnemyBase>().m_GameMainManager = m_GameMain;
+
                     Instantiate(popEnemy, pos, Quaternion.identity, transform);
                 }
             }

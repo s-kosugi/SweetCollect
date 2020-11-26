@@ -99,14 +99,7 @@ public class PlayerController : MonoBehaviour
         // アイテムを取ったらスコア加算をする
         if (collision.gameObject.tag == "Item")
         {
-            ItemBase item = collision.gameObject.GetComponent<ItemBase>();
-            if (item == null)
-            {
-                // 取得できなかった場合Puddingのように親が持っている可能性があるので探す
-                item = collision.gameObject.transform.parent.gameObject.GetComponent<ItemBase>();
-                // それでもなければ処理しない
-                if (item == null) return;
-            }
+            ItemEffect item = collision.gameObject.GetComponent<ItemEffect>();
             // 回復処理
             m_CalcDamage.Recovery(item.recoverValue);
 
@@ -115,23 +108,6 @@ public class PlayerController : MonoBehaviour
             // エフェクトの取得
             EffekseerSystem.PlayEffect(m_HeartEffect, transform.position);
             SoundManager.Instance.PlaySE("Heart");
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // 地面についたらジャンプ可能にする
-        if (collision.gameObject.tag == "Ground")
-        {
-            JumpFlag = false;
-            TwoJumpFlag = false;
-                
-            // ゲームメイン時のみアニメーションさせる
-            if (GameMainManager.state == GameMainManager.STATE.MAIN)
-            {
-                // 歩きアニメーションをする。
-                Vector2 v = new Vector2(0.0f, AnimationJumpPower);
-                m_RigidBody.AddForce(v);
-            }
         }
 
         // 敵に触ったらダメージ
@@ -163,7 +139,25 @@ public class PlayerController : MonoBehaviour
                     m_Blink.ActiveFlag = true;
 
                     // SEの再生
+                    SoundManager.Instance.PlaySE("Damage");
                 }
+            }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 地面についたらジャンプ可能にする
+        if (collision.gameObject.tag == "Ground")
+        {
+            JumpFlag = false;
+            TwoJumpFlag = false;
+                
+            // ゲームメイン時のみアニメーションさせる
+            if (GameMainManager.state == GameMainManager.STATE.MAIN)
+            {
+                // 歩きアニメーションをする。
+                Vector2 v = new Vector2(0.0f, AnimationJumpPower);
+                m_RigidBody.AddForce(v);
             }
         }
     }
