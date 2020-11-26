@@ -7,6 +7,8 @@ public class BuyButton : MonoBehaviour
     [SerializeField] PlayFabStore store = null;
     [SerializeField] PlayFabInventory inventory = null;
     [SerializeField] PlayFabWaitConnect connect = null; 
+    [SerializeField] Money_Text playermoney = null; 
+
     ShopCanvasController shop = null;
 
     [SerializeField] bool IsBuy;                //購入フラグ
@@ -17,6 +19,7 @@ public class BuyButton : MonoBehaviour
         inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
         shop = this.transform.root.GetComponent<ShopCanvasController>();
+        playermoney = this.transform.root.transform.Find("Player_Money/Money_Text").GetComponent<Money_Text>();
 
         IsBuy = false;
     }
@@ -54,6 +57,8 @@ public class BuyButton : MonoBehaviour
                 {
                     Debug.Log(shop.GetItemInfo().storeItem.ItemId + "は所持しています");
                 }
+
+                playermoney.RequestMoney();
             }
         }
 
