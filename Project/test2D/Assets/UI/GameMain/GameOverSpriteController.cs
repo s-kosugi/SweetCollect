@@ -6,26 +6,23 @@ public class GameOverSpriteController : MonoBehaviour
 {
 
     [SerializeField] GameMainManager GameMainManager = null;  // ゲームメインマネージャー
-    private bool Enable = false;
+    private bool m_Enable = false;
     private float StartTime = 0;
     [SerializeField] float AnimationTime = 2.0f; // アニメーション時間
     [SerializeField] float StartPositionY = 160.0f;
     [SerializeField] float GoalPositionY = 0.0f;
 
-    // Start is called before the first frame update
     void Start()
     {
-        GameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if (!Enable)
+        if (!m_Enable)
         {
             if (GameMainManager.state == GameMainManager.STATE.OVER)
             {
-                Enable = true;
+                m_Enable = true;
                 StartTime = Time.time;
             }
         }
@@ -42,6 +39,15 @@ public class GameOverSpriteController : MonoBehaviour
                 vec.y = Easing.OutBounce(Time.time - StartTime, AnimationTime, GoalPositionY, StartPositionY);
             }
             this.transform.position = vec;
+            // リスタートされたらリセットする
+            if (GameMainManager.state == GameMainManager.STATE.PRERESTART) Reset();
         }
+    }
+    private void Reset()
+    {
+        Vector3 vec = this.transform.position;
+        vec.y = StartPositionY;
+        this.transform.position = vec;
+        m_Enable = false;
     }
 }

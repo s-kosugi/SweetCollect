@@ -8,13 +8,6 @@ using UnityEngine.Advertisements;
 
 public class Ads : MonoBehaviour
 {
-    // スコア加算倍率
-    [SerializeField] float Rate = 3.0f;
-    public float rate
-    {
-        get { return this.Rate; }
-    }
-
     // 表示済みフラグ
     private bool IsShow = false;
     public bool isShow
@@ -57,5 +50,14 @@ public class Ads : MonoBehaviour
             Debug.Log("Ads shows Failed");
         }
 #endif
+    }
+
+    /// <summary>
+    /// 広告表示中かどうか
+    /// </summary>
+    public bool isPlaying()
+    {
+        Advertisement.
+        return Advertisement.isShowing;
     }
 }

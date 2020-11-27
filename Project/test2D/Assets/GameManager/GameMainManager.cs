@@ -5,7 +5,13 @@ public class GameMainManager : BaseScene
     [SerializeField] float GameOverTime = 2.0f;
     [SerializeField] GameObject Player = null;
     [SerializeField] GameObject StartUIObject = null;
+    [SerializeField] GameObject ReStartUIObject = null;
+    [SerializeField] public float GameTimer = 60f;
+    [SerializeField] GameOverButton AdsButton = null;
+    [SerializeField] GameOverButton ResultButton = null;
+    [SerializeField] Ads AdsObject = null;
     private StartUI m_StartUI = null;
+    private StartUI m_ReStartUI = null;
 
     private float GameOverCount = 0.0f;
     private ScoreManager m_ScoreManager = null;
@@ -24,6 +30,8 @@ public class GameMainManager : BaseScene
         MAIN,
         OVER,
         NEXT,
+        PRERESTART,
+        RESTART,
     };
 
     private STATE State;
@@ -48,6 +56,7 @@ public class GameMainManager : BaseScene
         SoundManager.Instance.PlayBGM("MainGame");
 
         m_StartUI = StartUIObject.GetComponent<StartUI>();
+        m_ReStartUI = ReStartUIObject.GetComponent<StartUI>();
 
         base.Start();
 
@@ -55,7 +64,6 @@ public class GameMainManager : BaseScene
         fadeState = FADE_STATE.BLACK;
     }
 
-    // Update is called once per frame
     override protected void Update()
     {
         switch( state )
@@ -66,6 +74,8 @@ public class GameMainManager : BaseScene
             case STATE.MAIN: GameMain(); break;
             case STATE.OVER: GameOver(); break;
             case STATE.NEXT: GameNext(); break;
+            case STATE.PRERESTART: GamePreReStart(); break;
+            case STATE.RESTART: GameReStart(); break;
         }
 
         base.Update();
@@ -107,6 +117,13 @@ public class GameMainManager : BaseScene
     // ゲームメイン状態
     void GameMain()
     {
+        // ゲームプレイ時間を減らす
+        GameTimer -= Time.deltaTime;
+        if (GameTimer <= 0)
+        {
+            // ゲームオーバーに移行
+            state = STATE.OVER;
+        }
     }
     // ゲームオーバー状態
     void GameOver()
@@ -125,27 +142,19 @@ public class GameMainManager : BaseScene
                 }
                 isScoreSend = true;
 
-                // 仮想通貨の加算
-                if (m_PlayFabVirtualCurrency)
-                {
-                    Debug.Log("AddVirtualCurrency");
-
-                    // 仮想通貨を加算する
-                    m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", m_ScoreManager.GetScore());
-                }
             }
         }
         GameOverCount += Time.deltaTime;
         if (GameOverCount >= GameOverTime)
         {
-            GameObject resultButton = GameObject.Find("ResultButton");
+            GameOverCount = 0f;
 #if UNITY_ANDROID
             // ボタンUIを出現させる
-            GameObject.Find("AdsButton").GetComponent<GameOverButton>().state = GameOverButton.STATE.APPEAR;
+            AdsButton.state = GameOverButton.STATE.APPEAR;
 #else
             // リザルトボタンの移動処理を書く
 #endif
-            resultButton.GetComponent<GameOverButton>().state = GameOverButton.STATE.APPEAR;
+            ResultButton.state = GameOverButton.STATE.APPEAR;
 
 
             state = STATE.NEXT;
@@ -161,11 +170,46 @@ public class GameMainManager : BaseScene
         //    fadeState = FADE_STATE.FADEOUT;
         //}
     }
+    // ゲームリスタート準備
+    void GamePreReStart()
+    {
+        if (!AdsObject.isPlaying())
+        {
+            ReStartUIObject.SetActive(true);
+            state = STATE.RESTART;
+
+#if UNITY_ANDROID
+            // ボタンUIを隠す
+            AdsButton.state = GameOverButton.STATE.HIDE;
+#endif
+            ResultButton.state = GameOverButton.STATE.HIDE;
+        }
+    }
+    // ゲームリスタート状態
+    void GameReStart()
+    {
+        // UIの動きが終わったらリスタートさせる
+        if (m_ReStartUI.isEnd)
+        {
+            state = STATE.MAIN;
+            // プレイヤーのジャンプアニメーションを開始する
+            m_PlayerCotroller.StartJumpAnimation();
+        }
+    }
 
     public void NextSceneButtonClick()
     {
         // フェードアウト状態に変更する
         fadeState = FADE_STATE.FADEOUT;
+
+        // 仮想通貨の加算
+        if (m_PlayFabVirtualCurrency)
+        {
+            Debug.Log("AddVirtualCurrency");
+
+            // 仮想通貨を加算する
+            m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", m_ScoreManager.GetScore());
+        }
     }
 
 

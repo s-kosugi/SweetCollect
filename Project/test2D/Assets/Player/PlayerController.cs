@@ -131,15 +131,15 @@ public class PlayerController : MonoBehaviour
             m_CalcDamage.Damage(collision.gameObject.GetComponent<CalcDamage>());
             if (m_CalcDamage.state == CalcDamage.DAMAGE_STATE.DEAD)
             {
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
 
                 // エフェクトの再生
-                EffekseerSystem.PlayEffect(m_DeadEffect, transform.position);
+                //EffekseerSystem.PlayEffect(m_DeadEffect, transform.position);
 
-                SoundManager.Instance.PlaySE("Dead");
+                //SoundManager.Instance.PlaySE("Dead");
 
                 // ゲームオーバー状態へ変更する
-                GameMainManager.state = GameMainManager.STATE.OVER;
+                //GameMainManager.state = GameMainManager.STATE.OVER;
             }
             else
             {
