@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class CoinManager : MonoBehaviour
 {
     private CameraController m_Camera = null;
     private GameMainManager m_GameMain = null;
     static float SPRITE_SIZE = 32.0f;
 
-    private EnemyPopTable m_Table = null;
+    private CoinPopTable m_Table = null;
 
-    [SerializeField] GameObject EnemyRed = null;
-    [SerializeField] GameObject EnemyGreen = null;
-    [SerializeField] GameObject EnemyBlue = null;
+    [SerializeField] GameObject CoinNormal = null;
+    [SerializeField] GameObject CoinRed = null;
 
 
     void Start()
@@ -18,18 +17,18 @@ public class EnemyManager : MonoBehaviour
         m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>().GetComponent<CameraController>();
         m_GameMain = GameObject.Find("GameManager").GetComponent<GameMainManager>();
 
-        // 敵出現テーブルの0を読み込む
+        // コイン出現テーブルの0番を読み込む
         LoadTable(0);
     }
 
 
     void Update()
     {
-        // ゲームプレイ中のみ敵を出現させる
+        // ゲームプレイ中のみコインを出現させる
         if (m_GameMain.state == GameMainManager.STATE.MAIN)
         {
-            // 出現テーブルから敵を出現させる
-            foreach (EnemyTableItem item in m_Table.EnemyTableItemList)
+            // 出現テーブルからコインを出現させる
+            foreach (CoinTableItem item in m_Table.CoinTableItemList)
             {
                 item.Elapsed += Time.deltaTime;
                 if (item.INTERVAL <= item.Elapsed)
@@ -40,17 +39,16 @@ public class EnemyManager : MonoBehaviour
                     pos.x = m_Camera.GetScreenRight() + SPRITE_SIZE / 2.0f;
                     pos.y = Random.Range(m_Camera.GetScreenTop(), m_Camera.GetScreenBottom());
                     pos.z = 0.0f;
-                    GameObject popEnemy = null;
+                    GameObject popCoin = null;
 
                     switch (item.ID)
                     {
-                        case EnemyTableItem.EnemyID.ENEMY_RED: popEnemy = EnemyRed; break;
-                        case EnemyTableItem.EnemyID.ENEMY_GREEN: popEnemy = EnemyGreen; break;
-                        case EnemyTableItem.EnemyID.ENEMY_BLUE: popEnemy = EnemyBlue; break;
+                        case CoinTableItem.CoinID.COIN_NORMAL: popCoin = CoinNormal; break;
+                        case CoinTableItem.CoinID.COIN_RED: popCoin = CoinRed; break;
                         default: return;
                     }
 
-                    Instantiate(popEnemy, pos, Quaternion.identity, transform);
+                    Instantiate(popCoin, pos, Quaternion.identity, transform);
                 }
             }
         }
@@ -58,8 +56,8 @@ public class EnemyManager : MonoBehaviour
 
     private void LoadTable(int TableNo)
     {
-        string fileName = "Enemy\\EnemyPopTable_" + TableNo;
-        m_Table = Resources.Load<EnemyPopTable>(fileName);
+        string fileName = "Coin\\CoinPopTable_" + TableNo;
+        m_Table = Resources.Load<CoinPopTable>(fileName);
 
     }
 }

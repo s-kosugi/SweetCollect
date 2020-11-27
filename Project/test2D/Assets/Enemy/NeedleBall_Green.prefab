@@ -14,6 +14,10 @@ GameObject:
   - component: {fileID: -392263722042491700}
   - component: {fileID: 383537509319210339}
   - component: {fileID: 8966719373104015774}
+  - component: {fileID: -3973195062073160286}
+  - component: {fileID: -385411278657980942}
+  - component: {fileID: 1018089563340595827}
+  - component: {fileID: -1744784180714987254}
   m_Layer: 8
   m_Name: NeedleBall_Green
   m_TagString: Enemy
@@ -97,10 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00940ffc5783b384cb5b7b04ec5e43c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 100
-  RotateSpeed: 4
-  MaxRotateAngle: 10
-  m_GameMainManager: {fileID: 0}
   SinSpeed: 8
   SinWidth: 2
 --- !u!58 &-392263722042491700
@@ -113,7 +113,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -146,3 +146,57 @@ MonoBehaviour:
   MAXHP: 1
   HP: 1
   ATK: 300
+  m_State: 0
+  MaxFlashTime: 2
+--- !u!114 &-3973195062073160286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760448521769712248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3f12b54965b1142abda6bd0bfe7802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-385411278657980942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760448521769712248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ebf10c5aef27848a6aadd1538f3c20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTagName: Player
+--- !u!114 &1018089563340595827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760448521769712248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f656d46b41f084b990023cf4ae0ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotateSpeed: 4
+  MaxRotateAngle: 10
+--- !u!114 &-1744784180714987254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760448521769712248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2068d0c717123d4c94559707a711b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 90
