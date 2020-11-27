@@ -57,7 +57,6 @@ public class Ads : MonoBehaviour
     /// </summary>
     public bool isPlaying()
     {
-        Advertisement.
         return Advertisement.isShowing;
     }
 }
