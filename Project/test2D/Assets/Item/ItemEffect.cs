@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// アイテム効果格納用
+/// </summary>
 public class ItemEffect : MonoBehaviour
 {
     [SerializeField] protected int Score = 1;

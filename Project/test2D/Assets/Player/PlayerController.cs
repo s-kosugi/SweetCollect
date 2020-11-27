@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private EffekseerEffectAsset m_HeartEffect = null;
     private EffekseerEffectAsset m_DeadEffect = null;
     private EffekseerEffectAsset m_DamageEffect = null;
+    private EffekseerEffectAsset m_CoinGetEffect = null;
     private Rigidbody2D m_RigidBody = null;
     private CalcDamage m_CalcDamage = null;
     private BlinkAnimeSpriteRenderer m_Blink = null;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         m_HeartEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart");
         m_DeadEffect = Resources.Load<EffekseerEffectAsset>("Effect\\deadeffect");
         m_DamageEffect = Resources.Load<EffekseerEffectAsset>("Effect\\damage");
+        m_CoinGetEffect = Resources.Load<EffekseerEffectAsset>("Effect\\CoinGet");
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_CalcDamage = GetComponent<CalcDamage>();
         m_Blink = GetComponent<BlinkAnimeSpriteRenderer>();
@@ -96,6 +98,18 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // コインを取ったらスコア加算をする
+        if (collision.gameObject.tag == "Coin")
+        {
+            CoinEffect item = collision.gameObject.GetComponent<CoinEffect>();
+
+            ScoreManager.AddScore(item.score);
+
+            // エフェクトの取得
+            EffekseerSystem.PlayEffect(m_CoinGetEffect, transform.position);
+            SoundManager.Instance.PlaySE("Coin");
+        }
+
         // アイテムを取ったらスコア加算をする
         if (collision.gameObject.tag == "Item")
         {
