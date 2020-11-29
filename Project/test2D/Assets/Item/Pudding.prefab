@@ -252,5 +252,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048bf1a82fdc48940978a8ecbaf438f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 3
-  RecoverValue: 50
+  Score: 100

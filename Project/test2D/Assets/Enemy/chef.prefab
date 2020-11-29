@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: 4023833615550570941}
   - component: {fileID: 6355906915888381584}
   - component: {fileID: -1485070065658884556}
+  - component: {fileID: 6148269551461076995}
+  - component: {fileID: 8278533944106926009}
+  - component: {fileID: 4986384246027980104}
   m_Layer: 8
   m_Name: chef
   m_TagString: Enemy
@@ -173,4 +176,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27eb1cb9c71b834f845731ace268926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationJumpower: 2000
+  AnimationJumpower: 3000
+--- !u!114 &6148269551461076995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79679106820806758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6dac446a63ec2b43bff81fda15b3bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SweetObject: {fileID: 2652432585158502808, guid: 964439edbe2685d41bc1e48c6c61ae7c,
+    type: 3}
+  SweetPos: {x: 0, y: 32}
+--- !u!114 &8278533944106926009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79679106820806758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6dac446a63ec2b43bff81fda15b3bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SweetObject: {fileID: 2652432585158502808, guid: 964439edbe2685d41bc1e48c6c61ae7c,
+    type: 3}
+  SweetPos: {x: 0, y: 64}
+--- !u!114 &4986384246027980104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79679106820806758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6dac446a63ec2b43bff81fda15b3bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SweetObject: {fileID: 2652432585158502808, guid: 964439edbe2685d41bc1e48c6c61ae7c,
+    type: 3}
+  SweetPos: {x: 0, y: 96}

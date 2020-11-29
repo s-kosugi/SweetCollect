@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         {
             ItemEffect item = collision.gameObject.GetComponent<ItemEffect>();
             // 回復処理
-            m_CalcDamage.Recovery(item.recoverValue);
+            //m_CalcDamage.Recovery(item.recoverValue);
 
             ScoreManager.AddScore(item.score);
 
