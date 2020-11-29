@@ -21,8 +21,8 @@ TagManager:
   - Item
   - Player
   - NonObject
-  - NonPlayerHitItem
-  - 
+  - NonPlayerHitObject
+  - Map
   - 
   - 
   - 

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] int Score = 0;
+    [SerializeField] PlayFabVirtualCurrency m_PlayFabVirtualCurrency = null;
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +12,6 @@ public class ScoreManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         // ゲームメインシーンでは削除しない
@@ -35,5 +32,22 @@ public class ScoreManager : MonoBehaviour
     public void ResetScore()
     {
         Score = 0;
+    }
+
+    /// <summary>
+    /// 現在のスコアを仮想通貨に追加
+    /// </summary>
+    public void AddVirtualCurrency()
+    {
+        // 仮想通貨の加算
+        if (m_PlayFabVirtualCurrency)
+        {
+            Debug.Log("AddVirtualCurrency");
+            if (Score > 0)
+            {
+                // 仮想通貨を加算する
+                m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", Score);
+            }
+        }
     }
 }

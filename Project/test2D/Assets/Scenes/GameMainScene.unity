@@ -557,12 +557,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399ee8e7a17b30e41af925617e0ea491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyRed: {fileID: 4343031456996579754, guid: 67c0852f499ba66499750db2ad57351c,
+  EnemySyokudai: {fileID: 8468923419917510266, guid: fa4ff68287014f34eaf26399fc670a55,
     type: 3}
-  EnemyGreen: {fileID: 2760448521769712248, guid: 8e75799cfd1aa394780cf0f53263f4f2,
-    type: 3}
-  EnemyBlue: {fileID: 2315398418835211718, guid: d87e1edef5bebde4eb91990b44c9a710,
-    type: 3}
+  EnemyChef: {fileID: 79679106820806758, guid: 42951f140b649c640ab92fe4dda87291, type: 3}
 --- !u!1 &216759662
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,7 +838,7 @@ GameObject:
   - component: {fileID: 323108032}
   - component: {fileID: 323108031}
   - component: {fileID: 323108033}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3196,7 +3193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6cf1377c0148443a0694cd8b8b9d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 0
+  Score: -3000
+  m_PlayFabVirtualCurrency: {fileID: 772115337}
 --- !u!4 &1530234768
 Transform:
   m_ObjectHideFlags: 0
@@ -3227,7 +3225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1598408939
 Transform:
   m_ObjectHideFlags: 0
@@ -3597,6 +3595,7 @@ GameObject:
   - component: {fileID: 1953754672}
   - component: {fileID: 1953754671}
   - component: {fileID: 1953754673}
+  - component: {fileID: 1953754674}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -3630,7 +3629,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24b60c89a6df5141a55ae702f3bd008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationJumpPower: 2000
   HpDownIngerval: 0.2
 --- !u!50 &1953754667
 Rigidbody2D:
@@ -3773,6 +3771,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interval: 0.2
+--- !u!114 &1953754674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953754664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27eb1cb9c71b834f845731ace268926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimationJumpower: 2000
 --- !u!1 &2040733008
 GameObject:
   m_ObjectHideFlags: 0

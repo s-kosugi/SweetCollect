@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyTableItemList:
   - INTERVAL: 2
-    ID: 0
-    Elapsed: 1.552688
+    ID: 3
+    Elapsed: 1.8707926
   - INTERVAL: 5
-    ID: 1
-    Elapsed: 4.598166
+    ID: 3
+    Elapsed: 4.921091
   - INTERVAL: 10
-    ID: 2
-    Elapsed: 9.623606
+    ID: 4
+    Elapsed: 9.988375

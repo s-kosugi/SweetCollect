@@ -14,7 +14,9 @@ public class EnemyTableItem
     {
         ENEMY_RED,
         ENEMY_GREEN,
-        ENEMY_BLUE
+        ENEMY_BLUE,
+        ENEMY_SYOKUDAI,
+        ENEMY_CHEF,
     }
     /// <summary>
     /// 出現間隔

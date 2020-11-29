@@ -8,9 +8,8 @@ public class EnemyManager : MonoBehaviour
 
     private EnemyPopTable m_Table = null;
 
-    [SerializeField] GameObject EnemyRed = null;
-    [SerializeField] GameObject EnemyGreen = null;
-    [SerializeField] GameObject EnemyBlue = null;
+    [SerializeField] GameObject EnemySyokudai = null;
+    [SerializeField] GameObject EnemyChef = null;
 
 
     void Start()
@@ -44,9 +43,8 @@ public class EnemyManager : MonoBehaviour
 
                     switch (item.ID)
                     {
-                        case EnemyTableItem.EnemyID.ENEMY_RED: popEnemy = EnemyRed; break;
-                        case EnemyTableItem.EnemyID.ENEMY_GREEN: popEnemy = EnemyGreen; break;
-                        case EnemyTableItem.EnemyID.ENEMY_BLUE: popEnemy = EnemyBlue; break;
+                        case EnemyTableItem.EnemyID.ENEMY_SYOKUDAI: popEnemy = EnemySyokudai; break;
+                        case EnemyTableItem.EnemyID.ENEMY_CHEF: popEnemy = EnemyChef; break;
                         default: return;
                     }
 

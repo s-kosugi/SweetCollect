@@ -57,6 +57,10 @@ public class Ads : MonoBehaviour
     /// </summary>
     public bool isPlaying()
     {
+#if UNITY_ANDROID
         return Advertisement.isShowing;
+#else
+        return false;
+#endif
     }
 }

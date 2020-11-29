@@ -14,11 +14,10 @@ public class GameMainManager : BaseScene
     private StartUI m_ReStartUI = null;
 
     private float GameOverCount = 0.0f;
-    private ScoreManager m_ScoreManager = null;
+    public ScoreManager m_ScoreManager { get; private set; }
     private bool isScoreSend = false;
     private PlayFabStatistics m_PlayFabStatistics = null;
-    private PlayFabVirtualCurrency m_PlayFabVirtualCurrency = null;
-    private PlayerController m_PlayerCotroller = null;
+    private JumpAnimation m_PlayerJump = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
     // ゲームメイン状態
@@ -50,9 +49,8 @@ public class GameMainManager : BaseScene
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_PlayFabStatistics = playFabManager.transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
-        m_PlayFabVirtualCurrency = playFabManager.transform.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
         m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
-        m_PlayerCotroller = Player.GetComponent<PlayerController>();
+        m_PlayerJump = Player.GetComponent<JumpAnimation>();
         SoundManager.Instance.PlayBGM("MainGame");
 
         m_StartUI = StartUIObject.GetComponent<StartUI>();
@@ -111,7 +109,7 @@ public class GameMainManager : BaseScene
         {
             state = STATE.MAIN;
             // プレイヤーのジャンプアニメーションを開始する
-            m_PlayerCotroller.StartJumpAnimation();
+            m_PlayerJump.StartJumpAnimation();
         }
     }
     // ゲームメイン状態
@@ -193,7 +191,7 @@ public class GameMainManager : BaseScene
         {
             state = STATE.MAIN;
             // プレイヤーのジャンプアニメーションを開始する
-            m_PlayerCotroller.StartJumpAnimation();
+            m_PlayerJump.StartJumpAnimation();
         }
     }
 
@@ -202,14 +200,8 @@ public class GameMainManager : BaseScene
         // フェードアウト状態に変更する
         fadeState = FADE_STATE.FADEOUT;
 
-        // 仮想通貨の加算
-        if (m_PlayFabVirtualCurrency)
-        {
-            Debug.Log("AddVirtualCurrency");
-
-            // 仮想通貨を加算する
-            m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", m_ScoreManager.GetScore());
-        }
+        // 現在のスコアを仮想通貨に追加する
+        m_ScoreManager.AddVirtualCurrency();
     }
 
 
