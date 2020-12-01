@@ -177,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u306E\u3053\u308A\u3058\u304B\u3093\uFF1A\uFF10\uFF10\u5206"
+  m_text: "\u306E\u3053\u308A\u3058\u304B\u3093\uFF1A\uFF10\uFF10"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 720dc6271bcaabc44bf4c0273e8c2e4a, type: 2}
   m_sharedMaterial: {fileID: 978601265200943976, guid: 720dc6271bcaabc44bf4c0273e8c2e4a,
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 41505175}
-    characterCount: 10
+    characterCount: 9
     spriteCount: 0
     spaceCount: 0
     wordCount: 2
@@ -1341,7 +1341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &620172342
 MonoBehaviour:
   m_ObjectHideFlags: 0

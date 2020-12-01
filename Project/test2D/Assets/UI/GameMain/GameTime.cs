@@ -14,6 +14,6 @@ public class GameTime : MonoBehaviour
 
     void Update()
     {
-        m_Text.text = "のこりじかん:" + string.Format("{0:00}" + "分", (int)m_GameMain.GameTimer);
+        m_Text.text = "のこりじかん:" + string.Format("{0:00}", (int)m_GameMain.GetGameTime());
     }
 }

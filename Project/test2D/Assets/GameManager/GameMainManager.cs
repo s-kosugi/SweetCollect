@@ -6,7 +6,7 @@ public class GameMainManager : BaseScene
     [SerializeField] GameObject Player = null;
     [SerializeField] GameObject StartUIObject = null;
     [SerializeField] GameObject ReStartUIObject = null;
-    [SerializeField] public float GameTimer = 60f;
+    [SerializeField] private float GameTimer = 60f;
     [SerializeField] GameOverButton AdsButton = null;
     [SerializeField] GameOverButton ResultButton = null;
     [SerializeField] Ads AdsObject = null;
@@ -119,6 +119,7 @@ public class GameMainManager : BaseScene
         GameTimer -= Time.deltaTime;
         if (GameTimer <= 0)
         {
+            GameTimer = 0;
             // ゲームオーバーに移行
             state = STATE.OVER;
         }
@@ -204,5 +205,13 @@ public class GameMainManager : BaseScene
         m_ScoreManager.AddVirtualCurrency();
     }
 
-
+    public void AddGameTime(float time)
+    {
+        GameTimer += time;
+        if (GameTimer < 0) GameTimer = 0f;
+    }
+    public float GetGameTime()
+    {
+        return GameTimer;
+    }
 }

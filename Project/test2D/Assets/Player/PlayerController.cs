@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float HpDownIngerval = 0.2f;
     private bool JumpFlag;      // ジャンプ中かどうか
     private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
-    private float HpDownTimerCount = 0;
     private GameMainManager GameMainManager = null;  // ゲームメインマネージャー
     private ScoreManager ScoreManager = null;
     private EffekseerEffectAsset m_JumpEffect = null;
@@ -19,13 +18,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_RigidBody = null;
     private CalcDamage m_CalcDamage = null;
     private BlinkAnimeSpriteRenderer m_Blink = null;
+    private List<EffekseerHandle> m_HeartEffectList = default;
 
 
     void Start()
     {
         JumpFlag = true;
         TwoJumpFlag = true;
-        HpDownTimerCount = 0;
         GameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
         ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         m_JumpEffect = Resources.Load<EffekseerEffectAsset>("Effect\\jump");
@@ -36,6 +35,7 @@ public class PlayerController : MonoBehaviour
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_CalcDamage = GetComponent<CalcDamage>();
         m_Blink = GetComponent<BlinkAnimeSpriteRenderer>();
+        m_HeartEffectList = new List<EffekseerHandle>();
     }
 
     void Update()
@@ -72,21 +72,22 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        // 時間経過でのダメージ処理
-        DamageTimeElapsed();
+        // ハートエフェクトを追従させる
+        foreach( EffekseerHandle handle in m_HeartEffectList)
+        {
+            if (handle.enabled)
+            {
+                handle.SetLocation(this.transform.position);
+            }
+            else
+            {
+                // リストから除去
+                m_HeartEffectList.Remove(handle);
+            }
+        }
         // 点滅アニメーションの停止
         if ( m_CalcDamage.state == CalcDamage.DAMAGE_STATE.NORMAL)
             m_Blink.ActiveFlag = false;
-    }
-    // 時間経過でのダメージ処理
-    void DamageTimeElapsed()
-    {
-        HpDownTimerCount += Time.deltaTime;
-        if (HpDownIngerval <= HpDownTimerCount)
-        {
-            HpDownTimerCount = 0;
-            m_CalcDamage.DamageValue(1);
-        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -112,7 +113,10 @@ public class PlayerController : MonoBehaviour
             ScoreManager.AddScore(item.score);
 
             // エフェクトの取得
-            EffekseerSystem.PlayEffect(m_HeartEffect, transform.position);
+            EffekseerHandle handle = EffekseerSystem.PlayEffect(m_HeartEffect, transform.position);
+            // エフェクトを更新で追従させるためにリストにいれる
+            m_HeartEffectList.Add(handle);
+
             SoundManager.Instance.PlaySE("Heart");
         }
 
