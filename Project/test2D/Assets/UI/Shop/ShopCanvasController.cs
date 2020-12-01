@@ -37,6 +37,7 @@ public class ShopCanvasController : MonoBehaviour
     {
         //SelectItem.StoreItem
         SelectItem.storeItem = info;
+        
         SelectItem.catalogItem = PalyFabStore.CatalogItems.Find(x => x.ItemId == SelectItem.storeItem.ItemId);
     }
     //===========================================================================================================
