@@ -49,7 +49,7 @@ public class PlayFabPlayerData : MonoBehaviour
             };
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
             {
-                Data = change
+                Data = change,Permission = UserDataPermission.Public
             }, result =>
             {
                 Debug.Log("ユーザーデータの更新に成功");

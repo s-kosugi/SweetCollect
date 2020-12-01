@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class TitleManager : BaseScene
 {
     [SerializeField] GameObject textBox = null;
-    private PlayFabPlayerData m_PlayFabPlayerData = null;
+    private PlayFabPlayerData m_PlayFabEClothesData = null;
     private PlayFabUserProfiel m_PlayFabUserProfiel = null;
+    private PlayFabPlayerData m_PlayFabTutorialData = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
     private enum STATE
@@ -26,8 +23,9 @@ public class TitleManager : BaseScene
         SoundManager.Instance.PlayBGM("MainGame");
 
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_PlayFabPlayerData = PlayFabManager.transform.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
+        m_PlayFabEClothesData = PlayFabManager.transform.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
         m_PlayFabUserProfiel = PlayFabManager.transform.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
+        m_PlayFabTutorialData = PlayFabManager.transform.Find("PlayFabTutorialData").GetComponent<PlayFabPlayerData>();
         m_WaitConnect = PlayFabManager.GetComponent<PlayFabWaitConnect>();
         NextSceneName = "GameMainScene";
 
@@ -89,9 +87,9 @@ public class TitleManager : BaseScene
                 m_PlayFabUserProfiel.SetUserName(textBox.GetComponent<InputField>().text);
 
                 // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
-                if (!m_PlayFabPlayerData.m_isGet)
+                if (!m_PlayFabEClothesData.m_isGet)
                 {
-                    m_PlayFabPlayerData.SetPlayerData("001_NORAML");
+                    m_PlayFabEClothesData.SetPlayerData("001_NORAML");
                 }
 
                 // フェードアウト状態にする
@@ -104,6 +102,14 @@ public class TitleManager : BaseScene
     public void NextScene(string sceneName)
     {
         NextSceneName = sceneName;
+        // チュートリアル終了済みでなかったらチュートリアルへ飛ばす
+        if (NextSceneName == "GameMainScene")
+        {
+            if (m_PlayFabTutorialData.m_Value != "End")
+            {
+                NextSceneName = "TutorialScene";
+            }
+        }
         NextScene();
     }
 }

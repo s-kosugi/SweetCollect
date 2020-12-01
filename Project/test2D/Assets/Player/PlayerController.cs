@@ -5,7 +5,6 @@ using Effekseer;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float HpDownIngerval = 0.2f;
     private bool JumpFlag;      // ジャンプ中かどうか
     private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
     private GameMainManager GameMainManager = null;  // ゲームメインマネージャー
