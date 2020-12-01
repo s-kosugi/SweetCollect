@@ -37,8 +37,8 @@ public class ShelfInfo : MonoBehaviour , IPointerClickHandler
         Debug.Log(ItemImfo.ItemId + " がクリックされた!");
         Shop.SetSelectItem(ItemImfo);
 
-        this.transform.root.Find("Preview_Costume/Costume_Parent/Costume_Description")
-            .GetComponent<Costume_Description>().SetDescription(Shop.GetItemInfo().catalogItem.Description);
+        //this.transform.root.Find("Preview_Costume/Costume_Parent/Costume_Description")
+        //    .GetComponent<Costume_Description>().SetDescription(Shop.GetItemInfo().catalogItem.Description);
         this.transform.root.Find("Item_Price/Price_Text")
             .GetComponent<Price_Text>().SetPrice(Shop.GetItemInfo().storeItem.VirtualCurrencyPrices["HA"]);
     }

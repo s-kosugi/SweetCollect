@@ -61,6 +61,5 @@ public class BuyButton : MonoBehaviour
                 playermoney.RequestMoney();
             }
         }
-
     }
 }
