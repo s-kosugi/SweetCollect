@@ -5,16 +5,20 @@ using UnityEngine;
 public class Clothing : MonoBehaviour
 {
     [SerializeField] PlayFabStore PalyFabStore;
+    [SerializeField] private PlayFabInventory inventory = null;    //インベントリ
+    [SerializeField] private PlayFabWaitConnect connect = null;    //通信
     [SerializeField] ShopCanvasController shopcanvas = null;
-    [SerializeField] SelectButton selectbutton = null;
+    [SerializeField] BuyAndWear_Text buyandwear_text;
+
     [SerializeField] List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();
     [SerializeField] private int SpriteDictionaryNumber; //画像の最大数
     [SerializeField] private int SelectNumber;          //選択されている画像の番号
     [SerializeField] private Vector2 ChildSize = new Vector2(144.0f, 144.0f);
     [SerializeField] private float Margin = 0;                              //余白
     Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>();
-    [SerializeField] private string TestName;
 
+    [SerializeField] private string TestName;
+    [SerializeField] private bool IsHaving;                             //取得済み
     [SerializeField] private float DIRECTION_TIME = 0.3f;                //演出時間
 
     enum SHELFSTATE
@@ -31,8 +35,11 @@ public class Clothing : MonoBehaviour
     void Start()
     {
         PalyFabStore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
+        inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
+        connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
+
         shopcanvas = this.GetComponentInParent<ShopCanvasController>();
-        selectbutton = this.transform.root.Find("ItemState_Parent").GetComponentInChildren<SelectButton>();
+        buyandwear_text = this.transform.root.Find("ShopButton/BuyAndWearButton/BuyAndWear_Text").GetComponent<BuyAndWear_Text>();
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
         Margin = ChildSize.x / 4;
@@ -99,12 +106,10 @@ public class Clothing : MonoBehaviour
 
         if(shopcanvas)
         {
-            shopcanvas.SetSelectItem(PalyFabStore.StoreItems[SelectNumber]);
+          shopcanvas.SetSelectItem(PalyFabStore.StoreItems[SelectNumber]);
         }
 
-        selectbutton.CheckHaving();
-
-        State = SHELFSTATE.PREVIEW;
+        HavingItem();
     }
 
     private void Preview()
@@ -181,6 +186,34 @@ public class Clothing : MonoBehaviour
         return new Vector3((ChildSize.x + Margin) * Num, 0.0f, 0.0f);
     }
     //===========================================================================================================
+    //===========================================================================================================
+    //アイテム
+    //選択されている服を持っているか
+    private void HavingItem()
+    {
+        if (!connect.IsWait())
+        {
+            if (inventory.IsHaveItem(shopcanvas.GetItemInfo().storeItem.ItemId))
+            {
+                IsHaving = true;
+            }
+            else
+            {
+                IsHaving = false;
+            }
+            buyandwear_text.SetTextFlag(IsHaving);
+            State = SHELFSTATE.PREVIEW;
+        }
+        
+    }
+
+    //所持フラグの取得
+    public bool GetHavingFlag()
+    {
+        return IsHaving;
+    }
+    //===========================================================================================================
+
     //===========================================================================================================
     //取得(Getter)
     public float GetDirectionTime()
