@@ -139,6 +139,8 @@ MonoBehaviour:
   SubScore: -100
   Effect: {fileID: 11400000, guid: a021cbc22aef66e41849182724dcd057, type: 2}
   BreakSEName: BreakSyokudai
+  MinusCoinUIObject: {fileID: 214298552553398425, guid: fa32bb4a39edd1f4aa7872f6fe07f33b,
+    type: 3}
 --- !u!61 &5012690190625812642
 BoxCollider2D:
   m_ObjectHideFlags: 0

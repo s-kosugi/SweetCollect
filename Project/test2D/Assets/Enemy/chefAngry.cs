@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Effekseer;
+using TMPro;
 
 public class chefAngry : MonoBehaviour
 {
@@ -58,6 +57,7 @@ public class chefAngry : MonoBehaviour
                 // 時間減算UIを表示
                 GameObject obj = Instantiate(MinusTimeUIObject, CanvasObject.transform);
                 obj.transform.position = RectTransformUtility.WorldToScreenPoint(cameraObject, this.transform.position);
+                obj.GetComponent<TextMeshProUGUI>().text = (-MinusTime).ToString();
             }
         }
     }
