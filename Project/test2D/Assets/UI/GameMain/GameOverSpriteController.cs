@@ -14,6 +14,7 @@ public class GameOverSpriteController : MonoBehaviour
 
     void Start()
     {
+        Reset();
     }
 
     void FixedUpdate()
@@ -29,7 +30,7 @@ public class GameOverSpriteController : MonoBehaviour
         else
         {
             // イージングでアニメーションさせる
-            Vector3 vec = this.transform.position;
+            Vector3 vec = this.transform.localPosition;
             if (Time.time - StartTime >= AnimationTime)
             {
                 vec.y = GoalPositionY;
@@ -38,16 +39,16 @@ public class GameOverSpriteController : MonoBehaviour
             {
                 vec.y = Easing.OutBounce(Time.time - StartTime, AnimationTime, GoalPositionY, StartPositionY);
             }
-            this.transform.position = vec;
+            this.transform.localPosition = vec;
             // リスタートされたらリセットする
             if (GameMainManager.state == GameMainManager.STATE.PRERESTART) Reset();
         }
     }
     private void Reset()
     {
-        Vector3 vec = this.transform.position;
+        Vector3 vec = this.transform.localPosition;
         vec.y = StartPositionY;
-        this.transform.position = vec;
+        this.transform.localPosition = vec;
         m_Enable = false;
     }
 }

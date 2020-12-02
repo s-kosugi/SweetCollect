@@ -7,8 +7,6 @@ public class GameMainManager : BaseScene
     [SerializeField] GameObject StartUIObject = null;
     [SerializeField] GameObject ReStartUIObject = null;
     [SerializeField] private float GameTimer = 60f;
-    [SerializeField] GameOverButton AdsButton = null;
-    [SerializeField] GameOverButton ResultButton = null;
     [SerializeField] Ads AdsObject = null;
     private StartUI m_StartUI = null;
     private StartUI m_ReStartUI = null;
@@ -147,15 +145,6 @@ public class GameMainManager : BaseScene
         if (GameOverCount >= GameOverTime)
         {
             GameOverCount = 0f;
-#if UNITY_ANDROID
-            // ボタンUIを出現させる
-            AdsButton.state = GameOverButton.STATE.APPEAR;
-#else
-            // リザルトボタンの移動処理を書く
-#endif
-            ResultButton.state = GameOverButton.STATE.APPEAR;
-
-
             state = STATE.NEXT;
         }
     }
@@ -176,12 +165,6 @@ public class GameMainManager : BaseScene
         {
             ReStartUIObject.SetActive(true);
             state = STATE.RESTART;
-
-#if UNITY_ANDROID
-            // ボタンUIを隠す
-            AdsButton.state = GameOverButton.STATE.HIDE;
-#endif
-            ResultButton.state = GameOverButton.STATE.HIDE;
         }
     }
     // ゲームリスタート状態
