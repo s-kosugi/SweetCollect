@@ -31,6 +31,11 @@ public class ConnectWaitUI : MonoBehaviour
             {
                 text.text = "ちょっとまってね・・・";
             }
+            // カウンターリセット
+            if (ConnectAnimeCounter >= ConnectAnimeTime)
+            {
+                ConnectAnimeCounter = 0f;
+            }
         }
         else
         {
