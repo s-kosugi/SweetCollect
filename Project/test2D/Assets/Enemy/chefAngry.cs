@@ -10,11 +10,16 @@ public class chefAngry : MonoBehaviour
     [SerializeField] float MinusTime = 5.0f;
     [SerializeField] SpriteRenderer sprite = default;
     [SerializeField] EffekseerEffectAsset effect = default;
+    [SerializeField] GameObject MinusTimeUIObject = default;
     EffekseerHandle effectHandle = default;
+    private GameObject CanvasObject = default;
+    private Camera cameraObject = default;
 
     void Start()
     {
         GameMain = transform.root.GetComponent<GameMainManager>();
+        CanvasObject = GameObject.Find("Canvas");
+        cameraObject = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     void Update()
@@ -49,6 +54,10 @@ public class chefAngry : MonoBehaviour
 
                 // 怒り音を再生
                 SoundManager.Instance.PlaySE("Angry");
+
+                // 時間減算UIを表示
+                GameObject obj = Instantiate(MinusTimeUIObject, CanvasObject.transform);
+                obj.transform.position = RectTransformUtility.WorldToScreenPoint(cameraObject, this.transform.position);
             }
         }
     }

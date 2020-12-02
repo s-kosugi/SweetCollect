@@ -287,6 +287,8 @@ MonoBehaviour:
   MinusTime: 5
   sprite: {fileID: 79679106820806747}
   effect: {fileID: 11400000, guid: d1c713e4683114443821ff3dc4ead210, type: 2}
+  MinusTimeUIObject: {fileID: 6846265849466079567, guid: 59b2c7b2f4ed18a43a0258fef006ded8,
+    type: 3}
 --- !u!1001 &7023289753925773022
 PrefabInstance:
   m_ObjectHideFlags: 0
