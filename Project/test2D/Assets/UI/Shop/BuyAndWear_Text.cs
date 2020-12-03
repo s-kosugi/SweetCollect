@@ -21,7 +21,8 @@ public class BuyAndWear_Text : MonoBehaviour
     {
         Text = this.GetComponent<TextMeshProUGUI>();
         text_BuyAndWear.Buy = "かう";
-        text_BuyAndWear.Wear = "おすな";
+        text_BuyAndWear.Wear = "きる";
+        Text.text = "";
     }
 
     //===========================================================================================================
