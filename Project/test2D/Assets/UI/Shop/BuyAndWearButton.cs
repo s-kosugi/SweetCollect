@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,9 +16,10 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private Clothing clothing = null;
 
     [SerializeField] private Button button;
-
+    [SerializeField] private bool IsConnect;    //通信中
     [SerializeField] private bool IsPush;       //ボタンを押したかどうか
-    [SerializeField] private bool IsAction;     //購入中または着用中
+    [SerializeField] private bool IsAction;     //行動できるかどうか
+    [SerializeField] private bool IsSelect;     //選択中(購入または着用)
     [SerializeField] private bool IsUpdate;     //更新中
 
     //状態分け
@@ -43,9 +45,12 @@ public class BuyAndWearButton : MonoBehaviour
         shop = this.transform.root.GetComponent<ShopCanvasController>();
         playermoney = this.transform.root.transform.Find("Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
         clothing = this.transform.root.transform.Find("Clothing_Parent/Clothing").GetComponent<Clothing>();
+        button = this.GetComponent<Button>();
 
+        IsConnect = false;
         IsPush = false;
         IsAction = false;
+        IsSelect = false;
         IsUpdate = false;
 
         State_Button = STATE.UPDATE;
@@ -61,34 +66,43 @@ public class BuyAndWearButton : MonoBehaviour
             case STATE.BUYorWEAR: BuyorWear(); break;
             case STATE.UPDATE: Button_Update(); break;
         }
+
+        EnableButton();
+
     }
     //===========================================================================================================
     //状態関連
     //受付
     private void Reception()
     {
-        if(IsPush)
+        if(IsPush && !IsAction && !IsConnect)
         {
             State_Button = STATE.PUSH;
             IsPush = false;
+            IsAction = true;
         }
     }
     //押された
     private void Push()
     {
-        if(!connect.IsWait())
+        if (IsAction)
         {
-            State_Button = STATE.BUYorWEAR;
-        }
-        else
-        {
-            State_Button = STATE.RECEPTION;
+            if (!connect.IsWait())
+            {
+                State_Button = STATE.BUYorWEAR;
+                IsAction = false;
+            }
+            else
+            {
+                State_Button = STATE.RECEPTION;
+                IsAction = false;
+            }
         }
     }
     //購入または着る
     private void BuyorWear()
     {
-        if (IsAction == false)
+        if (IsSelect == false)
         {
             if (!connect.IsWait())
             {
@@ -104,7 +118,7 @@ public class BuyAndWearButton : MonoBehaviour
                     Debug.Log(shop.GetItemInfo().catalogItem.ItemId + "を着用しました");
                 }
                 playermoney.RequestMoney();
-                IsAction = true;
+                IsSelect = true;
             }
         }
         else
@@ -112,14 +126,14 @@ public class BuyAndWearButton : MonoBehaviour
             if (!connect.IsWait())
             {
                 State_Button = STATE.UPDATE;
-                IsAction = false;
+                IsSelect = false;
             }
         }
     }
     //更新
     private void Button_Update()
     {
-        if(!IsUpdate)
+        if (!IsUpdate)
         {
             if (!connect.IsWait())
             {
@@ -129,18 +143,30 @@ public class BuyAndWearButton : MonoBehaviour
         }
         else
         {
-            if (!connect.IsWait())
+            if (IsConnect)
             {
-                State_Button = STATE.RECEPTION;
-                IsUpdate = false;
-                clothing.CheckHavingCloting();
+                if (!connect.IsWait())
+                {
+                    State_Button = STATE.RECEPTION;
+                    IsUpdate = false;
+                    IsConnect = false;
+                    clothing.CheckHavingCloting();
+                }
+            }
+            else
+            {
+                if (connect.IsWait())
+                {
+                    IsConnect = true;
+                }
             }
         }
+        
     }
 
     //===========================================================================================================
     //===========================================================================================================
-    //ボタン選択
+    //ボタン
     public void Push_Button()
     {
         if (State_Button ==  STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
@@ -148,7 +174,18 @@ public class BuyAndWearButton : MonoBehaviour
             IsPush = true;
         }
     }
-
+    //ボタンの有効化
+    private void EnableButton()
+    {
+        if (State_Button == STATE.RECEPTION)
+        {
+            button.enabled = true;
+        }
+        else
+        {
+            button.enabled = false;
+        }
+    }
     //===========================================================================================================
     //===========================================================================================================
     //所持アイテムの確認
