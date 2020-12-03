@@ -23,7 +23,7 @@ public class BackGroundController : MonoBehaviour
         if (m_GamemainManager.state == GameMainManager.STATE.MAIN)
         {
             // 背景スクロール
-            transform.position = new Vector3(transform.position.x - MoveSpeed, transform.position.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x - MoveSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 
             // 左画面外に出た場合
             if (transform.position.x < -100 && !MainCameraIn)
@@ -31,7 +31,7 @@ public class BackGroundController : MonoBehaviour
                 // もう一つの背景オブジェクトの隣に移動する。
                 if (TraceObject)
                 {
-                    transform.position = new Vector3(TraceObject.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x - 1, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(TraceObject.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x - 2, transform.position.y, transform.position.z);
                 }
             }
         }
