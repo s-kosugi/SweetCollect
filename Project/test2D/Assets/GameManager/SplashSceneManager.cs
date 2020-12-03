@@ -43,10 +43,10 @@ public class SplashSceneManager : BaseScene
     private void Main()
     {
         WaitCounter += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0))
-        {
-            WaitCounter = WaitScreenTime;
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    WaitCounter = WaitScreenTime;
+        //}
         if (WaitCounter >= WaitScreenTime)
         {
             // フェードアウト状態にする
