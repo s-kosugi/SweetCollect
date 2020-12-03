@@ -529,8 +529,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.22, y: -57.4}
-  m_SizeDelta: {x: 150, y: 100}
+  m_AnchoredPosition: {x: -70.22, y: -53.2}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &100782661
 MonoBehaviour:
@@ -552,11 +552,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.97785413, g: 1, b: 0.41509432, a: 1}
-    m_HighlightedColor: {r: 0.97661424, g: 1, b: 0.6698113, a: 1}
-    m_PressedColor: {r: 0.81391793, g: 0.8679245, b: 0.41758633, a: 1}
-    m_SelectedColor: {r: 1, g: 0.99641156, b: 0.16037738, a: 1}
-    m_DisabledColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0.5019608}
+    m_NormalColor: {r: 0.83137256, g: 0.35686275, b: 0.14509805, a: 1}
+    m_HighlightedColor: {r: 0.9490196, g: 0.4745098, b: 0.2627451, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23921569, b: 0.02745098, a: 1}
+    m_SelectedColor: {r: 0.83137256, g: 0.35686275, b: 0.14509805, a: 1}
+    m_DisabledColor: {r: 0.3882353, g: 0.3882353, b: 0.3882353, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3891,11 +3891,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.97785413, g: 1, b: 0.41509432, a: 1}
-    m_HighlightedColor: {r: 0.97661424, g: 1, b: 0.6698113, a: 1}
-    m_PressedColor: {r: 0.81391793, g: 0.8679245, b: 0.41758633, a: 1}
-    m_SelectedColor: {r: 1, g: 0.99641156, b: 0.16037738, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.83137256, g: 0.35686275, b: 0.14509805, a: 1}
+    m_HighlightedColor: {r: 0.9490196, g: 0.4745098, b: 0.2627451, a: 1}
+    m_PressedColor: {r: 0.7137255, g: 0.23921569, b: 0.02745098, a: 1}
+    m_SelectedColor: {r: 0.83137256, g: 0.35686275, b: 0.14509805, a: 1}
+    m_DisabledColor: {r: 0.3882353, g: 0.3882353, b: 0.3882353, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4394,7 +4394,7 @@ MonoBehaviour:
   Player: {fileID: 1953754664}
   StartUIObject: {fileID: 861172193}
   ReStartUIObject: {fileID: 1358034690}
-  GameTimer: 60
+  GameTimer: 5
   AdsObject: {fileID: 2059281801}
   WebGLGameOverTime: 120
   RestartBonusRate: 2
