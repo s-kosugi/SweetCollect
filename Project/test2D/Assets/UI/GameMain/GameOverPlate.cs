@@ -28,12 +28,14 @@ public class GameOverPlate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_ANDROID
         switch (m_State)
         {
             case STATE.HIDE: Hide(); break;
             case STATE.APPEAR: Appear(); break;
             case STATE.WAIT: Wait(); break;
         }
+#endif
     }
     void Hide()
     {

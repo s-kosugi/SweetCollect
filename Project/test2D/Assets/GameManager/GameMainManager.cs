@@ -18,6 +18,12 @@ public class GameMainManager : BaseScene
     private JumpAnimation m_PlayerJump = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
+    [SerializeField] float WebGLGameOverTime = 120f;
+    private float WebGLEndCount = 0f;
+
+    public float CoinGetRate { get; private set; }
+    [SerializeField] float RestartBonusRate = 2.0f;     // リスタート時のコイン取得倍率
+
     // ゲームメイン状態
     public enum STATE
     {
@@ -44,6 +50,7 @@ public class GameMainManager : BaseScene
     override protected void Start()
     {
         GameOverCount = 0.0f;
+        CoinGetRate = 1f;
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_PlayFabStatistics = playFabManager.transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
@@ -151,18 +158,22 @@ public class GameMainManager : BaseScene
     // 次のシーン受付状態
     void GameNext()
     {
-        // タップされたらフェードアウト状態にして次のシーンへ
-        //if (Input.GetMouseButton(0))
-        //{
-        //    // フェードアウト状態に変更する
-        //    fadeState = FADE_STATE.FADEOUT;
-        //}
+        // WebGL版は広告ボタンを表示せずに時間経過で移動する
+#if UNITY_WEBGL
+        WebGLEndCount += Time.deltaTime;
+        if( WebGLGameOverTime >= WebGLEndCount)
+        {
+            fadeState = FADE_STATE.FADEOUT;
+        }
+#endif
     }
     // ゲームリスタート準備
     void GamePreReStart()
     {
         if (!AdsObject.isPlaying())
         {
+            // 得点入手レートをボーナス用に変更する
+            CoinGetRate = RestartBonusRate;
             ReStartUIObject.SetActive(true);
             state = STATE.RESTART;
         }

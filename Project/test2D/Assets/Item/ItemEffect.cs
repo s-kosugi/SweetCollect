@@ -6,10 +6,14 @@
 public class ItemEffect : MonoBehaviour
 {
     [SerializeField] protected int Score = 1;
-    //[SerializeField] protected float RecoverValue = 10f;
+    private GameMainManager gameMainManager = default;
+
+    private void Start()
+    {
+        gameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
+    }
 
     public int score
-    { get { return Score; } }
-    //public float recoverValue { get { return this.RecoverValue; } }
+    { get { return (int)(Score * gameMainManager.CoinGetRate); } }
 
 }

@@ -713,6 +713,7 @@ GameObject:
   - component: {fileID: 216759663}
   - component: {fileID: 216759664}
   - component: {fileID: 216759665}
+  - component: {fileID: 216759666}
   m_Layer: 0
   m_Name: BackTexture1
   m_TagString: Untagged
@@ -797,8 +798,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TraceObject: {fileID: 767655190}
-  MoveSpeed: 1
+  MoveSpeed: 60
   GameMainManagerObject: {fileID: 2040733008}
+--- !u!114 &216759666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216759662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &245712197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1754,7 @@ GameObject:
   - component: {fileID: 767655191}
   - component: {fileID: 767655193}
   - component: {fileID: 767655192}
+  - component: {fileID: 767655194}
   m_Layer: 0
   m_Name: BackTexture2
   m_TagString: Untagged
@@ -1775,7 +1789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TraceObject: {fileID: 216759662}
-  MoveSpeed: 1
+  MoveSpeed: 60
   GameMainManagerObject: {fileID: 2040733008}
 --- !u!212 &767655193
 SpriteRenderer:
@@ -1827,6 +1841,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &767655194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767655190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &772115334
 GameObject:
   m_ObjectHideFlags: 0
@@ -3668,7 +3694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 246}
+  m_AnchoredPosition: {x: 0, y: 268.56}
   m_SizeDelta: {x: 500, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704919026
@@ -4370,6 +4396,8 @@ MonoBehaviour:
   ReStartUIObject: {fileID: 1358034690}
   GameTimer: 60
   AdsObject: {fileID: 2059281801}
+  WebGLGameOverTime: 120
+  RestartBonusRate: 2
 --- !u!4 &2040733010
 Transform:
   m_ObjectHideFlags: 0
