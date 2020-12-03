@@ -2,7 +2,7 @@
 
 public class CreditSceneManager : BaseScene
 {
-    private enum STATE
+    public enum STATE
     {
         FADEIN,
         MAIN,
@@ -41,16 +41,24 @@ public class CreditSceneManager : BaseScene
     private void Main()
     {
         
-        //if (WaitCounter >= WaitScreenTime)
-        //{
-        //    // フェードアウト状態にする
-        //    fadeState = FADE_STATE.FADEOUT;
-        //    m_State = STATE.FADEOUT;
-        //}
+     
     }
     // フェードアウト中
     private void CreditFadeOut()
     {
 
+    }
+
+    public void Push_CreditButton()
+    {
+        // フェードアウト状態にする
+        fadeState = FADE_STATE.FADEOUT;
+        m_State = STATE.FADEOUT;
+    }
+
+    //状態の取得
+    public STATE GetState()
+    {
+        return m_State;
     }
 }
