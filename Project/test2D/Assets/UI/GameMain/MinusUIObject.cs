@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MinusUIObject : MonoBehaviour
 {
-    [SerializeField] float UpSpeed = 5.0f;
+    [SerializeField] float UpSpeed = 300.0f;
     [SerializeField] float LifeTime = 1.5f;
     [SerializeField] Image image = default;
     private float LifeCount = 0;
@@ -19,7 +19,7 @@ public class MinusUIObject : MonoBehaviour
     void Update()
     {
         Vector3 temp = transform.position;
-        temp.y += UpSpeed;
+        temp.y += UpSpeed * Time.deltaTime;
         transform.position = temp;
 
         LifeCount += Time.deltaTime;

@@ -243,6 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa14de870c90d5d489a77e818863a944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpSpeed: 2
+  UpSpeed: 300
   LifeTime: 1.5
   image: {fileID: 7903882059206311852}
