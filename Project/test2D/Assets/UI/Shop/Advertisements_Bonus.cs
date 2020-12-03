@@ -13,7 +13,7 @@ public class Advertisements_Bonus : MonoBehaviour
     {
         Advertisements = gameObject.GetComponent<Advertisements>();
         PlayFabVirtualCurrency = GameObject.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
-        money = GameObject.Find("ShopCanvas/Player_Money/Money_Text").GetComponent<Money_Text>();
+        money = GameObject.Find("ShopCanvas/Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
         IsAddBonus = false;
     }
 

@@ -12,6 +12,7 @@ public class BuyAndWearButton : MonoBehaviour
 
     [SerializeField] private ShopCanvasController shop = null;
     [SerializeField] private Money_Text playermoney = null;
+    [SerializeField] private Clothing clothing = null;
 
     [SerializeField] private Button button;
 
@@ -40,13 +41,14 @@ public class BuyAndWearButton : MonoBehaviour
         AvatarData = GameObject.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
         
         shop = this.transform.root.GetComponent<ShopCanvasController>();
-        playermoney = this.transform.root.transform.Find("Player_Money/Money_Text").GetComponent<Money_Text>();
+        playermoney = this.transform.root.transform.Find("Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
+        clothing = this.transform.root.transform.Find("Clothing_Parent/Clothing").GetComponent<Clothing>();
 
         IsPush = false;
         IsAction = false;
         IsUpdate = false;
 
-        State_Button = STATE.RECEPTION;
+        State_Button = STATE.UPDATE;
     }
 
     // Update is called once per frame
@@ -131,6 +133,7 @@ public class BuyAndWearButton : MonoBehaviour
             {
                 State_Button = STATE.RECEPTION;
                 IsUpdate = false;
+                clothing.CheckHavingCloting();
             }
         }
     }
@@ -140,7 +143,7 @@ public class BuyAndWearButton : MonoBehaviour
     //ボタン選択
     public void Push_Button()
     {
-        if (State_Button ==  STATE.RECEPTION)
+        if (State_Button ==  STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
         {
             IsPush = true;
         }

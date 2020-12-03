@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Clothing : MonoBehaviour
@@ -19,9 +20,10 @@ public class Clothing : MonoBehaviour
 
     [SerializeField] private string TestName;
     [SerializeField] private bool IsHaving;                             //取得済み
+    [SerializeField] private bool IsHaveCheck;                          //取得確認中
     [SerializeField] private float DIRECTION_TIME = 0.3f;                //演出時間
 
-    enum SHELFSTATE
+    public enum SHELFSTATE
     {
         NONE = -1,
         WAIT = 0,
@@ -43,6 +45,9 @@ public class Clothing : MonoBehaviour
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
         Margin = ChildSize.x / 4;
+        IsHaving = false;
+        IsHaveCheck = false;
+
         FindChild();
     }
 
@@ -96,6 +101,7 @@ public class Clothing : MonoBehaviour
         }
         TestName = SpriteDictionary[PalyFabStore.StoreItems[SelectNumber].ItemId].name;
         State = SHELFSTATE.CHANGE;
+        
     }
     private void Change()
     {
@@ -109,12 +115,13 @@ public class Clothing : MonoBehaviour
           shopcanvas.SetSelectItem(PalyFabStore.StoreItems[SelectNumber]);
         }
 
-        HavingItem();
+        CheckHavingCloting();
+        State = SHELFSTATE.PREVIEW;
     }
 
     private void Preview()
     {
-        
+        HavingItem();
     }
 
     //===========================================================================================================
@@ -191,18 +198,21 @@ public class Clothing : MonoBehaviour
     //選択されている服を持っているか
     private void HavingItem()
     {
-        if (!connect.IsWait())
+        if(IsHaveCheck)
         {
-            if (inventory.IsHaveItem(shopcanvas.GetItemInfo().storeItem.ItemId))
+            if (!connect.IsWait())
             {
-                IsHaving = true;
+                if (inventory.IsHaveItem(shopcanvas.GetItemInfo().storeItem.ItemId))
+                {
+                    IsHaving = true;
+                }
+                else
+                {
+                    IsHaving = false;
+                }
+                buyandwear_text.SetTextFlag(IsHaving);
+                IsHaveCheck = false;
             }
-            else
-            {
-                IsHaving = false;
-            }
-            buyandwear_text.SetTextFlag(IsHaving);
-            State = SHELFSTATE.PREVIEW;
         }
         
     }
@@ -212,6 +222,13 @@ public class Clothing : MonoBehaviour
     {
         return IsHaving;
     }
+
+    //取得状態の確認
+    public void CheckHavingCloting()
+    {
+        IsHaveCheck = true;
+    }
+
     //===========================================================================================================
 
     //===========================================================================================================
@@ -219,6 +236,11 @@ public class Clothing : MonoBehaviour
     public float GetDirectionTime()
     {
         return DIRECTION_TIME;
+    }
+
+    public SHELFSTATE GetState()
+    {
+        return State;
     }
     //===========================================================================================================
 }
