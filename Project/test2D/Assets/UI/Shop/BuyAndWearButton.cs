@@ -44,7 +44,7 @@ public class BuyAndWearButton : MonoBehaviour
         
         shop = this.transform.root.GetComponent<ShopCanvasController>();
         playermoney = this.transform.root.transform.Find("Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
-        clothing = this.transform.root.transform.Find("Clothing_Parent/Clothing").GetComponent<Clothing>();
+        clothing = GameObject.Find("Clothing_Parent/Clothing").GetComponent<Clothing>();
         button = this.GetComponent<Button>();
 
         IsConnect = false;

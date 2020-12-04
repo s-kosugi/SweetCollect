@@ -6,19 +6,24 @@ using UnityEngine.UI;
 
 public class Ui_Clothing : MonoBehaviour
 {
-    [SerializeField] private Clothing Parent = null;   
-    [SerializeField] private Image PreviewImage = null;
+    [SerializeField] private Clothing clothing = null;   
+    [SerializeField] private SpriteRenderer PreviewImage = null;
+
     [SerializeField] private int PreviewOrder = 0;   //リストの何番目か
     [SerializeField] private int OrderFromTheCenter;  //中心から見て何番目か
+
     [SerializeField] private bool IsDirection;       //演出
     [SerializeField] private Vector3 DirectionStartPosition;       //演出開始場所
     [SerializeField] private Vector3 EndPosition;                 //最終的な最終位置
     [SerializeField] private float DirectionTimer;                //演出時間
 
+    private void Awake()
+    {
+        clothing = this.transform.parent.GetComponent<Clothing>();
+    }
 
     private void Start()
     {
-        Parent = this.GetComponentInParent<Clothing>();
     }
 
 
@@ -27,9 +32,9 @@ public class Ui_Clothing : MonoBehaviour
         if (IsDirection)
         {
             DirectionTimer += Time.deltaTime;
-            if(DirectionTimer < Parent.GetDirectionTime())
+            if(DirectionTimer < clothing.GetDirectionTime())
             {
-                    this.transform.localPosition = new Vector3(Easing.Linear(DirectionTimer, Parent.GetDirectionTime(), EndPosition.x , DirectionStartPosition.x)
+                    this.transform.localPosition = new Vector3(Easing.Linear(DirectionTimer, clothing.GetDirectionTime(), EndPosition.x , DirectionStartPosition.x)
                         , 0.0f, 0.0f);
             }
             else
@@ -44,7 +49,7 @@ public class Ui_Clothing : MonoBehaviour
     //自分の表示する画像の設定
     public void SetPreviewImage(Sprite preveiw)
     {
-        PreviewImage = this.GetComponent<Image>();
+        PreviewImage = this.GetComponent<SpriteRenderer>();
         PreviewImage.sprite = preveiw;
     }
 
@@ -64,7 +69,7 @@ public class Ui_Clothing : MonoBehaviour
          IsDirection = true;
         
         DirectionStartPosition = this.transform.localPosition;
-        EndPosition = Parent.SortChildPosition(OrderFromTheCenter);
+        EndPosition = clothing.SortChildPosition(OrderFromTheCenter);
     }
 
 

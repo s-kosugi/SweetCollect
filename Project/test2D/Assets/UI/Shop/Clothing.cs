@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Clothing : MonoBehaviour
@@ -10,6 +9,7 @@ public class Clothing : MonoBehaviour
     [SerializeField] private PlayFabWaitConnect connect = null;    //通信
     [SerializeField] ShopCanvasController shopcanvas = null;
     [SerializeField] BuyAndWear_Text buyandwear_text;
+    [SerializeField] GameObject PreviewSprite;                     //服表示オブジェクト
 
     [SerializeField] List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();
     [SerializeField] private int SpriteDictionaryNumber; //画像の最大数
@@ -40,15 +40,14 @@ public class Clothing : MonoBehaviour
         inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
 
-        shopcanvas = this.GetComponentInParent<ShopCanvasController>();
-        buyandwear_text = this.transform.root.Find("ShopButton/BuyAndWearButton/BuyAndWear_Text").GetComponent<BuyAndWear_Text>();
+        shopcanvas =GameObject.Find("ShopCanvas").GetComponentInParent<ShopCanvasController>();
+        buyandwear_text = GameObject.Find("ShopCanvas/ShopButton/BuyAndWearButton/BuyAndWear_Text").GetComponent<BuyAndWear_Text>();
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
         Margin = ChildSize.x / 4;
         IsHaving = false;
         IsHaveCheck = false;
 
-        FindChild();
     }
 
     // Update is called once per frame
@@ -84,6 +83,8 @@ public class Clothing : MonoBehaviour
             SpriteDictionary.Add(PalyFabStore.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + PalyFabStore.StoreItems[i].ItemId));
             SpriteDictionaryNumber = SpriteDictionary.Count;
         }
+
+        CreateChild();
 
         for (int i = 0; i < ClothingChild.Count; i++)
         {
@@ -164,16 +165,24 @@ public class Clothing : MonoBehaviour
 
     //===========================================================================================================
     //子供関連
-    private void FindChild()
+    private void CreateChild()
     {
-        foreach (Transform Child in this.transform)
+        //foreach (Transform Child in this.transform)
+        //{
+        //    //情報があった場合
+        //    Ui_Clothing ItemInfo = Child.GetComponent<Ui_Clothing>();
+        //    if (!ItemInfo)
+        //    {
+        //        ItemInfo = Child.gameObject.AddComponent<Ui_Clothing>();
+        //    }
+        //    ClothingChild.Add(ItemInfo);
+        //}
+        //SortChild();
+
+        for(int i = 0; i < PalyFabStore.StoreItems.Count; i++)
         {
-            //情報があった場合
-            Ui_Clothing ItemInfo = Child.GetComponent<Ui_Clothing>();
-            if (!ItemInfo)
-            {
-                ItemInfo = Child.gameObject.AddComponent<Ui_Clothing>();
-            }
+            GameObject Preview = Instantiate(PreviewSprite, this.transform);
+            Ui_Clothing ItemInfo = Preview.GetComponent<Ui_Clothing>();
             ClothingChild.Add(ItemInfo);
         }
         SortChild();

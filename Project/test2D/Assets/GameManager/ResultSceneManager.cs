@@ -168,15 +168,18 @@ public class ResultSceneManager : BaseScene
         if (m_UIFadeOutTimer >= UIFadeOutTime)
         {
             // UIのフェードアウトが終わったのでランキングシーンに遷移する
-            SceneManager.LoadScene("RankingScene");
+            //SceneManager.LoadScene(NextSceneName);
         }
     }
 
     // 次のシーンへ進む
     public void StepNextScene()
-    {       
-        if( state != STATE.FADEOUT)
+    {
+        if (state != STATE.FADEOUT)
+        {
+            fadeState = FADE_STATE.FADEOUT;
             // UIをフェードアウトさせる
-            state = STATE.FADEOUT;
+            //state = STATE.FADEOUT;
+        }
     }
 }
