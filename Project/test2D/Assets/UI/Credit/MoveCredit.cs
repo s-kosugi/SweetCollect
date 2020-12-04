@@ -44,7 +44,7 @@ public class MoveCredit : MonoBehaviour
     //自分の開始位置の設定
     private void SetStartPosition()
     {
-        recttransform.localPosition = new Vector3(Screen.width, 0.0f, 0.0f);
+        recttransform.localPosition = new Vector3(400f, 0.0f, 0.0f);
         StartPosition = recttransform.localPosition;
     }
 
@@ -73,12 +73,16 @@ public class MoveCredit : MonoBehaviour
                 recttransform.localPosition += new Vector3(-MoveSpee, 0.0f, 0.0f) * Time.deltaTime;
             }
         }
+        if (EndPoint.transform.position.x < 0.0f)
+        {
+            creditscene.Push_CreditButton();
+        }
     }
 
     //移動開始
     private bool CheckMove()
     {
-        if(creditscene.GetState() == CreditSceneManager.STATE.MAIN && EndPoint.transform.position.x > 0.0f)
+        if(creditscene.GetState() == CreditSceneManager.STATE.MAIN )
         {
             return true;
         }
