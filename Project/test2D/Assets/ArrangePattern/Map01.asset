@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Map01
   m_EditorClassIdentifier: 
   ArrangeTableItemList:
+  - PatternPrefab: {fileID: 7830376665355502680, guid: 65128aa99922fc746a6a646d1a5ab096,
+      type: 3}
+  - PatternPrefab: {fileID: 227262925563663001, guid: 12368ebaf37bfb24393a7530f41b3d6f,
+      type: 3}
   - PatternPrefab: {fileID: 3299505923332838655, guid: 110d781af438f5847a9dfb7884bb1a20,
       type: 3}
   - PatternPrefab: {fileID: 7449968690745617347, guid: eb828d16f3b65c24e81a57d26348d64e,
