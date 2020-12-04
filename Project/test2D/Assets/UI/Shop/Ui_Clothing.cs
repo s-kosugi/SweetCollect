@@ -17,6 +17,8 @@ public class Ui_Clothing : MonoBehaviour
     [SerializeField] private Vector3 EndPosition;                 //最終的な最終位置
     [SerializeField] private float DirectionTimer;                //演出時間
 
+    private SpriteRenderer spriteRenderer = default;
+
     private void Awake()
     {
         clothing = this.transform.parent.GetComponent<Clothing>();
@@ -24,6 +26,7 @@ public class Ui_Clothing : MonoBehaviour
 
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -72,5 +75,12 @@ public class Ui_Clothing : MonoBehaviour
         EndPosition = clothing.SortChildPosition(OrderFromTheCenter);
     }
 
-
+    /// <summary>
+    /// 外部からの色のセット
+    /// </summary>
+    /// <param name="color"></param>
+    public void SetColor( Color color)
+    {
+        spriteRenderer.color = color;
+    }
 }

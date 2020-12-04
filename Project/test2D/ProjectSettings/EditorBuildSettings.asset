@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShopScene.unity
     guid: 148799d78304125488ef20e51cbfab65
+  - enabled: 1
+    path: Assets/Scenes/CreditScene.unity
+    guid: 22a1900b637131f4385d06c78c81709e
   - enabled: 0
     path: Assets/Scenes/ArrangementScene.unity
     guid: d4aa45ddfb291244fbe67ca94ee329fd

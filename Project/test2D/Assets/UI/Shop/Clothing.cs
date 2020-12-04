@@ -44,7 +44,7 @@ public class Clothing : MonoBehaviour
         buyandwear_text = GameObject.Find("ShopCanvas/ShopButton/BuyAndWearButton/BuyAndWear_Text").GetComponent<BuyAndWear_Text>();
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
-        Margin = ChildSize.x / 4;
+        //Margin = ChildSize.x / 4;
         IsHaving = false;
         IsHaveCheck = false;
 
@@ -60,6 +60,9 @@ public class Clothing : MonoBehaviour
             case SHELFSTATE.CHANGE: Change(); break;
             case SHELFSTATE.PREVIEW: Preview(); break;
         }
+
+        // 持っていない服の黒塗り処理
+        FillBlack();
     }
 
     //===========================================================================================================
@@ -252,4 +255,22 @@ public class Clothing : MonoBehaviour
         return State;
     }
     //===========================================================================================================
+
+    /// <summary>
+    /// 服の黒塗処理
+    /// </summary>
+    private void FillBlack( )
+    {
+        for(int i = 0; i < ClothingChild.Count;i++)
+        {
+            if (inventory.IsHaveItem(PalyFabStore.StoreItems[i].ItemId))
+            {
+                ClothingChild[i].SetColor(new Color(1f,1f,1f));
+            }
+            else
+            {
+                ClothingChild[i].SetColor(new Color(0f,0f,0f));
+            }
+        }
+    }
 }
