@@ -61,9 +61,6 @@ public class Clothing : MonoBehaviour
             case SHELFSTATE.CHANGE: Change(); break;
             case SHELFSTATE.PREVIEW: Preview(); break;
         }
-
-        // 持っていない服の黒塗り処理
-        FillBlack();
     }
 
     //===========================================================================================================
@@ -122,11 +119,19 @@ public class Clothing : MonoBehaviour
 
         CheckHavingCloting();
         State = SHELFSTATE.PREVIEW;
+
+
+        // 持っていない服の黒塗り処理
+        FillBlack();
     }
 
     private void Preview()
     {
         HavingItem();
+
+
+        // 持っていない服の黒塗り処理
+        FillBlack();
     }
 
     //===========================================================================================================

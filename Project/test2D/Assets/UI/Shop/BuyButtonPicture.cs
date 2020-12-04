@@ -8,7 +8,6 @@ public class BuyButtonPicture : MonoBehaviour
 {
     [SerializeField] Sprite WearSprite = default;
     [SerializeField] Sprite BuySprite = default;
-    private bool IsWear = true;
     BuyAndWear_Text buyAndWear_Text = default;
     private Image buttonImage;
     private GameObject coinIconObject = default;
