@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class BuyAndWear_Text : MonoBehaviour
 {
+    [SerializeField] string BuyText = "-2000";
+    [SerializeField] string WearText = "";
+
     [SerializeField] TextMeshProUGUI Text;          //文字
     [SerializeField] private bool IsHaving;     //取得済み
 
@@ -20,8 +23,8 @@ public class BuyAndWear_Text : MonoBehaviour
     private void Awake()
     {
         Text = this.GetComponent<TextMeshProUGUI>();
-        text_BuyAndWear.Buy = "かう";
-        text_BuyAndWear.Wear = "きる";
+        text_BuyAndWear.Buy = BuyText;
+        text_BuyAndWear.Wear = WearText;
         Text.text = "";
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Clothing : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class Clothing : MonoBehaviour
     [SerializeField] private PlayFabInventory inventory = null;    //インベントリ
     [SerializeField] private PlayFabWaitConnect connect = null;    //通信
     [SerializeField] ShopCanvasController shopcanvas = null;
-    [SerializeField] BuyAndWear_Text buyandwear_text;
     [SerializeField] GameObject PreviewSprite;                     //服表示オブジェクト
 
     [SerializeField] List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();
@@ -23,6 +23,7 @@ public class Clothing : MonoBehaviour
     [SerializeField] private bool IsHaveCheck;                          //取得確認中
     [SerializeField] private float DIRECTION_TIME = 0.3f;                //演出時間
 
+    private BuyButtonPicture buyButtonPicture = default;
     public enum SHELFSTATE
     {
         NONE = -1,
@@ -41,7 +42,7 @@ public class Clothing : MonoBehaviour
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
 
         shopcanvas =GameObject.Find("ShopCanvas").GetComponentInParent<ShopCanvasController>();
-        buyandwear_text = GameObject.Find("ShopCanvas/ShopButton/BuyAndWearButton/BuyAndWear_Text").GetComponent<BuyAndWear_Text>();
+        buyButtonPicture = GameObject.Find("ShopCanvas/ShopButton/BuyAndWearButton").GetComponent<BuyButtonPicture>();
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
         //Margin = ChildSize.x / 4;
@@ -60,9 +61,6 @@ public class Clothing : MonoBehaviour
             case SHELFSTATE.CHANGE: Change(); break;
             case SHELFSTATE.PREVIEW: Preview(); break;
         }
-
-        // 持っていない服の黒塗り処理
-        FillBlack();
     }
 
     //===========================================================================================================
@@ -121,11 +119,19 @@ public class Clothing : MonoBehaviour
 
         CheckHavingCloting();
         State = SHELFSTATE.PREVIEW;
+
+
+        // 持っていない服の黒塗り処理
+        FillBlack();
     }
 
     private void Preview()
     {
         HavingItem();
+
+
+        // 持っていない服の黒塗り処理
+        FillBlack();
     }
 
     //===========================================================================================================
@@ -222,7 +228,7 @@ public class Clothing : MonoBehaviour
                 {
                     IsHaving = false;
                 }
-                buyandwear_text.SetTextFlag(IsHaving);
+                buyButtonPicture.SetWear(IsHaving);
                 IsHaveCheck = false;
             }
         }
