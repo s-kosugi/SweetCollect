@@ -22,6 +22,9 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private bool IsSelect;     //選択中(購入または着用)
     [SerializeField] private bool IsUpdate;     //更新中
 
+    [SerializeField] private PlayerAvatar playerAvatar = default;
+    [SerializeField] private CurtainAnime curtainAnime = default;
+
     //状態分け
     enum STATE
     {
@@ -77,6 +80,11 @@ public class BuyAndWearButton : MonoBehaviour
     {
         if(IsPush && !IsAction && !IsConnect)
         {
+            if (inventory.IsHaveItem(shop.GetItemInfo().storeItem.ItemId))
+            {
+                // 押されてボタンが有効化された時にカーテンを閉じるアニメーションに変更
+                curtainAnime.ChangeClose();
+            }
             State_Button = STATE.PUSH;
             IsPush = false;
             IsAction = true;
@@ -116,6 +124,12 @@ public class BuyAndWearButton : MonoBehaviour
                     Debug.Log(shop.GetItemInfo().storeItem.ItemId + "は購入済みです");
                     AvatarData.SetPlayerData(shop.GetItemInfo().catalogItem.ItemId);
                     Debug.Log(shop.GetItemInfo().catalogItem.ItemId + "を着用しました");
+
+                    // プレイヤーの見た目更新
+                    playerAvatar.UpdateAvatar();
+
+                    // カーテンを開くアニメーション
+                    curtainAnime.ChangeOpen();
                 }
                 playermoney.RequestMoney();
                 IsSelect = true;
