@@ -25,6 +25,7 @@ public class GameOverSpriteController : MonoBehaviour
             {
                 m_Enable = true;
                 StartTime = Time.time;
+                SoundManager.Instance.PlaySE("Bell");
             }
         }
         else

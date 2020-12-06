@@ -81,6 +81,7 @@ public class CurtainAnime : MonoBehaviour
         // 次の状態がクローズだったら切り替える
         if (nextState == STATE.CLOSE)
         {
+            SoundManager.Instance.PlaySE("Curtain");
             state = STATE.CLOSE;
             AnimeCounter = 0f;
         }
@@ -95,6 +96,7 @@ public class CurtainAnime : MonoBehaviour
         {
             if (nextState == STATE.OPEN)
             {
+                SoundManager.Instance.PlaySE("Curtain");
                 AnimeCounter = 0f;
                 state = STATE.OPEN;
             }

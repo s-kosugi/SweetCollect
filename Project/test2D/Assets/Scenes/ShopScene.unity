@@ -376,6 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseTime: 0.1
   OpenTime: 0.2
+  CloseWaitTime: 0.5
 --- !u!1 &293160762
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacc028deafc7754fa02a6cea2a26971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PalyFabStore: {fileID: 0}
+  playFabStore: {fileID: 0}
   inventory: {fileID: 0}
   connect: {fileID: 0}
   shopcanvas: {fileID: 0}
@@ -3694,6 +3695,7 @@ GameObject:
   - component: {fileID: 1908391125}
   - component: {fileID: 1908391124}
   - component: {fileID: 1908391123}
+  - component: {fileID: 1908391126}
   m_Layer: 5
   m_Name: Right
   m_TagString: Untagged
@@ -3775,6 +3777,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1908391126}
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1908391124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3811,6 +3824,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908391121}
   m_CullTransparentMesh: 0
+--- !u!114 &1908391126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908391121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seFileName: Kachi
 --- !u!1 &1954558473
 GameObject:
   m_ObjectHideFlags: 0
@@ -4236,6 +4262,7 @@ GameObject:
   - component: {fileID: 2121321509}
   - component: {fileID: 2121321508}
   - component: {fileID: 2121321507}
+  - component: {fileID: 2121321510}
   m_Layer: 5
   m_Name: Left
   m_TagString: Untagged
@@ -4317,6 +4344,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2121321510}
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2121321508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4353,3 +4391,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121321505}
   m_CullTransparentMesh: 0
+--- !u!114 &2121321510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121321505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seFileName: Kachi

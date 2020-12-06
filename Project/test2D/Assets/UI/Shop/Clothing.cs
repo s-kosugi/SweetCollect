@@ -294,6 +294,7 @@ public class Clothing : MonoBehaviour
             {
                 // 買った瞬間なのでエフェクトを再生する
                 EffekseerSystem.PlayEffect(buyEffect,this.transform.position);
+                SoundManager.Instance.PlaySE("Buy");
 
                 oldClothingChild[i] = true;
             }
