@@ -6,10 +6,8 @@ public class PlayerAvatar : MonoBehaviour
 {
     private PlayFabPlayerData m_AvatarData = null;
     private SpriteRenderer m_SpriteRenderer = null;
-    private float m_Timer = 0;
-    private float TIMEOUT = 1.5f;
     public bool m_isAvatarChange { get; private set; }
-
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
 
     void Start()
     {
@@ -27,8 +25,8 @@ public class PlayerAvatar : MonoBehaviour
     {
         if (!m_isAvatarChange)
         {
-            // アバターのデータ取得完了済みかどうか。※一旦通信タイムアウトは考えない
-            if (m_AvatarData.m_isGet)
+            // 通信待ちしていないかどうか。※一旦通信タイムアウトは考えない
+            if (!waitConnect.IsWait())
             {
                 Sprite sprite = Resources.Load<Sprite>("Player\\" + m_AvatarData.m_Value);
                 if (sprite)
@@ -40,13 +38,14 @@ public class PlayerAvatar : MonoBehaviour
 
                 return;
             }
-            m_Timer += Time.deltaTime;
-            // タイムアウトしたらデフォルトの服にする
-            if (m_Timer >= TIMEOUT)
-            {
-                Debug.Log("PlayerAvaterTimeOut");
-                m_isAvatarChange = true;
-            }
         }
+    }
+
+    /// <summary>
+    /// アバターの更新
+    /// </summary>
+    public void UpdateAvatar()
+    {
+        m_isAvatarChange = false;
     }
 }

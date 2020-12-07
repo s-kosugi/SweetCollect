@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
+using Effekseer;
 
 public class Clothing : MonoBehaviour
 {
-    [SerializeField] PlayFabStore PalyFabStore;
+    [SerializeField] PlayFabStore playFabStore;
     [SerializeField] private PlayFabInventory inventory = null;    //インベントリ
     [SerializeField] private PlayFabWaitConnect connect = null;    //通信
     [SerializeField] ShopCanvasController shopcanvas = null;
@@ -24,6 +23,8 @@ public class Clothing : MonoBehaviour
     [SerializeField] private float DIRECTION_TIME = 0.3f;                //演出時間
 
     private BuyButtonPicture buyButtonPicture = default;
+    private List<bool> oldClothingChild = new List<bool>();
+    private EffekseerEffectAsset buyEffect = null;
     public enum SHELFSTATE
     {
         NONE = -1,
@@ -37,12 +38,14 @@ public class Clothing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PalyFabStore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
+        playFabStore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
         inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
 
         shopcanvas =GameObject.Find("ShopCanvas").GetComponentInParent<ShopCanvasController>();
         buyButtonPicture = GameObject.Find("ShopCanvas/ShopButton/BuyAndWearButton").GetComponent<BuyButtonPicture>();
+        buyEffect = Resources.Load<EffekseerEffectAsset>("Effect\\buy");
+
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
         //Margin = ChildSize.x / 4;
@@ -67,9 +70,9 @@ public class Clothing : MonoBehaviour
     //状態関連
     private void Wait()
     {
-        if(PalyFabStore.m_isCatalogGet)
+        if(playFabStore.m_isCatalogGet)
         {
-            if (PalyFabStore.m_isStoreGet)
+            if (playFabStore.m_isStoreGet)
             {
                 State = SHELFSTATE.LOAD;
             }
@@ -79,9 +82,9 @@ public class Clothing : MonoBehaviour
     private void Load()
     {
         //ストアのアイテムカウント分リストを追加
-        for (int i = 0; i < PalyFabStore.StoreItems.Count; i++)
+        for (int i = 0; i < playFabStore.StoreItems.Count; i++)
         {
-            SpriteDictionary.Add(PalyFabStore.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + PalyFabStore.StoreItems[i].ItemId));
+            SpriteDictionary.Add(playFabStore.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + playFabStore.StoreItems[i].ItemId));
             SpriteDictionaryNumber = SpriteDictionary.Count;
         }
 
@@ -90,18 +93,18 @@ public class Clothing : MonoBehaviour
         for (int i = 0; i < ClothingChild.Count; i++)
         {
 
-            if (i < PalyFabStore.StoreItems.Count)
+            if (i < playFabStore.StoreItems.Count)
             {
-                ClothingChild[i].SetPreviewImage(SpriteDictionary[PalyFabStore.StoreItems[i].ItemId]);
+                ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[i].ItemId]);
             }
             else
             {
-                ClothingChild[i].SetPreviewImage(SpriteDictionary[PalyFabStore.StoreItems[0].ItemId]);
+                ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[0].ItemId]);
             }
             ClothingChild[i].SetPreviewOrder(i);
             ClothingChild[i].WhatFromPreview(SelectNumber);
         }
-        TestName = SpriteDictionary[PalyFabStore.StoreItems[SelectNumber].ItemId].name;
+        TestName = SpriteDictionary[playFabStore.StoreItems[SelectNumber].ItemId].name;
         State = SHELFSTATE.CHANGE;
         
     }
@@ -114,7 +117,7 @@ public class Clothing : MonoBehaviour
 
         if(shopcanvas)
         {
-          shopcanvas.SetSelectItem(PalyFabStore.StoreItems[SelectNumber]);
+          shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
         }
 
         CheckHavingCloting();
@@ -143,7 +146,7 @@ public class Clothing : MonoBehaviour
         {
             SelectNumber += 1;
             CheckSelectNum();
-            TestName = SpriteDictionary[PalyFabStore.StoreItems[SelectNumber].ItemId].name;
+            TestName = SpriteDictionary[playFabStore.StoreItems[SelectNumber].ItemId].name;
             State = SHELFSTATE.CHANGE;
         }
     }
@@ -154,7 +157,7 @@ public class Clothing : MonoBehaviour
         {
             SelectNumber -= 1;
             CheckSelectNum();
-            TestName = SpriteDictionary[PalyFabStore.StoreItems[SelectNumber].ItemId].name;
+            TestName = SpriteDictionary[playFabStore.StoreItems[SelectNumber].ItemId].name;
             State = SHELFSTATE.CHANGE;
         }
     }
@@ -188,7 +191,7 @@ public class Clothing : MonoBehaviour
         //}
         //SortChild();
 
-        for(int i = 0; i < PalyFabStore.StoreItems.Count; i++)
+        for(int i = 0; i < playFabStore.StoreItems.Count; i++)
         {
             GameObject Preview = Instantiate(PreviewSprite, this.transform);
             Ui_Clothing ItemInfo = Preview.GetComponent<Ui_Clothing>();
@@ -267,15 +270,33 @@ public class Clothing : MonoBehaviour
     /// </summary>
     private void FillBlack( )
     {
+        // old未作成なら作成する
+        if (ClothingChild.Count > 0 && oldClothingChild.Count == 0)
+        {
+            for( int i = 0; i < ClothingChild.Count; i++)
+            {
+                oldClothingChild.Add(inventory.IsHaveItem(playFabStore.StoreItems[i].ItemId));
+            }
+        }
+
         for(int i = 0; i < ClothingChild.Count;i++)
         {
-            if (inventory.IsHaveItem(PalyFabStore.StoreItems[i].ItemId))
+            bool have = inventory.IsHaveItem(playFabStore.StoreItems[i].ItemId);
+            if (have)
             {
                 ClothingChild[i].SetColor(new Color(1f,1f,1f));
             }
             else
             {
                 ClothingChild[i].SetColor(new Color(0f,0f,0f));
+            }
+            if (have == true && oldClothingChild[i] == false)
+            {
+                // 買った瞬間なのでエフェクトを再生する
+                EffekseerSystem.PlayEffect(buyEffect,this.transform.position);
+                SoundManager.Instance.PlaySE("Buy");
+
+                oldClothingChild[i] = true;
             }
         }
     }

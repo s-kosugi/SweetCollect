@@ -656,6 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!1 &108537441
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +714,6 @@ GameObject:
   - component: {fileID: 216759663}
   - component: {fileID: 216759664}
   - component: {fileID: 216759665}
-  - component: {fileID: 216759666}
   m_Layer: 0
   m_Name: BackTexture1
   m_TagString: Untagged
@@ -800,18 +800,6 @@ MonoBehaviour:
   TraceObject: {fileID: 767655190}
   MoveSpeed: 60
   GameMainManagerObject: {fileID: 2040733008}
---- !u!114 &216759666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216759662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &245712197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,6 +1480,7 @@ GameObject:
   - component: {fileID: 643735988}
   - component: {fileID: 643735987}
   - component: {fileID: 643735986}
+  - component: {fileID: 643735989}
   m_Layer: 5
   m_Name: StartText
   m_TagString: Untagged
@@ -1653,6 +1642,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643735984}
   m_CullTransparentMesh: 0
+--- !u!114 &643735989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643735984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89af237127069e04c993f9a10361cbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seFileName: Bell
 --- !u!1 &758669722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,7 +1756,6 @@ GameObject:
   - component: {fileID: 767655191}
   - component: {fileID: 767655193}
   - component: {fileID: 767655192}
-  - component: {fileID: 767655194}
   m_Layer: 0
   m_Name: BackTexture2
   m_TagString: Untagged
@@ -1841,18 +1842,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &767655194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767655190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &772115334
 GameObject:
   m_ObjectHideFlags: 0
@@ -4006,6 +3995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!1 &1770935306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4205,6 +4195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24b60c89a6df5141a55ae702f3bd008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JumpPower: 250
 --- !u!50 &1953754667
 Rigidbody2D:
   serializedVersion: 4
@@ -4333,6 +4324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4421d3501cff414fac3723872c3084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitConnect: {fileID: 51051811}
 --- !u!114 &1953754673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4486,6 +4478,7 @@ GameObject:
   - component: {fileID: 2117265564}
   - component: {fileID: 2117265563}
   - component: {fileID: 2117265565}
+  - component: {fileID: 2117265566}
   m_Layer: 5
   m_Name: StartText
   m_TagString: Untagged
@@ -4647,6 +4640,19 @@ MonoBehaviour:
   AnimeTime: 2
   BackScale: 3
   EndDestroy: 1
+--- !u!114 &2117265566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117265561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89af237127069e04c993f9a10361cbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seFileName: Bell
 --- !u!1001 &7344425416179597846
 PrefabInstance:
   m_ObjectHideFlags: 0

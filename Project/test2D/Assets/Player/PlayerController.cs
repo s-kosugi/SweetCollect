@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     private ScoreManager ScoreManager = null;
     private EffekseerEffectAsset m_JumpEffect = null;
     private EffekseerEffectAsset m_HeartEffect = null;
-    private EffekseerEffectAsset m_DeadEffect = null;
-    private EffekseerEffectAsset m_DamageEffect = null;
     private EffekseerEffectAsset m_CoinGetEffect = null;
     private Rigidbody2D m_RigidBody = null;
     private CalcDamage m_CalcDamage = null;
@@ -29,8 +27,6 @@ public class PlayerController : MonoBehaviour
         ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         m_JumpEffect = Resources.Load<EffekseerEffectAsset>("Effect\\jump");
         m_HeartEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart");
-        m_DeadEffect = Resources.Load<EffekseerEffectAsset>("Effect\\deadeffect");
-        m_DamageEffect = Resources.Load<EffekseerEffectAsset>("Effect\\damage");
         m_CoinGetEffect = Resources.Load<EffekseerEffectAsset>("Effect\\CoinGet");
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_CalcDamage = GetComponent<CalcDamage>();

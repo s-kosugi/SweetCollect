@@ -7,6 +7,8 @@ public class TitleManager : BaseScene
     private PlayFabPlayerData m_PlayFabEClothesData = null;
     private PlayFabUserProfiel m_PlayFabUserProfiel = null;
     private PlayFabPlayerData m_PlayFabTutorialData = null;
+    private PlayFabInventory m_PlayFabInventory = null;
+    private PlayFabStore m_PlayFabStore = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
     private enum STATE
@@ -26,6 +28,8 @@ public class TitleManager : BaseScene
         m_PlayFabEClothesData = PlayFabManager.transform.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
         m_PlayFabUserProfiel = PlayFabManager.transform.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
         m_PlayFabTutorialData = PlayFabManager.transform.Find("PlayFabTutorialData").GetComponent<PlayFabPlayerData>();
+        m_PlayFabInventory = PlayFabManager.transform.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
+        m_PlayFabStore = PlayFabManager.transform.Find("PlayFabStore").GetComponent<PlayFabStore>();
         m_WaitConnect = PlayFabManager.GetComponent<PlayFabWaitConnect>();
         NextSceneName = "GameMainScene";
 
@@ -90,6 +94,11 @@ public class TitleManager : BaseScene
                 if (!m_PlayFabEClothesData.m_isGet)
                 {
                     m_PlayFabEClothesData.SetPlayerData("001_NORAML");
+                }
+                // 通常の服を持っていなかったらストアから購入する
+                if (!m_PlayFabInventory.IsHaveItem("001_NORMAL"))
+                {
+                    m_PlayFabStore.BuyItem("001_NORMAL", "HA");
                 }
 
                 // フェードアウト状態にする
