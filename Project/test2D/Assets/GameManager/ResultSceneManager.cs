@@ -20,8 +20,10 @@ public class ResultSceneManager : BaseScene
     [SerializeField] float PlayFabTimeOut = 5.0f;
 
     [SerializeField] float UIFadeOutTime = 1.0f;
-    private float m_UIFadeOutTimer = 0f;
+    [SerializeField] float AutoSceneMoveTime = 3.0f;
+    //private float m_UIFadeOutTimer = 0f;
     private CanvasGroup m_CanvasGroup = null;
+    private float AutoSceneMoveCount = 0f;
 
     // リザルトシーン状態
     public enum STATE
@@ -154,6 +156,13 @@ public class ResultSceneManager : BaseScene
     // メイン状態
     void GameMain()
     {
+        AutoSceneMoveCount += Time.deltaTime;
+
+        // 時間経過で自動的にタイトルシーンへ遷移する
+        if (AutoSceneMoveTime <= AutoSceneMoveCount)
+        {
+            StepNextScene();
+        }
     }
     // フェードアウト状態
     void GameFadeOut()
@@ -161,15 +170,15 @@ public class ResultSceneManager : BaseScene
         // フェードアウト状態に変更する
         //fadeState = FADE_STATE.FADEOUT;
 
-        m_UIFadeOutTimer += Time.deltaTime;
+        //m_UIFadeOutTimer += Time.deltaTime;
 
-        m_CanvasGroup.alpha = Easing.Linear(m_UIFadeOutTimer, UIFadeOutTime, 0.0f, 1.0f);
+        //m_CanvasGroup.alpha = Easing.Linear(m_UIFadeOutTimer, UIFadeOutTime, 0.0f, 1.0f);
 
-        if (m_UIFadeOutTimer >= UIFadeOutTime)
-        {
-            // UIのフェードアウトが終わったのでランキングシーンに遷移する
-            //SceneManager.LoadScene(NextSceneName);
-        }
+        //if (m_UIFadeOutTimer >= UIFadeOutTime)
+        //{
+        //    // UIのフェードアウトが終わったのでランキングシーンに遷移する
+        //    //SceneManager.LoadScene(NextSceneName);
+        //}
     }
 
     // 次のシーンへ進む
@@ -178,8 +187,14 @@ public class ResultSceneManager : BaseScene
         if (state != STATE.FADEOUT)
         {
             fadeState = FADE_STATE.FADEOUT;
-            // UIをフェードアウトさせる
-            //state = STATE.FADEOUT;
+            // フェードアウト状態に変更する
+            state = STATE.FADEOUT;
         }
+    }
+    // 次のシーンへ進む(シーン名指定)
+    public void StepNextScene(string sceneName)
+    {
+        NextSceneName = sceneName;
+        StepNextScene();
     }
 }
