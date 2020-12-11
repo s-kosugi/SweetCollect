@@ -655,18 +655,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacc028deafc7754fa02a6cea2a26971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playFabStore: {fileID: 0}
-  inventory: {fileID: 0}
-  connect: {fileID: 0}
-  shopcanvas: {fileID: 0}
   PreviewSprite: {fileID: 2189110483647629879, guid: 39c4923f42ec8964ebd1600bbe83f11a,
     type: 3}
-  ClothingChild: []
   SpriteDictionaryNumber: 0
   SelectNumber: 0
   ChildSize: {x: 144, y: 144}
   Margin: 24
-  TestName: 
   IsHaving: 0
   IsHaveCheck: 0
   DIRECTION_TIME: 0.3
@@ -1704,6 +1698,7 @@ MonoBehaviour:
   IsUpdate: 0
   playerAvatar: {fileID: 1706139072}
   curtainAnime: {fileID: 258928816}
+  PriceName: 
   State_Button: -1
 --- !u!114 &1139846102
 MonoBehaviour:
