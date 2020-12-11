@@ -254,7 +254,7 @@ RectTransform:
   m_GameObject: {fileID: 37871371}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 6
@@ -262,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 938.9998, y: -46.000095}
-  m_SizeDelta: {x: 159, y: 161}
+  m_SizeDelta: {x: 500, y: 510}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37871373
 MonoBehaviour:
@@ -331,8 +331,6 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0.6
-  GoalHeight: 0
-  TimeCounter: 0
 --- !u!1 &76614565
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +668,7 @@ RectTransform:
   m_GameObject: {fileID: 168433453}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 1
@@ -678,7 +676,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -783, y: -46}
-  m_SizeDelta: {x: 163, y: 166}
+  m_SizeDelta: {x: 421, y: 541}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &168433455
 MonoBehaviour:
@@ -747,8 +745,6 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0.1
-  GoalHeight: 0
-  TimeCounter: 0
 --- !u!1 &176191475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,7 +1080,7 @@ RectTransform:
   m_GameObject: {fileID: 484854287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 3
@@ -1092,7 +1088,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -180.00008, y: -46.000095}
-  m_SizeDelta: {x: 139, y: 164}
+  m_SizeDelta: {x: 417, y: 515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &484854289
 MonoBehaviour:
@@ -1161,8 +1157,6 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0.3
-  GoalHeight: 0
-  TimeCounter: 0
 --- !u!1 &521759979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,7 +2031,7 @@ RectTransform:
   m_GameObject: {fileID: 851396856}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 4
@@ -2045,7 +2039,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 197.99992, y: -46.000095}
-  m_SizeDelta: {x: 162, y: 148}
+  m_SizeDelta: {x: 509, y: 497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &851396858
 MonoBehaviour:
@@ -2114,8 +2108,6 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0.4
-  GoalHeight: 0
-  TimeCounter: 0
 --- !u!1 &860361239
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,7 +2195,7 @@ RectTransform:
   m_GameObject: {fileID: 960260398}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 2
@@ -2211,7 +2203,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -483.00006, y: -46.000095}
-  m_SizeDelta: {x: 133, y: 96}
+  m_SizeDelta: {x: 378, y: 228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &960260400
 MonoBehaviour:
@@ -2280,8 +2272,6 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0.2
-  GoalHeight: 0
-  TimeCounter: 0
 --- !u!1 &968699678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,7 +2603,7 @@ RectTransform:
   m_GameObject: {fileID: 1099112766}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 0
@@ -2621,7 +2611,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1160.0001, y: -96.00009}
-  m_SizeDelta: {x: 163, y: 166}
+  m_SizeDelta: {x: 547, y: 519}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1099112768
 MonoBehaviour:
@@ -2690,8 +2680,6 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0
-  GoalHeight: 0
-  TimeCounter: 0
 --- !u!1 &1108512881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,7 +3191,7 @@ RectTransform:
   m_GameObject: {fileID: 1576272499}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 7
@@ -3211,7 +3199,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1270.999, y: -46.000095}
-  m_SizeDelta: {x: 134, y: 164}
+  m_SizeDelta: {x: 388, y: 520}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1576272501
 MonoBehaviour:
@@ -3280,8 +3268,6 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0.7
-  GoalHeight: 0
-  TimeCounter: 0
 --- !u!1 &1642445169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3852,7 +3838,7 @@ RectTransform:
   m_GameObject: {fileID: 2136639068}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 737432187}
   m_RootOrder: 5
@@ -3860,7 +3846,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 575.9998, y: -46.000095}
-  m_SizeDelta: {x: 152, y: 153}
+  m_SizeDelta: {x: 471, y: 484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2136639070
 MonoBehaviour:
@@ -3929,5 +3915,3 @@ MonoBehaviour:
   StartHeight: 1000
   FallTime: 2
   WaitTime: 0.5
-  GoalHeight: 0
-  TimeCounter: 0
