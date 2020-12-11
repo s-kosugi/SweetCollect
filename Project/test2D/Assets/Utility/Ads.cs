@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // 広告
@@ -26,12 +24,7 @@ public class Ads : MonoBehaviour
 
     void Update()
     {
-        // ゲームメインシーンでは削除しない
-        if (SceneManager.GetActiveScene().name == "GameMainScene")
-            ScoreManager.DontDestroyOnLoad(this.gameObject);
-        else
-            SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
-    }
+            }
 
     // 広告の表示
     public void ShowAds()
