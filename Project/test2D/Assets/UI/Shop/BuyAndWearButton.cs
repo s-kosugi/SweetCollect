@@ -194,7 +194,7 @@ public class BuyAndWearButton : MonoBehaviour
     //ボタンの有効化
     private void EnableButton()
     {
-        if (!store.m_isStoreGet || clothing.GetState() != Clothing.SHELFSTATE.PREVIEW)
+        if (connect.IsWait() || !store.m_isStoreGet || clothing.GetState() != Clothing.SHELFSTATE.PREVIEW)
         {
             button.enabled = false;
             return;
