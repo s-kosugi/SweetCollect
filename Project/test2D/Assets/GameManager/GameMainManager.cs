@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameMainManager : BaseScene
 {
@@ -18,8 +19,14 @@ public class GameMainManager : BaseScene
     private JumpAnimation m_PlayerJump = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
-    [SerializeField] float WebGLGameOverTime = 120f;
+    [SerializeField] float WebGLGameOverTime = 2.0f;
     private float WebGLEndCount = 0f;
+
+    [SerializeField] public float AndroidAutoAdsTime { get; private set; } = 5.0f;
+    public float AndroidAutoAdsCount { get; private set; } = 0f;
+    Button adsButton = default;
+    [SerializeField] public float AndroidAutoSceneMoveTime { get; private set; } = 2.0f;
+    public float AndroidAutoSceneMoveCount { get; private set; } = 0f;
 
     public float CoinGetRate { get; private set; }
     [SerializeField] float RestartBonusRate = 2.0f;     // リスタート時のコイン取得倍率
@@ -60,6 +67,8 @@ public class GameMainManager : BaseScene
 
         m_StartUI = StartUIObject.GetComponent<StartUI>();
         m_ReStartUI = ReStartUIObject.GetComponent<StartUI>();
+
+        adsButton = GameObject.Find("AdsButton").GetComponent<Button>();
 
         base.Start();
 
@@ -163,7 +172,29 @@ public class GameMainManager : BaseScene
         WebGLEndCount += Time.deltaTime;
         if( WebGLGameOverTime >= WebGLEndCount)
         {
-            fadeState = FADE_STATE.FADEOUT;
+            NextSceneButtonClick();
+        }
+#endif
+#if UNITY_ANDROID
+        if (!AdsObject.isShow)
+        {
+            AndroidAutoAdsCount += Time.deltaTime;
+            if (AndroidAutoAdsCount >= AndroidAutoAdsTime)
+            {
+                // ボタンをクリックしたことにする
+                adsButton.onClick.Invoke();
+
+                AndroidAutoAdsCount = 0f;
+            }
+        }
+        else
+        {
+            AndroidAutoSceneMoveCount += Time.deltaTime;
+            if (AndroidAutoSceneMoveTime <= AndroidAutoSceneMoveCount)
+            {
+                // 次シーン遷移処理
+                NextSceneButtonClick();
+            }
         }
 #endif
     }
