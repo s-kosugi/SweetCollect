@@ -4611,7 +4611,7 @@ MonoBehaviour:
   Player: {fileID: 1953754664}
   StartUIObject: {fileID: 861172193}
   ReStartUIObject: {fileID: 1358034690}
-  GameTimer: 2
+  GameTimer: 60
   AdsObject: {fileID: 2059281801}
   WebGLGameOverTime: 2
   RestartBonusRate: 2
@@ -4690,7 +4690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMainManager: {fileID: 2040733009}
-  AddTime: 5
+  AddTime: 30
 --- !u!1 &2117265561
 GameObject:
   m_ObjectHideFlags: 0
