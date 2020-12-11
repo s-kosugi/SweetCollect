@@ -4,20 +4,19 @@ using Effekseer;
 
 public class Clothing : MonoBehaviour
 {
-    [SerializeField] PlayFabStore playFabStore;
-    [SerializeField] private PlayFabInventory inventory = null;    //インベントリ
-    [SerializeField] private PlayFabWaitConnect connect = null;    //通信
-    [SerializeField] ShopCanvasController shopcanvas = null;
+    PlayFabStore playFabStore;
+    private PlayFabInventory inventory = null;    //インベントリ
+    private PlayFabWaitConnect connect = null;    //通信
+    ShopCanvasController shopcanvas = null;
     [SerializeField] GameObject PreviewSprite;                     //服表示オブジェクト
 
-    [SerializeField] List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();
+    List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();
     [SerializeField] private int SpriteDictionaryNumber; //画像の最大数
     [SerializeField] private int SelectNumber;          //選択されている画像の番号
     [SerializeField] private Vector2 ChildSize = new Vector2(144.0f, 144.0f);
     [SerializeField] private float Margin = 0;                              //余白
     Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>();
 
-    [SerializeField] private string TestName;
     [SerializeField] private bool IsHaving;                             //取得済み
     [SerializeField] private bool IsHaveCheck;                          //取得確認中
     [SerializeField] private float DIRECTION_TIME = 0.3f;                //演出時間
@@ -104,7 +103,6 @@ public class Clothing : MonoBehaviour
             ClothingChild[i].SetPreviewOrder(i);
             ClothingChild[i].WhatFromPreview(SelectNumber);
         }
-        TestName = SpriteDictionary[playFabStore.StoreItems[SelectNumber].ItemId].name;
         State = SHELFSTATE.CHANGE;
         
     }
@@ -146,7 +144,6 @@ public class Clothing : MonoBehaviour
         {
             SelectNumber += 1;
             CheckSelectNum();
-            TestName = SpriteDictionary[playFabStore.StoreItems[SelectNumber].ItemId].name;
             State = SHELFSTATE.CHANGE;
         }
     }
@@ -157,7 +154,6 @@ public class Clothing : MonoBehaviour
         {
             SelectNumber -= 1;
             CheckSelectNum();
-            TestName = SpriteDictionary[playFabStore.StoreItems[SelectNumber].ItemId].name;
             State = SHELFSTATE.CHANGE;
         }
     }
