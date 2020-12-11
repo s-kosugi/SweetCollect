@@ -13,15 +13,5 @@ MonoBehaviour:
   m_Name: Map01
   m_EditorClassIdentifier: 
   ArrangeTableItemList:
-  - PatternPrefab: {fileID: 7830376665355502680, guid: 65128aa99922fc746a6a646d1a5ab096,
-      type: 3}
-  - PatternPrefab: {fileID: 227262925563663001, guid: 12368ebaf37bfb24393a7530f41b3d6f,
-      type: 3}
-  - PatternPrefab: {fileID: 3299505923332838655, guid: 110d781af438f5847a9dfb7884bb1a20,
-      type: 3}
-  - PatternPrefab: {fileID: 7449968690745617347, guid: eb828d16f3b65c24e81a57d26348d64e,
-      type: 3}
-  - PatternPrefab: {fileID: 9149710152789868635, guid: f9c460893d9dc2a4f831d912923b9e48,
-      type: 3}
-  - PatternPrefab: {fileID: 7855337164739000118, guid: 1ecda5b125ba93247b686dd60689a6c8,
+  - PatternPrefab: {fileID: 9222138811451405139, guid: 8dd30b0ab7383f840b3faea0d7f46051,
       type: 3}
