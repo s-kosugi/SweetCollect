@@ -4350,7 +4350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27eb1cb9c71b834f845731ace268926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationJumpower: 2000
+  AnimationJumpower: 50
 --- !u!1 &2040733008
 GameObject:
   m_ObjectHideFlags: 0

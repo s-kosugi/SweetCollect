@@ -7,11 +7,13 @@ public class JumpAnimation : MonoBehaviour
     GameMainManager m_GameMainManager = null;
     Rigidbody2D m_Rigidbody2D = null;
     [SerializeField] float AnimationJumpower = 2000;
+    PlayerController playerController = default;
 
     void Start()
     {
         m_GameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
         m_Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -27,8 +29,12 @@ public class JumpAnimation : MonoBehaviour
             // ゲームメイン時のみアニメーションさせる
             if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
             {
-                // 歩きアニメーションをする。
-                StartJumpAnimation();
+                // ジャンプ中でない時
+                if (!playerController.JumpFlag)
+                {
+                    // 歩きアニメーションをする。
+                    StartJumpAnimation();
+                }
             }
         }
     }
@@ -39,6 +45,6 @@ public class JumpAnimation : MonoBehaviour
     public void StartJumpAnimation()
     {
         Vector2 v = new Vector2(0.0f, AnimationJumpower);
-        m_Rigidbody2D.AddForce(v);
+        m_Rigidbody2D.velocity = v;
     }
 }

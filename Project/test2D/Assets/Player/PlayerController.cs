@@ -6,7 +6,7 @@ using Effekseer;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float JumpPower = 250;
-    private bool JumpFlag;      // ジャンプ中かどうか
+    public bool JumpFlag { get; private set; }      // ジャンプ中かどうか
     private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
     private GameMainManager GameMainManager = null;  // ゲームメインマネージャー
     private ScoreManager ScoreManager = null;
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
                 if (JumpFlag == false)
                 {
                     JumpFlag = true;
-                    m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
+                    m_RigidBody.velocity = Vector2.zero;
                     m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
 
                     // エフェクトの取得

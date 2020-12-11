@@ -31,7 +31,7 @@ public class BackGroundController : MonoBehaviour
                 // もう一つの背景オブジェクトの隣に移動する。
                 if (TraceObject)
                 {
-                    transform.position = new Vector3(TraceObject.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x - 1.0f, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(TraceObject.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x - 2.0f, transform.position.y, transform.position.z);
                 }
             }
         }
