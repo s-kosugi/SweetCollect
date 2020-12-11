@@ -15,7 +15,7 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private Money_Text playermoney = null;
     [SerializeField] private Clothing clothing = null;
 
-    [SerializeField] private Button button;
+    [SerializeField] private Button button;     //ボタン
     [SerializeField] private bool IsConnect;    //通信中
     [SerializeField] private bool IsPush;       //ボタンを押したかどうか
     [SerializeField] private bool IsAction;     //行動できるかどうか
@@ -24,6 +24,7 @@ public class BuyAndWearButton : MonoBehaviour
 
     [SerializeField] private PlayerAvatar playerAvatar = default;
     [SerializeField] private CurtainAnime curtainAnime = default;
+    [SerializeField] private string PriceName = default;
 
     //状態分け
     enum STATE
@@ -55,6 +56,8 @@ public class BuyAndWearButton : MonoBehaviour
         IsAction = false;
         IsSelect = false;
         IsUpdate = false;
+
+        PriceName = "HA";
 
         State_Button = STATE.UPDATE;
     }
@@ -116,7 +119,7 @@ public class BuyAndWearButton : MonoBehaviour
             {
                 if (!inventory.IsHaveItem(shop.GetItemInfo().storeItem.ItemId))
                 {
-                    store.BuyItem(shop.GetItemInfo().storeItem.ItemId, "HA");
+                    store.BuyItem(shop.GetItemInfo().storeItem.ItemId, PriceName);
                     Debug.Log(shop.GetItemInfo().storeItem.ItemId + "を購入しました");
                 }
                 else
@@ -191,7 +194,14 @@ public class BuyAndWearButton : MonoBehaviour
     //ボタンの有効化
     private void EnableButton()
     {
-        if (State_Button == STATE.RECEPTION)
+        if (connect.IsWait() || !store.m_isStoreGet || clothing.GetState() != Clothing.SHELFSTATE.PREVIEW)
+        {
+            button.enabled = false;
+            return;
+        }
+
+        
+        if (shop.GetItemInfo().storeItem.VirtualCurrencyPrices[PriceName] <= playermoney.GetPossessionMoney() && State_Button == STATE.RECEPTION)
         {
             button.enabled = true;
         }
@@ -202,7 +212,7 @@ public class BuyAndWearButton : MonoBehaviour
     }
     //===========================================================================================================
     //===========================================================================================================
-    //所持アイテムの確認
+    //
 
     //===========================================================================================================
     //===========================================================================================================

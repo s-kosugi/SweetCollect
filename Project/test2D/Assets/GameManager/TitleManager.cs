@@ -11,14 +11,14 @@ public class TitleManager : BaseScene
     private PlayFabStore m_PlayFabStore = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
-    private enum STATE
+    public enum STATE
     {
         PREPARATION,
         FADEIN,
         MAIN,
         FADEOUT
     }
-    private STATE m_State = STATE.PREPARATION;
+    public STATE state { get; private set; }
 
     override protected void Start()
     {
@@ -35,6 +35,7 @@ public class TitleManager : BaseScene
 
         base.Start();
 
+        state = STATE.PREPARATION;
 
         // 黒画面にする
         fadeState = FADE_STATE.BLACK;
@@ -42,7 +43,7 @@ public class TitleManager : BaseScene
 
     override protected void Update()
     {
-        switch (m_State)
+        switch (state)
         {
             case STATE.PREPARATION: Preparation(); break;
             case STATE.FADEIN: TitleFadeIn(); break;
@@ -57,7 +58,7 @@ public class TitleManager : BaseScene
     {
         if (!m_WaitConnect.IsWait())
         {
-            m_State = STATE.FADEIN;
+            state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;
         }
     }
@@ -66,7 +67,7 @@ public class TitleManager : BaseScene
     {
         if(IsFadeEnd())
         {
-            m_State = STATE.MAIN;
+            state = STATE.MAIN;
         }
     }
     // タイトルメイン状態
@@ -103,7 +104,7 @@ public class TitleManager : BaseScene
 
                 // フェードアウト状態にする
                 fadeState = FADE_STATE.FADEOUT;
-                m_State = STATE.FADEOUT;
+                state = STATE.FADEOUT;
             }
         }
     }
