@@ -236,8 +236,8 @@ GameObject:
   - component: {fileID: 37871372}
   - component: {fileID: 37871374}
   - component: {fileID: 37871373}
-  - component: {fileID: 37871375}
   - component: {fileID: 37871376}
+  - component: {fileID: 37871375}
   m_Layer: 5
   m_Name: Title_KU
   m_TagString: Untagged
@@ -307,14 +307,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37871371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 45
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &37871376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,8 +668,8 @@ GameObject:
   - component: {fileID: 168433454}
   - component: {fileID: 168433456}
   - component: {fileID: 168433455}
-  - component: {fileID: 168433457}
   - component: {fileID: 168433458}
+  - component: {fileID: 168433457}
   m_Layer: 5
   m_Name: TItle_I
   m_TagString: Untagged
@@ -738,14 +739,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168433453}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 270
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &168433458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,8 +1083,8 @@ GameObject:
   - component: {fileID: 484854288}
   - component: {fileID: 484854290}
   - component: {fileID: 484854289}
-  - component: {fileID: 484854291}
   - component: {fileID: 484854292}
+  - component: {fileID: 484854291}
   m_Layer: 5
   m_Name: Title_TO_1
   m_TagString: Untagged
@@ -1152,14 +1154,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484854287}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 180
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &484854292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,8 +2068,8 @@ GameObject:
   - component: {fileID: 851396857}
   - component: {fileID: 851396859}
   - component: {fileID: 851396858}
-  - component: {fileID: 851396860}
   - component: {fileID: 851396861}
+  - component: {fileID: 851396860}
   m_Layer: 5
   m_Name: Title_KO
   m_TagString: Untagged
@@ -2136,14 +2139,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851396856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 60
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &851396861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2231,8 +2235,8 @@ GameObject:
   - component: {fileID: 960260399}
   - component: {fileID: 960260401}
   - component: {fileID: 960260400}
-  - component: {fileID: 960260402}
   - component: {fileID: 960260403}
+  - component: {fileID: 960260402}
   m_Layer: 5
   m_Name: Title_-
   m_TagString: Untagged
@@ -2302,14 +2306,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960260398}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 225
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &960260403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2630,6 +2635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c93c72f369138f469dce0a37318053a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &1099112766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2641,8 +2647,8 @@ GameObject:
   - component: {fileID: 1099112767}
   - component: {fileID: 1099112769}
   - component: {fileID: 1099112768}
-  - component: {fileID: 1099112770}
   - component: {fileID: 1099112771}
+  - component: {fileID: 1099112770}
   m_Layer: 5
   m_Name: Title_SU
   m_TagString: Untagged
@@ -2712,14 +2718,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099112766}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 315
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &1099112771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3015,7 +3022,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30B9\u30BF\u30FC\u30C8"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 720dc6271bcaabc44bf4c0273e8c2e4a, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 978601265200943976, guid: 720dc6271bcaabc44bf4c0273e8c2e4a,
     type: 2}
   m_fontSharedMaterials: []
@@ -3231,8 +3238,8 @@ GameObject:
   - component: {fileID: 1576272500}
   - component: {fileID: 1576272502}
   - component: {fileID: 1576272501}
-  - component: {fileID: 1576272503}
   - component: {fileID: 1576272504}
+  - component: {fileID: 1576272503}
   m_Layer: 5
   m_Name: Title_TO_2
   m_TagString: Untagged
@@ -3302,14 +3309,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576272499}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 0
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &1576272504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3895,8 +3903,8 @@ GameObject:
   - component: {fileID: 2136639069}
   - component: {fileID: 2136639071}
   - component: {fileID: 2136639070}
-  - component: {fileID: 2136639072}
   - component: {fileID: 2136639073}
+  - component: {fileID: 2136639072}
   m_Layer: 5
   m_Name: Title_RE
   m_TagString: Untagged
@@ -3966,14 +3974,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136639068}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e274f580bb3d09c4f9eb33e3697e460b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a326392d1c85e408b8bfbede86dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateSpeed: 60
-  RotateStart: 135
-  RotateMaxAngle: 10
+  JumpPower: 800
+  Gravity: 50
+  JumpInterval: 1.5
+  JumpTimer: 0
 --- !u!114 &2136639073
 MonoBehaviour:
   m_ObjectHideFlags: 0
