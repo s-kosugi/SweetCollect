@@ -19,8 +19,10 @@ public class GameMainManager : BaseScene
     private JumpAnimation m_PlayerJump = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
+#if UNITY_WEBGL
     [SerializeField] float WebGLGameOverTime = 2.0f;
     private float WebGLEndCount = 0f;
+#endif
 
     [SerializeField] public float AndroidAutoAdsTime { get; private set; } = 5.0f;
     public float AndroidAutoAdsCount { get; private set; } = 0f;
@@ -183,7 +185,7 @@ public class GameMainManager : BaseScene
             {
                 // ボタンをクリックしたことにする
                 adsButton.onClick.Invoke();
-
+                state = STATE.PREPRATION;
                 AndroidAutoAdsCount = 0f;
             }
         }
@@ -201,7 +203,8 @@ public class GameMainManager : BaseScene
     // ゲームリスタート準備
     void GamePreReStart()
     {
-        if (!AdsObject.isPlaying())
+        // 広告表示中でない且つ表示済み
+        if (!AdsObject.isPlaying() && AdsObject.isShow)
         {
             // 得点入手レートをボーナス用に変更する
             CoinGetRate = RestartBonusRate;
