@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class TitleManager : BaseScene
 {
     [SerializeField] GameObject textBox = null;
+    [SerializeField] string defaultName = "ななしさん";
     private PlayFabPlayerData m_PlayFabEClothesData = null;
     private PlayFabUserProfiel m_PlayFabUserProfiel = null;
     private PlayFabPlayerData m_PlayFabTutorialData = null;
@@ -77,6 +78,11 @@ public class TitleManager : BaseScene
     // フェードアウト中
     private void TitleFadeOut()
     {
+        // 通信が終わったらフェードアウトさせる
+        if (!m_WaitConnect.IsWait())
+        {
+            fadeState = FADE_STATE.FADEOUT;
+        }
     }
 
     // 次のシーンへ
@@ -85,8 +91,12 @@ public class TitleManager : BaseScene
         // 通信待ちでない場合
         if (!m_WaitConnect.IsWait())
         {
-            // テキストボックスが空白の場合は次のシーンへいかない
-            if (textBox.GetComponent<InputField>().text != "" && fadeState != FADE_STATE.FADEOUT)
+            // テキストボックスが空白の場合はデフォルトネームを入れる
+            if (textBox.GetComponent<InputField>().text == "")
+            {
+                textBox.GetComponent<InputField>().text = defaultName;
+            }
+            if (fadeState != FADE_STATE.FADEOUT)
             {
                 // ユーザー名の更新
                 m_PlayFabUserProfiel.SetUserName(textBox.GetComponent<InputField>().text);
@@ -103,7 +113,6 @@ public class TitleManager : BaseScene
                 }
 
                 // フェードアウト状態にする
-                fadeState = FADE_STATE.FADEOUT;
                 state = STATE.FADEOUT;
             }
         }
