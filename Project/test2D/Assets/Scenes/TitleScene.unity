@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0.6
   GoalHeight: 0
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0.1
   GoalHeight: 0
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0.3
   GoalHeight: 0
@@ -2161,7 +2161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0.4
   GoalHeight: 0
@@ -2328,7 +2328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0.2
   GoalHeight: 0
@@ -2740,7 +2740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0
   GoalHeight: 0
@@ -3331,7 +3331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0.7
   GoalHeight: 0
@@ -3996,7 +3996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
-  StartHeight: 1000
+  StartHeight: 1300
   FallTime: 2
   WaitTime: 0.5
   GoalHeight: 0
