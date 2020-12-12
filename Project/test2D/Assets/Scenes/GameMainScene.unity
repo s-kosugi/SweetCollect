@@ -541,6 +541,7 @@ GameObject:
   - component: {fileID: 100782662}
   - component: {fileID: 100782661}
   - component: {fileID: 100782664}
+  - component: {fileID: 100782665}
   m_Layer: 5
   m_Name: AdsButton
   m_TagString: Untagged
@@ -644,6 +645,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2040733009}
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &100782662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,6 +705,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seFileName: Tap
+--- !u!114 &100782665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100782659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 2040733009}
+  StartAutoEnabled: 1
 --- !u!1 &108537441
 GameObject:
   m_ObjectHideFlags: 0
@@ -3985,6 +4011,7 @@ GameObject:
   - component: {fileID: 1729562831}
   - component: {fileID: 1729562830}
   - component: {fileID: 1729562833}
+  - component: {fileID: 1729562834}
   m_Layer: 5
   m_Name: ResultButton
   m_TagString: Untagged
@@ -4148,6 +4175,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seFileName: Tap
+--- !u!114 &1729562834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729562828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 2040733009}
+  StartAutoEnabled: 1
 --- !u!1 &1770935306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4613,7 +4654,6 @@ MonoBehaviour:
   ReStartUIObject: {fileID: 1358034690}
   GameTimer: 60
   AdsObject: {fileID: 2059281801}
-  WebGLGameOverTime: 2
   RestartBonusRate: 2
 --- !u!4 &2040733010
 Transform:

@@ -502,6 +502,7 @@ GameObject:
   - component: {fileID: 136096497}
   - component: {fileID: 136096496}
   - component: {fileID: 136096495}
+  - component: {fileID: 136096499}
   m_Layer: 5
   m_Name: Twitterbutton
   m_TagString: Untagged
@@ -641,6 +642,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136096493}
   m_CullTransparentMesh: 0
+--- !u!114 &136096499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136096493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 675315287}
+  StartAutoEnabled: 1
 --- !u!1 &168433453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,6 +1257,7 @@ GameObject:
   - component: {fileID: 638353206}
   - component: {fileID: 638353205}
   - component: {fileID: 638353204}
+  - component: {fileID: 638353208}
   m_Layer: 5
   m_Name: Creditbutton
   m_TagString: Untagged
@@ -1381,6 +1397,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638353202}
   m_CullTransparentMesh: 0
+--- !u!114 &638353208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638353202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 675315287}
+  StartAutoEnabled: 1
 --- !u!1 &655513411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,6 +1538,7 @@ MonoBehaviour:
   FadeSpeed: 0.02
   NextSceneName: GameMainScene
   textBox: {fileID: 1071028708}
+  defaultPlayerName: "\u306A\u306A\u3057\u3055\u3093"
 --- !u!1001 &709697220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1622,6 +1653,7 @@ GameObject:
   - component: {fileID: 710408723}
   - component: {fileID: 710408722}
   - component: {fileID: 710408725}
+  - component: {fileID: 710408726}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -1763,6 +1795,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &710408726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710408720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 675315287}
+  StartAutoEnabled: 1
 --- !u!1 &737432186
 GameObject:
   m_ObjectHideFlags: 0
@@ -3683,6 +3729,7 @@ GameObject:
   - component: {fileID: 2111998591}
   - component: {fileID: 2111998590}
   - component: {fileID: 2111998589}
+  - component: {fileID: 2111998593}
   m_Layer: 5
   m_Name: ShopButton
   m_TagString: Untagged
@@ -3823,6 +3870,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111998587}
   m_CullTransparentMesh: 0
+--- !u!114 &2111998593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111998587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 675315287}
+  StartAutoEnabled: 1
 --- !u!1 &2136639068
 GameObject:
   m_ObjectHideFlags: 0

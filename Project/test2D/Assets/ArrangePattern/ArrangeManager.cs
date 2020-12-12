@@ -49,6 +49,8 @@ public class ArrangeManager : MonoBehaviour
             {
                 GameObject.Destroy(n.gameObject);
             }
+            // 次にすぐ出現するためにタイマーを満たしておく
+            m_Timer = OneDisplayTime;
         }
     }
 }

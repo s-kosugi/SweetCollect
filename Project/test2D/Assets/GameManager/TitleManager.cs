@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class TitleManager : BaseScene
 {
     [SerializeField] GameObject textBox = null;
-    [SerializeField] string defaultName = "ななしさん";
+    [SerializeField] string defaultPlayerName = "ななしさん";
     private PlayFabPlayerData m_PlayFabEClothesData = null;
     private PlayFabUserProfiel m_PlayFabUserProfiel = null;
     private PlayFabPlayerData m_PlayFabTutorialData = null;
@@ -94,7 +94,7 @@ public class TitleManager : BaseScene
             // テキストボックスが空白の場合はデフォルトネームを入れる
             if (textBox.GetComponent<InputField>().text == "")
             {
-                textBox.GetComponent<InputField>().text = defaultName;
+                textBox.GetComponent<InputField>().text = defaultPlayerName;
             }
             if (fadeState != FADE_STATE.FADEOUT)
             {

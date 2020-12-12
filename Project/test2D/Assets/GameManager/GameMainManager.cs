@@ -183,10 +183,9 @@ public class GameMainManager : BaseScene
             AndroidAutoAdsCount += Time.deltaTime;
             if (AndroidAutoAdsCount >= AndroidAutoAdsTime)
             {
+                AndroidAutoAdsCount = 0f;
                 // ボタンをクリックしたことにする
                 adsButton.onClick.Invoke();
-                state = STATE.PREPRATION;
-                AndroidAutoAdsCount = 0f;
             }
         }
         else
@@ -241,5 +240,11 @@ public class GameMainManager : BaseScene
     public float GetGameTime()
     {
         return GameTimer;
+    }
+
+    public void RestartGame()
+    {
+        // 次シーン受付中だったらリスタート準備へ変更する
+        if( state == STATE.NEXT) state = STATE.PRERESTART;
     }
 }
