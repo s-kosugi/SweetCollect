@@ -42,7 +42,8 @@ public class GameOverSpriteController : MonoBehaviour
             }
             this.transform.localPosition = vec;
             // リスタートされたらリセットする
-            if (GameMainManager.state == GameMainManager.STATE.PRERESTART) Reset();
+            if (GameMainManager.state == GameMainManager.STATE.PRERESTART ||
+                GameMainManager.state == GameMainManager.STATE.RESTART) Reset();
         }
     }
     private void Reset()

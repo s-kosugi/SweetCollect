@@ -1171,7 +1171,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30B9\u30BF\u30FC\u30C8"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 720dc6271bcaabc44bf4c0273e8c2e4a, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 978601265200943976, guid: 720dc6271bcaabc44bf4c0273e8c2e4a,
     type: 2}
   m_fontSharedMaterials: []
@@ -1566,7 +1566,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6B21\u3078"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 720dc6271bcaabc44bf4c0273e8c2e4a, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 978601265200943976, guid: 720dc6271bcaabc44bf4c0273e8c2e4a,
     type: 2}
   m_fontSharedMaterials: []
@@ -1751,6 +1751,7 @@ GameObject:
   - component: {fileID: 1424084393}
   - component: {fileID: 1424084392}
   - component: {fileID: 1424084391}
+  - component: {fileID: 1424084395}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -1902,6 +1903,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424084389}
   m_CullTransparentMesh: 0
+--- !u!114 &1424084395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424084389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 2024122523}
+  StartAutoEnabled: 1
 --- !u!1 &1491623665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,7 +2217,6 @@ MonoBehaviour:
   AppearGroup3: {fileID: 1491623665}
   AppearGroup4: {fileID: 685491391}
   PlayFabTimeOut: 5
-  UIFadeOutTime: 0.5
   AutoSceneMoveTime: 3
 --- !u!4 &2024122524
 Transform:
@@ -2231,6 +2245,7 @@ GameObject:
   - component: {fileID: 2100282246}
   - component: {fileID: 2100282245}
   - component: {fileID: 2100282244}
+  - component: {fileID: 2100282248}
   m_Layer: 5
   m_Name: ReStartButton
   m_TagString: Untagged
@@ -2372,6 +2387,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100282242}
   m_CullTransparentMesh: 0
+--- !u!114 &2100282248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100282242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 2024122523}
+  StartAutoEnabled: 1
 --- !u!1001 &2116691455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2386,7 +2415,7 @@ PrefabInstance:
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: maskTexture
       value: 
-      objectReference: {fileID: 2800000, guid: 1d1e92ceedb63324f9ff1c40bb022496, type: 3}
+      objectReference: {fileID: 2800000, guid: 2c442c1a5977d974b94941461bf4b472, type: 3}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: m_Enabled
       value: 0

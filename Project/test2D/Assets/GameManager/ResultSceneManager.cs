@@ -19,7 +19,7 @@ public class ResultSceneManager : BaseScene
     /// </summary>
     [SerializeField] float PlayFabTimeOut = 5.0f;
 
-    [SerializeField] float UIFadeOutTime = 1.0f;
+    //[SerializeField] float UIFadeOutTime = 1.0f;
     [SerializeField] float AutoSceneMoveTime = 3.0f;
     //private float m_UIFadeOutTimer = 0f;
     private CanvasGroup m_CanvasGroup = null;

@@ -10,6 +10,7 @@ public class TitleFontAppear : MonoBehaviour
     [SerializeField] float WaitTime = 0f;
     [SerializeField] float GoalHeight = 0f;
     [SerializeField] float TimeCounter = 0f;
+    private TitleFontJump fontJump = default;
     void Start()
     {
         GoalHeight = transform.localPosition.y;
@@ -18,6 +19,7 @@ public class TitleFontAppear : MonoBehaviour
         vec.y = StartHeight;
         transform.localPosition = vec;
         TimeCounter = -WaitTime;
+        fontJump = GetComponent<TitleFontJump>();
     }
 
 
@@ -32,6 +34,11 @@ public class TitleFontAppear : MonoBehaviour
                 Vector3 vec = transform.localPosition;
                 vec.y = GoalHeight;
                 transform.localPosition = vec;
+                // ジャンプアニメーションを有効にする
+                fontJump.enabled = true;
+
+                // 自身の処理を無効化する
+                this.enabled = false;
             }
             else if (TimeCounter >= 0)
             {

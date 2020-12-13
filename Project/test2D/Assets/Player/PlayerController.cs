@@ -87,18 +87,6 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // コインを取ったらスコア加算をする
-        if (collision.gameObject.tag == "Coin")
-        {
-            CoinEffect item = collision.gameObject.GetComponent<CoinEffect>();
-
-            ScoreManager.AddScore(item.score);
-
-            // エフェクトの取得
-            EffekseerSystem.PlayEffect(m_CoinGetEffect, transform.position);
-            SoundManager.Instance.PlaySE("Coin");
-        }
-
         // アイテムを取ったらスコア加算をする
         if (collision.gameObject.tag == "Item")
         {
