@@ -242,9 +242,9 @@ public class GameMainManager : BaseScene
         return GameTimer;
     }
 
+    // リスタート状態へ変更する
     public void RestartGame()
     {
-        // 次シーン受付中だったらリスタート準備へ変更する
-        if( state == STATE.NEXT) state = STATE.PRERESTART;
+        state = STATE.PRERESTART;
     }
 }
