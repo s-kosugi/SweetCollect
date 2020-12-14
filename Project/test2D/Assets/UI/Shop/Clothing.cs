@@ -21,7 +21,7 @@ public class Clothing : MonoBehaviour
     [SerializeField] private bool IsHaveCheck;                          //取得確認中
     [SerializeField] private float DIRECTION_TIME = 0.3f;                //演出時間
 
-    private BuyButtonPicture buyButtonPicture = default;
+    [SerializeField] private BuyButtonPicture buyButtonPicture = default;
     private List<bool> oldClothingChild = new List<bool>();
     private EffekseerEffectAsset buyEffect = null;
     public enum SHELFSTATE
@@ -42,7 +42,8 @@ public class Clothing : MonoBehaviour
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
 
         shopcanvas =GameObject.Find("ShopCanvas").GetComponentInParent<ShopCanvasController>();
-        buyButtonPicture = GameObject.Find("ShopCanvas/ShopButton/BuyAndWearButton").GetComponent<BuyButtonPicture>();
+        // ハードコーディングで可変に対応できない為コメントアウト
+        //buyButtonPicture = GameObject.Find("ShopCanvas/RectScaleParent/ShopButton/BuyAndWearButton").GetComponent<BuyButtonPicture>();
         buyEffect = Resources.Load<EffekseerEffectAsset>("Effect\\buy");
 
         State = SHELFSTATE.WAIT;

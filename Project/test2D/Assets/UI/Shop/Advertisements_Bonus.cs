@@ -6,14 +6,15 @@ public class Advertisements_Bonus : MonoBehaviour
 {
     private Advertisements Advertisements = null;
     private PlayFabVirtualCurrency PlayFabVirtualCurrency = null;
-    private Money_Text money = null;
+    [SerializeField]private Money_Text money = null;
     bool IsAddBonus = false;     //加算済みかどうか
     // Start is called before the first frame update
     void Start()
     {
         Advertisements = gameObject.GetComponent<Advertisements>();
         PlayFabVirtualCurrency = GameObject.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
-        money = GameObject.Find("ShopCanvas/Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
+        // ハードコーディングで可変に対応できない為コメントアウト
+        //money = GameObject.Find("ShopCanvas/RectScaleParent/Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
         IsAddBonus = false;
     }
 

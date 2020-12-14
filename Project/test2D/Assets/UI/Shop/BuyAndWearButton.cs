@@ -47,7 +47,8 @@ public class BuyAndWearButton : MonoBehaviour
         AvatarData = GameObject.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
         
         shop = this.transform.root.GetComponent<ShopCanvasController>();
-        playermoney = this.transform.root.transform.Find("Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
+        // ハードコーディングで可変に対応できない為コメントアウト
+        //playermoney = this.transform.root.transform.Find("Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
         clothing = GameObject.Find("Clothing_Parent/Clothing").GetComponent<Clothing>();
         button = this.GetComponent<Button>();
 
