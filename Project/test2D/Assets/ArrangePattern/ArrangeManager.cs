@@ -42,5 +42,15 @@ public class ArrangeManager : MonoBehaviour
                 obj.transform.position = new Vector3(m_Camera.GetScreenRight() * 2.0f, 0f, 0f);
             }
         }
+        if (m_GameMainManager.state == GameMainManager.STATE.OVER)
+        {
+            // すべての子オブジェクトを削除
+            foreach (Transform n in gameObject.transform)
+            {
+                GameObject.Destroy(n.gameObject);
+            }
+            // 次にすぐ出現するためにタイマーを満たしておく
+            m_Timer = OneDisplayTime;
+        }
     }
 }

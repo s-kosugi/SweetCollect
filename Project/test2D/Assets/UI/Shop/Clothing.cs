@@ -8,7 +8,7 @@ public class Clothing : MonoBehaviour
     private PlayFabInventory inventory = null;    //インベントリ
     private PlayFabWaitConnect connect = null;    //通信
     ShopCanvasController shopcanvas = null;
-    [SerializeField] GameObject PreviewSprite;                     //服表示オブジェクト
+    [SerializeField] GameObject PreviewSprite = default;                     //服表示オブジェクト
 
     List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();
     [SerializeField] private int SpriteDictionaryNumber; //画像の最大数
