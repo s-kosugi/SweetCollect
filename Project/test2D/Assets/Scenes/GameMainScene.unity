@@ -521,6 +521,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2960
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1440
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: referenceResolution.x
+      value: 2960
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: referenceResolution.y
+      value: 1440
+      objectReference: {fileID: 0}
     - target: {fileID: 7666168494144472157, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_padding
@@ -860,7 +880,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OneDisplayTime: 7.5
-  Table: {fileID: 11400000, guid: 690c4a4b5cf5acf4aa9905fdfb08cea2, type: 2}
+  sorceTable: {fileID: 11400000, guid: 690c4a4b5cf5acf4aa9905fdfb08cea2, type: 2}
+  patternList: []
 --- !u!1 &282480093
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,7 +3295,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 2960, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1421188463
 MonoBehaviour:
@@ -3289,7 +3310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1421188462}
-  referenceResolution: {x: 1920, y: 1080}
+  referenceResolution: {x: 2960, y: 1440}
   matchWidthOrHeight: 0
 --- !u!1 &1425208877
 GameObject:
@@ -4264,7 +4285,6 @@ GameObject:
   - component: {fileID: 1953754670}
   - component: {fileID: 1953754668}
   - component: {fileID: 1953754672}
-  - component: {fileID: 1953754671}
   - component: {fileID: 1953754673}
   - component: {fileID: 1953754674}
   m_Layer: 10
@@ -4401,23 +4421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a32b45e0dba7a46a6db3e666febc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1953754671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953754664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4019618f368518144a8460c064abb7fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MAXHP: 1000
-  HP: 1000
-  ATK: 100
-  m_State: 0
-  MaxFlashTime: 2
 --- !u!114 &1953754672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4565,7 +4568,7 @@ MonoBehaviour:
   Player: {fileID: 1953754664}
   StartUIObject: {fileID: 861172193}
   ReStartUIObject: {fileID: 1358034690}
-  GameTimer: 60
+  GameTimer: 90
   AdsObject: {fileID: 2059281801}
   RestartBonusRate: 2
 --- !u!4 &2040733010
