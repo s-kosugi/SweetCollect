@@ -879,7 +879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36f308dae358e14797fbb2e121d81d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OneDisplayTime: 8
+  OneDisplayTime: 7.5
   Table: {fileID: 11400000, guid: 690c4a4b5cf5acf4aa9905fdfb08cea2, type: 2}
 --- !u!1 &282480093
 GameObject:
