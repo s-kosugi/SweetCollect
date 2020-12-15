@@ -17,7 +17,14 @@ public class TutrialJumpAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // メイン状態なのに動いていなかったらアニメーションさせる
+        if (m_TutrialManager.state == TutrialSceneManager.STATE.MAIN)
+        {
+            if(m_Rigidbody2D.velocity == Vector2.zero)
+            {
+                StartJumpAnimation();
+            }
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

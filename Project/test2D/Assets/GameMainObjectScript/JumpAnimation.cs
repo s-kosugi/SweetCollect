@@ -17,7 +17,14 @@ public class JumpAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // メイン状態なのに動いていなかったらアニメーションさせる
+        if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
+        {
+            if (m_Rigidbody2D.velocity == Vector2.zero)
+            {
+                StartJumpAnimation();
+            }
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
