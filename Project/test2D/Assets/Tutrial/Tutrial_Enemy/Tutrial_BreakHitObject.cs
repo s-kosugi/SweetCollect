@@ -1,6 +1,5 @@
 ﻿using Effekseer;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Tutrial_BreakHitObject : MonoBehaviour
