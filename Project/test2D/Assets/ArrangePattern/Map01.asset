@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: Map01
   m_EditorClassIdentifier: 
   ArrangeTableItemList:
-  - PatternPrefab: {fileID: 7449968690745617347, guid: eb828d16f3b65c24e81a57d26348d64e,
+  - PatternPrefab: {fileID: 2133826573254703979, guid: eb828d16f3b65c24e81a57d26348d64e,
       type: 3}
   - PatternPrefab: {fileID: 3582294815340738817, guid: f9c460893d9dc2a4f831d912923b9e48,
       type: 3}
   - PatternPrefab: {fileID: 4329965952059420265, guid: ca693e0bc0939fd4090c2b142ea05594,
       type: 3}
-  - PatternPrefab: {fileID: 4334562864980147989, guid: d91e6cbac96849c419897d2873a1293e,
+  - PatternPrefab: {fileID: 2625211337061464531, guid: d91e6cbac96849c419897d2873a1293e,
       type: 3}
   - PatternPrefab: {fileID: 578749366116169214, guid: 84db5ea3e4ac2714b9c066fee0f7218f,
       type: 3}
   - PatternPrefab: {fileID: 8181832181419141709, guid: 20c1ddfe84e5c014fac5c3940b0fdb6e,
       type: 3}
-  - PatternPrefab: {fileID: 4733015949039726346, guid: 0b205431d2effae4faca24ea1e82363a,
+  - PatternPrefab: {fileID: 4169396145527812879, guid: 0b205431d2effae4faca24ea1e82363a,
       type: 3}
   - PatternPrefab: {fileID: 2828591530579209334, guid: e3b383460a314034eb3364e6535ab77a,
       type: 3}
-  - PatternPrefab: {fileID: 5714939527533055196, guid: c5f5eb5862882f144b41cd0649e2bdfd,
+  - PatternPrefab: {fileID: 2669758848722411548, guid: c5f5eb5862882f144b41cd0649e2bdfd,
       type: 3}
   - PatternPrefab: {fileID: 5482807975109834504, guid: 2d375a7d588142349b07e9b41f3dd90e,
       type: 3}
   - PatternPrefab: {fileID: 3100775671537199270, guid: 12368ebaf37bfb24393a7530f41b3d6f,
       type: 3}
-  - PatternPrefab: {fileID: 295233364665077912, guid: 625b8a6babc5823468b822c0140ee988,
+  - PatternPrefab: {fileID: 7765209933459367705, guid: 625b8a6babc5823468b822c0140ee988,
       type: 3}
