@@ -8,10 +8,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float JumpPower = 250;
     public bool JumpFlag { get; private set; }      // ジャンプ中かどうか
     private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
-    private GameMainManager GameMainManager = null;  // ゲームメインマネージャー
+    private GameMainManager gameMainManager = null;  // ゲームメインマネージャー
     private ScoreManager ScoreManager = null;
     private EffekseerEffectAsset m_JumpEffect = null;
     private EffekseerEffectAsset m_HeartEffect = null;
+    private EffekseerEffectAsset m_HeartShineEffect = null;
     private EffekseerEffectAsset m_CoinGetEffect = null;
     private Rigidbody2D m_RigidBody = null;
     private CalcDamage m_CalcDamage = null;
@@ -23,10 +24,11 @@ public class PlayerController : MonoBehaviour
     {
         JumpFlag = true;
         TwoJumpFlag = true;
-        GameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
+        gameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
         ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         m_JumpEffect = Resources.Load<EffekseerEffectAsset>("Effect\\jump");
         m_HeartEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart");
+        m_HeartShineEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart_shine");
         m_CoinGetEffect = Resources.Load<EffekseerEffectAsset>("Effect\\CoinGet");
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_CalcDamage = GetComponent<CalcDamage>();
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
         // マウスがクリックされたらプレイヤーをジャンプ状態にする。
         if (Input.GetMouseButtonDown(0))
         {
-            if (GameMainManager.state == GameMainManager.STATE.MAIN)
+            if (gameMainManager.state == GameMainManager.STATE.MAIN)
             {
                 if (JumpFlag == false)
                 {
@@ -81,9 +83,6 @@ public class PlayerController : MonoBehaviour
                 m_HeartEffectList.Remove(handle);
             }
         }
-        // 点滅アニメーションの停止
-        if ( m_CalcDamage.state == CalcDamage.DAMAGE_STATE.NORMAL)
-            m_Blink.ActiveFlag = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -91,51 +90,25 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Item")
         {
             ItemEffect item = collision.gameObject.GetComponent<ItemEffect>();
-            // 回復処理
-            //m_CalcDamage.Recovery(item.recoverValue);
 
             ScoreManager.AddScore(item.score);
 
             // エフェクトの取得
-            EffekseerHandle handle = EffekseerSystem.PlayEffect(m_HeartEffect, transform.position);
+            EffekseerHandle handle = default;
+
+            // ボーナス中かどうかで取得した時のエフェクトを変更する
+            if (gameMainManager.CoinGetRate > 1.0f)
+            {
+                handle = EffekseerSystem.PlayEffect(m_HeartShineEffect, transform.position);
+                SoundManager.Instance.PlaySE("Heart_Shine");
+            } else {
+                handle = EffekseerSystem.PlayEffect(m_HeartEffect, transform.position);
+                SoundManager.Instance.PlaySE("Heart");
+            }
+
             // エフェクトを更新で追従させるためにリストにいれる
             m_HeartEffectList.Add(handle);
 
-            SoundManager.Instance.PlaySE("Heart");
-        }
-
-        if (collision.gameObject.tag == "Enemy")
-        {
-            // 敵に触ったらダメージ(旧仕様)
-            //float oldHP = m_CalcDamage.hp;
-            //m_CalcDamage.Damage(collision.gameObject.GetComponent<CalcDamage>());
-            //if (m_CalcDamage.state == CalcDamage.DAMAGE_STATE.DEAD)
-            //{
-            //    //Destroy(this.gameObject);
-
-            //    // エフェクトの再生
-            //    //EffekseerSystem.PlayEffect(m_DeadEffect, transform.position);
-
-            //    //SoundManager.Instance.PlaySE("Dead");
-
-            //    // ゲームオーバー状態へ変更する
-            //    //GameMainManager.state = GameMainManager.STATE.OVER;
-            //}
-            //else
-            //{
-            //    // ダメージ関数を通ってダメージ中
-            //    if (m_CalcDamage.hp < oldHP)
-            //    {
-            //        // ダメージを食らったけど死んでない
-            //        // ダメージエフェクト
-            //        EffekseerSystem.PlayEffect(m_DamageEffect, transform.position);
-            //        // 点滅アニメーションの開始
-            //        m_Blink.ActiveFlag = true;
-
-            //        // SEの再生
-            //        SoundManager.Instance.PlaySE("Damage");
-            //    }
-            //}
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)

@@ -14,16 +14,18 @@ public class ArrangeManager : MonoBehaviour
     /// <summary>
     /// 配置テーブル
     /// </summary>
-    [SerializeField] ArrangeTable Table = default;
+    [SerializeField] ArrangeTable sorceTable = default;
     private float m_Timer = 0f;
     private CameraController m_Camera = null;
     GameMainManager m_GameMainManager = null;
+    [SerializeField]private List<ArrangePattern> patternList = default;
 
     void Start()
     {
         m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>().GetComponent<CameraController>();
         m_Timer = OneDisplayTime;
         m_GameMainManager = transform.root.GetComponent<GameMainManager>();
+        patternList = new List<ArrangePattern>(sorceTable.ArrangeTableItemList);
     }
 
 
@@ -37,9 +39,17 @@ public class ArrangeManager : MonoBehaviour
             {
                 m_Timer = 0;
                 // ランダムでテーブルからどのパターンから出るかを決める
-                int index = Random.Range(0, Table.ArrangeTableItemList.Count);
-                GameObject obj = Instantiate(Table.ArrangeTableItemList[index].PatternPrefab, this.transform);
+                int index = Random.Range(0, patternList.Count);
+                GameObject obj = Instantiate(patternList[index].PatternPrefab, this.transform);
                 obj.transform.position = new Vector3(m_Camera.GetScreenRight() * 2.0f, 0f, 0f);
+                // 一度出たパターンは出ないようにする
+                patternList.RemoveAt(index);
+
+                // 全てのパターンが出てしまったらテーブルをリセット
+                if (patternList.Count == 0)
+                {
+                    patternList = new List<ArrangePattern>(sorceTable.ArrangeTableItemList);
+                }
             }
         }
         if (m_GameMainManager.state == GameMainManager.STATE.OVER)
