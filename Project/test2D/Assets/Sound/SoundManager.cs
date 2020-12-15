@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
@@ -9,7 +10,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     private AudioSource m_BGMAudioSorce;
     Dictionary<string, AudioClip> m_BGMDictionary = new Dictionary<string, AudioClip>();
-
 
     override protected void Awake()
     {
@@ -69,5 +69,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     {
         m_BGMAudioSorce.Stop();
         m_BGMAudioSorce.clip = null;
+    }
+    public void SetBGMSpeed(float speed)
+    {
+
+        m_BGMAudioSorce.pitch = speed;
     }
 }

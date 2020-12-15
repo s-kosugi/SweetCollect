@@ -3,11 +3,12 @@ using UnityEngine.UI;
 
 public class GameMainManager : BaseScene
 {
-    [SerializeField] float GameOverTime = 2.0f;
+    [SerializeField] public float GameOverTime = 2.0f;
+    [SerializeField] public float GameDengerTime = 10.0f;
     [SerializeField] GameObject Player = null;
     [SerializeField] GameObject StartUIObject = null;
     [SerializeField] GameObject ReStartUIObject = null;
-    [SerializeField] private float GameTimer = 60f;
+    [SerializeField] public float GameTimer = 60.0f;
     [SerializeField] Ads AdsObject = null;
     private StartUI m_StartUI = null;
     private StartUI m_ReStartUI = null;
@@ -65,7 +66,6 @@ public class GameMainManager : BaseScene
         m_PlayFabStatistics = playFabManager.transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
         m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
         m_PlayerJump = Player.GetComponent<JumpAnimation>();
-        SoundManager.Instance.PlayBGM("MainGame");
 
         m_StartUI = StartUIObject.GetComponent<StartUI>();
         m_ReStartUI = ReStartUIObject.GetComponent<StartUI>();
@@ -217,6 +217,8 @@ public class GameMainManager : BaseScene
         // UIの動きが終わったらリスタートさせる
         if (m_ReStartUI.isEnd)
         {
+            SoundManager.Instance.PlayBGM("BonusTime");
+
             state = STATE.MAIN;
             // プレイヤーのジャンプアニメーションを開始する
             m_PlayerJump.StartJumpAnimation();
@@ -236,10 +238,6 @@ public class GameMainManager : BaseScene
     {
         GameTimer += time;
         if (GameTimer < 0) GameTimer = 0f;
-    }
-    public float GetGameTime()
-    {
-        return GameTimer;
     }
 
     // リスタート状態へ変更する

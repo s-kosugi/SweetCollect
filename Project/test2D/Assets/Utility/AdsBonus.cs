@@ -7,7 +7,7 @@ public class AdsBonus : MonoBehaviour
     private Ads m_Ads = null;
     [SerializeField] GameMainManager gameMainManager = null;
     [SerializeField] float AddTime = 30f;
-    private bool isAdd = false;     // ボーナス加算済みかどうか
+    public bool isAdd { get; private set; } = false;     // ボーナス加算済みかどうか
 
     void Start()
     {
