@@ -15,8 +15,6 @@ public class GameMainManager : BaseScene
 
     private float GameOverCount = 0.0f;
     public ScoreManager m_ScoreManager { get; private set; }
-    private bool isScoreSend = false;
-    private PlayFabStatistics m_PlayFabStatistics = null;
     private JumpAnimation m_PlayerJump = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
@@ -63,7 +61,6 @@ public class GameMainManager : BaseScene
         CoinGetRate = 1f;
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         GameObject playFabManager = GameObject.Find("PlayFabManager");
-        m_PlayFabStatistics = playFabManager.transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
         m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
         m_PlayerJump = Player.GetComponent<JumpAnimation>();
 
@@ -143,22 +140,7 @@ public class GameMainManager : BaseScene
     // ゲームオーバー状態
     void GameOver()
     {
-        if (!isScoreSend)
-        {
-            if (m_PlayFabStatistics && m_ScoreManager)
-            {
-                int staValue = m_PlayFabStatistics.GetStatisticValue("SweetsPoint");
-                // ハイスコア更新で、統計情報が見つからなかった場合は既定値が返るので多分OK
-                if ( staValue < m_ScoreManager.GetScore())
-                {
-                    Debug.Log("UpdateStatistics");
-                    // ハイスコアを更新する
-                    m_PlayFabStatistics.UpdatePlayerStatistics("SweetsPoint", m_ScoreManager.GetScore());
-                }
-                isScoreSend = true;
-
-            }
-        }
+        
         GameOverCount += Time.deltaTime;
         if (GameOverCount >= GameOverTime)
         {

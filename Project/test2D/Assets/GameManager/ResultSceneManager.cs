@@ -20,10 +20,8 @@ public class ResultSceneManager : BaseScene
     [SerializeField] float PlayFabTimeOut = 5.0f;
 
     //[SerializeField] float UIFadeOutTime = 1.0f;
-    [SerializeField] float AutoSceneMoveTime = 3.0f;
     //private float m_UIFadeOutTimer = 0f;
     private CanvasGroup m_CanvasGroup = null;
-    private float AutoSceneMoveCount = 0f;
 
     // リザルトシーン状態
     public enum STATE
@@ -156,13 +154,7 @@ public class ResultSceneManager : BaseScene
     // メイン状態
     void GameMain()
     {
-        AutoSceneMoveCount += Time.deltaTime;
 
-        // 時間経過で自動的にタイトルシーンへ遷移する
-        if (AutoSceneMoveTime <= AutoSceneMoveCount)
-        {
-            StepNextScene();
-        }
     }
     // フェードアウト状態
     void GameFadeOut()

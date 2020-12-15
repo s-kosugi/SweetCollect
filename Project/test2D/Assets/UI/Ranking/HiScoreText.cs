@@ -6,18 +6,20 @@ using UnityEngine;
 public class HiScoreText : MonoBehaviour
 {
     private TextMeshProUGUI m_Text = null;
-    private PlayFabStatistics m_Statistics = null;
+    private PlayFabStatistics statistics = null;
+    private bool isSet = false;
     void Start()
     {
-        m_Statistics = GameObject.Find("PlayFabManager").transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
+        statistics = GameObject.Find("PlayFabManager").transform.Find("PlayFabStatistics").GetComponent<PlayFabStatistics>();
         m_Text = gameObject.GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
     {
-        if (m_Statistics)
+        if (statistics.isGet && !isSet)
         {
-            m_Text.text = string.Format("{0:0000}", m_Statistics.GetStatisticValue("SweetsPoint"));
+            m_Text.text = string.Format("{0:0000}", statistics.GetStatisticValue("SweetsPoint"));
+            isSet = true;
         }
     }
 }
