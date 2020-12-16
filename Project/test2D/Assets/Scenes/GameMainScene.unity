@@ -768,7 +768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216759662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -45, y: 5, z: 44.414948}
+  m_LocalPosition: {x: -81, y: 38, z: 44.414948}
   m_LocalScale: {x: 0.31, y: 0.31, z: 1}
   m_Children: []
   m_Father: {fileID: 1220335864}
@@ -1181,7 +1181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323108030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -132.5, z: -36.96875}
+  m_LocalPosition: {x: 3, y: -84, z: -36.96875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1878,7 +1878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767655190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 441, y: 5, z: 44.41495}
+  m_LocalPosition: {x: 405, y: 38, z: 44.41495}
   m_LocalScale: {x: 0.31, y: 0.31, z: 1}
   m_Children: []
   m_Father: {fileID: 1220335864}
@@ -4438,7 +4438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24b60c89a6df5141a55ae702f3bd008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 250
+  JumpPower: 225
 --- !u!50 &1953754667
 Rigidbody2D:
   serializedVersion: 4
