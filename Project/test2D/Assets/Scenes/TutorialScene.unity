@@ -888,7 +888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 785355566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -132.5, z: -36.96875}
+  m_LocalPosition: {x: 3, y: -84, z: -36.96875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1554,7 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374097f87be2d5c45beb13bbc4d08d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 250
+  JumpPower: 225
 --- !u!50 &1420340929
 Rigidbody2D:
   serializedVersion: 4
@@ -1635,13 +1635,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OneDisplayTime: 7.5
-  Tutrial_01: {fileID: 9197945950849936675, guid: 86093552efd8f2745a31115a6d469823,
+  Tutrial_01: {fileID: 6236313876983220394, guid: 240594ecacccbf5429454999fcf90a5c,
     type: 3}
-  Tutrial_02: {fileID: 9165738579135397330, guid: b6bc837584f13ee43aa07a45cac9879c,
+  Tutrial_02: {fileID: 5225630843959176296, guid: 268e90d0790c5844f90b84d2a544ad82,
     type: 3}
-  Tutrial_03: {fileID: 3502128235309067281, guid: 221e8435495beff4da42243b78a3e1fe,
+  Tutrial_03: {fileID: 7866848024505234397, guid: 1c9a2a3fb0326ea4ea0c116b0a65d9e3,
     type: 3}
-  Tutrial_04: {fileID: 7039786626311823280, guid: b48408b981acb824b874e46cf35cbf55,
+  Tutrial_04: {fileID: 8492249851557373012, guid: e548b798af0f22d45b4c983018d2ea3b,
     type: 3}
 --- !u!1 &1604509304
 GameObject:
