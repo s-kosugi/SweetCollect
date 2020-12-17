@@ -9,6 +9,8 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayFabLogin : MonoBehaviour
 {
+    [SerializeField] float AutoLoginTime = 1f;
+    private float AutoLoginCount = 0f;
 
     //アカウントを作成するか
     private bool _shouldCreateAccount;
@@ -61,28 +63,25 @@ public class PlayFabLogin : MonoBehaviour
         Debug.Log($"PlayFabのログインに成功\nPlayFabId : {result.PlayFabId}, CustomId : {_customID}\nアカウントを作成したか : {result.NewlyCreated}");
         // PlayFabIDを保存
         _playfabID = result.PlayFabId;
-
-        // タイトルデータの取得
-        //GetTitleData();
-
-        // ユーザーネームの取得
-        //GetComponent<PlayFabUserProfiel>().GetUserName();
-
-        //GameObject gameObject = GameObject.Find("ScoreManager");
-        //if (gameObject != null)
-        //{
-        //    ScoreManager sm = gameObject.GetComponent<ScoreManager>();
-        //    // スコア情報の送信
-        //    GetComponent<PlayFabStatistics>().UpdatePlayerStatistics("SweetsPoint", sm.GetScore());
-        //}
-        // ランキング情報の取得
-        //GetComponent<PlayFabLeaderBoard>().GetLeaderboard("SweetsPoint",0,3);
     }
-
+    private void Update()
+    {
+        // 未ログインならログインをn秒毎に試行する
+        if (!PlayFabClientAPI.IsClientLoggedIn())
+        {
+            AutoLoginCount += Time.deltaTime;
+            if (AutoLoginCount >= AutoLoginTime)
+            {
+                AutoLoginCount = 0f;
+                Login();
+            }
+        }
+    }
     //ログイン失敗
     private void OnLoginFailure(PlayFabError error)
     {
         Debug.LogError($"PlayFabのログインに失敗\n{error.GenerateErrorReport()}");
+
     }
 
     //=================================================================================

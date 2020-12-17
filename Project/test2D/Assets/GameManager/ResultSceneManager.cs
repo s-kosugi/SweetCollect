@@ -14,11 +14,6 @@ public class ResultSceneManager : BaseScene
     [SerializeField] GameObject AppearGroup3 = null;
     [SerializeField] GameObject AppearGroup4 = null;
 
-    /// <summary>
-    /// PlayFab接続に時間がかかった場合はタイムアウト処理を行う
-    /// </summary>
-    [SerializeField] float PlayFabTimeOut = 5.0f;
-
     //[SerializeField] float UIFadeOutTime = 1.0f;
     //private float m_UIFadeOutTimer = 0f;
     private CanvasGroup m_CanvasGroup = null;
@@ -62,6 +57,7 @@ public class ResultSceneManager : BaseScene
 
         base.Start();
 
+        fadeState = FADE_STATE.BLACK;
     }
 
     // Update is called once per frame
@@ -84,12 +80,8 @@ public class ResultSceneManager : BaseScene
     {
         // 通信が終了したらフェードインへ移行する
         if (!m_WaitConnect.IsWait())
-            state = STATE.FADEIN;
-
-        // タイムアウトになったら強制的に状態遷移を行う
-        PlayFabTimeOut -= Time.deltaTime;
-        if (PlayFabTimeOut <= 0)
         {
+            fadeState = FADE_STATE.FADEIN;
             state = STATE.FADEIN;
         }
     }
