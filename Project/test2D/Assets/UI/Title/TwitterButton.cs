@@ -6,7 +6,14 @@ public class TwitterButton : MonoBehaviour
     private ScoreManager scoreManager = default;
     void Start()
     {
+
+#if UNITY_WEBGL
+        // WEBGL版では非表示にする
+        Destroy(this.gameObject);
+#endif
+
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+
     }
 
     // Update is called once per frame
