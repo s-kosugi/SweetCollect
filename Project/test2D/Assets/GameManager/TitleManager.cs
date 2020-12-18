@@ -5,7 +5,7 @@ public class TitleManager : BaseScene
 {
     [SerializeField] GameObject textBox = null;
     [SerializeField] string defaultPlayerName = "ななしさん";
-    private PlayFabPlayerData m_PlayPlayerData = null;
+    private PlayFabPlayerData m_PlayFabPlayerData = null;
     private PlayFabUserProfiel m_PlayFabUserProfiel = null;
     private PlayFabPlayerData m_PlayFabTutorialData = null;
     private PlayFabInventory m_PlayFabInventory = null;
@@ -27,7 +27,7 @@ public class TitleManager : BaseScene
         SoundManager.Instance.PlayBGM("MainGame");
 
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_PlayPlayerData = PlayFabManager.transform.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
+        m_PlayFabPlayerData = PlayFabManager.transform.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
         m_PlayFabUserProfiel = PlayFabManager.transform.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
         m_PlayFabInventory = PlayFabManager.transform.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
         m_PlayFabStore = PlayFabManager.transform.Find("PlayFabStore").GetComponent<PlayFabStore>();
@@ -117,7 +117,7 @@ public class TitleManager : BaseScene
         // チュートリアル終了済みでなかったらチュートリアルへ飛ばす
         if (NextSceneName == "GameMainScene")
         {
-            if (m_PlayPlayerData.m_Data[PlayerDataName.TUTORIAL].Value != "End")
+            if (!m_PlayFabPlayerData.m_Data.ContainsKey(PlayerDataName.TUTORIAL) || m_PlayFabPlayerData.m_Data[PlayerDataName.TUTORIAL].Value != "End")
             {
                 NextSceneName = "TutorialScene";
             }
@@ -134,9 +134,9 @@ public class TitleManager : BaseScene
             if (!m_WaitConnect.IsWait())
             {
                 // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
-                if (!m_PlayPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
+                if (!m_PlayFabPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
                 {
-                    m_PlayPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORAML");
+                    m_PlayFabPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORAML");
                 }
                 // 通常の服を持っていなかったらストアから購入する
                 if (!m_PlayFabInventory.IsHaveItem("001_NORMAL"))
