@@ -54,6 +54,12 @@ public class PlayFabPlayerData : MonoBehaviour
             {
                 Debug.Log("ユーザーデータの更新に成功");
 
+                // キーがまだない場合には作成
+                if( !m_Data.ContainsKey(dataname) )
+                {
+                    UserDataRecord record = new UserDataRecord();
+                    m_Data.Add(dataname, record);
+                }
                 m_Data[dataname].Value = data;
 
                 // 通信終了

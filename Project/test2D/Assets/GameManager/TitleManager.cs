@@ -101,7 +101,7 @@ public class TitleManager : BaseScene
                 m_PlayFabUserProfiel.SetUserName(textBox.GetComponent<InputField>().text);
 
                 // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
-                if (!m_PlayPlayerData.m_isGet || !m_PlayPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
+                if (!m_PlayPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
                 {
                     m_PlayPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORAML");
                 }
