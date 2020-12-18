@@ -940,6 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5d0c4a91fd8da418cc7982e2e19a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AutoLoginTime: 1
 --- !u!4 &648793400
 Transform:
   m_ObjectHideFlags: 0
@@ -955,7 +956,6 @@ Transform:
   - {fileID: 907776687}
   - {fileID: 1866403474}
   - {fileID: 1062585634}
-  - {fileID: 1158638202}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1099,12 +1099,12 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2960
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1440
+      value: 540
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581ccab5d4f2d434d8a1ae9519e8158a, type: 3}
@@ -1696,7 +1696,7 @@ MonoBehaviour:
   store: {fileID: 0}
   inventory: {fileID: 0}
   connect: {fileID: 0}
-  AvatarData: {fileID: 0}
+  playerData: {fileID: 0}
   shop: {fileID: 0}
   playermoney: {fileID: 1158271998}
   clothing: {fileID: 0}
@@ -1993,64 +1993,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158271996}
   m_CullTransparentMesh: 0
---- !u!1 &1158638201
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1158638202}
-  - component: {fileID: 1158638204}
-  - component: {fileID: 1158638203}
-  m_Layer: 10
-  m_Name: PlayFabEclothesData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1158638202
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158638201}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -97.62733, y: -70.21438, z: 62.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 648793400}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1158638203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158638201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RequestInterval: 1
---- !u!114 &1158638204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158638201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DataName: EClothes
 --- !u!1 &1178636323
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,7 +3195,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2960, y: 1440}
+  m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1671069068
 MonoBehaviour:
@@ -3268,7 +3210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1671069067}
-  referenceResolution: {x: 2960, y: 1440}
+  referenceResolution: {x: 960, y: 540}
   matchWidthOrHeight: 0
 --- !u!1 &1706139067
 GameObject:
@@ -3682,7 +3624,7 @@ GameObject:
   - component: {fileID: 1866403476}
   - component: {fileID: 1866403475}
   m_Layer: 0
-  m_Name: PlayFabEclothesData
+  m_Name: PlayFabPlayerData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3727,7 +3669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataName: EClothes
 --- !u!1 &1908391121
 GameObject:
   m_ObjectHideFlags: 0

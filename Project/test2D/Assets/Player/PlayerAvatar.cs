@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerAvatar : MonoBehaviour
 {
-    private PlayFabPlayerData m_AvatarData = null;
+    private PlayFabPlayerData m_PlayerData = null;
     private SpriteRenderer m_SpriteRenderer = null;
     public bool m_isAvatarChange { get; private set; }
     [SerializeField] PlayFabWaitConnect waitConnect = default;
 
     void Start()
     {
-        // 着用している衣服データを取得
-        m_AvatarData = GameObject.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
+        // プレイヤーデータを取得
+        m_PlayerData = GameObject.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_isAvatarChange = false;
     }
@@ -25,10 +25,11 @@ public class PlayerAvatar : MonoBehaviour
     {
         if (!m_isAvatarChange)
         {
-            // 通信待ちしていないかどうか。※一旦通信タイムアウトは考えない
+            // 通信待ちしていないかどうか。
             if (!waitConnect.IsWait())
             {
-                Sprite sprite = Resources.Load<Sprite>("Player\\" + m_AvatarData.m_Value);
+                // プレイヤーデータを取得して衣服を変更する
+                Sprite sprite = Resources.Load<Sprite>("Player\\" + m_PlayerData.m_Data[PlayerDataName.ECLOTHES].Value);
                 if (sprite)
                 {
                     m_SpriteRenderer.sprite = sprite;

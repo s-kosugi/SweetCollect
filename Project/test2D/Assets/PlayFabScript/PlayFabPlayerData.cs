@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public class PlayFabPlayerData : MonoBehaviour
 {
-    [SerializeField] string DataName = "";
-    public string m_Value { get; private set; }
+    // 受信した全データ
+    public Dictionary<string, UserDataRecord> m_Data { get; private set; } = default;
 
     private PlayFabLogin m_PlayFabLogin = null;
     private PlayFabAutoRequest m_AutoRequest = null;
@@ -20,7 +20,6 @@ public class PlayFabPlayerData : MonoBehaviour
         m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
         m_isGet = false;
-        m_Value = "";
     }
     public void Update()
     {
@@ -34,8 +33,9 @@ public class PlayFabPlayerData : MonoBehaviour
     /// <summary>
     /// ユーザーデータの更新
     /// </summary>
+    /// <param name="dataname">データ名</param>
     /// <param name="data">データ内容</param>
-    public void SetPlayerData(string data)
+    public void SetPlayerData(string dataname,string data)
     {
         // 通信待ちでなかったら通信開始
         if (!m_WaitConnect.GetWait(transform))
@@ -45,7 +45,7 @@ public class PlayFabPlayerData : MonoBehaviour
 
             var change = new Dictionary<string, string>
             {
-                { DataName, data }
+                { dataname, data }
             };
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
             {
@@ -53,7 +53,8 @@ public class PlayFabPlayerData : MonoBehaviour
             }, result =>
             {
                 Debug.Log("ユーザーデータの更新に成功");
-                m_Value = data;
+
+                m_Data[dataname].Value = data;
 
                 // 通信終了
                 m_WaitConnect.SetWait(transform, false);
@@ -71,7 +72,7 @@ public class PlayFabPlayerData : MonoBehaviour
     /// ユーザーデータの取得
     /// </summary>
     /// <param name="name">データ名</param>
-    public void GetUserData()
+    private void GetUserData()
     {
         // 通信待ちでなかったら通信開始
         if (!m_WaitConnect.GetWait(transform))
@@ -85,11 +86,11 @@ public class PlayFabPlayerData : MonoBehaviour
             }, result =>
             {
                 m_isGet = true;
+                m_Data = result.Data;
                 // 通信終了
                 m_WaitConnect.SetWait(transform, false);
 
-                Debug.Log(result.Data[DataName].Value);
-                m_Value = result.Data[DataName].Value;
+                Debug.Log("ユーザーデータの取得に成功");
             }, error =>
             {
                 Debug.Log(error.GenerateErrorReport());

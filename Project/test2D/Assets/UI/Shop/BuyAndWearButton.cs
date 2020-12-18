@@ -9,7 +9,7 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private PlayFabStore store = null;            //ストア
     [SerializeField] private PlayFabInventory inventory = null;    //インベントリ
     [SerializeField] private PlayFabWaitConnect connect = null;    //通信
-    [SerializeField] private PlayFabPlayerData AvatarData = null;  //プレイヤーデータ
+    [SerializeField] private PlayFabPlayerData playerData = null;  //プレイヤーデータ
 
     [SerializeField] private ShopCanvasController shop = null;
     [SerializeField] private Money_Text playermoney = null;
@@ -44,7 +44,7 @@ public class BuyAndWearButton : MonoBehaviour
         store = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
         inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
-        AvatarData = GameObject.Find("PlayFabEclothesData").GetComponent<PlayFabPlayerData>();
+        playerData = GameObject.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
         
         shop = this.transform.root.GetComponent<ShopCanvasController>();
         // ハードコーディングで可変に対応できない為コメントアウト
@@ -125,8 +125,7 @@ public class BuyAndWearButton : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log(shop.GetItemInfo().storeItem.ItemId + "は購入済みです");
-                    AvatarData.SetPlayerData(shop.GetItemInfo().catalogItem.ItemId);
+                    playerData.SetPlayerData(PlayerDataName.ECLOTHES, shop.GetItemInfo().catalogItem.ItemId);
                     Debug.Log(shop.GetItemInfo().catalogItem.ItemId + "を着用しました");
 
                     // プレイヤーの見た目更新

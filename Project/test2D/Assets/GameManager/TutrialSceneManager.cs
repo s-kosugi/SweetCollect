@@ -152,7 +152,7 @@ public class TutrialSceneManager : BaseScene
         {
             m_State = STATE.FADEOUT;
             fadeState = FADE_STATE.FADEOUT;
-            PlayerData.SetPlayerData("End");
+            PlayerData.SetPlayerData(PlayerDataName.TUTORIAL,"End");
         }
     }
 

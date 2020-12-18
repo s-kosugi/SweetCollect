@@ -1445,7 +1445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataName: Tutorial
 --- !u!1001 &760979284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1586,12 +1585,12 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 960
+      value: 533
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 540
+      value: 453
       objectReference: {fileID: 0}
     - target: {fileID: 7666168494144472157, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -1612,7 +1611,7 @@ GameObject:
   - component: {fileID: 860361242}
   - component: {fileID: 860361241}
   m_Layer: 0
-  m_Name: PlayFabEclothesData
+  m_Name: PlayFabPlayerData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1657,7 +1656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataName: EClothes
 --- !u!1 &968699678
 GameObject:
   m_ObjectHideFlags: 0
