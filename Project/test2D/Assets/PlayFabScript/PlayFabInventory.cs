@@ -89,6 +89,7 @@ public class PlayFabInventory : MonoBehaviour
     /// <returns>true:持っている false:持っていない</returns>
     public bool IsHaveItem(string itemID)
     {
+        if (m_InventoryItems.Count <= 0) return false;
         if (m_InventoryItems.ContainsKey(itemID)) return true;
 
         return false;

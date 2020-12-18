@@ -289,9 +289,13 @@ public class Clothing : MonoBehaviour
             }
             if (have == true && oldClothingChild[i] == false)
             {
-                // 買った瞬間なのでエフェクトを再生する
-                EffekseerSystem.PlayEffect(buyEffect,this.transform.position);
-                SoundManager.Instance.PlaySE("Buy");
+                // 0番服はデフォルト服なのでエフェクト再生などは無し
+                if (i != 0)
+                {
+                    // 買った瞬間なのでエフェクトを再生する
+                    EffekseerSystem.PlayEffect(buyEffect, this.transform.position);
+                    SoundManager.Instance.PlaySE("Buy");
+                }
 
                 oldClothingChild[i] = true;
             }

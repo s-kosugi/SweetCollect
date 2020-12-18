@@ -11,6 +11,7 @@ public class TitleManager : BaseScene
     private PlayFabInventory m_PlayFabInventory = null;
     private PlayFabStore m_PlayFabStore = null;
     private PlayFabWaitConnect m_WaitConnect = null;
+    private bool isSetDefault = false;
 
     public enum STATE
     {
@@ -48,9 +49,11 @@ public class TitleManager : BaseScene
             case STATE.PREPARATION: Preparation(); break;
             case STATE.FADEIN: TitleFadeIn(); break;
             case STATE.FADEOUT: TitleFadeOut(); break;
-            case STATE.MAIN: Main(); break;
+            case STATE.MAIN: TitleMain(); break;
         }
         base.Update();
+
+        
     }
 
     // 準備
@@ -71,8 +74,10 @@ public class TitleManager : BaseScene
         }
     }
     // タイトルメイン状態
-    private void Main()
+    private void TitleMain()
     {
+        // デフォルト服データのセット
+        SetDefaultEClothesData();
     }
     // フェードアウト中
     private void TitleFadeOut()
@@ -100,17 +105,6 @@ public class TitleManager : BaseScene
                 // ユーザー名の更新
                 m_PlayFabUserProfiel.SetUserName(textBox.GetComponent<InputField>().text);
 
-                // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
-                if (!m_PlayPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
-                {
-                    m_PlayPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORAML");
-                }
-                // 通常の服を持っていなかったらストアから購入する
-                if (!m_PlayFabInventory.IsHaveItem("001_NORMAL"))
-                {
-                    m_PlayFabStore.BuyItem("001_NORMAL", "HA");
-                }
-
                 // フェードアウト状態にする
                 state = STATE.FADEOUT;
             }
@@ -129,5 +123,28 @@ public class TitleManager : BaseScene
             }
         }
         NextScene();
+    }
+    /// <summary>
+    /// デフォルト服データのセット
+    /// </summary>
+    private void SetDefaultEClothesData()
+    {
+        if (!isSetDefault)
+        {
+            if (!m_WaitConnect.IsWait())
+            {
+                // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
+                if (!m_PlayPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
+                {
+                    m_PlayPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORAML");
+                }
+                // 通常の服を持っていなかったらストアから購入する
+                if (!m_PlayFabInventory.IsHaveItem("001_NORMAL"))
+                {
+                    m_PlayFabStore.BuyItem("001_NORMAL", "HA");
+                }
+                isSetDefault = true;
+            }
+        }
     }
 }
