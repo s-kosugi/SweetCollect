@@ -23,17 +23,3 @@ MonoBehaviour:
       type: 3}
   - PatternPrefab: {fileID: 5014794676313744465, guid: fddf1791e6d09794eb78603eb9a93b4d,
       type: 3}
-  - PatternPrefab: {fileID: 1873676279124140240, guid: 5eaa153c67522b5458bd6e24d466883a,
-      type: 3}
-  - PatternPrefab: {fileID: 5882866499236280453, guid: 16216d21be24f0049a3be06982abefcd,
-      type: 3}
-  - PatternPrefab: {fileID: 2102158685462605172, guid: a7b24119ef1d3b9499d241449967847d,
-      type: 3}
-  - PatternPrefab: {fileID: 5319369127871084009, guid: 0461b1d23f9639a48a9076e90d3b368d,
-      type: 3}
-  - PatternPrefab: {fileID: 4553670038157477143, guid: 811a6fd784cf4f341b6f8b1a7d6d27a9,
-      type: 3}
-  - PatternPrefab: {fileID: 9140813806147093026, guid: 367c81419af7899429f2c241493d762d,
-      type: 3}
-  - PatternPrefab: {fileID: 8578702653329180166, guid: 291a310e698abbd448e691ca9394e51b,
-      type: 3}
