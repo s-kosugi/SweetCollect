@@ -3,11 +3,9 @@ using UnityEngine.UI;
 
 public class TitleManager : BaseScene
 {
-    [SerializeField] GameObject textBox = null;
-    [SerializeField] string defaultPlayerName = "ななしさん";
+    [SerializeField] InputField inputField = null;
     private PlayFabPlayerData m_PlayFabPlayerData = null;
     private PlayFabUserProfiel m_PlayFabUserProfiel = null;
-    private PlayFabPlayerData m_PlayFabTutorialData = null;
     private PlayFabInventory m_PlayFabInventory = null;
     private PlayFabStore m_PlayFabStore = null;
     private PlayFabWaitConnect m_WaitConnect = null;
@@ -95,16 +93,14 @@ public class TitleManager : BaseScene
         // 通信待ちでない場合
         if (!m_WaitConnect.IsWait())
         {
-            // テキストボックスが空白の場合はデフォルトネームを入れる
-            if (textBox.GetComponent<InputField>().text == "")
+            // テキストボックスが空白でない時にユーザー名を更新する
+            if (inputField.text != "")
             {
-                textBox.GetComponent<InputField>().text = defaultPlayerName;
+                // ユーザー名の更新
+                m_PlayFabUserProfiel.SetUserName(inputField.text);
             }
             if (fadeState != FADE_STATE.FADEOUT)
             {
-                // ユーザー名の更新
-                m_PlayFabUserProfiel.SetUserName(textBox.GetComponent<InputField>().text);
-
                 // フェードアウト状態にする
                 state = STATE.FADEOUT;
             }

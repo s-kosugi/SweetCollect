@@ -9,12 +9,14 @@ public class TutrialBackGroundController : MonoBehaviour
     [SerializeField] GameObject TutrialManagerObject = null;
     private bool MainCameraIn = false;
     private TutrialSceneManager m_TutrialManager = null;
+    private SpriteRenderer spriteRenderer = default;
 
 
     // Start is called before the first frame update
     void Start()
     {
         m_TutrialManager = TutrialManagerObject.GetComponent<TutrialSceneManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,15 @@ public class TutrialBackGroundController : MonoBehaviour
 
         // フラグリセット
         MainCameraIn = false;
+    }
+    private void LateUpdate()
+    {
+        // 追従処理
+        if (TraceObject.transform.position.x < this.transform.position.x)
+        {
+            float pos = TraceObject.transform.position.x + spriteRenderer.bounds.size.x;
+            transform.position = new Vector3(pos, transform.position.y, transform.position.z);
+        }
     }
     // メインカメラに写っているかどうかを判定する。
     void OnWillRenderObject()

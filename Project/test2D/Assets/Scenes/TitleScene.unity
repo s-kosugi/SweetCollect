@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeSpeed: 0.02
   NextSceneName: GameMainScene
-  textBox: {fileID: 1071028708}
+  inputField: {fileID: 1071028710}
   defaultPlayerName: "\u306A\u306A\u3057\u3055\u3093"
 --- !u!1001 &709697220
 PrefabInstance:
