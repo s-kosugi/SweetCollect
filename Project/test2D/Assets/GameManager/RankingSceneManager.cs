@@ -20,11 +20,6 @@ public class RankingSceneManager : BaseScene
     [SerializeField] GameObject AppearGroup3 = null;
     [SerializeField] GameObject AppearGroup4 = null;
 
-    /// <summary>
-    /// PlayFab接続に時間がかかった場合はタイムアウト処理を行う
-    /// </summary>
-    [SerializeField] float PlayFabTimeOut = 5.0f;
-
     // ランキングシーン状態
     public enum STATE
     {
@@ -86,12 +81,6 @@ public class RankingSceneManager : BaseScene
         if (!m_WaitConnect.IsWait())
             state = STATE.FADEIN;
 
-        // タイムアウトになったら強制的に状態遷移を行う
-        PlayFabTimeOut -= Time.deltaTime;
-        if (PlayFabTimeOut <= 0)
-        {
-            state = STATE.FADEIN;
-        }
     }
 
     // フェードイン状態
@@ -163,7 +152,10 @@ public class RankingSceneManager : BaseScene
     // フェードアウト状態
     void GameFadeOut()
     {
-        // フェードアウト状態に変更する
-        fadeState = FADE_STATE.FADEOUT;
+        if (!m_WaitConnect.IsWait())
+        {
+            // フェードアウト状態に変更する
+            fadeState = FADE_STATE.FADEOUT;
+        }
     }
 }

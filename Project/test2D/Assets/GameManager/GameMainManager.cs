@@ -212,13 +212,16 @@ public class GameMainManager : BaseScene
     // ゲームフェードアウト中
     void GameFadeOut()
     {
-
+        // 通信終了したらフェードアウト状態に変更する
+        if(!m_WaitConnect.IsWait())
+        {
+            fadeState = FADE_STATE.FADEOUT;
+        }
     }
 
     public void NextSceneButtonClick()
     {
         // フェードアウト状態に変更する
-        fadeState = FADE_STATE.FADEOUT;
         state = STATE.FADEOUT;
 
         // 現在のスコアを仮想通貨に追加する

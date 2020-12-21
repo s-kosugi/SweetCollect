@@ -79,7 +79,6 @@ public class ShopSceneManager : BaseScene
             fadeState = FADE_STATE.FADEOUT;
             m_State = STATE.FADEOUT;
 
-            // ※ここでPlayFabManagerを無効化してもいいかも？（暗転中の操作無効化）
         }
     }
 }

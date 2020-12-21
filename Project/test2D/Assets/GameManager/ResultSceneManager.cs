@@ -151,18 +151,11 @@ public class ResultSceneManager : BaseScene
     // フェードアウト状態
     void GameFadeOut()
     {
-        // フェードアウト状態に変更する
-        //fadeState = FADE_STATE.FADEOUT;
-
-        //m_UIFadeOutTimer += Time.deltaTime;
-
-        //m_CanvasGroup.alpha = Easing.Linear(m_UIFadeOutTimer, UIFadeOutTime, 0.0f, 1.0f);
-
-        //if (m_UIFadeOutTimer >= UIFadeOutTime)
-        //{
-        //    // UIのフェードアウトが終わったのでランキングシーンに遷移する
-        //    //SceneManager.LoadScene(NextSceneName);
-        //}
+        // 通信が終わったらシーンをフェードアウトに変更する
+        if( !m_WaitConnect.IsWait())
+        {
+            fadeState = FADE_STATE.FADEOUT;
+        }
     }
 
     // 次のシーンへ進む
@@ -170,7 +163,6 @@ public class ResultSceneManager : BaseScene
     {
         if (state != STATE.FADEOUT)
         {
-            fadeState = FADE_STATE.FADEOUT;
             // フェードアウト状態に変更する
             state = STATE.FADEOUT;
         }
