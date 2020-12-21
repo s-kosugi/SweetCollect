@@ -200,8 +200,10 @@ public class BuyAndWearButton : MonoBehaviour
             return;
         }
 
-        
-        if (shop.GetItemInfo().storeItem.VirtualCurrencyPrices[PriceName] <= playermoney.GetPossessionMoney() && State_Button == STATE.RECEPTION)
+        // (アイテムを持っているorお金が足りている) && ボタンが受付状態ならボタンを押せる状態にする
+        if ((shop.GetItemInfo().storeItem.VirtualCurrencyPrices[PriceName] <= playermoney.GetPossessionMoney() ||
+            inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId))
+            && State_Button == STATE.RECEPTION)
         {
             button.enabled = true;
         }
