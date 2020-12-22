@@ -41,10 +41,10 @@ public class PlayFabStatistics : MonoBehaviour
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
             // 通信待ちでなかったら通信開始
-            if (!m_WaitConnect.GetWait(transform))
+            if (!m_WaitConnect.GetWait(gameObject.name))
             {
                 // 通信待ちに設定する
-                m_WaitConnect.SetWait(transform, true);
+                m_WaitConnect.AddWait(gameObject.name);
 
                 //UpdatePlayerStatisticsRequestのインスタンスを生成
                 var request = new UpdatePlayerStatisticsRequest
@@ -74,7 +74,7 @@ public class PlayFabStatistics : MonoBehaviour
     private void OnUpdatePlayerStatisticsSuccess(UpdatePlayerStatisticsResult result)
     {
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         Debug.Log($"スコア(統計情報)の更新が成功しました");
     }
@@ -83,7 +83,7 @@ public class PlayFabStatistics : MonoBehaviour
     private void OnUpdatePlayerStatisticsFailure(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         Debug.LogError($"スコア(統計情報)更新に失敗しました\n{error.GenerateErrorReport()}");
     }
@@ -97,10 +97,10 @@ public class PlayFabStatistics : MonoBehaviour
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
             // 通信待ちでなかったら通信開始
-            if (!m_WaitConnect.GetWait(transform))
+            if (!m_WaitConnect.GetWait(gameObject.name))
             {
                 // 通信待ちに設定する
-                m_WaitConnect.SetWait(transform, true);
+                m_WaitConnect.AddWait(gameObject.name);
 
                 PlayFabClientAPI.GetPlayerStatistics(
                 new GetPlayerStatisticsRequest(),
@@ -125,7 +125,7 @@ public class PlayFabStatistics : MonoBehaviour
         m_ValueList.Clear();
 
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         Debug.Log("スコア(統計情報)の取得に成功:");
         foreach (var eachStat in result.Statistics)
@@ -140,7 +140,7 @@ public class PlayFabStatistics : MonoBehaviour
     private void OnGetErrorStatistics(PlayFabError obj)
     {
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
         Debug.LogError("統計情報の取得に失敗しました。");
     }
 

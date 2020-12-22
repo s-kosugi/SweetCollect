@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+﻿using PlayFab.ClientModels;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TitleManager : BaseScene
 {
     [SerializeField] InputField inputField = null;
-    private PlayFabPlayerData m_PlayFabPlayerData = null;
+    [SerializeField]private PlayFabPlayerData m_PlayFabPlayerData = null;
     private PlayFabUserProfiel m_PlayFabUserProfiel = null;
     private PlayFabInventory m_PlayFabInventory = null;
     private PlayFabStore m_PlayFabStore = null;
     private PlayFabWaitConnect m_WaitConnect = null;
     private bool isSetDefault = false;
+    [SerializeField] BGMSlider bgmSlider= default;
+    [SerializeField] SESlider seSlider = default;
+
 
     public enum STATE
     {
@@ -22,8 +26,6 @@ public class TitleManager : BaseScene
 
     override protected void Start()
     {
-        SoundManager.Instance.PlayBGM("MainGame");
-
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
         m_PlayFabPlayerData = PlayFabManager.transform.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
         m_PlayFabUserProfiel = PlayFabManager.transform.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
@@ -61,6 +63,8 @@ public class TitleManager : BaseScene
         {
             state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;
+
+            StartSound();
         }
     }
     // フェードイン中
@@ -99,6 +103,10 @@ public class TitleManager : BaseScene
                 // ユーザー名の更新
                 m_PlayFabUserProfiel.SetUserName(inputField.text);
             }
+            // 音量設定を更新する
+            m_PlayFabPlayerData.SetPlayerData(PlayerDataName.BGMVOLUME,SoundManager.Instance.m_BGMVolume.ToString());
+            m_PlayFabPlayerData.SetPlayerData(PlayerDataName.SEVOLUME, SoundManager.Instance.m_SEVolume.ToString());
+
             if (fadeState != FADE_STATE.FADEOUT)
             {
                 // フェードアウト状態にする
@@ -142,5 +150,26 @@ public class TitleManager : BaseScene
                 isSetDefault = true;
             }
         }
+    }
+
+    // サウンド開始処理
+    private void StartSound()
+    {
+        UserDataRecord record = default;
+        // キーがない場合の事を考慮する
+        if (m_PlayFabPlayerData.m_Data.TryGetValue(PlayerDataName.BGMVOLUME, out record))
+        {
+            SoundManager.Instance.SetBGMVolume(float.Parse(record.Value));
+        }
+        if (m_PlayFabPlayerData.m_Data.TryGetValue(PlayerDataName.SEVOLUME, out record))
+        {
+            SoundManager.Instance.SetSEVolume(float.Parse(record.Value));
+        }
+        // スライダーオブジェクトの初期化
+        bgmSlider.InitializeSlider();
+        seSlider.InitializeSlider();
+
+        // BGM再生開始
+        SoundManager.Instance.PlayBGM("MainGame");
     }
 }
