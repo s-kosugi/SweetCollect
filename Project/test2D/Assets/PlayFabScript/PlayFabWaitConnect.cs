@@ -6,7 +6,7 @@ using PlayFab;
 // PlayFab通信待ち管理クラス
 public class PlayFabWaitConnect : MonoBehaviour
 {
-    [SerializeField]private List<string> m_WaitList = default;
+    private List<string> m_WaitList = default;
 
     void Start()
     {
