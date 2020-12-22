@@ -40,10 +40,10 @@ public class PlayFabLeaderBoard : MonoBehaviour
     public void GetLeaderboard(string rankingName, int startPosition, int maxResultsCount)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait( gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name);
 
             //GetLeaderboardRequestのインスタンスを生成
             var request = new GetLeaderboardRequest
@@ -65,7 +65,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
         Debug.Log($"ランキング(リーダーボード)の取得に成功しました");
 
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         //result.Leaderboardに各順位の情報(PlayerLeaderboardEntry)が入っている
         m_RankingText = "";
@@ -80,7 +80,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
     private void OnGetLeaderboardFailure(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         Debug.LogError($"ランキング(リーダーボード)の取得に失敗しました\n{error.GenerateErrorReport()}");
     }

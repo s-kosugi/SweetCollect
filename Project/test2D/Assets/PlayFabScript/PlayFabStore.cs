@@ -85,10 +85,10 @@ public class PlayFabStore : MonoBehaviour
     public void BuyItem(string itemID,string virtualCurrency)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name);
 
             PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest()
             {
@@ -102,7 +102,7 @@ public class PlayFabStore : MonoBehaviour
             {
 
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name);
                 Debug.Log($"{purchaseResult.Items[0].DisplayName}購入成功！");
                 PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
                 , result =>
@@ -115,7 +115,7 @@ public class PlayFabStore : MonoBehaviour
             }, error =>
             {
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name);
 
                 // 金額不足
                 if (error.Error == PlayFabErrorCode.InsufficientFunds)

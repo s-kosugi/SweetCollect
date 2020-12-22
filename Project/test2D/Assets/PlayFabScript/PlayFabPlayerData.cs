@@ -38,10 +38,10 @@ public class PlayFabPlayerData : MonoBehaviour
     public void SetPlayerData(string dataname,string data)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait(gameObject.name + dataname))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name + dataname);
 
             var change = new Dictionary<string, string>
             {
@@ -63,13 +63,13 @@ public class PlayFabPlayerData : MonoBehaviour
                 m_Data[dataname].Value = data;
 
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name + dataname);
             }, error =>
             {
                 Debug.Log(error.GenerateErrorReport());
 
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name + dataname);
             });
         }
     }
@@ -81,10 +81,11 @@ public class PlayFabPlayerData : MonoBehaviour
     private void GetUserData()
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name);
+            Debug.Log("ユーザーデータの取得開始");
 
             PlayFabClientAPI.GetUserData(new GetUserDataRequest()
             {
@@ -94,14 +95,14 @@ public class PlayFabPlayerData : MonoBehaviour
                 m_isGet = true;
                 m_Data = result.Data;
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name);
 
                 Debug.Log("ユーザーデータの取得に成功");
             }, error =>
             {
                 Debug.Log(error.GenerateErrorReport());
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name);
             });
         }
     }

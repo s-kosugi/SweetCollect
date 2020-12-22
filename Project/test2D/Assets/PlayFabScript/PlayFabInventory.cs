@@ -40,10 +40,10 @@ public class PlayFabInventory : MonoBehaviour
     private void GetUserInventory()
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name);
 
             //インベントリの情報の取得
             Debug.Log($"インベントリの情報の取得開始");
@@ -53,7 +53,7 @@ public class PlayFabInventory : MonoBehaviour
             {
                 m_InventoryItems.Clear();
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name);
 
                 //result.Inventoryがインベントリの情報
                 Debug.Log($"インベントリの情報の取得に成功 : インベントリに入ってるアイテム数 {result.Inventory.Count}個");
@@ -69,7 +69,7 @@ public class PlayFabInventory : MonoBehaviour
             }, error =>
             {
                 // 通信終了
-                m_WaitConnect.SetWait(transform, false);
+                m_WaitConnect.RemoveWait(gameObject.name);
                 Debug.LogError($"インベントリの情報の取得に失敗\n{error.GenerateErrorReport()}");
             });
         }

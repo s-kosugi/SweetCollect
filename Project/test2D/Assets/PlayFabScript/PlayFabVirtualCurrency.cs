@@ -49,10 +49,10 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     public void GetUserVirtualCurrency()
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name);
 
             //GetUserInventoryRequestのインスタンスを生成
             var userInventoryRequest = new GetUserInventoryRequest();
@@ -70,7 +70,7 @@ public class PlayFabVirtualCurrency : MonoBehaviour
         Debug.Log($"仮想通貨の情報の取得に成功");
 
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         //所持している仮想通貨の情報をログで表示
         foreach (var virtualCurrency in result.VirtualCurrency)
@@ -91,7 +91,7 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     private void OnErrorGet(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         Debug.LogError($"仮想通貨の情報の取得に失敗\n{error.GenerateErrorReport()}");
     }
@@ -103,10 +103,10 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     public void AddUserVirtualCurrency(string VCcode, int value)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name);
             //AddUserVirtualCurrencyRequestのインスタンスを生成
             var addUserVirtualCurrencyRequest = new AddUserVirtualCurrencyRequest
             {
@@ -125,7 +125,7 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     {
         Debug.Log($"仮想通貨の追加に成功");
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         //仮想通貨の情報をログで表示
         Debug.Log($"変更した仮想通貨のコード : {result.VirtualCurrency}");
@@ -137,7 +137,7 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     private void OnErrorAdd(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         Debug.LogError($"仮想通貨の追加に失敗\n{error.GenerateErrorReport()}");
     }
@@ -148,10 +148,10 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     public void SubtractUserVirtualCurrency(string VCcode, int value)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(transform))
+        if (!m_WaitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.SetWait(transform, true);
+            m_WaitConnect.AddWait(gameObject.name);
 
             //AddUserVirtualCurrencyRequestのインスタンスを生成
             var subtractUserVirtualCurrencyRequest = new SubtractUserVirtualCurrencyRequest
@@ -175,7 +175,7 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     {
         Debug.Log($"仮想通貨の減額に成功");
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
 
         //仮想通貨の情報をログで表示
         Debug.Log($"変更した仮想通貨のコード : {result.VirtualCurrency}");
@@ -187,7 +187,7 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     private void OnErrorSub(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.SetWait(transform, false);
+        m_WaitConnect.RemoveWait(gameObject.name);
         Debug.LogError($"仮想通貨の減額に失敗\n{error.GenerateErrorReport()}");
     }
 }
