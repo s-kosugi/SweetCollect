@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PlayFab.ClientModels;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,8 +15,8 @@ public class ResultSceneManager : BaseScene
     [SerializeField] GameObject AppearGroup3 = null;
     [SerializeField] GameObject AppearGroup4 = null;
 
-    //[SerializeField] float UIFadeOutTime = 1.0f;
-    //private float m_UIFadeOutTimer = 0f;
+    [SerializeField] ReleaseDifficult releaseDifficult = default;
+    
     private CanvasGroup m_CanvasGroup = null;
 
     // リザルトシーン状態
@@ -24,6 +25,8 @@ public class ResultSceneManager : BaseScene
         PREPRATION,
         FADEIN,
         APPEAR,
+        UNLOCK,
+        SHOW_MESSAGE,
         MAIN,
         FADEOUT,
     };
@@ -69,6 +72,8 @@ public class ResultSceneManager : BaseScene
             case STATE.PREPRATION: Preparation(); break;
             case STATE.FADEIN: GameFadeIn(); break;
             case STATE.APPEAR: Appear(); break;
+            case STATE.UNLOCK: Unlock();break;
+            case STATE.SHOW_MESSAGE: ShowMessage(); break;
             case STATE.MAIN: GameMain(); break;
             case STATE.FADEOUT: GameFadeOut(); break;
         }
@@ -137,10 +142,36 @@ public class ResultSceneManager : BaseScene
         }
         else
         {
+            // メインに移行する
             state = STATE.MAIN;
+
+            // アンロックメッセージを表示するかどうか
+            if (releaseDifficult.isShowUnlockMessage())
+            {
+                state = STATE.UNLOCK;
+                // エフェクト再生開始
+                releaseDifficult.StartReleaseEffect();
+            }
         }
+    }
+    /// <summary>
+    /// アンロック演出状態
+    /// </summary>
+    void Unlock()
+    {
+        // エフェクト再生が終わったらメッセージ表示に移行する
+        if (releaseDifficult.IsReleaseEffectEnd())
+        {
+            state = STATE.SHOW_MESSAGE;
+        }
+    }
 
-
+    /// <summary>
+    /// メッセージ表示状態
+    /// </summary>
+    void ShowMessage()
+    {
+        // 画面上のボタンクリックで状態移行させる
     }
 
     // メイン状態
@@ -172,5 +203,13 @@ public class ResultSceneManager : BaseScene
     {
         NextSceneName = sceneName;
         StepNextScene();
+    }
+
+    /// <summary>
+    /// 状態を通常状態に移行する
+    /// </summary>
+    public void SwitchStateNormal()
+    {
+        state = STATE.MAIN;
     }
 }
