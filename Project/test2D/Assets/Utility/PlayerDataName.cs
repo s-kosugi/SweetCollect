@@ -10,6 +10,7 @@ public static class PlayerDataName
     public const string RELEASE_HARD = "RELEASE_HARD";
     public const string RELEASE_VERYHARD = "RELEASE_VERYHARD";
     public const string SELECTED_DIFFICULT = "SELECTED_DIFFICULT";
+    public const string NOTICE_OPTION = "NOTICE_OPTION";
 }
 
 // 難易度名の定数

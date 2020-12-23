@@ -15,6 +15,8 @@ public class TitleManager : BaseScene
     [SerializeField] SESlider seSlider = default;
     [SerializeField] DifficultGroupe difficultGroupe = default;
 
+    private bool optionButtonTap = false;
+
 
     public enum STATE
     {
@@ -111,6 +113,12 @@ public class TitleManager : BaseScene
             // 選択難易度の更新
             m_PlayFabPlayerData.SetPlayerData(PlayerDataName.SELECTED_DIFFICULT,difficultGroupe.selectedDifficult);
 
+            // オプションボタンがタップされていたらオプション通知処理を非表示にする
+            if (optionButtonTap)
+            {
+                m_PlayFabPlayerData.SetPlayerData(PlayerDataName.NOTICE_OPTION, "FALSE");
+            }
+
             if (fadeState != FADE_STATE.FADEOUT)
             {
                 // フェードアウト状態にする
@@ -175,5 +183,13 @@ public class TitleManager : BaseScene
 
         // BGM再生開始
         SoundManager.Instance.PlayBGM("MainGame");
+    }
+
+    /// <summary>
+    /// オプションボタンタップ時の処理
+    /// </summary>
+    public void TapOptionButton()
+    {
+        optionButtonTap = true;
     }
 }
