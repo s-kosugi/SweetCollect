@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: Map01
   m_EditorClassIdentifier: 
   ArrangeTableItemList:
-  - PatternPrefab: {fileID: 3102559165088887835, guid: 13e509916c6372848ba359d286448bc2,
+  - PatternPrefab: {fileID: 6609886980511109563, guid: 0db518a6b712c394ab834c86b2b07b91,
       type: 3}
-  - PatternPrefab: {fileID: 6444026814821078040, guid: fe65f66a4377dee4c99702c3c0690b2e,
+  - PatternPrefab: {fileID: 5217101445904080727, guid: 75091e99e6ba07b4c863b63a3bbaca8f,
       type: 3}
-  - PatternPrefab: {fileID: 1874913158063586515, guid: 658f41d900f20b543b724be07adfa6a4,
+  - PatternPrefab: {fileID: 749639111184458851, guid: 90f7007fbf7fe044d961485c764a7949,
       type: 3}
-  - PatternPrefab: {fileID: 172571480850068888, guid: 5e4a439743dd49d46a20cc220219ac1f,
+  - PatternPrefab: {fileID: 4690691566782449278, guid: 92959e5791d219c4e9de0e5609530de4,
       type: 3}
-  - PatternPrefab: {fileID: 7015112518106483325, guid: 8db7d5ea35bc0104aac43caefa86c157,
+  - PatternPrefab: {fileID: 8840357334494525299, guid: 425434a65a6ea27439dd348ede61c353,
       type: 3}
-  - PatternPrefab: {fileID: 3313699421803297638, guid: 69fe4f5a78e9cfe4cb5cd5fdbb47add0,
+  - PatternPrefab: {fileID: 4363551512889747967, guid: db33620f689e3f04aa9c1be11687beb5,
       type: 3}
-  - PatternPrefab: {fileID: 5181327205209214159, guid: 558bb861e567024408ae523ef4e4603a,
+  - PatternPrefab: {fileID: 5752973882912605048, guid: c49bbc1e7d1c7a048963fcdb6be28888,
       type: 3}
-  - PatternPrefab: {fileID: 6394553547298993234, guid: ea5198351cec0234087049d94d265ab5,
+  - PatternPrefab: {fileID: 8566901635572846810, guid: 1e91df9496289be49820f3af62d8d74f,
       type: 3}
