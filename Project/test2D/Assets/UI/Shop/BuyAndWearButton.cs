@@ -6,21 +6,21 @@ using UnityEngine.UI;
 
 public class BuyAndWearButton : MonoBehaviour
 {
-    [SerializeField] private PlayFabStore store = null;            //ストア
-    [SerializeField] private PlayFabInventory inventory = null;    //インベントリ
-    [SerializeField] private PlayFabWaitConnect connect = null;    //通信
-    [SerializeField] private PlayFabPlayerData playerData = null;  //プレイヤーデータ
+    private PlayFabStore store = null;            //ストア
+    private PlayFabInventory inventory = null;    //インベントリ
+    private PlayFabWaitConnect connect = null;    //通信
+    private PlayFabPlayerData playerData = null;  //プレイヤーデータ
 
-    [SerializeField] private ShopCanvasController shop = null;
+    private ShopCanvasController shop = null;
     [SerializeField] private Money_Text playermoney = null;
-    [SerializeField] private Clothing clothing = null;
+     private Clothing clothing = null;
 
-    [SerializeField] private Button button;     //ボタン
-    [SerializeField] private bool IsConnect;    //通信中
-    [SerializeField] private bool IsPush;       //ボタンを押したかどうか
-    [SerializeField] private bool IsAction;     //行動できるかどうか
-    [SerializeField] private bool IsSelect;     //選択中(購入または着用)
-    [SerializeField] private bool IsUpdate;     //更新中
+    private Button button;     //ボタン
+    private bool IsConnect;    //通信中
+    private bool IsPush;       //ボタンを押したかどうか
+    private bool IsAction;     //行動できるかどうか
+    private bool IsSelect;     //選択中(購入または着用)
+    private bool IsUpdate;     //更新中
 
     [SerializeField] private PlayerAvatar playerAvatar = default;
     [SerializeField] private CurtainAnime curtainAnime = default;
@@ -82,6 +82,7 @@ public class BuyAndWearButton : MonoBehaviour
     //受付
     private void Reception()
     {
+        //押された際にアクション・通信中でなければ押された状態へ
         if(IsPush && !IsAction && !IsConnect)
         {
             if (inventory.IsHaveItem(shop.GetItemInfo().storeItem.ItemId))
@@ -97,8 +98,10 @@ public class BuyAndWearButton : MonoBehaviour
     //押された
     private void Push()
     {
+        //アクション中
         if (IsAction)
         {
+            //通信中でなければ購入・着用処理へ
             if (!connect.IsWait())
             {
                 State_Button = STATE.BUYorWEAR;
@@ -118,11 +121,13 @@ public class BuyAndWearButton : MonoBehaviour
         {
             if (!connect.IsWait())
             {
+                //インベントリ内にアイテムがなければ購入
                 if (!inventory.IsHaveItem(shop.GetItemInfo().storeItem.ItemId))
                 {
                     store.BuyItem(shop.GetItemInfo().storeItem.ItemId, PriceName);
                     Debug.Log(shop.GetItemInfo().storeItem.ItemId + "を購入しました");
                 }
+                //持っていれば着用
                 else
                 {
                     playerData.SetPlayerData(PlayerDataName.ECLOTHES, shop.GetItemInfo().catalogItem.ItemId);
@@ -152,6 +157,7 @@ public class BuyAndWearButton : MonoBehaviour
     {
         if (!IsUpdate)
         {
+            //通信中でなければリクエストにする
             if (!connect.IsWait())
             {
                 inventory.RequestUpdate();
@@ -162,6 +168,7 @@ public class BuyAndWearButton : MonoBehaviour
         {
             if (IsConnect)
             {
+                //通信中になるまで待機
                 if (!connect.IsWait())
                 {
                     State_Button = STATE.RECEPTION;
@@ -186,6 +193,7 @@ public class BuyAndWearButton : MonoBehaviour
     //ボタン
     public void Push_Button()
     {
+        //下記状態ならボタン可能
         if (State_Button ==  STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
         {
             IsPush = true;
@@ -194,6 +202,7 @@ public class BuyAndWearButton : MonoBehaviour
     //ボタンの有効化
     private void EnableButton()
     {
+        //通信中または下記状態ならボタン選択不可
         if (connect.IsWait() || !store.m_isStoreGet || clothing.GetState() != Clothing.SHELFSTATE.PREVIEW)
         {
             button.enabled = false;
@@ -212,14 +221,5 @@ public class BuyAndWearButton : MonoBehaviour
             button.enabled = false;
         }
     }
-    //===========================================================================================================
-    //===========================================================================================================
-    //
-
-    //===========================================================================================================
-    //===========================================================================================================
-    //
-
-    //===========================================================================================================
 
 }

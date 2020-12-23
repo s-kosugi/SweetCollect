@@ -4,26 +4,26 @@ using Effekseer;
 
 public class Clothing : MonoBehaviour
 {
-    PlayFabStore playFabStore;
-    private PlayFabInventory inventory = null;    //インベントリ
-    private PlayFabWaitConnect connect = null;    //通信
-    ShopCanvasController shopcanvas = null;
+    PlayFabStore playFabStore;                                               //プレイハブ
+    private PlayFabInventory inventory = null;                               //インベントリ
+    private PlayFabWaitConnect connect = null;                               //通信
+    ShopCanvasController shopcanvas = null;                                  //ショップキャンバス
     [SerializeField] GameObject PreviewSprite = default;                     //服表示オブジェクト
 
-    List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();
-    [SerializeField] private int SpriteDictionaryNumber; //画像の最大数
-    [SerializeField] private int SelectNumber;          //選択されている画像の番号
-    [SerializeField] private Vector2 ChildSize = new Vector2(144.0f, 144.0f);
-    [SerializeField] private float Margin = 0;                              //余白
-    Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>();
+    List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();                //表示する子供の数
+    [SerializeField] private int SpriteDictionaryNumber;                      //画像の最大数
+    [SerializeField] private int SelectNumber;                                //選択されている画像の番号
+    [SerializeField] private Vector2 ChildSize = new Vector2(144.0f, 144.0f); //表示画像のサイズ（子）
+    [SerializeField] private float Margin = 0;                                 //余白
+    Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>(); //画像
 
-    [SerializeField] private bool IsHaving;                             //取得済み
-    [SerializeField] private bool IsHaveCheck;                          //取得確認中
-    [SerializeField] private float DIRECTION_TIME = 0.3f;                //演出時間
+    private bool IsHaving;                                    //取得済み
+    private bool IsHaveCheck;                                 //取得確認中
+    [SerializeField] private float DIRECTION_TIME = 0.3f;                     //演出時間
 
-    [SerializeField] private BuyButtonPicture buyButtonPicture = default;
-    private List<bool> oldClothingChild = new List<bool>();
-    private EffekseerEffectAsset buyEffect = null;
+    [SerializeField] private BuyButtonPicture buyButtonPicture = default;       //
+    private List<bool> oldClothingChild = new List<bool>();                     //
+    private EffekseerEffectAsset buyEffect = null;                              //
     public enum SHELFSTATE
     {
         NONE = -1,
@@ -70,6 +70,7 @@ public class Clothing : MonoBehaviour
     //状態関連
     private void Wait()
     {
+        //プレイハブのストアとカタログ情報が入手できればロード状態
         if(playFabStore.m_isCatalogGet)
         {
             if (playFabStore.m_isStoreGet)
@@ -88,11 +89,12 @@ public class Clothing : MonoBehaviour
             SpriteDictionaryNumber = SpriteDictionary.Count;
         }
 
+        //画像表示オブジェクトの追加
         CreateChild();
 
+        //画像表示オブジェクトにスプライトを設定
         for (int i = 0; i < ClothingChild.Count; i++)
         {
-
             if (i < playFabStore.StoreItems.Count)
             {
                 ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[i].ItemId]);
@@ -104,16 +106,19 @@ public class Clothing : MonoBehaviour
             ClothingChild[i].SetPreviewOrder(i);
             ClothingChild[i].WhatFromPreview(SelectNumber);
         }
+
         State = SHELFSTATE.CHANGE;
         
     }
     private void Change()
     {
+        //現在選択されている配列から何番目かを設定
         for(int i = 0; i < ClothingChild.Count; i++)
         {
             ClothingChild[i].WhatFromPreview(SelectNumber);
         }
 
+        //ショップキャンバスに選択されているアイテムを設定
         if(shopcanvas)
         {
           shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
@@ -129,6 +134,7 @@ public class Clothing : MonoBehaviour
 
     private void Preview()
     {
+        //所持しているかを確認
         HavingItem();
 
 
@@ -162,6 +168,8 @@ public class Clothing : MonoBehaviour
     //配列外参照をしないように確認
     private void CheckSelectNum()
     {
+        //中心に表示されている画像が配列外かどうかを確認
+        //マイナスにはならない
         if(SelectNumber < 0)
         {
             SelectNumber = 0;
@@ -176,18 +184,7 @@ public class Clothing : MonoBehaviour
     //子供関連
     private void CreateChild()
     {
-        //foreach (Transform Child in this.transform)
-        //{
-        //    //情報があった場合
-        //    Ui_Clothing ItemInfo = Child.GetComponent<Ui_Clothing>();
-        //    if (!ItemInfo)
-        //    {
-        //        ItemInfo = Child.gameObject.AddComponent<Ui_Clothing>();
-        //    }
-        //    ClothingChild.Add(ItemInfo);
-        //}
-        //SortChild();
-
+        //プレハブストアのストアアイテム分画像表示用オブジェクトを生成
         for(int i = 0; i < playFabStore.StoreItems.Count; i++)
         {
             GameObject Preview = Instantiate(PreviewSprite, this.transform);
@@ -197,7 +194,7 @@ public class Clothing : MonoBehaviour
         SortChild();
     }
 
-    //並べる
+    //生成されたオブジェクトを並べる
     private void SortChild()
     {
         for (int x = 0; x < ClothingChild.Count; x++)
@@ -205,7 +202,8 @@ public class Clothing : MonoBehaviour
             ClothingChild[x].transform.localPosition = new Vector3((ChildSize.x + Margin) * x, 0.0f, 0.0f);
         }
     }
-    //並べる
+    //オブジェクトソート
+    // Num : 中心から見て何番目
     public Vector3 SortChildPosition(int Num)
     {
         return new Vector3((ChildSize.x + Margin) * Num, 0.0f, 0.0f);
@@ -216,10 +214,12 @@ public class Clothing : MonoBehaviour
     //選択されている服を持っているか
     private void HavingItem()
     {
+        //所持確認
         if(IsHaveCheck)
         {
             if (!connect.IsWait())
             {
+                //インベントリで所持状態を確認
                 if (inventory.IsHaveItem(shopcanvas.GetItemInfo().storeItem.ItemId))
                 {
                     IsHaving = true;
@@ -228,6 +228,7 @@ public class Clothing : MonoBehaviour
                 {
                     IsHaving = false;
                 }
+
                 buyButtonPicture.SetWear(IsHaving);
                 IsHaveCheck = false;
             }

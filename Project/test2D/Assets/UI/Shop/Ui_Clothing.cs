@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class Ui_Clothing : MonoBehaviour
 {
-    [SerializeField] private Clothing clothing = null;   
-    [SerializeField] private SpriteRenderer PreviewImage = null;
+    [SerializeField] private Clothing clothing = null;              //棚オブジェクト
+    [SerializeField] private SpriteRenderer PreviewImage = null;    //表示する画像
 
-    [SerializeField] private int PreviewOrder = 0;   //リストの何番目か
-    [SerializeField] private int OrderFromTheCenter;  //中心から見て何番目か
+    private int PreviewOrder = 0;   //リストの何番目か
+    private int OrderFromTheCenter;  //中心から見て何番目か
 
-    [SerializeField] private bool IsDirection;       //演出
-    [SerializeField] private Vector3 DirectionStartPosition;       //演出開始場所
-    [SerializeField] private Vector3 EndPosition;                 //最終的な最終位置
-    [SerializeField] private float DirectionTimer;                //演出時間
+    private bool    IsMoveStart = false;                   //移動開始
+    private Vector3 MoveStartPosition;             //移動開始場所
+    private Vector3 EndPosition;                 //最終的な最終位置
+    private float DirectionTimer;                //演出時間
 
-    private SpriteRenderer spriteRenderer = default;
+    private SpriteRenderer spriteRenderer = default;               //画像
 
     private void Awake()
     {
@@ -32,18 +32,21 @@ public class Ui_Clothing : MonoBehaviour
 
     private void Update()
     {
-        if (IsDirection)
+        //移動開始
+        if (IsMoveStart)
         {
             DirectionTimer += Time.deltaTime;
+
+            //時間内は移動
             if(DirectionTimer < clothing.GetDirectionTime())
             {
-                    this.transform.localPosition = new Vector3(Easing.Linear(DirectionTimer, clothing.GetDirectionTime(), EndPosition.x , DirectionStartPosition.x)
+                    this.transform.localPosition = new Vector3(Easing.Linear(DirectionTimer, clothing.GetDirectionTime(), EndPosition.x , MoveStartPosition.x)
                         , 0.0f, 0.0f);
             }
             else
             {
                 this.transform.localPosition = new Vector3(EndPosition.x, 0.0f, 0.0f);
-                IsDirection = false;
+                IsMoveStart = false;
                 DirectionTimer = 0.0f;
             }
         }
@@ -64,14 +67,16 @@ public class Ui_Clothing : MonoBehaviour
     //選択されたPreviewから何番目か
     public void WhatFromPreview(int selectnum)
     {
+        //自分の番号から選択されている番号への差を求める
         OrderFromTheCenter = PreviewOrder - selectnum;
 
-        if(IsDirection)
+        //移動中なら再度やり直す
+        if(IsMoveStart)
          DirectionTimer = 0.0f;
         else
-         IsDirection = true;
+         IsMoveStart = true;
         
-        DirectionStartPosition = this.transform.localPosition;
+        MoveStartPosition = this.transform.localPosition;
         EndPosition = clothing.SortChildPosition(OrderFromTheCenter);
     }
 
