@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-// PlayFabのプレイヤーデータの定数
+﻿// PlayFabのプレイヤーデータの定数
 public static class PlayerDataName
 {
     public const string ECLOTHES = "EClothes";
@@ -14,4 +10,13 @@ public static class PlayerDataName
     public const string RELEASE_HARD = "RELEASE_HARD";
     public const string RELEASE_VERYHARD = "RELEASE_VERYHARD";
     public const string SELECTED_DIFFICULT = "SELECTED_DIFFICULT";
+}
+
+// 難易度名の定数
+public static class DifficultName
+{
+    public const string EASY = "EASY";
+    public const string NORMAL = "NORMAL";
+    public const string HARD = "HARD";
+    public const string VERYHARD = "VERYHARD";
 }

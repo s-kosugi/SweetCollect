@@ -13,6 +13,7 @@ public class TitleManager : BaseScene
     private bool isSetDefault = false;
     [SerializeField] BGMSlider bgmSlider= default;
     [SerializeField] SESlider seSlider = default;
+    [SerializeField] DifficultGroupe difficultGroupe = default;
 
 
     public enum STATE
@@ -106,6 +107,9 @@ public class TitleManager : BaseScene
             // 音量設定を更新する
             m_PlayFabPlayerData.SetPlayerData(PlayerDataName.BGMVOLUME,SoundManager.Instance.m_BGMVolume.ToString());
             m_PlayFabPlayerData.SetPlayerData(PlayerDataName.SEVOLUME, SoundManager.Instance.m_SEVolume.ToString());
+
+            // 選択難易度の更新
+            m_PlayFabPlayerData.SetPlayerData(PlayerDataName.SELECTED_DIFFICULT,difficultGroupe.selectedDifficult);
 
             if (fadeState != FADE_STATE.FADEOUT)
             {

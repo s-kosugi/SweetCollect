@@ -6,7 +6,8 @@ public class DifficultRadioButton : MonoBehaviour
 {
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] string ReleaseKey = PlayerDataName.RELEASE_NORMAL;
-    Toggle toggle = default;
+    private Toggle toggle = default;
+    private bool isInit = false;
 
 
     void Start()
@@ -18,7 +19,7 @@ public class DifficultRadioButton : MonoBehaviour
 
     void Update()
     {
-        if (playerData.m_isGet)
+        if (playerData.m_isGet && !isInit)
         {
             UserDataRecord record = default;
             // 該当難易度が開放済みかどうかをチェックしてボタンの有効性を決める
@@ -27,6 +28,8 @@ public class DifficultRadioButton : MonoBehaviour
                 if( record.Value == "RELEASED")
                     toggle.interactable = true;
             }
+
+            isInit = true;
         }
     }
 }
