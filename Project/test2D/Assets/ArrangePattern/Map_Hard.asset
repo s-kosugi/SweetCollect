@@ -12,4 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1e345b53eeaca41969c81bf199ab93, type: 3}
   m_Name: Map_Hard
   m_EditorClassIdentifier: 
-  ArrangeTableItemList: []
+  ArrangeTableItemList:
+  - PatternPrefab: {fileID: 3902154160379483861, guid: 733f4e9799e855c439bb10deb0739159,
+      type: 3}
+  - PatternPrefab: {fileID: 1478941774052807521, guid: d7cb3ffc20d94ee4f84f83811cf0b3d3,
+      type: 3}
+  - PatternPrefab: {fileID: 5764106977041137861, guid: 1572462145ba4ab418c3cab54b9929b3,
+      type: 3}
+  - PatternPrefab: {fileID: 2416850434257231055, guid: cdc51dca72b845845b6f3498d631bb23,
+      type: 3}
+  - PatternPrefab: {fileID: 937902079775737784, guid: 5af9f37ad0425df4d9d5f66fb86ef272,
+      type: 3}
+  - PatternPrefab: {fileID: 2182786717547337112, guid: 2b4a9615cfd2e074a8550cab79dc7eb8,
+      type: 3}
+  - PatternPrefab: {fileID: 9000000727262927381, guid: 99732cfb47c2f974fa64db1ecad8f80f,
+      type: 3}
+  - PatternPrefab: {fileID: 7552323882166201146, guid: ba2a68d98e61e234aacf00ada64570eb,
+      type: 3}

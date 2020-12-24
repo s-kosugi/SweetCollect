@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e1e345b53eeaca41969c81bf199ab93, type: 3}
-  m_Name: Map02
+  m_Name: Map_Nomal
   m_EditorClassIdentifier: 
   ArrangeTableItemList:
   - PatternPrefab: {fileID: 6609886980511109563, guid: 0db518a6b712c394ab834c86b2b07b91,
