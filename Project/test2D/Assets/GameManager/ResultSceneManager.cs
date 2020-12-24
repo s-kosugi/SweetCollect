@@ -173,7 +173,6 @@ public class ResultSceneManager : BaseScene
     /// </summary>
     void ShowMessage()
     {
-        Debug.Log("ShowMessage");
         // 画面上のボタンクリックで状態移行させる
     }
 
