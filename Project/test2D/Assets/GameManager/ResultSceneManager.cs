@@ -163,6 +163,8 @@ public class ResultSceneManager : BaseScene
         if (releaseDifficult.IsReleaseEffectEnd())
         {
             state = STATE.SHOW_MESSAGE;
+            // メッセージ表示の開始
+            releaseDifficult.StartAppearMessage();
         }
     }
 
@@ -171,6 +173,7 @@ public class ResultSceneManager : BaseScene
     /// </summary>
     void ShowMessage()
     {
+        Debug.Log("ShowMessage");
         // 画面上のボタンクリックで状態移行させる
     }
 

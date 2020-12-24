@@ -18,6 +18,8 @@ public class GameMainManager : BaseScene
     private JumpAnimation m_PlayerJump = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
+    [SerializeField] ArrangeManager arrangeManager = default;
+
 #if UNITY_WEBGL
     [SerializeField] float WebGLGameOverTime = 2.0f;
     private float WebGLEndCount = 0f;
@@ -101,6 +103,10 @@ public class GameMainManager : BaseScene
         // 通信待ちが終わった
         if(!m_WaitConnect.IsWait() )
         {
+
+            // 配置を難易度にあわせて更新
+            arrangeManager.ChangeDifficultPattern();
+
             state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;
         }

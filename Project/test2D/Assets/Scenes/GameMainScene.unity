@@ -538,12 +538,12 @@ PrefabInstance:
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.x
-      value: 2960
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.y
-      value: 1440
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 7666168494144472157, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -884,8 +884,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OneDisplayTime: 7.5
-  sorceTable: {fileID: 11400000, guid: 690c4a4b5cf5acf4aa9905fdfb08cea2, type: 2}
+  easyTable: {fileID: 11400000, guid: 690c4a4b5cf5acf4aa9905fdfb08cea2, type: 2}
+  normalTable: {fileID: 11400000, guid: 971af6db35c13754693e87c1acc9d38d, type: 2}
+  hardTable: {fileID: 11400000, guid: 971af6db35c13754693e87c1acc9d38d, type: 2}
+  veryhardTable: {fileID: 11400000, guid: 971af6db35c13754693e87c1acc9d38d, type: 2}
   patternList: []
+  playerData: {fileID: 919473542}
 --- !u!1 &282480093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,7 +2292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataName: EClothes
 --- !u!1 &924856304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3746,6 +3749,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26c8ff2aebecf04d910b4b6a6edbabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BGMAudioSorce: {fileID: 0}
+  defaultBGMVolume: 0.5
+  defaultSEVolume: 0.5
 --- !u!4 &1507048789
 Transform:
   m_ObjectHideFlags: 0
@@ -4690,6 +4696,7 @@ MonoBehaviour:
   ReStartUIObject: {fileID: 1358034690}
   GameTimer: 60
   AdsObject: {fileID: 2059281801}
+  arrangeManager: {fileID: 282166920}
   WebGLGameOverTime: 2
   RestartBonusRate: 2
 --- !u!4 &2040733010
