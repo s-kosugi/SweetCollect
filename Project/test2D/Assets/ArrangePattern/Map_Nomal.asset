@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1e345b53eeaca41969c81bf199ab93, type: 3}
+  m_Name: Map02
+  m_EditorClassIdentifier: 
+  ArrangeTableItemList:
+  - PatternPrefab: {fileID: 6609886980511109563, guid: 0db518a6b712c394ab834c86b2b07b91,
+      type: 3}
+  - PatternPrefab: {fileID: 5217101445904080727, guid: 75091e99e6ba07b4c863b63a3bbaca8f,
+      type: 3}
+  - PatternPrefab: {fileID: 749639111184458851, guid: 90f7007fbf7fe044d961485c764a7949,
+      type: 3}
+  - PatternPrefab: {fileID: 4690691566782449278, guid: 92959e5791d219c4e9de0e5609530de4,
+      type: 3}
+  - PatternPrefab: {fileID: 8840357334494525299, guid: 425434a65a6ea27439dd348ede61c353,
+      type: 3}
+  - PatternPrefab: {fileID: 4363551512889747967, guid: db33620f689e3f04aa9c1be11687beb5,
+      type: 3}
+  - PatternPrefab: {fileID: 5752973882912605048, guid: c49bbc1e7d1c7a048963fcdb6be28888,
+      type: 3}
+  - PatternPrefab: {fileID: 8566901635572846810, guid: 1e91df9496289be49820f3af62d8d74f,
+      type: 3}
