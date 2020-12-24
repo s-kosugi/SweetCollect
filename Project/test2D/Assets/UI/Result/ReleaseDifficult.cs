@@ -1,5 +1,6 @@
 ﻿using Effekseer;
 using PlayFab.ClientModels;
+using TMPro;
 using UnityEngine;
 
 public class ReleaseDifficult : MonoBehaviour
@@ -11,6 +12,7 @@ public class ReleaseDifficult : MonoBehaviour
     [SerializeField] GameObject normalReleaseText = default;
     [SerializeField] GameObject hardReleaseText = default;
     [SerializeField] GameObject veryhardReleaseText = default;
+    [SerializeField] TextMeshProUGUI nextText = default;
     private EffekseerHandle releaseEffectHandle = default;
     private ScoreManager scoreManager = default;
     [SerializeField] float AppearTime = 1.0f;
@@ -131,6 +133,11 @@ public class ReleaseDifficult : MonoBehaviour
             playerData.SetPlayerData(PlayerDataName.NOTICE_OPTION, "TRUE");
             ret = true;
 
+        } else if (Threshold != 99999)
+        {
+            // 次の解放まで届かなかった場合は何点か表示する
+            nextText.gameObject.SetActive(true);
+            nextText.text = nextText.text + (Threshold - scoreManager.GetScore()).ToString();
         }
 
         return ret; 
