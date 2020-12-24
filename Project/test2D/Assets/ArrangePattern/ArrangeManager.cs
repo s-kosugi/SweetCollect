@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PlayFab.ClientModels;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,20 +15,45 @@ public class ArrangeManager : MonoBehaviour
     /// <summary>
     /// 配置テーブル
     /// </summary>
-    [SerializeField] ArrangeTable sorceTable = default;
+    [SerializeField] ArrangeTable easyTable = default;
+    [SerializeField] ArrangeTable normalTable = default;
+    [SerializeField] ArrangeTable hardTable = default;
+    [SerializeField] ArrangeTable veryhardTable = default;
     private float m_Timer = 0f;
     private CameraController m_Camera = null;
     GameMainManager m_GameMainManager = null;
     [SerializeField]private List<ArrangePattern> patternList = default;
+    [SerializeField]private PlayFabPlayerData playerData = default;
 
     void Start()
     {
         m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>().GetComponent<CameraController>();
         m_Timer = OneDisplayTime;
         m_GameMainManager = transform.root.GetComponent<GameMainManager>();
-        patternList = new List<ArrangePattern>(sorceTable.ArrangeTableItemList);
+        // とりあえずイージーをいれておく
+        patternList = new List<ArrangePattern>(easyTable.ArrangeTableItemList);
     }
 
+    /// <summary>
+    /// 難易度での配置変更
+    /// </summary>
+    public void ChangeDifficultPattern()
+    {
+        if( playerData.m_isGet)
+        {
+            UserDataRecord record = default;
+            if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+            {
+                switch (record.Value)
+                {
+                    case DifficultName.EASY: patternList = new List<ArrangePattern>(easyTable.ArrangeTableItemList); break;
+                    case DifficultName.NORMAL: patternList = new List<ArrangePattern>(normalTable.ArrangeTableItemList); break;
+                    case DifficultName.HARD: patternList = new List<ArrangePattern>(hardTable.ArrangeTableItemList); break;
+                    case DifficultName.VERYHARD: patternList = new List<ArrangePattern>(veryhardTable.ArrangeTableItemList); break;
+                }
+            }
+        }
+    }
 
     void Update()
     {
@@ -48,7 +74,7 @@ public class ArrangeManager : MonoBehaviour
                 // 全てのパターンが出てしまったらテーブルをリセット
                 if (patternList.Count == 0)
                 {
-                    patternList = new List<ArrangePattern>(sorceTable.ArrangeTableItemList);
+                    ChangeDifficultPattern();
                 }
             }
         }
