@@ -8,6 +8,9 @@ public class ReleaseDifficult : MonoBehaviour
     [SerializeField] int HardReleaseThreshold = 150;
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] EffekseerEffectAsset releaseEffect = default;
+    [SerializeField] GameObject normalReleaseText = default;
+    [SerializeField] GameObject hardReleaseText = default;
+    [SerializeField] GameObject veryhardReleaseText = default;
     private EffekseerHandle releaseEffectHandle = default;
     private ScoreManager scoreManager = default;
     [SerializeField] float AppearTime = 1.0f;
@@ -42,6 +45,7 @@ public class ReleaseDifficult : MonoBehaviour
     {
         transform.localScale = Vector3.zero;
         AppearCounter = 0f;
+
     }
     private void AppearMessage()
     {
@@ -50,10 +54,13 @@ public class ReleaseDifficult : MonoBehaviour
         {
             state = MESSAGE_STATE.WAIT;
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            AppearCounter = 0f;
         }
         else
         {
             // outbackで出現させる
+            float scale = Easing.OutBack(AppearCounter, AppearTime, 1.0f, 0.0f, 0.8f);
+            transform.localScale = new Vector3(scale, scale, scale);
         }
     }
     private void WaitMessage()
@@ -68,9 +75,13 @@ public class ReleaseDifficult : MonoBehaviour
         {
             state = MESSAGE_STATE.HIDE;
             transform.localScale = Vector3.zero;
-        }else
+            AppearCounter = 0f;
+        }
+        else
         {
             // Inbackで退場させる
+            float scale = Easing.InBack(AppearCounter, AppearTime, 0.0f, 1.0f, 0.8f);
+            transform.localScale = new Vector3(scale, scale, scale);
         }
     }
     public bool isShowUnlockMessage()
@@ -78,30 +89,57 @@ public class ReleaseDifficult : MonoBehaviour
         bool ret = false;
         UserDataRecord record = default;
         int Threshold = 99999;
+        string TargetDifficult = PlayerDataName.RELEASE_NORMAL;
+
         // 現在の難易度を見てスコアを超えているかどうかを確認する。
         if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
         {
             switch (record.Value)
             {
-                case DifficultName.EASY: Threshold = NormalReleaseThreshold; break;
-                case DifficultName.NORMAL: Threshold = HardReleaseThreshold; break;
-                //case DifficultName.HARD: break;
+                case DifficultName.EASY:
+                    // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
+                    if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_NORMAL, out record))
+                    {
+                        Threshold = NormalReleaseThreshold;
+                        TargetDifficult = PlayerDataName.RELEASE_NORMAL;
+                    }
+                    break;
+                case DifficultName.NORMAL:
+                    // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
+                    if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_HARD, out record))
+                    {
+                        Threshold = HardReleaseThreshold;
+                        TargetDifficult = PlayerDataName.RELEASE_HARD;
+                    }
+                    break;
+                //case DifficultName.HARD: 
+                        // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
+                //    if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_VERYHARD, out record))
+                //    {
+                //        Threshold = VeryHardReleaseThreshold;
+                //        TargetDifficult = PlayerDataName.RELEASE_VERYHARD;
+                //    }
+                //    break;
                 default: break;
             }
         }
         // 閾値を超えたので解放する
         if (Threshold <= scoreManager.GetScore())
+        {
+            playerData.SetPlayerData(TargetDifficult, "RELEASED");
+            // オプションに通知を送る
+            playerData.SetPlayerData(PlayerDataName.NOTICE_OPTION, "TRUE");
             ret = true;
+
+        }
 
         return ret; 
     }
     public void StartReleaseEffect()
     {
-        // 再生中の為重複して表示しない
-        if (releaseEffectHandle.enabled) return;
-
         // エフェクト再生
-        releaseEffectHandle = EffekseerSystem.PlayEffect(releaseEffect,this.transform.position);
+        releaseEffectHandle = EffekseerSystem.PlayEffect(releaseEffect,new Vector3(0f,0f,0f));
+        SoundManager.Instance.PlaySE("Release");
     }
 
     /// <summary>
@@ -110,7 +148,35 @@ public class ReleaseDifficult : MonoBehaviour
     /// <returns>true：エフェクト再生終了 false：再生中</returns>
     public bool IsReleaseEffectEnd()
     {
-        if (releaseEffectHandle.enabled) return false;
+        if (releaseEffectHandle.exists) return false;
+
         return true;
+    }
+    /// <summary>
+    /// メッセージの出現開始
+    /// </summary>
+    public void StartAppearMessage()
+    {
+        state = MESSAGE_STATE.APPEAR;
+
+        UserDataRecord record = default;
+        // 現在の難易度を見てどのオブジェクトを有効化するかを変える
+        if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+        {
+            switch (record.Value)
+            {
+                case DifficultName.EASY: normalReleaseText.SetActive(true); break;
+                case DifficultName.NORMAL: hardReleaseText.SetActive(true); break;
+                case DifficultName.HARD: veryhardReleaseText.SetActive(true); break;
+                default: break;
+            }
+        }
+    }
+    /// <summary>
+    /// メッセージの消失処理開始
+    /// </summary>
+    public void ExitMessage()
+    {
+        state = MESSAGE_STATE.DISAPPEAR;
     }
 }

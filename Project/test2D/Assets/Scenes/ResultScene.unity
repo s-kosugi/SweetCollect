@@ -2522,7 +2522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1568171825
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2910,9 +2910,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1837349925}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1837349929}
+        m_MethodName: ExitMessage
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3290,9 +3290,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NormalReleaseThreshold: 80
-  HardReleaseThreshold: 150
+  HardReleaseThreshold: 100
   playerData: {fileID: 717968912}
   releaseEffect: {fileID: 11400000, guid: 8a6c3932753100c4bb811db575099cc4, type: 2}
+  normalReleaseText: {fileID: 1568171824}
+  hardReleaseText: {fileID: 89872703}
+  veryhardReleaseText: {fileID: 661344338}
+  AppearTime: 1
 --- !u!1 &1910205498
 GameObject:
   m_ObjectHideFlags: 0
