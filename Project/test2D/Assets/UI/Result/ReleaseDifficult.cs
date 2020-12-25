@@ -126,18 +126,24 @@ public class ReleaseDifficult : MonoBehaviour
             }
         }
         // 閾値を超えたので解放する
-        if (Threshold <= scoreManager.GetScore())
+        if (Threshold <= scoreManager.GetCoinScore())
         {
             playerData.SetPlayerData(TargetDifficult, "RELEASED");
             // オプションに通知を送る
             playerData.SetPlayerData(PlayerDataName.NOTICE_OPTION, "TRUE");
             ret = true;
 
-        } else if (Threshold != 99999)
+        }
+        else if (Threshold != 99999)
         {
             // 次の解放まで届かなかった場合は何点か表示する
             nextText.gameObject.SetActive(true);
-            nextText.text = nextText.text + (Threshold - scoreManager.GetScore()).ToString();
+            nextText.text = nextText.text + (Threshold - scoreManager.GetCoinScore()).ToString();
+        }
+        else
+        {
+            // 開放済みまたは次がないので非表示
+            nextText.gameObject.SetActive(false);
         }
 
         return ret; 

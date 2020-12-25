@@ -12,7 +12,7 @@ public class GetPointNumber : MonoBehaviour
     {
         m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         m_Text = gameObject.GetComponent<TextMeshProUGUI>();
-        m_Text.text = "    = " + string.Format("{0:00000}", m_ScoreManager.GetScore());
+        m_Text.text = "    = " + string.Format("{0:00000}", m_ScoreManager.GetCoinScore());
         
     }
 

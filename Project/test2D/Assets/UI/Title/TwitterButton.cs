@@ -24,7 +24,7 @@ public class TwitterButton : MonoBehaviour
     public void PushButton()
     {
         //urlの作成
-        string esctext = UnityWebRequest.EscapeURL("今回のスコアは\n"+scoreManager.GetScore()+" だよ\nhttps://twitter.com/SweetCollectDev");
+        string esctext = UnityWebRequest.EscapeURL("今回のスコアは\n"+scoreManager.GetCoinScore()+" だよ\nhttps://twitter.com/SweetCollectDev");
         string esctag = UnityWebRequest.EscapeURL("スイートコレクト");
         string url = "https://twitter.com/intent/tweet?text=" + esctext + "&hashtags=" + esctag;
 

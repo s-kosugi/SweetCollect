@@ -3,10 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] int Score = 0;
+    [SerializeField] int CoinScore = 0;
+    [SerializeField] public int GameScore { get; private set; } = 0;
     [SerializeField] PlayFabVirtualCurrency m_PlayFabVirtualCurrency = null;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         
@@ -23,16 +24,24 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(int value)
     {
-        Score += value;
-        if (Score < 0) Score = 0;
+        CoinScore += value;
+        if (CoinScore < 0) CoinScore = 0;
     }
-    public int GetScore()
+    public int GetCoinScore()
     {
-        return Score;
+        return CoinScore;
     }
     public void ResetScore()
     {
-        Score = 0;
+        CoinScore = 0;
+        GameScore = 0;
+    }
+    /// <summary>
+    /// スコアの確定
+    /// </summary>
+    public void ConfirmScore()
+    {
+        GameScore = CoinScore;
     }
 
     /// <summary>
@@ -44,10 +53,10 @@ public class ScoreManager : MonoBehaviour
         if (m_PlayFabVirtualCurrency)
         {
             Debug.Log("AddVirtualCurrency");
-            if (Score > 0)
+            if (CoinScore > 0)
             {
                 // 仮想通貨を加算する
-                m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", Score);
+                m_PlayFabVirtualCurrency.AddUserVirtualCurrency("HA", CoinScore);
             }
         }
     }

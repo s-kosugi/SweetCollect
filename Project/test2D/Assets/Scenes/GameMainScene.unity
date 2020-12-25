@@ -3795,7 +3795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6cf1377c0148443a0694cd8b8b9d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 0
+  CoinScore: 0
   m_PlayFabVirtualCurrency: {fileID: 772115337}
 --- !u!4 &1530234768
 Transform:
@@ -4694,7 +4694,7 @@ MonoBehaviour:
   Player: {fileID: 1953754664}
   StartUIObject: {fileID: 861172193}
   ReStartUIObject: {fileID: 1358034690}
-  GameTimer: 60
+  GameTimer: 1
   AdsObject: {fileID: 2059281801}
   arrangeManager: {fileID: 282166920}
   RestartBonusRate: 2
