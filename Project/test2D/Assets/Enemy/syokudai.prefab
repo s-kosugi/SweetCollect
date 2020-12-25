@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eedbde691be3c04d9fab07affa2073a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SubScore: -20
+  SubScore: -10
   Effect: {fileID: 11400000, guid: a021cbc22aef66e41849182724dcd057, type: 2}
   BreakSEName: BreakSyokudai
   MinusCoinUIObject: {fileID: 214298552553398425, guid: fa32bb4a39edd1f4aa7872f6fe07f33b,
