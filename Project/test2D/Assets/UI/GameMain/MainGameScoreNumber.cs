@@ -16,6 +16,6 @@ public class MainGameScoreNumber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( ScoreMan ) Text.text = string.Format("× {0:0000}", ScoreMan.GetScore());
+        if( ScoreMan ) Text.text = string.Format("× {0:0000}", ScoreMan.GetCoinScore());
     }
 }

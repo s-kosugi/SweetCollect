@@ -25,11 +25,11 @@ public class HiScoreSend : MonoBehaviour
             {
                 int staValue = statistics.GetStatisticValue("SweetsPoint");
                 // ハイスコア更新で、統計情報が見つからなかった場合は既定値が返るので多分OK
-                if (staValue < scoreManager.GetScore())
+                if (staValue < scoreManager.GetCoinScore())
                 {
                     Debug.Log("UpdateStatistics");
                     // ハイスコアを更新する
-                    statistics.UpdatePlayerStatistics("SweetsPoint", scoreManager.GetScore());
+                    statistics.UpdatePlayerStatistics("SweetsPoint", scoreManager.GetCoinScore());
 
                     // ハイスコア更新済みフラグ
                     isUpdate = true;
