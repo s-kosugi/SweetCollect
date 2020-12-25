@@ -4694,7 +4694,7 @@ MonoBehaviour:
   Player: {fileID: 1953754664}
   StartUIObject: {fileID: 861172193}
   ReStartUIObject: {fileID: 1358034690}
-  GameTimer: 1
+  GameTimer: 60
   AdsObject: {fileID: 2059281801}
   arrangeManager: {fileID: 282166920}
   RestartBonusRate: 2

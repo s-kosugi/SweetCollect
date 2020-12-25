@@ -149,7 +149,13 @@ public class GameMainManager : BaseScene
     // ゲームオーバー状態
     void GameOver()
     {
-        
+
+        if (!AdsObject.isShow)
+        {
+            // ゲームスコアを確定する
+            m_ScoreManager.ConfirmScore();
+        }
+
         GameOverCount += Time.deltaTime;
         if (GameOverCount >= GameOverTime)
         {
@@ -160,11 +166,6 @@ public class GameMainManager : BaseScene
     // 次のシーン受付状態
     void GameNext()
     {
-        if (!AdsObject.isShow)
-        {
-            // ゲームスコアを確定する
-            m_ScoreManager.ConfirmScore();
-        }
         // WebGL版は広告ボタンを表示せずに時間経過で移動する
 #if UNITY_WEBGL
         WebGLEndCount += Time.deltaTime;
