@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 761919275}
   - component: {fileID: 761919277}
   - component: {fileID: 761919276}
+  - component: {fileID: 761919278}
   m_Layer: 5
   m_Name: RewordImage
   m_TagString: Untagged
@@ -933,6 +934,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761919274}
   m_CullTransparentMesh: 0
+--- !u!114 &761919278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761919274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737864a6e5d456c4181126c0fd402abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitConnect: {fileID: 412848122}
+  store: {fileID: 415249420}
 --- !u!1 &778841197
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +1003,7 @@ MonoBehaviour:
   achivementButton: {fileID: 9198675756486713195, guid: d7c6d969add75c84ea359ee1dc9f8a5a,
     type: 3}
   descript: {fileID: 28961316}
+  rewordImage: {fileID: 761919278}
 --- !u!114 &778841200
 MonoBehaviour:
   m_ObjectHideFlags: 0

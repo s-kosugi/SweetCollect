@@ -298,6 +298,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8309709036670688024}
+        m_MethodName: ChangeRewordImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-4606982639052661556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,8 +334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f175bb73b1c6c7448f9e94821249f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  descriptObject: {fileID: 0}
+  targetText: {fileID: 0}
   descriptText: 
+  rewordImage: {fileID: 0}
 --- !u!1 &9198675756813159117
 GameObject:
   m_ObjectHideFlags: 0

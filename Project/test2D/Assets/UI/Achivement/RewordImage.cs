@@ -1,0 +1,70 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+/// <summary>
+/// 報酬イメージ表示クラス
+/// </summary>
+public class RewordImage : MonoBehaviour
+{
+    // 報酬プレビュー用
+    private Dictionary<string, Sprite> previewDictionary = new Dictionary<string, Sprite>();
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
+    [SerializeField] PlayFabStore store = default;
+    private bool isInit = false;
+    private Image image = default;
+    void Start()
+    {
+        image = GetComponent<Image>();
+    }
+
+
+    void Update()
+    {
+        // 初回のデータ読み込み
+        if (!isInit && !waitConnect.IsWait() && store.m_isCatalogGet && store.m_isStoreGet)
+        {
+            LoadImage();
+            isInit = true;
+        }
+    }
+
+    /// <summary>
+    /// イメージのロード
+    /// </summary>
+    private void LoadImage()
+    {
+        for (int i = 0; i < store.StoreItems.Count; i++)
+        {
+            // カタログと一致するアイテムの取得
+            var catalogItem = store.CatalogItems.Find(x => x.ItemId == store.StoreItems[i].ItemId);
+
+            if (catalogItem.CustomData != null)
+            {
+                // ディクショナリにイメージを追加
+                previewDictionary.Add(store.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + catalogItem.CustomData));
+            }
+        }
+    }
+
+    /// <summary>
+    /// 報酬衣装の表示
+    /// </summary>
+    /// <param name="achivementID"></param>
+    public void ShowImage(string achivementID)
+    {
+        Sprite sprite = default;
+        if (previewDictionary.TryGetValue(achivementID, out sprite))
+        {
+            image.sprite = sprite;
+            image.color = new Color(0.3f, 0.3f, 0.3f, 1f);
+        }
+        else
+        {
+            // 報酬設定無し
+            // 透明度を上げて見た目を隠す
+            image.color = new Color(1f, 1f, 1f, 0f);
+        }
+    }
+}
