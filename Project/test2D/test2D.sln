@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffekseerEditor", "Effeksee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayFabEditorExtensions", "PlayFabEditorExtensions.csproj", "{F747CF96-96C8-441E-381A-22835D20680D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{7409707C-5DF1-189F-C21C-415D23619AB7}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayFabSDKEditor", "PlayFabSDKEditor.csproj", "{7120B0B1-C8CA-FBCF-CC24-7108FB9A7842}"
 EndProject
 Global
@@ -39,6 +41,10 @@ Global
 		{F747CF96-96C8-441E-381A-22835D20680D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F747CF96-96C8-441E-381A-22835D20680D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F747CF96-96C8-441E-381A-22835D20680D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7409707C-5DF1-189F-C21C-415D23619AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7409707C-5DF1-189F-C21C-415D23619AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7409707C-5DF1-189F-C21C-415D23619AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7409707C-5DF1-189F-C21C-415D23619AB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7120B0B1-C8CA-FBCF-CC24-7108FB9A7842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7120B0B1-C8CA-FBCF-CC24-7108FB9A7842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7120B0B1-C8CA-FBCF-CC24-7108FB9A7842}.Release|Any CPU.ActiveCfg = Release|Any CPU

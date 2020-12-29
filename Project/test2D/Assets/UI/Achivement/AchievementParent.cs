@@ -12,6 +12,8 @@ public class AchievementParent : MonoBehaviour
     [SerializeField] Button achivementButton = default;
     [SerializeField] TextMeshProUGUI descript = default;
     [SerializeField] RewordImage rewordImage = default;
+    [SerializeField] SwipeMove swipeMove = default;
+    [SerializeField] float buttonInterval = 100f;
 
     public string descriptAchievementID = default;
     public string selectAchievementID { get; private set; } = default;
@@ -37,7 +39,7 @@ public class AchievementParent : MonoBehaviour
 
             // ボタンオブジェクトの生成と初期化
             Button obj = Instantiate(achivementButton, this.transform);
-            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y - i * 100, obj.transform.localPosition.z);
+            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y - i * buttonInterval, obj.transform.localPosition.z);
             obj.name = store.StoreItems[i].ItemId;
 
             // 実績名をセット
@@ -48,6 +50,9 @@ public class AchievementParent : MonoBehaviour
             textMesh = obj.transform.Find("ProgressText").GetComponent<TextMeshProUGUI>();
             textMesh.text = catalogItem.VirtualCurrencyPrices["AC"].ToString();
         }
+
+        // ボタン生成数に応じてスワイプの移動の制限値を変える
+        swipeMove.moveLimitRect.height = swipeMove.moveLimitRect.yMin + store.StoreItems.Count * buttonInterval;
     }
 
     /// <summary>

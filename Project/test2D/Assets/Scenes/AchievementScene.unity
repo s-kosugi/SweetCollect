@@ -1160,6 +1160,7 @@ MonoBehaviour:
     type: 3}
   descript: {fileID: 28961316}
   rewordImage: {fileID: 761919278}
+  swipeMove: {fileID: 778841200}
   descriptAchievementID: 
 --- !u!114 &778841200
 MonoBehaviour:
@@ -1180,7 +1181,7 @@ MonoBehaviour:
   moveLimitRect:
     serializedVersion: 2
     x: -1000
-    y: -150
+    y: -50
     width: 1000
     height: 1100
 --- !u!1 &842003465
