@@ -49,10 +49,10 @@ public class RewordImage : MonoBehaviour
     }
 
     /// <summary>
-    /// 報酬衣装の表示
+    /// 報酬衣装の切り替え
     /// </summary>
     /// <param name="achivementID"></param>
-    public void ShowImage(string achivementID)
+    public void ApplyImage(string achivementID)
     {
         Sprite sprite = default;
         if (previewDictionary.TryGetValue(achivementID, out sprite))

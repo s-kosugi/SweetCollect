@@ -11,6 +11,7 @@ public static class PlayerDataName
     public const string RELEASE_VERYHARD = "RELEASE_VERYHARD";
     public const string SELECTED_DIFFICULT = "SELECTED_DIFFICULT";
     public const string NOTICE_OPTION = "NOTICE_OPTION";
+    public const string ACHIEVEMENT_SELECT = "ACHIEVEMENT_SELECT";
 }
 
 // 難易度名の定数

@@ -5,6 +5,7 @@ public class AchievementSceneManager : BaseScene
     [SerializeField] private PlayFabPlayerData playFabPlayerData = default;
     [SerializeField] PlayFabInventory playFabInventory = default;
     [SerializeField] PlayFabWaitConnect waitConnect = default;
+    [SerializeField] AchievementParent achivementParent = default;
 
 
     public enum STATE
@@ -51,6 +52,7 @@ public class AchievementSceneManager : BaseScene
             state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;
 
+            achivementParent.SelectedAchievement(playFabPlayerData.m_Data[PlayerDataName.ACHIEVEMENT_SELECT].Value);
         }
     }
     // フェードイン中
@@ -84,6 +86,9 @@ public class AchievementSceneManager : BaseScene
         {
             if (fadeState != FADE_STATE.FADEOUT)
             {
+                // 選択された称号を送信する
+                playFabPlayerData.SetPlayerData(PlayerDataName.ACHIEVEMENT_SELECT,achivementParent.selectAchievementID);
+
                 // フェードアウト状態にする
                 state = STATE.FADEOUT;
             }

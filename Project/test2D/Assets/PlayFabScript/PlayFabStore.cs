@@ -15,6 +15,9 @@ public class PlayFabStore : MonoBehaviour
     private PlayFabAutoRequest m_AutoRequest = null;
     private PlayFabWaitConnect m_WaitConnect = null;
 
+    private const string connectCatalogTaskName = "CatalogData";
+    private const string connectStoreTaskName = "StoreData";
+
     void Start()
     {
         GameObject playFabManager = GameObject.Find("PlayFabManager");
@@ -42,39 +45,67 @@ public class PlayFabStore : MonoBehaviour
 
     private void GetCatalogData()
     {
-        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest()
+        // 通信タスク名はゲームオブジェクト+Catalog
+        string taskName = gameObject.name + connectCatalogTaskName;
+        if (!m_WaitConnect.GetWait(taskName))
         {
-            CatalogVersion = CatalogName,
+            // 通信待ちに設定する
+            m_WaitConnect.AddWait(taskName);
+
+            PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest()
+            {
+                CatalogVersion = CatalogName,
+            }
+            , result =>
+            {
+                Debug.Log("カタログデータ取得成功！");
+                CatalogItems = result.Catalog;
+                m_isCatalogGet = true;
+
+            // 通信終了
+            m_WaitConnect.RemoveWait(taskName);
+            }
+            , error =>
+            {
+                Debug.Log(error.GenerateErrorReport());
+            // 通信終了
+            m_WaitConnect.RemoveWait(taskName);
+            });
         }
-        , result =>
-        {
-            Debug.Log("カタログデータ取得成功！");
-            CatalogItems = result.Catalog;
-            m_isCatalogGet = true;
-        }
-        , error =>
-        {
-            Debug.Log(error.GenerateErrorReport());
-        });
     }
 
     private void GetStoreData()
     {
-        PlayFabClientAPI.GetStoreItems(new GetStoreItemsRequest()
+        // 通信タスク名はゲームオブジェクト+Store
+        string taskName = gameObject.name + connectStoreTaskName;
+
+        if (!m_WaitConnect.GetWait(taskName))
         {
-            CatalogVersion = CatalogName,
-            StoreId = StoreName
+            // 通信待ちに設定する
+            m_WaitConnect.AddWait(taskName);
+
+            PlayFabClientAPI.GetStoreItems(new GetStoreItemsRequest()
+            {
+                CatalogVersion = CatalogName,
+                StoreId = StoreName
+            }
+            , (result) =>
+            {
+                Debug.Log("ストアデータ取得成功！");
+                StoreItems = result.Store;
+                m_isStoreGet = true;
+
+                // 通信終了
+                m_WaitConnect.RemoveWait(taskName);
+
+            }
+            , (error) =>
+            {
+                Debug.Log(error.GenerateErrorReport());
+                // 通信終了
+                m_WaitConnect.RemoveWait(taskName);
+            });
         }
-        , (result) =>
-        {
-            Debug.Log("ストアデータ取得成功！");
-            StoreItems = result.Store;
-            m_isStoreGet = true;
-        }
-        , (error) =>
-        {
-            Debug.Log(error.GenerateErrorReport());
-        });
     }
 
     /// <summary>
