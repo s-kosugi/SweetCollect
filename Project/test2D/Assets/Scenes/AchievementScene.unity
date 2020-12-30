@@ -1156,11 +1156,13 @@ MonoBehaviour:
   waitConnect: {fileID: 412848122}
   inventory: {fileID: 160440620}
   store: {fileID: 415249420}
+  playerData: {fileID: 544201927}
   achivementButton: {fileID: 9198675756486713195, guid: d7c6d969add75c84ea359ee1dc9f8a5a,
     type: 3}
   descript: {fileID: 28961316}
   rewordImage: {fileID: 761919278}
   swipeMove: {fileID: 778841200}
+  buttonInterval: 100
   descriptAchievementID: 
 --- !u!114 &778841200
 MonoBehaviour:

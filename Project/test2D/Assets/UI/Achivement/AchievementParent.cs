@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PlayFab.ClientModels;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class AchievementParent : MonoBehaviour
     [SerializeField] PlayFabWaitConnect waitConnect = default;
     [SerializeField] PlayFabInventory inventory = default;
     [SerializeField] PlayFabStore store = default;
+    [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] Button achivementButton = default;
     [SerializeField] TextMeshProUGUI descript = default;
     [SerializeField] RewordImage rewordImage = default;
@@ -37,18 +39,48 @@ public class AchievementParent : MonoBehaviour
             // カタログと一致するアイテムの取得
             var catalogItem = store.CatalogItems.Find(x => x.ItemId == store.StoreItems[i].ItemId);
 
+            // LitJsonを使ってJsonを連想配列化する
+            var jsonDic = LitJson.JsonMapper.ToObject<Dictionary<string, string>>(catalogItem.CustomData);
+
+            //--------------------------------------------------------------------------------
             // ボタンオブジェクトの生成と初期化
             Button obj = Instantiate(achivementButton, this.transform);
             obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y - i * buttonInterval, obj.transform.localPosition.z);
             obj.name = store.StoreItems[i].ItemId;
 
+            //--------------------------------------------------------------------------------
             // 実績名をセット
             TextMeshProUGUI textMesh = obj.transform.Find("AchievementTitle").GetComponent<TextMeshProUGUI>();
             textMesh.text = catalogItem.DisplayName;
 
-            // 進捗MAXをセット
+            //--------------------------------------------------------------------------------
+            // 進捗度をセット
             textMesh = obj.transform.Find("ProgressText").GetComponent<TextMeshProUGUI>();
-            textMesh.text = catalogItem.VirtualCurrencyPrices["AC"].ToString();
+            UserDataRecord playerRecord;
+            string progressString = "0";
+            // 実績内のカスタムデータからキーを取得してプレイヤーデータにアクセスする
+            if (playerData.m_Data.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out playerRecord))
+            {
+
+                double num;
+                // 進捗度が数値ではなかった場合は実績内の該当キーと一致しているかで判断をする
+                if (!double.TryParse(playerRecord.Value, out num))
+                {
+                    string achievementValue;
+                    // 実績内のプレイヤーデータを持つキーとプレイヤーデータが一致したら達成済み(1)とする
+                    if (jsonDic.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out achievementValue))
+                    {
+                        if (playerRecord.Value == achievementValue) progressString = "1";
+                    }
+                }
+                else
+                {
+                    // 数値データだったのでそのまま格納する
+                    progressString = playerRecord.Value;
+                }
+            }
+
+            textMesh.text = progressString + "/" + jsonDic[AchievementDataName.PROGRESS_MAX];
         }
 
         // ボタン生成数に応じてスワイプの移動の制限値を変える

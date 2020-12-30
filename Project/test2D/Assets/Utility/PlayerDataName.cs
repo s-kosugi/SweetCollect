@@ -22,3 +22,10 @@ public static class DifficultName
     public const string HARD = "HARD";
     public const string VERYHARD = "VERYHARD";
 }
+
+public static class AchievementDataName
+{
+    public const string PROGRESS_KEY = "PROGRESS_KEY";
+    public const string PROGRESS_MAX = "PROGRESS_MAX";
+    public const string REWORD = "REWORD";
+}

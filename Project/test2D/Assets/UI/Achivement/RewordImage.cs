@@ -42,10 +42,13 @@ public class RewordImage : MonoBehaviour
             if (catalogItem.CustomData != null)
             {
                 // LitJsonを使ってJsonを連想配列化する
-                var jsonlist = LitJson.JsonMapper.ToObject<Dictionary<string, string>>(catalogItem.CustomData);
-
+                var jsonDic = LitJson.JsonMapper.ToObject<Dictionary<string, string>>(catalogItem.CustomData);
+                string record;
+                // 報酬が存在しない場合はデータ読み込みをしない
+                if (!jsonDic.TryGetValue(AchievementDataName.REWORD, out record)) continue;
+                
                 // 連想配列からデータを読み込み
-                previewDictionary.Add(store.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + jsonlist["REWORD"]));
+                previewDictionary.Add(store.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + record));
             }
         }
     }
