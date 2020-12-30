@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,8 +41,11 @@ public class RewordImage : MonoBehaviour
 
             if (catalogItem.CustomData != null)
             {
-                // ディクショナリにイメージを追加
-                previewDictionary.Add(store.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + catalogItem.CustomData));
+                // LitJsonを使ってJsonを連想配列化する
+                var jsonlist = LitJson.JsonMapper.ToObject<Dictionary<string, string>>(catalogItem.CustomData);
+
+                // 連想配列からデータを読み込み
+                previewDictionary.Add(store.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + jsonlist["REWORD"]));
             }
         }
     }
