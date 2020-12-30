@@ -14,6 +14,7 @@ public class AchievementParent : MonoBehaviour
     [SerializeField] Button achivementButton = default;
     [SerializeField] TextMeshProUGUI descript = default;
     [SerializeField] RewordImage rewordImage = default;
+    [SerializeField] Button equipButton = default;
     [SerializeField] SwipeMove swipeMove = default;
     [SerializeField] float buttonInterval = 100f;
 
@@ -44,18 +45,19 @@ public class AchievementParent : MonoBehaviour
 
             //--------------------------------------------------------------------------------
             // ボタンオブジェクトの生成と初期化
-            Button obj = Instantiate(achivementButton, this.transform);
-            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y - i * buttonInterval, obj.transform.localPosition.z);
-            obj.name = store.StoreItems[i].ItemId;
+            Button button = Instantiate(achivementButton, this.transform);
+            AchievementButton achievementButtonScript = button.GetComponent<AchievementButton>();
+            button.transform.localPosition = new Vector3(button.transform.localPosition.x, button.transform.localPosition.y - i * buttonInterval, button.transform.localPosition.z);
+            button.name = store.StoreItems[i].ItemId;
 
             //--------------------------------------------------------------------------------
             // 実績名をセット
-            TextMeshProUGUI textMesh = obj.transform.Find("AchievementTitle").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI textMesh = button.transform.Find("AchievementTitle").GetComponent<TextMeshProUGUI>();
             textMesh.text = catalogItem.DisplayName;
 
             //--------------------------------------------------------------------------------
             // 進捗度をセット
-            textMesh = obj.transform.Find("ProgressText").GetComponent<TextMeshProUGUI>();
+            textMesh = button.transform.Find("ProgressText").GetComponent<TextMeshProUGUI>();
             UserDataRecord playerRecord;
             string progressString = "0";
             // 実績内のカスタムデータからキーを取得してプレイヤーデータにアクセスする
@@ -79,8 +81,9 @@ public class AchievementParent : MonoBehaviour
                     progressString = playerRecord.Value;
                 }
             }
-
             textMesh.text = progressString + "/" + jsonDic[AchievementDataName.PROGRESS_MAX];
+            // 実績達成済みなら達成済みフラグをON
+            if (double.Parse(progressString) >= double.Parse(jsonDic[AchievementDataName.PROGRESS_MAX])) achievementButtonScript.ReachAchievement = true;
         }
 
         // ボタン生成数に応じてスワイプの移動の制限値を変える
@@ -91,7 +94,8 @@ public class AchievementParent : MonoBehaviour
     /// AchievementIDからDescriptオブジェクトの内容を更新
     /// </summary>
     /// <param name="achievementID">AchievementのアイテムID</param>
-    public void UpdateDescript(string achievementID)
+    /// <param name="reachAchievement">実績達成ずみか</param>
+    public void UpdateDescript(string achievementID,bool reachAchievement)
     {
         var catalogItem = store.CatalogItems.Find(x => x.ItemId == achievementID);
 
@@ -99,6 +103,9 @@ public class AchievementParent : MonoBehaviour
         rewordImage.ApplyImage(achievementID);
 
         descriptAchievementID = achievementID;
+
+        // 実績達成済みならボタンを有効化する
+        equipButton.interactable = reachAchievement;
     }
 
     /// <summary>

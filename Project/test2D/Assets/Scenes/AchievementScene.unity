@@ -816,14 +816,14 @@ MonoBehaviour:
   m_text: "\u3064\u3051\u308B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6cc78477bb4c8b449ab6b8eace6cd91a, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 9ec8c4cb29000f045b8e41ab7f4fee10, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f842304c30f4a1749a617265370f5aa7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1161,6 +1161,7 @@ MonoBehaviour:
     type: 3}
   descript: {fileID: 28961316}
   rewordImage: {fileID: 761919278}
+  equipButton: {fileID: 1807985659}
   swipeMove: {fileID: 778841200}
   buttonInterval: 100
   descriptAchievementID: 
@@ -2485,7 +2486,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1807985660}
   m_OnClick:
     m_PersistentCalls:

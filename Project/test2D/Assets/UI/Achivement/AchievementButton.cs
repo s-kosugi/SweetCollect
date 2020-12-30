@@ -3,6 +3,10 @@
 public class AchievementButton : MonoBehaviour
 {
     private AchievementParent parent = default;
+    /// <summary>
+    /// 実績達成済みかどうか
+    /// </summary>
+    public bool ReachAchievement = false;
     void Start()
     {
         parent = transform.parent.GetComponent<AchievementParent>();
@@ -15,6 +19,6 @@ public class AchievementButton : MonoBehaviour
     public void SendPushData()
     {
         // ボタンを押されたのでどのIDが押されたかを親へ教える
-        parent.UpdateDescript(this.name);
+        parent.UpdateDescript(this.name,ReachAchievement);
     }
 }
