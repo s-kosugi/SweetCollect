@@ -266,6 +266,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26c8ff2aebecf04d910b4b6a6edbabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BGMAudioSorce: {fileID: 0}
+  defaultBGMVolume: 0.5
+  defaultSEVolume: 0.5
 --- !u!4 &254541488
 Transform:
   m_ObjectHideFlags: 0
@@ -659,8 +662,6 @@ MonoBehaviour:
   SelectNumber: 0
   ChildSize: {x: 144, y: 144}
   Margin: 24
-  IsHaving: 0
-  IsHaveCheck: 0
   DIRECTION_TIME: 0.3
   buyButtonPicture: {fileID: 1139846102}
   State: 0
@@ -1099,12 +1100,22 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2960
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1440
+      value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: referenceResolution.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: referenceResolution.y
+      value: 540
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581ccab5d4f2d434d8a1ae9519e8158a, type: 3}
@@ -1645,6 +1656,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 321649656}
+        m_MethodName: BuyButtonPush
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1139846099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1693,19 +1715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a442bfb267c85364fa866ea3d0e3d1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  store: {fileID: 0}
-  inventory: {fileID: 0}
-  connect: {fileID: 0}
-  playerData: {fileID: 0}
-  shop: {fileID: 0}
   playermoney: {fileID: 1158271998}
-  clothing: {fileID: 0}
-  button: {fileID: 0}
-  IsConnect: 0
-  IsPush: 0
-  IsAction: 0
-  IsSelect: 0
-  IsUpdate: 0
   playerAvatar: {fileID: 1706139072}
   curtainAnime: {fileID: 258928816}
   PriceName: 
@@ -1724,6 +1734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WearSprite: {fileID: 21300000, guid: d158739e6e822aa4b92cfdab38e48638, type: 3}
   BuySprite: {fileID: 21300000, guid: e166c31533733b747bf3e12f56741aa8, type: 3}
+  AchievementSprite: {fileID: 21300000, guid: 5966e1f151a2efc4da8a071be442ac56, type: 3}
 --- !u!114 &1139846103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,7 +2403,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuyText: -2000
-  WearText: 
   Text: {fileID: 0}
   IsHaving: 0
 --- !u!1 &1250227315
@@ -2994,7 +3004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CatalogName: clothes
-  StoreName: StandardStore
+  StoreName: DebugStore
 --- !u!1 &1629954020
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,7 +3205,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2960, y: 1440}
+  m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1671069068
 MonoBehaviour:
@@ -3210,7 +3220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1671069067}
-  referenceResolution: {x: 2960, y: 1440}
+  referenceResolution: {x: 960, y: 540}
   matchWidthOrHeight: 0
 --- !u!1 &1706139067
 GameObject:

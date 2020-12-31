@@ -193,7 +193,7 @@ public class BuyAndWearButton : MonoBehaviour
     //ボタン
     public void Push_Button()
     {
-        //下記状態ならボタン可能
+        // 受付状態且つ表示状態ならボタンを押せる
         if (State_Button ==  STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
         {
             IsPush = true;
@@ -202,24 +202,27 @@ public class BuyAndWearButton : MonoBehaviour
     //ボタンの有効化
     private void EnableButton()
     {
-        //通信中または下記状態ならボタン選択不可
-        if (connect.IsWait() || !store.m_isStoreGet || clothing.GetState() != Clothing.SHELFSTATE.PREVIEW)
+        // 通信中または下記状態ならボタン選択不可
+        if (connect.IsWait() ||
+            !store.m_isStoreGet ||
+            clothing.GetState() != Clothing.SHELFSTATE.PREVIEW ||
+            State_Button != STATE.RECEPTION
+            )
         {
             button.enabled = false;
             return;
         }
 
-        // (アイテムを持っているorお金が足りている) && ボタンが受付状態ならボタンを押せる状態にする
+        // (アイテムを持っているorお金が足りている)ならボタンを有効化
         if ((shop.GetItemInfo().storeItem.VirtualCurrencyPrices[PriceName] <= playermoney.GetPossessionMoney() ||
-            inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId))
-            && State_Button == STATE.RECEPTION)
+            inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId)))
         {
             button.enabled = true;
         }
-        else
-        {
+        // アイテムを持っておらず、条件付きの場合はボタンを無効化
+        var catalogItem = store.CatalogItems.Find(x => x.ItemId == shop.GetItemInfo().catalogItem.ItemId);
+        if (!inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId) && catalogItem.CustomData != null)
             button.enabled = false;
-        }
     }
 
 }

@@ -8,6 +8,7 @@ public class BuyButtonPicture : MonoBehaviour
 {
     [SerializeField] Sprite WearSprite = default;
     [SerializeField] Sprite BuySprite = default;
+    [SerializeField] Sprite AchievementSprite = default;
     BuyAndWear_Text buyAndWear_Text = default;
     private Image buttonImage;
     private GameObject coinIconObject = default;
@@ -19,27 +20,34 @@ public class BuyButtonPicture : MonoBehaviour
         buttonImage = GetComponent<Image>();
         coinIconObject = transform.Find("CoinIcon").gameObject;
 
-
-        SetWear(true);
     }
 
     /// <summary>
-    /// 着替える状態か買う状態かをセットする
+    /// ボタン画像を着替え状態へ変更する
     /// </summary>
-    /// <param name="flag">true = 着替えボタン false = 購入ボタン</param>
-    public void SetWear( bool flag )
+    public void ChangeWearState( )
     {
-        if (flag)
-        {
-            buttonImage.sprite = WearSprite;
-            coinIconObject.SetActive(false);
-            buyAndWear_Text.SetTextFlag(true);
-        }
-        else
-        {
-            buttonImage.sprite = BuySprite;
-            coinIconObject.SetActive(true);
-            buyAndWear_Text.SetTextFlag(false);
-        }
+        buttonImage.sprite = WearSprite;
+        coinIconObject.SetActive(false);
+        buyAndWear_Text.SetTextFlag(false);
+    }
+    /// <summary>
+    /// ボタン画像を購入状態へ変更する
+    /// </summary>
+    public void ChangeBuyState(string priceText)
+    {
+        buttonImage.sprite = BuySprite;
+        coinIconObject.SetActive(true);
+        buyAndWear_Text.SetTextFlag(true);
+        buyAndWear_Text.SetBuyText("-"+priceText);
+    }
+    /// <summary>
+    /// ボタン画像を？状態へ変更する
+    /// </summary>
+    public void ChangeQuestionState()
+    {
+        buttonImage.sprite = AchievementSprite;
+        coinIconObject.SetActive(false);
+        buyAndWear_Text.SetTextFlag(false);
     }
 }

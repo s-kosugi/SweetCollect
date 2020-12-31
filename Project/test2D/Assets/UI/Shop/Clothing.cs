@@ -17,13 +17,13 @@ public class Clothing : MonoBehaviour
     [SerializeField] private float Margin = 0;                                 //余白
     Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>(); //画像
 
-    private bool IsHaving;                                    //取得済み
     private bool IsHaveCheck;                                 //取得確認中
     [SerializeField] private float DIRECTION_TIME = 0.3f;                     //演出時間
 
     [SerializeField] private BuyButtonPicture buyButtonPicture = default;       //
     private List<bool> oldClothingChild = new List<bool>();                     //
     private EffekseerEffectAsset buyEffect = null;                              //
+    private bool isBuyButtonPush = false;                                       // 購入ボタンの押下チェック
     public enum SHELFSTATE
     {
         NONE = -1,
@@ -48,8 +48,6 @@ public class Clothing : MonoBehaviour
 
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
-        //Margin = ChildSize.x / 4;
-        IsHaving = false;
         IsHaveCheck = false;
 
     }
@@ -70,7 +68,7 @@ public class Clothing : MonoBehaviour
     //状態関連
     private void Wait()
     {
-        //プレイハブのストアとカタログ情報が入手できればロード状態
+        //プレイファブのストアとカタログ情報が入手できればロード状態
         if(playFabStore.m_isCatalogGet)
         {
             if (playFabStore.m_isStoreGet)
@@ -85,7 +83,12 @@ public class Clothing : MonoBehaviour
         //ストアのアイテムカウント分リストを追加
         for (int i = 0; i < playFabStore.StoreItems.Count; i++)
         {
-            SpriteDictionary.Add(playFabStore.StoreItems[i].ItemId, Resources.Load<Sprite>("Player\\" + playFabStore.StoreItems[i].ItemId));
+            Sprite sprite = Resources.Load<Sprite>("Player\\" + playFabStore.StoreItems[i].ItemId);
+            if (sprite == null)
+            {
+                continue;
+            }
+            SpriteDictionary.Add(playFabStore.StoreItems[i].ItemId, sprite);
             SpriteDictionaryNumber = SpriteDictionary.Count;
         }
 
@@ -121,7 +124,7 @@ public class Clothing : MonoBehaviour
         //ショップキャンバスに選択されているアイテムを設定
         if(shopcanvas)
         {
-          shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
+            shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
         }
 
         CheckHavingCloting();
@@ -135,7 +138,7 @@ public class Clothing : MonoBehaviour
     private void Preview()
     {
         //所持しているかを確認
-        HavingItem();
+        ChangeButtonAppearance();
 
 
         // 持っていない服の黒塗り処理
@@ -184,9 +187,15 @@ public class Clothing : MonoBehaviour
     //子供関連
     private void CreateChild()
     {
-        //プレハブストアのストアアイテム分画像表示用オブジェクトを生成
-        for(int i = 0; i < playFabStore.StoreItems.Count; i++)
+        //プレイファブストアのストアアイテム分画像表示用オブジェクトを生成
+        foreach( var item in playFabStore.StoreItems)
         {
+            // スプライトが存在しない場合は作らない
+            Sprite sprite;
+            if(!SpriteDictionary.TryGetValue(item.ItemId,out sprite))
+            {
+                continue;
+            }
             GameObject Preview = Instantiate(PreviewSprite, this.transform);
             Ui_Clothing ItemInfo = Preview.GetComponent<Ui_Clothing>();
             ClothingChild.Add(ItemInfo);
@@ -210,36 +219,37 @@ public class Clothing : MonoBehaviour
     }
     //===========================================================================================================
     //===========================================================================================================
-    //アイテム
-    //選択されている服を持っているか
-    private void HavingItem()
+    // アイテム
+    // ボタンの見た目を変更する
+    private void ChangeButtonAppearance()
     {
         //所持確認
         if(IsHaveCheck)
         {
             if (!connect.IsWait())
             {
+                string ItemID = shopcanvas.GetItemInfo().storeItem.ItemId;
                 //インベントリで所持状態を確認
-                if (inventory.IsHaveItem(shopcanvas.GetItemInfo().storeItem.ItemId))
+                if (inventory.IsHaveItem(ItemID))
                 {
-                    IsHaving = true;
+                    buyButtonPicture.ChangeWearState();
                 }
+                // 条件付きアイテムの場合
+                else if (playFabStore.CatalogItems.Find(x => x.ItemId == ItemID).CustomData != null)
+                {
+                    buyButtonPicture.ChangeQuestionState();
+                }
+                // 購入ボタンの場合
                 else
                 {
-                    IsHaving = false;
+                    string price = playFabStore.StoreItems.Find((x => x.ItemId == ItemID)).VirtualCurrencyPrices["HA"].ToString();
+                    buyButtonPicture.ChangeBuyState(price);
                 }
 
-                buyButtonPicture.SetWear(IsHaving);
                 IsHaveCheck = false;
             }
         }
         
-    }
-
-    //所持フラグの取得
-    public bool GetHavingFlag()
-    {
-        return IsHaving;
     }
 
     //取得状態の確認
@@ -286,20 +296,33 @@ public class Clothing : MonoBehaviour
             }
             else
             {
-                ClothingChild[i].SetColor(new Color(0f,0f,0f));
+                ClothingChild[i].SetColor(new Color(0.2f,0.2f,0.2f));
             }
             if (have == true && oldClothingChild[i] == false)
             {
                 // 0番服はデフォルト服なのでエフェクト再生などは無し
                 if (i != 0)
                 {
-                    // 買った瞬間なのでエフェクトを再生する
-                    EffekseerSystem.PlayEffect(buyEffect, this.transform.position);
-                    SoundManager.Instance.PlaySE("Buy");
+                    // 購入ボタンが押されていた
+                    if (isBuyButtonPush)
+                    {
+                        // 買った瞬間なのでエフェクトを再生する
+                        EffekseerSystem.PlayEffect(buyEffect, this.transform.position);
+                        SoundManager.Instance.PlaySE("Buy");
+
+                        isBuyButtonPush = false;
+                    }
                 }
 
                 oldClothingChild[i] = true;
             }
         }
+    }
+    /// <summary>
+    /// 購入ボタン押下時処理
+    /// </summary>
+    public void BuyButtonPush()
+    {
+        isBuyButtonPush = true;
     }
 }

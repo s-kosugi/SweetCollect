@@ -1,30 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuyAndWear_Text : MonoBehaviour
 {
     [SerializeField] string BuyText = "-2000";
-    [SerializeField] string WearText = "";
 
     [SerializeField] TextMeshProUGUI Text;          //文字
     [SerializeField] private bool IsHaving;     //取得済み
 
-    struct Text_BuyAndWear
-    {
-        public string Buy;
-        public string Wear;
-    }
-    Text_BuyAndWear text_BuyAndWear;
 
-    // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
         Text = this.GetComponent<TextMeshProUGUI>();
-        text_BuyAndWear.Buy = BuyText;
-        text_BuyAndWear.Wear = WearText;
         Text.text = "";
     }
 
@@ -34,11 +22,11 @@ public class BuyAndWear_Text : MonoBehaviour
     {
         if(IsHaving)
         {
-            Text.text = text_BuyAndWear.Wear;
+            Text.text = BuyText;
         }
         else
         {
-            Text.text = text_BuyAndWear.Buy;
+            Text.text = "";
         }
     }
     //===========================================================================================================
@@ -47,6 +35,15 @@ public class BuyAndWear_Text : MonoBehaviour
     public void SetTextFlag(bool have)
     {
         IsHaving = have;
+        PreviewText();
+    }
+    /// <summary>
+    /// 購入テキストの変更
+    /// </summary>
+    /// <param name="text">変更内容</param>
+    public void SetBuyText(string text)
+    {
+        BuyText = text;
         PreviewText();
     }
 }
