@@ -11,6 +11,8 @@ public class PlayFabStore : MonoBehaviour
 
     [SerializeField] string CatalogName = "clothes";
     [SerializeField] string StoreName = "StandardStore";
+    [SerializeField] PlayFabInventory Inventory = default;
+    [SerializeField] PlayFabVirtualCurrency VirtualCurrency = default;
 
     private PlayFabAutoRequest m_AutoRequest = null;
     private PlayFabWaitConnect m_WaitConnect = null;
@@ -135,6 +137,11 @@ public class PlayFabStore : MonoBehaviour
                 // 通信終了
                 m_WaitConnect.RemoveWait(gameObject.name);
                 Debug.Log($"{purchaseResult.Items[0].DisplayName}購入成功！");
+                // インベントリの更新要求
+                if( Inventory != default) Inventory.RequestUpdate();
+                // 仮想通貨の更新要求
+                if (VirtualCurrency != default) VirtualCurrency.RequestUpdate();
+
                 PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest()
                 , result =>
                 {

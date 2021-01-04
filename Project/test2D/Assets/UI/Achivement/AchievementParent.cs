@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class AchievementParent : MonoBehaviour
 {
     [SerializeField] PlayFabWaitConnect waitConnect = default;
-    [SerializeField] PlayFabInventory inventory = default;
     [SerializeField] PlayFabStore store = default;
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] Button achivementButton = default;
@@ -18,10 +17,11 @@ public class AchievementParent : MonoBehaviour
     [SerializeField] SwipeMove swipeMove = default;
     [SerializeField] float buttonInterval = 100f;
 
-    public string descriptAchievementID = default;
-    public string selectAchievementID { get; private set; } = default;
+    public string descriptAchievementID = default;      // Descriptに表示中のID
+    public string selectAchievementID { get; private set; } = default;      // 装備中の称号ID
 
     public bool isCreate { get; private set; } = false;
+    public bool isNowAchievementReach { get; private set; } = false;          // 現在表示中の実績が解放済みかどうか
 
     void Update()
     {
@@ -106,6 +106,10 @@ public class AchievementParent : MonoBehaviour
 
         // 実績達成済みならボタンを有効化する
         equipButton.interactable = reachAchievement;
+
+        // 現在表示中の実績が解放済みかどうか
+        isNowAchievementReach = reachAchievement;
+
     }
 
     /// <summary>

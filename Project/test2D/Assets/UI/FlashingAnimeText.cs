@@ -8,7 +8,7 @@ public class FlashingAnimeText : MonoBehaviour
     private TextMeshProUGUI text = default;
     private float Angle = 0.0f;
 
-    private void Start()
+    private void Awake()
     {
         text = gameObject.GetComponent<TextMeshProUGUI>();
     }
