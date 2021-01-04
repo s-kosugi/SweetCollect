@@ -120,6 +120,14 @@ public class PlayFabStore : MonoBehaviour
         // 通信待ちでなかったら通信開始
         if (!m_WaitConnect.GetWait(gameObject.name))
         {
+            StoreItem item = StoreItems.Find(x => x.ItemId == itemID);
+            // アイテムがなかった
+            if (item == null)
+            {
+                Debug.Log("BuyItem is Failed : itemID( " + itemID +" ) storeID( " + StoreName +")");
+                return;
+            }
+
             // 通信待ちに設定する
             m_WaitConnect.AddWait(gameObject.name);
 
@@ -129,7 +137,7 @@ public class PlayFabStore : MonoBehaviour
                 StoreId = StoreName,
                 ItemId = itemID,
                 VirtualCurrency = virtualCurrency,
-                Price = (int)StoreItems.Find(x => x.ItemId == itemID).VirtualCurrencyPrices[virtualCurrency],
+                Price = (int)item.VirtualCurrencyPrices[virtualCurrency],
                 // キャラクターを使う場合は CharacterId のセットも必要
             }, purchaseResult =>
             {

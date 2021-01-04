@@ -3,7 +3,6 @@
 public class AchievementSceneManager : BaseScene
 {
     [SerializeField] private PlayFabPlayerData playFabPlayerData = default;
-    [SerializeField] PlayFabInventory playFabInventory = default;
     [SerializeField] PlayFabWaitConnect waitConnect = default;
     [SerializeField] AchievementParent achivementParent = default;
 
