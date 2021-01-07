@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: -4606982639052661556}
   - component: {fileID: 8309709036670688024}
   - component: {fileID: 2567119515460928427}
+  - component: {fileID: 7804585079989673454}
   m_Layer: 5
   m_Name: AchievementButton
   m_TagString: Untagged
@@ -416,6 +417,8 @@ MonoBehaviour:
   progress: {fileID: 5647383672728493519}
   reachColor: {r: 0.3066038, g: 1, b: 0.43168712, a: 1}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  disableWait: {fileID: 2567119515460928427}
+  disableSceneFade: {fileID: 7804585079989673454}
   ReachAchievement: 0
 --- !u!114 &2567119515460928427
 MonoBehaviour:
@@ -430,6 +433,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitConnect: {fileID: 0}
+  scene: {fileID: 0}
+--- !u!114 &7804585079989673454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9198675756486713193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a79e21baffe9c409dd2f8f15618ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 0}
+  StartAutoEnabled: 1
 --- !u!1 &9198675756813159117
 GameObject:
   m_ObjectHideFlags: 0

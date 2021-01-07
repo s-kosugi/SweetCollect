@@ -8,6 +8,9 @@ public class AchievementButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI progress = default;
     [SerializeField] Color reachColor = default;
     [SerializeField] Color defaultColor = default;
+    [SerializeField] DisableWaitConnectButton disableWait = default;
+    [SerializeField] DisableSceneFadeButton disableSceneFade = default;
+
     /// <summary>
     /// 実績達成済みかどうか
     /// </summary>
@@ -15,6 +18,11 @@ public class AchievementButton : MonoBehaviour
     void Start()
     {
         parent = transform.parent.GetComponent<AchievementParent>();
+
+        // ボタン無効化スクリプトにシーンを教える
+        AchievementSceneManager achievementScene = GameObject.Find("AchievementSceneManager").GetComponent<AchievementSceneManager>();
+        disableWait.scene = achievementScene;
+        disableSceneFade.scene = achievementScene;
     }
 
     private void Update()

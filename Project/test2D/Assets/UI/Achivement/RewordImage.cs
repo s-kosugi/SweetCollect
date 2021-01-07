@@ -118,6 +118,8 @@ public class RewordImage : MonoBehaviour
             // 報酬設定無し
             // 透明度を上げて見た目を隠す
             image.color = new Color(1f, 1f, 1f, 0f);
+            // スプライトを初期状態にしておく
+            image.sprite = default;
         }
 
         // 大きさを戻しておく

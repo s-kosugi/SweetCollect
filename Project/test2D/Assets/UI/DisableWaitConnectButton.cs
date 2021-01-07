@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DisableWaitConnectButton : MonoBehaviour
 {
     [SerializeField] PlayFabWaitConnect waitConnect = default;
+    [SerializeField] public BaseScene scene = default;
     Button button = default;
 
     private void Awake()
@@ -27,8 +28,15 @@ public class DisableWaitConnectButton : MonoBehaviour
         }
         else
         {
-            button.enabled = true;
-        }
+            // シーン状態が通常のときのみ有効化
+            if (scene != default)
+            {
+                if (scene.fadeState == BaseScene.FADE_STATE.NONE)
+                {
+                    button.enabled = true;
 
+                }
+            }
+        }
     }
 }

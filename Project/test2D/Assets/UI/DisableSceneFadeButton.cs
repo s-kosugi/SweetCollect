@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class DisableSceneFadeButton : MonoBehaviour
 {
-    [SerializeField] BaseScene scene = default;
+    [SerializeField] public BaseScene scene = default;
     [SerializeField] bool StartAutoEnabled = true;
     Button button = default;
 

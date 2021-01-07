@@ -34,7 +34,7 @@ public class GetAchievementReword : MonoBehaviour
             if (inventory.m_isGet)
             {
                 // 服を未所持かつデフォルト（報酬無し）でないか
-                if (rewordImage.sprite.name != "001_NORMAL" && !inventory.IsHaveItem(rewordImage.sprite.name))
+                if (rewordImage.sprite != default && !inventory.IsHaveItem(rewordImage.sprite.name))
                 {
                     // 解放済み
                     if (achievementParent.isNowAchievementReach)
