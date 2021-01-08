@@ -1802,7 +1802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitConnect: {fileID: 412848122}
-  Scene: {fileID: 1874430984}
+  scene: {fileID: 0}
 --- !u!1 &1217765692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2154,7 +2154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitConnect: {fileID: 412848122}
-  Scene: {fileID: 1874430984}
+  scene: {fileID: 0}
 --- !u!1001 &1370047520
 PrefabInstance:
   m_ObjectHideFlags: 0
