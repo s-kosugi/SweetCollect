@@ -81,4 +81,14 @@ public class ShopSceneManager : BaseScene
 
         }
     }
+
+    /// <summary>
+    /// 次のシーンへ移行(シーン名指定)
+    /// </summary>
+    /// <param name="scenename">シーン名</param>
+    public void NextScene(string scenename)
+    {
+        NextSceneName = scenename;
+        NextScene();
+    }
 }
