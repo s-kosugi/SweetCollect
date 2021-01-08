@@ -13,6 +13,8 @@ public class PlayFabInventory : MonoBehaviour
     // 通信待ちクラス
     private PlayFabWaitConnect m_WaitConnect = null;
 
+    // インベントリ情報
+    private Dictionary<string, ItemInstance> m_InventoryItems = new Dictionary<string, ItemInstance>();
 
     void Start()
     {
@@ -31,8 +33,6 @@ public class PlayFabInventory : MonoBehaviour
             if(m_Request.IsRequest()) GetUserInventory();
         }
     }
-
-    private Dictionary<string, ItemInstance> m_InventoryItems = new Dictionary<string, ItemInstance>();
 
     /// <summary>
     /// インベントリの情報を取得
@@ -93,5 +93,27 @@ public class PlayFabInventory : MonoBehaviour
         if (m_InventoryItems.ContainsKey(itemID)) return true;
 
         return false;
+    }
+
+    /// <summary>
+    /// カテゴリー名を指定してアイテム数を返す
+    /// </summary>
+    /// <param name="categoryName">カテゴリー名</param>
+    /// <returns>アイテム数</returns>
+    public int CountItemsCategory(string categoryName)
+    {
+        int ret = 0;
+        if(m_InventoryItems.Count != 0)
+        {
+            foreach( var item in m_InventoryItems)
+            {
+                if (item.Value.CatalogVersion == categoryName)
+                {
+                    ret++;
+                }
+            }
+        }
+
+        return ret;
     }
 }

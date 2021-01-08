@@ -14,8 +14,9 @@ public class PlayerController : MonoBehaviour
     private EffekseerEffectAsset m_HeartEffect = null;
     private EffekseerEffectAsset m_HeartShineEffect = null;
     private Rigidbody2D m_RigidBody = null;
-    private BlinkAnimeSpriteRenderer m_Blink = null;
     private List<EffekseerHandle> m_HeartEffectList = default;
+    public int jumpCount { get; private set; } = 0;     // 実績カウント用
+    public int sweetGetCount { get; private set; } = 0;  // 実績カウント用
 
 
     void Start()
@@ -28,7 +29,6 @@ public class PlayerController : MonoBehaviour
         m_HeartEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart");
         m_HeartShineEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart_shine");
         m_RigidBody = GetComponent<Rigidbody2D>();
-        m_Blink = GetComponent<BlinkAnimeSpriteRenderer>();
         m_HeartEffectList = new List<EffekseerHandle>();
     }
 
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
                     JumpFlag = true;
                     m_RigidBody.velocity = Vector2.zero;
                     m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
+                    jumpCount++;
 
                     // エフェクトの取得
                     EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
@@ -53,16 +54,16 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (TwoJumpFlag == false)
                 {
-                    {
-                        TwoJumpFlag = true;
-                        m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
-                        m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
-                        // エフェクトの取得
-                        EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
+                    TwoJumpFlag = true;
+                    m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
+                    m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
+                    jumpCount++;
 
-                        // ジャンプ音を再生
-                        SoundManager.Instance.PlaySE("Jump");
-                    }
+                    // エフェクトの取得
+                    EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
+
+                    // ジャンプ音を再生
+                    SoundManager.Instance.PlaySE("Jump");
                 }
             }
         }
@@ -88,6 +89,8 @@ public class PlayerController : MonoBehaviour
             ItemEffect item = collision.gameObject.GetComponent<ItemEffect>();
 
             ScoreManager.AddScore(item.score);
+
+            sweetGetCount++;
 
             // エフェクトの取得
             EffekseerHandle handle = default;

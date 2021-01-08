@@ -25,6 +25,7 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private PlayerAvatar playerAvatar = default;
     [SerializeField] private CurtainAnime curtainAnime = default;
     [SerializeField] private string PriceName = default;
+    [SerializeField] ShopAchievement achievement = default;
 
     //状態分け
     enum STATE
@@ -161,6 +162,8 @@ public class BuyAndWearButton : MonoBehaviour
             if (!connect.IsWait())
             {
                 inventory.RequestUpdate();
+                // 服を未カウント状態へ戻す（購入で服の所持数が変わる）
+                achievement.isHaveClothesCount = false;
                 IsUpdate = true;
             }
         }

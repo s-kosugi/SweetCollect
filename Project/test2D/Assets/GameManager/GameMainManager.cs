@@ -19,6 +19,7 @@ public class GameMainManager : BaseScene
     private PlayFabWaitConnect m_WaitConnect = null;
 
     [SerializeField] ArrangeManager arrangeManager = default;
+    [SerializeField] GameMainAchievement achievement = default;
 
 #if UNITY_WEBGL
     [SerializeField] float WebGLGameOverTime = 2.0f;
@@ -238,6 +239,9 @@ public class GameMainManager : BaseScene
 
         // 現在のスコアを仮想通貨に追加する
         m_ScoreManager.AddVirtualCurrency();
+
+        // 実績カウントの送信
+        achievement.SendAchievementCount();
     }
 
     public void AddGameTime(float time)

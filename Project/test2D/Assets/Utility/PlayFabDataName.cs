@@ -12,6 +12,9 @@ public static class PlayerDataName
     public const string SELECTED_DIFFICULT = "SELECTED_DIFFICULT";
     public const string NOTICE_OPTION = "NOTICE_OPTION";
     public const string ACHIEVEMENT_SELECT = "ACHIEVEMENT_SELECT";
+    public const string COUNT_JUMP = "COUNT_JUMP";
+    public const string COUNT_GETSWEET = "COUNT_GETSWEET";
+    public const string COUNT_HAVECLOTHES = "COUNT_HAVECLOTHES";
 }
 
 // 難易度名の定数
