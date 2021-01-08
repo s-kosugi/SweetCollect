@@ -7,12 +7,12 @@ using PlayFab.ClientModels;
 // ランキングクラス
 public class PlayFabLeaderBoard : MonoBehaviour
 {
-    public string m_RankingText = default;
     [SerializeField] string RankingName="";
     [SerializeField] int StartPosition = 0;
     [SerializeField] int MaxResultsCount = 3;
     private PlayFabAutoRequest m_AutoRequest = null;
     private PlayFabWaitConnect m_WaitConnect = null;
+    public List<PlayerLeaderboardEntry> entries { get; private set; } = new List<PlayerLeaderboardEntry>();
 
     /// <summary>
     /// リーダーボード取得済みか
@@ -20,7 +20,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
     public bool isGet { get; private set; }
     private void Start()
     {
-        GameObject playFabManager = GameObject.Find("PlayFabManager");
+        GameObject playFabManager = transform.parent.gameObject;
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
         m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
     }
@@ -37,7 +37,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
     /// <summary>
     /// ランキング(リーダーボード)を取得
     /// </summary>
-    public void GetLeaderboard(string rankingName, int startPosition, int maxResultsCount)
+    private void GetLeaderboard(string rankingName, int startPosition, int maxResultsCount)
     {
         // 通信待ちでなかったら通信開始
         if (!m_WaitConnect.GetWait( gameObject.name))
@@ -67,11 +67,13 @@ public class PlayFabLeaderBoard : MonoBehaviour
         // 通信終了
         m_WaitConnect.RemoveWait(gameObject.name);
 
+        // リストを空にしてから受け取る
+        entries.Clear();
         //result.Leaderboardに各順位の情報(PlayerLeaderboardEntry)が入っている
-        m_RankingText = "";
         foreach (var entry in result.Leaderboard)
         {
-            m_RankingText += $"\n順位 : {entry.Position+1} スコア : {entry.StatValue} なまえ : {entry.DisplayName}";
+            entries.Add(entry);
+            //m_RankingText += $"\n順位 : {entry.Position+1} スコア : {entry.StatValue} なまえ : {entry.DisplayName}";
         }
         isGet = true;
     }
