@@ -13,6 +13,12 @@ public class PlayFabPlayerData : MonoBehaviour
     private PlayFabWaitConnect m_WaitConnect = null;
     public bool m_isGet { get; private set; }
 
+    /// <summary>
+    /// ID指定してプレイヤーデータの呼び出し
+    /// </summary>
+    public string nominationID { get; set; } = default;
+
+
     public void Start()
     {
         GameObject playFabManager = GameObject.Find("PlayFabManager");
@@ -40,6 +46,9 @@ public class PlayFabPlayerData : MonoBehaviour
         // 通信待ちでなかったら通信開始
         if (!m_WaitConnect.GetWait(gameObject.name + dataname))
         {
+            // 自分のID以外でユーザーデータを更新しようとしていたら止める
+            if (nominationID == m_PlayFabLogin._PlayfabID) return;
+
             // 通信待ちに設定する
             m_WaitConnect.AddWait(gameObject.name + dataname);
 
@@ -85,11 +94,17 @@ public class PlayFabPlayerData : MonoBehaviour
         {
             // 通信待ちに設定する
             m_WaitConnect.AddWait(gameObject.name);
-            Debug.Log("ユーザーデータの取得開始");
+
+            string ID = m_PlayFabLogin._PlayfabID;
+
+            // ID指定があった場合には指定したIDで取得する
+            if (nominationID != default) ID = nominationID;
+
+            Debug.Log("ユーザーデータの取得開始: ユーザーID : "+ID);
 
             PlayFabClientAPI.GetUserData(new GetUserDataRequest()
             {
-                PlayFabId = m_PlayFabLogin._PlayfabID
+                PlayFabId = ID
             }, result =>
             {
                 m_isGet = true;

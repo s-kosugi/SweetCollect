@@ -152,7 +152,7 @@ public class TitleManager : BaseScene
                 // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
                 if (!m_PlayFabPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
                 {
-                    m_PlayFabPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORAML");
+                    m_PlayFabPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORMAL");
                 }
                 // 通常の服を持っていなかったらストアから購入する
                 if (!m_PlayFabInventory.IsHaveItem("001_NORMAL"))

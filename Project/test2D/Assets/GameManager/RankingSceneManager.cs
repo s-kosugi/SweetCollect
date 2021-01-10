@@ -37,10 +37,10 @@ public class RankingSceneManager : BaseScene
 
         base.Start();
         fadeState = FADE_STATE.BLACK;
-
+        state = STATE.PREPRATION;
     }
 
-    // Update is called once per frame
+
     override protected void Update()
     {
 
@@ -80,10 +80,10 @@ public class RankingSceneManager : BaseScene
     void GameMain()
     {
         // クリックして状態移行
-        if (Input.GetMouseButtonDown(0))
-        {
-            state = STATE.FADEOUT;
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    state = STATE.FADEOUT;
+        //}
     }
     // フェードアウト状態
     void GameFadeOut()
@@ -93,5 +93,22 @@ public class RankingSceneManager : BaseScene
             // フェードアウト状態に変更する
             fadeState = FADE_STATE.FADEOUT;
         }
+    }
+
+    // 次のシーンへ
+    public void NextScene()
+    {
+        if (fadeState != FADE_STATE.FADEOUT)
+        {
+            // フェードアウト状態にする
+            state = STATE.FADEOUT;
+        }
+    }
+    // シーン名を指定してシーン変更
+    public void NextScene(string sceneName)
+    {
+        NextSceneName = sceneName;
+
+        NextScene();
     }
 }

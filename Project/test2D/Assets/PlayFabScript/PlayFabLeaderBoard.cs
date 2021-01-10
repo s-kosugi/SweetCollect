@@ -9,7 +9,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
 {
     [SerializeField] string RankingName="";
     [SerializeField] int StartPosition = 0;
-    [SerializeField] int MaxResultsCount = 3;
+    [SerializeField] int MaxRecordCount= 3;
     private PlayFabAutoRequest m_AutoRequest = null;
     private PlayFabWaitConnect m_WaitConnect = null;
     public List<PlayerLeaderboardEntry> entries { get; private set; } = new List<PlayerLeaderboardEntry>();
@@ -31,7 +31,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
         if (isGet == false)
         {
             // リーダーボードの取得に成功するまで続ける
-            if(m_AutoRequest.IsRequest()) GetLeaderboard(RankingName, StartPosition, MaxResultsCount);
+            if(m_AutoRequest.IsRequest()) GetLeaderboard(RankingName, StartPosition, MaxRecordCount);
         }
     }
     /// <summary>
@@ -73,6 +73,20 @@ public class PlayFabLeaderBoard : MonoBehaviour
         foreach (var entry in result.Leaderboard)
         {
             entries.Add(entry);
+
+            // PlayFabPlayerDataを人数分取得する
+            string objectName = "PlayFabPlayerData" + "Rank" + entry.Position;
+            Transform trs = transform.parent.Find(objectName);
+            // 該当のゲームオブジェクトが作成されていなかったら作成する
+            if (trs == null)
+            {
+                GameObject obj = new GameObject(objectName);
+                obj.transform.parent = this.transform.parent;
+                obj.AddComponent<PlayFabAutoRequest>();
+                var playerData = obj.AddComponent<PlayFabPlayerData>();
+                // ID指定をしてランキング内のプレイヤーデータの読み込みをする
+                playerData.nominationID = entry.PlayFabId;
+            }
             //m_RankingText += $"\n順位 : {entry.Position+1} スコア : {entry.StatValue} なまえ : {entry.DisplayName}";
         }
         isGet = true;
@@ -85,5 +99,14 @@ public class PlayFabLeaderBoard : MonoBehaviour
         m_WaitConnect.RemoveWait(gameObject.name);
 
         Debug.LogError($"ランキング(リーダーボード)の取得に失敗しました\n{error.GenerateErrorReport()}");
+    }
+
+    /// <summary>
+    /// 最大レコード数の取得
+    /// </summary>
+    /// <returns>レコード数</returns>
+    public int GetMaxRecord()
+    {
+        return MaxRecordCount;
     }
 }
