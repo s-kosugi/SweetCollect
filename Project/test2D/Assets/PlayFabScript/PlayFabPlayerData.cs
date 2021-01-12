@@ -47,7 +47,7 @@ public class PlayFabPlayerData : MonoBehaviour
         if (!m_WaitConnect.GetWait(gameObject.name + dataname))
         {
             // 自分のID以外でユーザーデータを更新しようとしていたら止める
-            if (nominationID == m_PlayFabLogin._PlayfabID) return;
+            if (nominationID != m_PlayFabLogin._PlayfabID && nominationID != default) return;
 
             // 通信待ちに設定する
             m_WaitConnect.AddWait(gameObject.name + dataname);
@@ -89,36 +89,39 @@ public class PlayFabPlayerData : MonoBehaviour
     /// <param name="name">データ名</param>
     private void GetUserData()
     {
-        // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(gameObject.name))
+        if (PlayFabClientAPI.IsClientLoggedIn())
         {
-            // 通信待ちに設定する
-            m_WaitConnect.AddWait(gameObject.name);
-
-            string ID = m_PlayFabLogin._PlayfabID;
-
-            // ID指定があった場合には指定したIDで取得する
-            if (nominationID != default) ID = nominationID;
-
-            Debug.Log("ユーザーデータの取得開始: ユーザーID : "+ID);
-
-            PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+            // 通信待ちでなかったら通信開始
+            if (!m_WaitConnect.GetWait(gameObject.name))
             {
-                PlayFabId = ID
-            }, result =>
-            {
-                m_isGet = true;
-                m_Data = result.Data;
+                // 通信待ちに設定する
+                m_WaitConnect.AddWait(gameObject.name);
+
+                string ID = m_PlayFabLogin._PlayfabID;
+
+                // ID指定があった場合には指定したIDで取得する
+                if (nominationID != default) ID = nominationID;
+
+                Debug.Log("ユーザーデータの取得開始: ユーザーID : " + ID);
+
+                PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+                {
+                    PlayFabId = ID
+                }, result =>
+                {
+                    m_isGet = true;
+                    m_Data = result.Data;
                 // 通信終了
                 m_WaitConnect.RemoveWait(gameObject.name);
 
-                Debug.Log("ユーザーデータの取得に成功");
-            }, error =>
-            {
-                Debug.Log(error.GenerateErrorReport());
+                    Debug.Log("ユーザーデータの取得に成功");
+                }, error =>
+                {
+                    Debug.Log(error.GenerateErrorReport());
                 // 通信終了
                 m_WaitConnect.RemoveWait(gameObject.name);
-            });
+                });
+            }
         }
     }
 }
