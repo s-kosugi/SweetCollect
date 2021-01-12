@@ -23,7 +23,7 @@ public class HiScoreSend : MonoBehaviour
     {
         if (!isPlayfabConnectEnd)
         {
-            if (statistics.isGet && scoreManager)
+            if (statistics.isGet && scoreManager && playerData.m_isGet)
             {
                 string selectDifficult = default;
                 string rankingName = default;
@@ -50,7 +50,7 @@ public class HiScoreSend : MonoBehaviour
                 if (selectDifficult != default)
                 {
                     // 統計情報のスコアを取得
-                    int staValue = statistics.GetStatisticValue(selectDifficult);
+                    int staValue = statistics.GetStatisticValue(rankingName);
 
                     // ハイスコア更新で、統計情報が見つからなかった場合は既定値が返るので多分OK
                     if (staValue < scoreManager.GameScore)

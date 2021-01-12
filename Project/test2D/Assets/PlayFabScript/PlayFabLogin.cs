@@ -39,6 +39,15 @@ public class PlayFabLogin : MonoBehaviour
     //ログイン実行
     private void Login()
     {
+        // 既にログイン済みだったのでIDを保存して終了
+        if(PlayFabClientAPI.IsClientLoggedIn())
+        {
+            Debug.Log("PlayFabへログイン済み：IDをPlayFabLoginクラスへ保存します");
+            PlayFabAuthenticationContext player = PlayFabSettings.staticPlayer;
+            _playfabID = player.PlayFabId;
+            return;
+        }
+
         _customID = LoadCustomID();
         var request = new LoginWithCustomIDRequest { CustomId = _customID, CreateAccount = _shouldCreateAccount };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
