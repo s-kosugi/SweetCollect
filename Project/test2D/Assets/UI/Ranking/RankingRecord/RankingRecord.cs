@@ -16,7 +16,7 @@ public class RankingRecord : MonoBehaviour
     /// <summary>
     /// 現在の参照する順位
     /// </summary>
-    public int rankPosition { get; set; } = 0;
+    public int rankPosition { get; set; } = -1;
 
 
 

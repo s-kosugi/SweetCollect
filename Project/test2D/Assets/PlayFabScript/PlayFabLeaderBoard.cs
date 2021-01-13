@@ -137,7 +137,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
                     entries.Add(entry);
 
                     // PlayFabPlayerDataを人数分取得する
-                    string objectName = "PlayFabPlayerData" + "SelfCountRank" + entry.Position;
+                    string objectName = "PlayFabPlayerData" + "Rank" + entry.Position;
                     Transform trs = transform.parent.Find(objectName);
                     // 該当のゲームオブジェクトが作成されていなかったら作成する
                     if (trs == null)
