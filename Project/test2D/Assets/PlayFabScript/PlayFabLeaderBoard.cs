@@ -14,6 +14,8 @@ public class PlayFabLeaderBoard : MonoBehaviour
     private PlayFabWaitConnect m_WaitConnect = null;
     public List<PlayerLeaderboardEntry> entries { get; private set; } = new List<PlayerLeaderboardEntry>();
 
+    [SerializeField] bool isSelfCount = false;      // 自身から数えたランキングかどうか
+
     /// <summary>
     /// リーダーボード取得済みか
     /// </summary>
@@ -31,7 +33,11 @@ public class PlayFabLeaderBoard : MonoBehaviour
         if (isGet == false)
         {
             // リーダーボードの取得に成功するまで続ける
-            if(m_AutoRequest.IsRequest()) GetLeaderboard(RankingName, StartPosition, MaxRecordCount);
+            if (m_AutoRequest.IsRequest())
+            {
+                if (!isSelfCount) GetLeaderboard(RankingName, StartPosition, MaxRecordCount);
+                else GetLeaderboardAroundSelfPlayer(RankingName, MaxRecordCount);
+            }
         }
     }
     /// <summary>
@@ -87,7 +93,6 @@ public class PlayFabLeaderBoard : MonoBehaviour
                 // ID指定をしてランキング内のプレイヤーデータの読み込みをする
                 playerData.nominationID = entry.PlayFabId;
             }
-            //m_RankingText += $"\n順位 : {entry.Position+1} スコア : {entry.StatValue} なまえ : {entry.DisplayName}";
         }
         isGet = true;
     }
@@ -101,6 +106,61 @@ public class PlayFabLeaderBoard : MonoBehaviour
         Debug.LogError($"ランキング(リーダーボード)の取得に失敗しました\n{error.GenerateErrorReport()}");
     }
 
+
+    /// <summary>
+    /// 自身周囲のランキング(リーダーボード)を取得
+    /// </summary>
+    private void GetLeaderboardAroundSelfPlayer(string rankingName, int maxResultsCount)
+    {
+        // 通信待ちでなかったら通信開始
+        if (!m_WaitConnect.GetWait(gameObject.name))
+        {
+            // 通信待ちに設定する
+            m_WaitConnect.AddWait(gameObject.name);
+
+            //ランキング(リーダーボード)を取得
+            Debug.Log($"自身の周囲のランキング(リーダーボード)の取得開始");
+            PlayFabClientAPI.GetLeaderboardAroundPlayer( new GetLeaderboardAroundPlayerRequest()
+            {
+                StatisticName = rankingName,            //ランキング名(統計情報名)
+                PlayFabId = PlayFabSettings.staticPlayer.PlayFabId,         // PlayFabID
+                MaxResultsCount = maxResultsCount       //ランキングデータを何件取得するか(最大100)
+            }, result =>
+            {
+                // 通信終了
+                m_WaitConnect.RemoveWait(gameObject.name);
+
+                // リストを空にしてから受け取る
+                entries.Clear();
+                foreach (var entry in result.Leaderboard)
+                {
+                    entries.Add(entry);
+
+                    // PlayFabPlayerDataを人数分取得する
+                    string objectName = "PlayFabPlayerData" + "SelfCountRank" + entry.Position;
+                    Transform trs = transform.parent.Find(objectName);
+                    // 該当のゲームオブジェクトが作成されていなかったら作成する
+                    if (trs == null)
+                    {
+                        GameObject obj = new GameObject(objectName);
+                        obj.transform.parent = this.transform.parent;
+                        obj.AddComponent<PlayFabAutoRequest>();
+                        var playerData = obj.AddComponent<PlayFabPlayerData>();
+                        // ID指定をしてランキング内のプレイヤーデータの読み込みをする
+                        playerData.nominationID = entry.PlayFabId;
+                    }
+                }
+                isGet = true;
+            }, error =>
+            {
+                // 通信終了
+                m_WaitConnect.RemoveWait(gameObject.name);
+                Debug.LogError($"ランキング(リーダーボード)の取得に失敗しました\n{error.GenerateErrorReport()}");
+            });
+        }
+    }
+
+
     /// <summary>
     /// 最大レコード数の取得
     /// </summary>
@@ -108,5 +168,14 @@ public class PlayFabLeaderBoard : MonoBehaviour
     public int GetMaxRecord()
     {
         return MaxRecordCount;
+    }
+
+    /// <summary>
+    /// ランキング名の設定
+    /// </summary>
+    /// <param name="rankingname">ランキング名</param>
+    public void SetRankingName(string rankingname)
+    {
+        RankingName = rankingname;
     }
 }
