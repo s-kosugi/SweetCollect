@@ -18,7 +18,7 @@ public class RankingSelfRecord : MonoBehaviour
     {
         if (selfLeaderBoard.isGet)
         {
-            rankingRecord.rankPosition = selfLeaderBoard.entries[0].Position+1;
+            rankingRecord.rankPosition = selfLeaderBoard.entries[0].Position;
         }
     }
 }

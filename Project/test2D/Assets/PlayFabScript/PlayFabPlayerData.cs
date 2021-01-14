@@ -19,7 +19,7 @@ public class PlayFabPlayerData : MonoBehaviour
     public string nominationID { get; set; } = default;
 
 
-    public void Start()
+    void Start()
     {
         GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_PlayFabLogin = playFabManager.GetComponent<PlayFabLogin>();
@@ -27,7 +27,7 @@ public class PlayFabPlayerData : MonoBehaviour
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
         m_isGet = false;
     }
-    public void Update()
+    void Update()
     {
         // ユーザー情報は2回以上自動取得しない
         if (!m_isGet)
@@ -123,5 +123,14 @@ public class PlayFabPlayerData : MonoBehaviour
                 });
             }
         }
+    }
+    /// <summary>
+    /// ユーザーデータの取得要求
+    /// </summary>
+    public void RequestGetUserData()
+    {
+        m_isGet = false;
+        // 直ちに一度取得試行をする
+        GetUserData();
     }
 }

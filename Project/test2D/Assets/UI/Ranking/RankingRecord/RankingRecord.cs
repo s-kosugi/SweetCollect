@@ -8,6 +8,7 @@ using UnityEngine;
 public class RankingRecord : MonoBehaviour
 {
     public PlayFabLeaderBoard leaderBoard { get; private set; } = default;
+    GameObject leaderBoardObject = default;
     public PlayFabStore store { get; private set; } = default;
 
     private GameObject playerDataObj = null;
@@ -18,11 +19,10 @@ public class RankingRecord : MonoBehaviour
     /// </summary>
     public int rankPosition { get; set; } = -1;
 
-
-
     void Start()
     {
-        leaderBoard = GameObject.Find("PlayFabManager/PlayFabLeaderBoard").GetComponent<PlayFabLeaderBoard>();
+        leaderBoardObject = GameObject.Find("PlayFabManager/PlayFabLeaderBoard");
+        leaderBoard = leaderBoardObject.GetComponent<PlayFabLeaderBoard>();
         store = GameObject.Find("PlayFabManager/PlayFabStore").GetComponent<PlayFabStore>();
     }
 
@@ -32,7 +32,8 @@ public class RankingRecord : MonoBehaviour
         // プレイヤーデータのオブジェクトが作成されたら取得する
         if (playerDataObj == null)
         {
-            playerDataObj = GameObject.Find("PlayFabManager/PlayFabPlayerDataRank" + rankPosition);
+            Transform trs = leaderBoardObject.transform.Find("PlayFabPlayerDataRank" + rankPosition);
+            if( trs != null)  playerDataObj = trs.gameObject;
         }
         else
         {

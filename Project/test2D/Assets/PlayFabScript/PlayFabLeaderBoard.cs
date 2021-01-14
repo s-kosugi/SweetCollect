@@ -84,14 +84,23 @@ public class PlayFabLeaderBoard : MonoBehaviour
             string objectName = "PlayFabPlayerData" + "Rank" + entry.Position;
             Transform trs = transform.parent.Find(objectName);
             // 該当のゲームオブジェクトが作成されていなかったら作成する
+            GameObject obj;
             if (trs == null)
             {
-                GameObject obj = new GameObject(objectName);
-                obj.transform.parent = this.transform.parent;
+                obj = new GameObject(objectName);
+                obj.transform.parent = this.transform;
                 obj.AddComponent<PlayFabAutoRequest>();
                 var playerData = obj.AddComponent<PlayFabPlayerData>();
                 // ID指定をしてランキング内のプレイヤーデータの読み込みをする
                 playerData.nominationID = entry.PlayFabId;
+            }
+            else
+            {
+                // 作成済みの場合はプレイヤーデータの更新をかける
+                PlayFabPlayerData playerData = trs.gameObject.GetComponent<PlayFabPlayerData>();
+                playerData.nominationID = entry.PlayFabId;
+                // プレイヤーデータの取得要求をする
+                playerData.RequestGetUserData();
             }
         }
         isGet = true;
@@ -143,7 +152,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
                     if (trs == null)
                     {
                         GameObject obj = new GameObject(objectName);
-                        obj.transform.parent = this.transform.parent;
+                        obj.transform.parent = this.transform;
                         obj.AddComponent<PlayFabAutoRequest>();
                         var playerData = obj.AddComponent<PlayFabPlayerData>();
                         // ID指定をしてランキング内のプレイヤーデータの読み込みをする
@@ -177,5 +186,22 @@ public class PlayFabLeaderBoard : MonoBehaviour
     public void SetRankingName(string rankingname)
     {
         RankingName = rankingname;
+    }
+
+    /// <summary>
+    /// リーダーボードの再取得要求
+    /// </summary>
+    public void RequestGetLeaderBoard()
+    {
+        RequestGetLeaderBoard(RankingName);
+    }
+    /// <summary>
+    /// リーダーボードの再取得要求
+    /// </summary>
+    /// <param name="rankingName">ランキング名</param>
+    public void RequestGetLeaderBoard(string rankingName)
+    {
+        RankingName = rankingName;
+        isGet = false;
     }
 }

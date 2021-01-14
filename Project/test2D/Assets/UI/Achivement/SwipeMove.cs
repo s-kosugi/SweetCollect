@@ -75,9 +75,9 @@ public class SwipeMove : MonoBehaviour
             checkPos.x = moveLimitRect.xMin;
         }
         // 右側チェック
-        if (checkPos.x > moveLimitRect.xMax)
+        if (checkPos.x > moveLimitRect.width)
         {
-            checkPos.x = moveLimitRect.xMax;
+            checkPos.x = moveLimitRect.width;
         }
         // 上側チェック
         if (checkPos.y < moveLimitRect.yMin)
@@ -85,9 +85,9 @@ public class SwipeMove : MonoBehaviour
             checkPos.y = moveLimitRect.yMin;
         }
         // 下側チェック
-        if (checkPos.y > moveLimitRect.yMax)
+        if (checkPos.y > moveLimitRect.height)
         {
-            checkPos.y = moveLimitRect.yMax;
+            checkPos.y = moveLimitRect.height;
         }
         // 移動させる
         gameObject.transform.localPosition = checkPos;

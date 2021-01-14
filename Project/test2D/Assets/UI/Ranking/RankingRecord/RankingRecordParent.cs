@@ -10,16 +10,50 @@ public class RankingRecordParent : MonoBehaviour
     [SerializeField] Vector2 startPos = default;
     [SerializeField] SwipeMove swipe = default;
     [SerializeField] float SwipeMoveAdjustment = 360;
+    bool isLoadChild = false;
 
 
     void Start()
     {
-        RankingRecord record = default;
-        GameObject obj = default;
-
-        // レコード表示用オブジェクトの生成
-        for (int i = 0; i < leaderBoard.GetMaxRecord(); i++)
+    }
+    void Update()
+    {
+        if (!isLoadChild)
         {
+            if (leaderBoard.isGet)
+            {
+                // 子のロード
+                LoadChild();
+                isLoadChild = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 子の再ロード　
+    /// </summary>
+    public void ReloadChild()
+    {
+        // 子の全削除
+        foreach (Transform n in transform)
+        {
+            GameObject.Destroy(n.gameObject);
+        }
+        // 子の再ロード
+        isLoadChild = false;
+    }
+
+    /// <summary>
+    /// 子のロード
+    /// </summary>
+    public void LoadChild()
+    {
+        // レコード表示用オブジェクトの生成
+        for (int i = 0; i < leaderBoard.entries.Count; i++)
+        {
+            RankingRecord record = default;
+            GameObject obj = default;
+
             obj = Instantiate(rankingRecord, this.transform);
             record = obj.GetComponent<RankingRecord>();
             record.rankPosition = i;
@@ -27,12 +61,6 @@ public class RankingRecordParent : MonoBehaviour
             obj.transform.localPosition = new Vector3(startPos.x, i * -HeightInterval + startPos.y);
         }
         // スワイプ移動の制限
-        swipe.moveLimitRect = new Rect(0,0,0,HeightInterval * leaderBoard.GetMaxRecord() - SwipeMoveAdjustment);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        swipe.moveLimitRect = new Rect(0, 0, 0, HeightInterval * leaderBoard.entries.Count - SwipeMoveAdjustment);
     }
 }
