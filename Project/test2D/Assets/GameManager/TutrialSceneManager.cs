@@ -110,10 +110,12 @@ public class TutrialSceneManager : BaseScene
     // チュートリアル
     private void Tutrial_01()
     {
-        if( m_NextTutrial == TUTRIAL.TUTRIAL_02)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_02)
         {
             m_Tutrial = m_NextTutrial;
         }
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_01;
     } 
     // チュートリアル
     private void Tutrial_02()
@@ -122,6 +124,8 @@ public class TutrialSceneManager : BaseScene
         {
             m_Tutrial = m_NextTutrial;
         }
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_02;
     }  
     // チュートリアル
     private void Tutrial_03()
@@ -130,7 +134,10 @@ public class TutrialSceneManager : BaseScene
         {
             m_Tutrial = m_NextTutrial;
         }
-    }  
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_03;
+
+    }
     // チュートリアル
     private void Tutrial_04()
     {
@@ -138,6 +145,8 @@ public class TutrialSceneManager : BaseScene
         {
             m_Tutrial = m_NextTutrial;
         }
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_04;
     }
 
     private void Tutrial_End()
