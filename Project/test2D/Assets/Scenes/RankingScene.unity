@@ -875,6 +875,8 @@ GameObject:
   - component: {fileID: 641397757}
   - component: {fileID: 641397756}
   - component: {fileID: 641397760}
+  - component: {fileID: 641397761}
+  - component: {fileID: 641397762}
   m_Layer: 5
   m_Name: LeftButton
   m_TagString: Untagged
@@ -968,6 +970,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 320264889}
+        m_MethodName: MoveDifficult
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &641397758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,6 +1031,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 320264889}
   StartAutoEnabled: 1
+--- !u!114 &641397761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641397754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e67d84b6f52f842a9c7eeea41de844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitConnect: {fileID: 1173385037}
+  scene: {fileID: 320264889}
+--- !u!114 &641397762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641397754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db23cf27f2ae7ef46abd7a4d4ca43177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneManager: {fileID: 320264889}
 --- !u!1 &707870747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1440,8 @@ GameObject:
   - component: {fileID: 883465766}
   - component: {fileID: 883465765}
   - component: {fileID: 883465769}
+  - component: {fileID: 883465770}
+  - component: {fileID: 883465771}
   m_Layer: 5
   m_Name: RightButton
   m_TagString: Untagged
@@ -1554,6 +1596,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 320264889}
   StartAutoEnabled: 1
+--- !u!114 &883465770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883465763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e67d84b6f52f842a9c7eeea41de844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitConnect: {fileID: 1173385037}
+  scene: {fileID: 320264889}
+--- !u!114 &883465771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883465763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db23cf27f2ae7ef46abd7a4d4ca43177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneManager: {fileID: 320264889}
 --- !u!1 &952816860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,6 +1637,8 @@ GameObject:
   - component: {fileID: 952816864}
   - component: {fileID: 952816863}
   - component: {fileID: 952816862}
+  - component: {fileID: 952816867}
+  - component: {fileID: 952816868}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1722,6 +1793,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952816860}
   m_CullTransparentMesh: 0
+--- !u!114 &952816867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952816860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db23cf27f2ae7ef46abd7a4d4ca43177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneManager: {fileID: 320264889}
+--- !u!114 &952816868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952816860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e67d84b6f52f842a9c7eeea41de844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitConnect: {fileID: 1173385037}
+  scene: {fileID: 320264889}
 --- !u!1001 &1021511285
 PrefabInstance:
   m_ObjectHideFlags: 0

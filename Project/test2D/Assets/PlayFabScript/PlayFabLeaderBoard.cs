@@ -143,6 +143,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
 
             //ランキング(リーダーボード)を取得
             Debug.Log($"自身の周囲のランキング(リーダーボード)の取得開始");
+            Debug.Log(PlayFabSettings.staticPlayer.PlayFabId);
             PlayFabClientAPI.GetLeaderboardAroundPlayer( new GetLeaderboardAroundPlayerRequest()
             {
                 StatisticName = rankingName,            //ランキング名(統計情報名)
@@ -156,6 +157,8 @@ public class PlayFabLeaderBoard : MonoBehaviour
                 foreach (var entry in result.Leaderboard)
                 {
                     entries.Add(entry);
+                    Debug.Log("自身の周囲のランキングのID : " + entry.PlayFabId);
+                    Debug.Log("自身の周囲のランキングのポジション : " + entry.Position);
 
                     // PlayFabPlayerDataを人数分取得する
                     string objectName = "PlayFabPlayerData" + "Rank" + entry.Position;

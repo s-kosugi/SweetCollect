@@ -133,10 +133,13 @@ public class RankingSceneManager : BaseScene
     /// </summary>
     void LoadDifficult()
     {
-        if (leaderBoard.isGet && selfLeaderBoard.isGet)
+        if (!waitConnect.IsWait())
         {
-            // ロードが終わったら出現させる
-            state = STATE.APPEAR_DIFFICULT;
+            if (leaderBoard.isGet && selfLeaderBoard.isGet)
+            {
+                // ロードが終わったら出現させる
+                state = STATE.APPEAR_DIFFICULT;
+            }
         }
     }
 
@@ -190,7 +193,7 @@ public class RankingSceneManager : BaseScene
         // 範囲を超えた場合の処理
         if (SelectDifficult < SELECT_DIFFICULT.MIN)
         {
-            SelectDifficult = SELECT_DIFFICULT.MAX;
+            SelectDifficult = SELECT_DIFFICULT.MAX-1;
         }
         if (SelectDifficult >= SELECT_DIFFICULT.MAX)
         {
