@@ -3284,6 +3284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   retryTransform: {fileID: 330299693}
   mainManager: {fileID: 2040733009}
+  scoreManager: {fileID: 1530234767}
 --- !u!114 &928480537
 MonoBehaviour:
   m_ObjectHideFlags: 0

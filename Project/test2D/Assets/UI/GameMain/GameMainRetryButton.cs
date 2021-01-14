@@ -8,6 +8,7 @@ public class GameMainRetryButton : MonoBehaviour
 {
     [SerializeField] Transform retryTransform = default;
     [SerializeField] GameMainManager mainManager = default;
+    [SerializeField] ScoreManager scoreManager = default;
     Button button = default;
     bool retry = false;     // リトライ中かどうか
 
@@ -67,6 +68,8 @@ public class GameMainRetryButton : MonoBehaviour
 
         Time.timeScale = 1f;
         SceneManager.LoadScene("GameMainScene");
+        scoreManager.ResetScore();
+
         retry = true;
     }
 }
