@@ -195,6 +195,14 @@ public class PlayFabLeaderBoard : MonoBehaviour
     }
 
     /// <summary>
+    /// ランキング名の取得
+    /// </summary>
+    /// <returns>ランキング名</returns>
+    public string GetRankingName()
+    {
+        return RankingName;
+    }
+    /// <summary>
     /// ランキング名の設定
     /// </summary>
     /// <param name="rankingname">ランキング名</param>

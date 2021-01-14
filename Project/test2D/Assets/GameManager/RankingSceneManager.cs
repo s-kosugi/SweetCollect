@@ -6,12 +6,12 @@ public class RankingSceneManager : BaseScene
     [SerializeField] PlayFabLeaderBoard leaderBoard = default;
     [SerializeField] PlayFabLeaderBoard selfLeaderBoard = default;
     [SerializeField] RankingRecordParent recordParent = default;
-    private SELECT_DIFFICULT SelectDifficult = 0;
+    private SELECT_DIFFICULT SelectDifficult = SELECT_DIFFICULT.HARD;
 
     /// <summary>
     /// 選択難易度
     /// </summary>
-    enum SELECT_DIFFICULT
+    public enum SELECT_DIFFICULT
     {
         MIN,
 
@@ -53,6 +53,16 @@ public class RankingSceneManager : BaseScene
         base.Start();
         fadeState = FADE_STATE.BLACK;
         state = STATE.PREPRATION;
+
+
+        // 最初に選択されている難易度をリーダーボード基準で変更する
+        switch(leaderBoard.GetRankingName())
+        {
+            case RankingName.EASY: SelectDifficult = SELECT_DIFFICULT.EASY; break;
+            case RankingName.NORMAL: SelectDifficult = SELECT_DIFFICULT.NORMAL; break;
+            case RankingName.HARD: SelectDifficult = SELECT_DIFFICULT.HARD; break;
+            //case RankingName.VERYHARD: SelectDifficult = SELECT_DIFFICULT.VERYHARD; break;
+        }
     }
 
 
