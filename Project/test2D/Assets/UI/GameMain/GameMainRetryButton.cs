@@ -67,8 +67,8 @@ public class GameMainRetryButton : MonoBehaviour
         if (retry) return;
 
         Time.timeScale = 1f;
-        SceneManager.LoadScene("GameMainScene");
         scoreManager.ResetScore();
+        SceneManager.LoadScene("GameMainScene");
 
         retry = true;
     }

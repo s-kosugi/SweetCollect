@@ -16,20 +16,24 @@ public class RankingAchievementTitleText : MonoBehaviour
             if (rankingRecord.playerData != default && rankingRecord.playerData.m_isGet)
             {
                 UserDataRecord userData;
-                if (rankingRecord.playerData.m_Data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out userData))
-                {
-                    var catalogItem = rankingRecord.store.CatalogItems.Find(x => x.ItemId == userData.Value);
-                    if (catalogItem != null)
-                        textMesh.text = catalogItem.DisplayName;
-                    else
-                        textMesh.text = default;
-                }
-                else
-                {
-                    textMesh.text = default;
-                }
 
-                isSet = true;
+                if (rankingRecord.store.m_isCatalogGet)
+                {
+                    if (rankingRecord.playerData.m_Data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out userData))
+                    {
+                        var catalogItem = rankingRecord.store.CatalogItems.Find(x => x.ItemId == userData.Value);
+                        if (catalogItem != null)
+                            textMesh.text = catalogItem.DisplayName;
+                        else
+                            textMesh.text = default;
+                    }
+                    else
+                    {
+                        textMesh.text = default;
+                    }
+
+                    isSet = true;
+                }
             }
         }
     }

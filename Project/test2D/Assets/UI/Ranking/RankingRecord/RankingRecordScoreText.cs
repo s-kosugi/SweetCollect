@@ -13,7 +13,7 @@ public class RankingRecordScoreText : MonoBehaviour
     {
         // 親からランキングレコードをもらう
         leaderBoard = rankingRecord.leaderBoard;
-        if (!isSet && leaderBoard.isGet)
+        if (!isSet && leaderBoard.isGet && rankingRecord.rankPosition != -1)
         {
             // スコアの取得
             textMesh.text = string.Format("{0:0000}",leaderBoard.entries[rankingRecord.rankPosition].StatValue);

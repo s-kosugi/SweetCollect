@@ -75,6 +75,11 @@ public class PlayFabLeaderBoard : MonoBehaviour
 
         // リストを空にしてから受け取る
         entries.Clear();
+        // 子の全削除
+        foreach (Transform n in transform)
+        {
+            GameObject.Destroy(n.gameObject);
+        }
         //result.Leaderboardに各順位の情報(PlayerLeaderboardEntry)が入っている
         foreach (var entry in result.Leaderboard)
         {
@@ -127,6 +132,15 @@ public class PlayFabLeaderBoard : MonoBehaviour
             // 通信待ちに設定する
             m_WaitConnect.AddWait(gameObject.name);
 
+            // リストを空にしてから受け取る
+            entries.Clear();
+
+            // 子の全削除
+            foreach (Transform n in transform)
+            {
+                GameObject.Destroy(n.gameObject);
+            }
+
             //ランキング(リーダーボード)を取得
             Debug.Log($"自身の周囲のランキング(リーダーボード)の取得開始");
             PlayFabClientAPI.GetLeaderboardAroundPlayer( new GetLeaderboardAroundPlayerRequest()
@@ -139,8 +153,6 @@ public class PlayFabLeaderBoard : MonoBehaviour
                 // 通信終了
                 m_WaitConnect.RemoveWait(gameObject.name);
 
-                // リストを空にしてから受け取る
-                entries.Clear();
                 foreach (var entry in result.Leaderboard)
                 {
                     entries.Add(entry);

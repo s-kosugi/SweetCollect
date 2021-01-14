@@ -13,9 +13,8 @@ public class RankingPlayerNameText : MonoBehaviour
     {
         // 親からランキングレコードをもらう
         leaderBoard = rankingRecord.leaderBoard;
-        if (!isSet && leaderBoard.isGet)
+        if (!isSet && leaderBoard.isGet && rankingRecord.rankPosition != -1)
         {
-            Debug.Log(leaderBoard.entries[rankingRecord.rankPosition].DisplayName);
             // プレイヤー名の取得
             textMesh.text = leaderBoard.entries[rankingRecord.rankPosition].DisplayName;
 
