@@ -6,7 +6,12 @@ public class RankingSceneManager : BaseScene
     [SerializeField] PlayFabLeaderBoard leaderBoard = default;
     [SerializeField] PlayFabLeaderBoard selfLeaderBoard = default;
     [SerializeField] RankingRecordParent recordParent = default;
+    [SerializeField] CanvasGroup recordParentGroup = default;
+    [SerializeField] float recordFadeTime = 0.5f;
     private SELECT_DIFFICULT SelectDifficult = SELECT_DIFFICULT.HARD;
+    [SerializeField] float connectWaitFrame = 5f;
+    float connectWaitCount = 0f;
+    float recordFadeCount = 0.0f;
 
     /// <summary>
     /// 選択難易度
@@ -85,11 +90,20 @@ public class RankingSceneManager : BaseScene
     // 準備
     void Preparation()
     {
-        // 通信待ちをしていなかったら出現状態へ移行する
+        // 規定フレームの間通信待ちをしていなかったら出現状態へ移行する(子オブジェクトの作成待ち）
         if (!waitConnect.IsWait())
         {
-            fadeState = FADE_STATE.FADEIN;
-            state = STATE.FADEIN;
+            connectWaitCount++;
+            if (connectWaitCount > connectWaitFrame)
+            {
+                fadeState = FADE_STATE.FADEIN;
+                state = STATE.FADEIN;
+                connectWaitCount = 0;
+            }
+        }
+        else
+        {
+            connectWaitCount = 0;
         }
 
     }
@@ -119,23 +133,36 @@ public class RankingSceneManager : BaseScene
     /// </summary>
     void VanishDifficult()
     {
-        string rankingName = rankingName = RankingName.EASY;
-        switch (SelectDifficult)
+        // 消失演出
+        recordFadeCount += Time.deltaTime;
+        if (recordFadeCount < recordFadeTime)
         {
-            case SELECT_DIFFICULT.EASY: rankingName = RankingName.EASY; break;
-            case SELECT_DIFFICULT.NORMAL: rankingName = RankingName.NORMAL; break;
-            case SELECT_DIFFICULT.HARD: rankingName = RankingName.HARD; break;
-            //case SELECT_DIFFICULT.VERYHARD: rankingName = RankingName.VERYHARD; break;
+            recordParentGroup.alpha = Easing.Linear(recordFadeCount, recordFadeTime, 0.0f, 1.0f);
         }
-        // リーダーボードの再取得要求
-        leaderBoard.RequestGetLeaderBoard(rankingName);
-        selfLeaderBoard.RequestGetLeaderBoard(rankingName);
+        else
+        {
+            recordParentGroup.alpha = 0f;
+            recordFadeCount = 0f;
 
-        // レコードの子の再ロード
-        recordParent.ReloadChild();
+            // 完全に消えたので新しい難易度をロードする
+            string rankingName = rankingName = RankingName.EASY;
+            switch (SelectDifficult)
+            {
+                case SELECT_DIFFICULT.EASY: rankingName = RankingName.EASY; break;
+                case SELECT_DIFFICULT.NORMAL: rankingName = RankingName.NORMAL; break;
+                case SELECT_DIFFICULT.HARD: rankingName = RankingName.HARD; break;
+                    //case SELECT_DIFFICULT.VERYHARD: rankingName = RankingName.VERYHARD; break;
+            }
+            // リーダーボードの再取得要求
+            leaderBoard.RequestGetLeaderBoard(rankingName);
+            selfLeaderBoard.RequestGetLeaderBoard(rankingName);
 
-        // 完全に消えたら新しい難易度をロードする
-        state = STATE.LOAD_DIFFICULT;
+            // レコードの子の再ロード
+            recordParent.ReloadChild();
+
+            state = STATE.LOAD_DIFFICULT;
+        }
+
     }
 
     /// <summary>
@@ -143,13 +170,22 @@ public class RankingSceneManager : BaseScene
     /// </summary>
     void LoadDifficult()
     {
+        // 規定フレームの間通信待ちをしていなかったら出現状態へ移行する(子オブジェクトの作成待ち）
         if (!waitConnect.IsWait())
         {
-            if (leaderBoard.isGet && selfLeaderBoard.isGet)
+            connectWaitCount++;
+            if (connectWaitCount > connectWaitFrame)
             {
-                // ロードが終わったら出現させる
-                state = STATE.APPEAR_DIFFICULT;
+                if (leaderBoard.isGet && selfLeaderBoard.isGet)
+                {
+                    connectWaitCount = 0;
+                    // ロードが終わったら出現させる
+                    state = STATE.APPEAR_DIFFICULT;
+                }
             }
+        }else
+        {
+            connectWaitCount = 0;
         }
     }
 
@@ -158,8 +194,21 @@ public class RankingSceneManager : BaseScene
     /// </summary>
     void AppearDifficult()
     {
-        // 出現処理が終わったら操作可能にする
-        state = STATE.MAIN;
+        // 出現演出
+        recordFadeCount += Time.deltaTime;
+        if (recordFadeCount < recordFadeTime)
+        {
+            recordParentGroup.alpha = Easing.Linear(recordFadeCount, recordFadeTime, 1.0f, 0.0f);
+        }
+        else
+        {
+            recordParentGroup.alpha = 1f;
+
+            recordFadeCount = 0f;
+            // 出現処理が終わったら操作可能にする
+            state = STATE.MAIN;
+
+        }
     }
 
     // フェードアウト状態
