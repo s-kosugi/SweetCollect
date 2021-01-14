@@ -130,12 +130,12 @@ public class TitleManager : BaseScene
     public void NextScene(string sceneName)
     {
         NextSceneName = sceneName;
-        // チュートリアル終了済みでなかったらチュートリアルへ飛ばす
+        // チュートリアル終了済みでなかったら名前入力へ飛ばす
         if (NextSceneName == "GameMainScene")
         {
             if (!m_PlayFabPlayerData.m_Data.ContainsKey(PlayerDataName.TUTORIAL) || m_PlayFabPlayerData.m_Data[PlayerDataName.TUTORIAL].Value != "End")
             {
-                NextSceneName = "TutorialScene";
+                NextSceneName = "InputNameScene";
             }
         }
         NextScene();

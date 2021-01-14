@@ -12,10 +12,20 @@ public class PlayFabUserProfiel : MonoBehaviour
     public bool isGet { get; private set; }
     private PlayFabAutoRequest m_AutoRequest = null;
     private PlayFabWaitConnect m_WaitConnect = null;
+    public SETNAME_RESULT setNameResult { get; private set; }
+
+    public enum SETNAME_RESULT
+    {
+        NONE,
+        SUCCESS,
+        ERROR,
+    }
+
 
     private void Start()
     {
         m_AutoRequest = GetComponent<PlayFabAutoRequest>();
+        setNameResult = SETNAME_RESULT.NONE;
 
         GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
@@ -51,6 +61,8 @@ public class PlayFabUserProfiel : MonoBehaviour
                 DisplayName = result.DisplayName;
                 // 通信終了
                 m_WaitConnect.RemoveWait(gameObject.name);
+
+                setNameResult = SETNAME_RESULT.SUCCESS;
             }
 
             void OnError(PlayFabError error)
@@ -58,6 +70,8 @@ public class PlayFabUserProfiel : MonoBehaviour
                 Debug.Log($"{error.Error}");
                 // 通信終了
                 m_WaitConnect.RemoveWait(gameObject.name);
+
+                setNameResult = SETNAME_RESULT.ERROR;
             }
         }
     }
@@ -88,14 +102,14 @@ public class PlayFabUserProfiel : MonoBehaviour
                     DisplayName = result.PlayerProfile.DisplayName;
                     Debug.Log($"DisplayName: {DisplayName}");
                     isGet = true;
-                // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                    // 通信終了
+                    m_WaitConnect.RemoveWait(gameObject.name);
                 },
                 error =>
                 {
                     Debug.LogError(error.GenerateErrorReport());
-                // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                    // 通信終了
+                    m_WaitConnect.RemoveWait(gameObject.name);
                 }
                 );
             }
