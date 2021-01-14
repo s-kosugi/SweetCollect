@@ -116,6 +116,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutrial_syokudai (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5741172201915687989, guid: 625999ca1ddc33b41a0d88795b212c92,
+        type: 3}
+      propertyPath: m_StateID
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625999ca1ddc33b41a0d88795b212c92, type: 3}
 --- !u!4 &7392262212014193334 stripped
@@ -190,6 +195,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tutrial_syokudai (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741172201915687989, guid: 625999ca1ddc33b41a0d88795b212c92,
+        type: 3}
+      propertyPath: m_StateID
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625999ca1ddc33b41a0d88795b212c92, type: 3}
@@ -266,6 +276,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutrial_syokudai (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5741172201915687989, guid: 625999ca1ddc33b41a0d88795b212c92,
+        type: 3}
+      propertyPath: m_StateID
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625999ca1ddc33b41a0d88795b212c92, type: 3}
 --- !u!4 &7392262211752471636 stripped
@@ -340,6 +355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tutrial_syokudai (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741172201915687989, guid: 625999ca1ddc33b41a0d88795b212c92,
+        type: 3}
+      propertyPath: m_StateID
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625999ca1ddc33b41a0d88795b212c92, type: 3}
@@ -416,6 +436,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutrial_syokudai (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5741172201915687989, guid: 625999ca1ddc33b41a0d88795b212c92,
+        type: 3}
+      propertyPath: m_StateID
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625999ca1ddc33b41a0d88795b212c92, type: 3}
 --- !u!4 &7392262211352488807 stripped
@@ -490,6 +515,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tutrial_syokudai
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741172201915687989, guid: 625999ca1ddc33b41a0d88795b212c92,
+        type: 3}
+      propertyPath: m_StateID
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625999ca1ddc33b41a0d88795b212c92, type: 3}

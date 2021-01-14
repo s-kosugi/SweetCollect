@@ -15,6 +15,7 @@ public class Tutrial_chefAngry : MonoBehaviour
     private GameObject CanvasObject = default;
     private Camera cameraObject = default;
     [SerializeField] TutrialSceneManager m_TutrialManager = null;
+    [SerializeField] TutrialSceneManager.TUTRIAL m_StateID = default;         //チュートリアルID
     void Start()
     {
         CanvasObject = GameObject.Find("Canvas");
@@ -59,7 +60,7 @@ public class Tutrial_chefAngry : MonoBehaviour
                 obj.GetComponent<TextMeshProUGUI>().text = (-MinusTime).ToString();
 
                 //チュートリアルの変更
-                m_TutrialManager.TutrialChange();
+                m_TutrialManager.TutrialChange(m_StateID);
             }
         }
     }

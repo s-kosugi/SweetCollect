@@ -12,6 +12,7 @@ public class Tutrial_BreakHitObject : MonoBehaviour
     private Camera cameraObject = default;
 
     [SerializeField] TutrialSceneManager m_TutrialManager = null;           //チュートリアルマネージャー
+    [SerializeField] TutrialSceneManager.TUTRIAL m_StateID = default;         //チュートリアルID
 
     private void Start()
     {
@@ -38,7 +39,7 @@ public class Tutrial_BreakHitObject : MonoBehaviour
             if(m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_03)
             {
                 //チュートリアルの変更
-                m_TutrialManager.TutrialChange();
+                m_TutrialManager.TutrialChange(m_StateID);
             }
 
             Destroy(this.gameObject);

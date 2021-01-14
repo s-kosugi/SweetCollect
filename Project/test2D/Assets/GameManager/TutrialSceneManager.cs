@@ -31,8 +31,9 @@ public class TutrialSceneManager : BaseScene
         TUTRIAL_END
     }
     [SerializeField] private TUTRIAL m_Tutrial = TUTRIAL.TUTRIAL_01;
+    [SerializeField] private TUTRIAL m_NextTutrial = TUTRIAL.TUTRIAL_01;
 
-    bool IsTutrialChange = false;                          //チュートリアル
+
     float TutrialEndTimer = 0.0f;                          //チュートリアル終了時間 
     const float TUTRIAL_END_TIME = 2.0f;                   //チュートリアル終了時間 
 
@@ -55,7 +56,6 @@ public class TutrialSceneManager : BaseScene
         //チュートリアル
         m_Tutrial = TUTRIAL.TUTRIAL_01;
 
-        IsTutrialChange = false;
         TutrialEndTimer = 0.0f;
     }
 
@@ -110,39 +110,43 @@ public class TutrialSceneManager : BaseScene
     // チュートリアル
     private void Tutrial_01()
     {
-        if (IsTutrialChange)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_02)
         {
-            m_Tutrial = TUTRIAL.TUTRIAL_02;
-            IsTutrialChange = false;
+            m_Tutrial = m_NextTutrial;
         }
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_01;
     } 
     // チュートリアル
     private void Tutrial_02()
     {
-        if (IsTutrialChange)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_03)
         {
-            m_Tutrial = TUTRIAL.TUTRIAL_03;
-            IsTutrialChange = false;
+            m_Tutrial = m_NextTutrial;
         }
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_02;
     }  
     // チュートリアル
     private void Tutrial_03()
     {
-        if (IsTutrialChange)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_04)
         {
-            m_Tutrial = TUTRIAL.TUTRIAL_04;
-            IsTutrialChange = false;
+            m_Tutrial = m_NextTutrial;
         }
-    }  
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_03;
+
+    }
     // チュートリアル
     private void Tutrial_04()
     {
-
-        if (IsTutrialChange)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_END)
         {
-            m_Tutrial = TUTRIAL.TUTRIAL_END;
-            IsTutrialChange = false;
+            m_Tutrial = m_NextTutrial;
         }
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_04;
     }
 
     private void Tutrial_End()
@@ -157,9 +161,9 @@ public class TutrialSceneManager : BaseScene
     }
 
     //チュートリアル
-    public void TutrialChange()
+    public void TutrialChange(TUTRIAL Id)
     {
-        IsTutrialChange = true;
+        m_NextTutrial = Id;
     }
 
 }

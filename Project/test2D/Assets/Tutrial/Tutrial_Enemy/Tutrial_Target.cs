@@ -7,7 +7,7 @@ public class Tutrial_Target : MonoBehaviour
     [SerializeField] TutrialSceneManager m_TutrialManager = null;
 
     [SerializeField] string TargetTagName = "Player";
-
+    [SerializeField] TutrialSceneManager.TUTRIAL m_StateID = default;         //チュートリアルID
     private void Start()
     {
         m_TutrialManager = GameObject.Find("TutrialSceneManager").GetComponent<TutrialSceneManager>();
@@ -17,7 +17,7 @@ public class Tutrial_Target : MonoBehaviour
     {
         if (collision.transform.tag == TargetTagName)
         {
-            m_TutrialManager.TutrialChange();
+            m_TutrialManager.TutrialChange(m_StateID);
         }
     }
 }

@@ -134,6 +134,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutrial_Candy_Target
       objectReference: {fileID: 0}
+    - target: {fileID: 6542625862763969263, guid: e7e6d8da019d063419f16426e757ea68,
+        type: 3}
+      propertyPath: m_StateID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9212674807965158973, guid: e7e6d8da019d063419f16426e757ea68,
         type: 3}
       propertyPath: m_LocalPosition.x
