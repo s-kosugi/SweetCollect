@@ -91,11 +91,11 @@ public class PlayFabPlayerData : MonoBehaviour
     {
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
-            // 通信待ちでなかったら通信開始
-            if (!m_WaitConnect.GetWait(gameObject.name))
+            // 通信待ちでなかったら通信開始(インスタンスIDを付与して別オブジェクトから同時に取得できるようにする)
+            if (!m_WaitConnect.GetWait(gameObject.name+gameObject.GetInstanceID()))
             {
                 // 通信待ちに設定する
-                m_WaitConnect.AddWait(gameObject.name);
+                m_WaitConnect.AddWait(gameObject.name + gameObject.GetInstanceID());
 
                 string ID = m_PlayFabLogin._PlayfabID;
 
@@ -111,15 +111,15 @@ public class PlayFabPlayerData : MonoBehaviour
                 {
                     m_isGet = true;
                     m_Data = result.Data;
-                // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                    // 通信終了
+                    m_WaitConnect.RemoveWait(gameObject.name + gameObject.GetInstanceID());
 
                     Debug.Log("ユーザーデータの取得に成功");
                 }, error =>
                 {
                     Debug.Log(error.GenerateErrorReport());
-                // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                    // 通信終了
+                    m_WaitConnect.RemoveWait(gameObject.name + gameObject.GetInstanceID());
                 });
             }
         }
