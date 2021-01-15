@@ -4,7 +4,7 @@ public class RankingSceneManager : BaseScene
 {
     [SerializeField] PlayFabWaitConnect waitConnect = default;
     [SerializeField] PlayFabLeaderBoard leaderBoard = default;
-    [SerializeField] PlayFabLeaderBoard selfLeaderBoard = default;
+    //[SerializeField] PlayFabLeaderBoard selfLeaderBoard = default;
     [SerializeField] RankingRecordParent recordParent = default;
     [SerializeField] CanvasGroup recordParentGroup = default;
     [SerializeField] float recordFadeTime = 0.5f;
@@ -155,7 +155,7 @@ public class RankingSceneManager : BaseScene
             }
             // リーダーボードの再取得要求
             leaderBoard.RequestGetLeaderBoard(rankingName);
-            selfLeaderBoard.RequestGetLeaderBoard(rankingName);
+            //selfLeaderBoard.RequestGetLeaderBoard(rankingName);
 
             // レコードの子の再ロード
             recordParent.ReloadChild();
@@ -176,7 +176,7 @@ public class RankingSceneManager : BaseScene
             connectWaitCount++;
             if (connectWaitCount > connectWaitFrame)
             {
-                if (leaderBoard.isGet && selfLeaderBoard.isGet)
+                if (leaderBoard.isGet /*&& selfLeaderBoard.isGet*/)
                 {
                     connectWaitCount = 0;
                     // ロードが終わったら出現させる
