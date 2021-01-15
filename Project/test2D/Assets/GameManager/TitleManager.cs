@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class TitleManager : BaseScene
 {
     [SerializeField] InputField inputField = null;
-    [SerializeField]private PlayFabPlayerData m_PlayFabPlayerData = null;
-    private PlayFabUserProfiel m_PlayFabUserProfiel = null;
-    private PlayFabInventory m_PlayFabInventory = null;
-    private PlayFabStore m_PlayFabStore = null;
-    private PlayFabWaitConnect m_WaitConnect = null;
+    [SerializeField] PlayFabPlayerData m_PlayFabPlayerData = default;
+    [SerializeField] PlayFabUserProfiel m_PlayFabUserProfiel = default;
+    [SerializeField] PlayFabInventory m_PlayFabInventory = default;
+    [SerializeField] PlayFabStore m_PlayFabStore = null;
+    [SerializeField] PlayFabWaitConnect m_WaitConnect = null;
     private bool isSetDefault = false;
     [SerializeField] BGMSlider bgmSlider= default;
     [SerializeField] SESlider seSlider = default;
@@ -23,18 +23,13 @@ public class TitleManager : BaseScene
         PREPARATION,
         FADEIN,
         MAIN,
+        SIGNBOARD_CONTROL,
         FADEOUT
     }
     public STATE state { get; private set; }
 
     override protected void Start()
     {
-        GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_PlayFabPlayerData = PlayFabManager.transform.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
-        m_PlayFabUserProfiel = PlayFabManager.transform.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
-        m_PlayFabInventory = PlayFabManager.transform.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
-        m_PlayFabStore = PlayFabManager.transform.Find("PlayFabStore").GetComponent<PlayFabStore>();
-        m_WaitConnect = PlayFabManager.GetComponent<PlayFabWaitConnect>();
         NextSceneName = "GameMainScene";
 
         base.Start();
@@ -53,6 +48,7 @@ public class TitleManager : BaseScene
             case STATE.FADEIN: TitleFadeIn(); break;
             case STATE.FADEOUT: TitleFadeOut(); break;
             case STATE.MAIN: TitleMain(); break;
+            case STATE.SIGNBOARD_CONTROL: SignBoardControl(); break;
         }
         base.Update();
 
@@ -92,6 +88,13 @@ public class TitleManager : BaseScene
         {
             fadeState = FADE_STATE.FADEOUT;
         }
+    }
+
+    /// <summary>
+    /// 立て看板の操作状態
+    /// </summary>
+    private void SignBoardControl()
+    {
     }
 
     // 次のシーンへ
@@ -191,5 +194,13 @@ public class TitleManager : BaseScene
     public void TapOptionButton()
     {
         optionButtonTap = true;
+    }
+
+    /// <summary>
+    /// 立て看板タップ時の処理
+    /// </summary>
+    public void TapSignBoard()
+    {
+        state = STATE.SIGNBOARD_CONTROL;
     }
 }
