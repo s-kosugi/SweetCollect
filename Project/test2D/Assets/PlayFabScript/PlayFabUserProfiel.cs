@@ -44,7 +44,12 @@ public class PlayFabUserProfiel : MonoBehaviour
     public void SetUserName(string userName)
     {
         // 取得した名前と同じだった場合は更新しない
-        if (userName == DisplayName) return;
+        if (userName == DisplayName)
+        {
+            // 成功したことにする
+            setNameResult = SETNAME_RESULT.SUCCESS;
+            return;
+        }
         // 通信待ちでなかったら通信開始
         if (!m_WaitConnect.GetWait(gameObject.name))
         {

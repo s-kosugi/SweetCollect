@@ -126,7 +126,7 @@ public class ReleaseDifficult : MonoBehaviour
             }
         }
         // 閾値を超えたので解放する
-        if (Threshold <= scoreManager.GetCoinScore())
+        if (Threshold <= scoreManager.GameScore)
         {
             playerData.SetPlayerData(TargetDifficult, "RELEASED");
             // オプションに通知を送る

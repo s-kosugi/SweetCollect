@@ -48,6 +48,9 @@ TagManager:
   - name: Character
     uniqueID: 3003033179
     locked: 0
+  - name: FrontGround
+    uniqueID: 460792435
+    locked: 0
   - name: UI
     uniqueID: 2351209749
     locked: 0

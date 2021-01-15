@@ -1493,9 +1493,9 @@ MonoBehaviour:
     type: 3}
   leaderBoard: {fileID: 792927064}
   HeightInterval: 80
-  startPos: {x: -290, y: 20}
+  startPos: {x: -290, y: 100}
   swipe: {fileID: 846988317}
-  SwipeMoveAdjustment: 280
+  SwipeMoveAdjustment: 200
 --- !u!114 &846988317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2326,7 +2326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1303257305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2449,13 +2449,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderBoard: {fileID: 792927064}
-  easyText: "\u304B\u3093\u305F\u3093"
   easyTextColor: {r: 0.43965825, g: 0.74321175, b: 0.9811321, a: 1}
-  normalText: "\u3075\u3064\u3046"
   normalTextColor: {r: 0.9811321, g: 0.9709545, b: 0.43040225, a: 1}
-  hardTexr: "\u3080\u305A\u304B\u3057\u3044"
   hardTextColor: {r: 1, g: 0.5616975, b: 0.3443396, a: 1}
-  veryHardText: "\u3048\u304F\u3059\u3068\u3089"
   veryHardTextColor: {r: 0.93625546, g: 0.5518868, b: 1, a: 1}
 --- !u!114 &1427169681
 MonoBehaviour:
@@ -3170,7 +3166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1913298397
 Transform:
   m_ObjectHideFlags: 0
@@ -3382,3 +3378,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e587a58e5d9ff34b92a35a0ae5983b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 0}

@@ -14,6 +14,7 @@ public class TitleManager : BaseScene
     [SerializeField] BGMSlider bgmSlider= default;
     [SerializeField] SESlider seSlider = default;
     [SerializeField] DifficultGroupe difficultGroupe = default;
+    [SerializeField] TitlePlayerController titlePlayer = default;
 
     private bool optionButtonTap = false;
 
@@ -83,8 +84,8 @@ public class TitleManager : BaseScene
     // フェードアウト中
     private void TitleFadeOut()
     {
-        // 通信が終わったらフェードアウトさせる
-        if (!m_WaitConnect.IsWait())
+        // 通信が終わった且つプレイヤーアニメが終わったらフェードアウトさせる
+        if (!m_WaitConnect.IsWait() && titlePlayer.state == TitlePlayerController.STATE.ENDANIME)
         {
             fadeState = FADE_STATE.FADEOUT;
         }

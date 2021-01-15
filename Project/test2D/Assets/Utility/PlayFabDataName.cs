@@ -1,4 +1,6 @@
-﻿// PlayFabのプレイヤーデータの定数
+﻿/// <summary>
+/// PlayFabのプレイヤーデータの定数
+/// </summary>
 public static class PlayerDataName
 {
     public const string ECLOTHES = "EClothes";
@@ -21,7 +23,9 @@ public static class PlayerDataName
     public const string HISCORE_VERYHARD = "HISCORE_VERYHARD";
 }
 
-// 難易度名の定数
+/// <summary>
+/// 難易度名の定数
+/// </summary>
 public static class DifficultName
 {
     public const string EASY = "EASY";
@@ -30,7 +34,20 @@ public static class DifficultName
     public const string VERYHARD = "VERYHARD";
 }
 
-// ランキング名の定数
+/// <summary>
+/// ひらがなの難易度名
+/// </summary>
+public static class DifficultHiraganaName
+{
+    public const string EASY = "かんたん";
+    public const string NORMAL = "ふつう";
+    public const string HARD = "むずかしい";
+    public const string VERYHARD = "えくすとら";
+}
+
+/// <summary> 
+/// ランキング名の定数
+/// </summary>
 public static class RankingName
 {
     public const string EASY = "EasyRanking";
@@ -39,7 +56,9 @@ public static class RankingName
     public const string VERYHARD = "VeryHardRanking";
 }
 
-// 実績のカスタムデータの定数
+/// <summary>
+/// 実績のカスタムデータの定数
+/// </summary>
 public static class AchievementDataName
 {
     public const string PROGRESS_KEY = "PROGRESS_KEY";
