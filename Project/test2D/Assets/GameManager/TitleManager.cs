@@ -85,7 +85,9 @@ public class TitleManager : BaseScene
     private void TitleFadeOut()
     {
         // 通信が終わった且つプレイヤーアニメが終わったらフェードアウトさせる
-        if (!m_WaitConnect.IsWait() && titlePlayer.state == TitlePlayerController.STATE.ENDANIME)
+        if (!m_WaitConnect.IsWait() &&
+            (titlePlayer.state == TitlePlayerController.STATE.ENDANIME) ||
+            ((NextSceneName != "InputNameScene") && (NextSceneName != "TutorialScene") && (NextSceneName != "GameMainScene")))
         {
             fadeState = FADE_STATE.FADEOUT;
         }

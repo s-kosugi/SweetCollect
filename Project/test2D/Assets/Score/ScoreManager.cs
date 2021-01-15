@@ -31,10 +31,11 @@ public class ScoreManager : MonoBehaviour
     {
         return CoinScore;
     }
-    public void ResetScore()
+    public void Reset()
     {
         CoinScore = 0;
         GameScore = 0;
+        m_PlayFabVirtualCurrency = GameObject.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
     }
     /// <summary>
     /// スコアの確定

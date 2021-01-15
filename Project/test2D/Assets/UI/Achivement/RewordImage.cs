@@ -90,6 +90,7 @@ public class RewordImage : MonoBehaviour
             state = State.IDLE;
             transform.localScale = new Vector3(1f, 1f, 1f);
             image.color = new Color(1f, 1f, 1f, 1f);
+            AnimationCount = 0f;
         }
     }
 

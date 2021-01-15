@@ -110,6 +110,8 @@ public class GameMainManager : BaseScene
 
             state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;
+
+            m_ScoreManager.Reset();
         }
     }
 

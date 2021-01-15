@@ -132,6 +132,8 @@ public class BuyAndWearButton : MonoBehaviour
                 else
                 {
                     playerData.SetPlayerData(PlayerDataName.ECLOTHES, shop.GetItemInfo().catalogItem.ItemId);
+                    // ユーザーデータの更新
+                    playerData.RequestGetUserData();
                     Debug.Log(shop.GetItemInfo().catalogItem.ItemId + "を着用しました");
 
                     // プレイヤーの見た目更新
