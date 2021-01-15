@@ -5305,7 +5305,6 @@ GameObject:
   - component: {fileID: 1953754670}
   - component: {fileID: 1953754668}
   - component: {fileID: 1953754672}
-  - component: {fileID: 1953754673}
   - component: {fileID: 1953754674}
   m_Layer: 10
   m_Name: Player
@@ -5453,20 +5452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4421d3501cff414fac3723872c3084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitConnect: {fileID: 51051811}
---- !u!114 &1953754673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953754664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61297c95de868c340a634e0033c1f0e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interval: 0.2
+  playerData: {fileID: 919473542}
 --- !u!114 &1953754674
 MonoBehaviour:
   m_ObjectHideFlags: 0

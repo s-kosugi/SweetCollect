@@ -3337,7 +3337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4421d3501cff414fac3723872c3084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitConnect: {fileID: 648793398}
+  playerData: {fileID: 1866403476}
 --- !u!50 &1706139073
 Rigidbody2D:
   serializedVersion: 4
