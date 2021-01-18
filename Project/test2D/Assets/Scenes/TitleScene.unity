@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 49038833}
   - component: {fileID: 49038834}
   - component: {fileID: 49038836}
-  - component: {fileID: 49038835}
+  - component: {fileID: 49038837}
   m_Layer: 5
   m_Name: MiniSignBoard
   m_TagString: Untagged
@@ -492,6 +492,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 675315287}
+        m_MethodName: TapSignBoard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &49038830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,20 +581,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeSpeed: 2.5
   minColor: 0.8
---- !u!114 &49038835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49038827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1e67d84b6f52f842a9c7eeea41de844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitConnect: {fileID: 35366909}
-  scene: {fileID: 675315287}
 --- !u!114 &49038836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +595,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 675315287}
   StartAutoEnabled: 1
+--- !u!114 &49038837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49038827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7971a9ed72771574186708f8294dba8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &76614565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,6 +1914,7 @@ GameObject:
   - component: {fileID: 508697594}
   - component: {fileID: 508697593}
   - component: {fileID: 508697592}
+  - component: {fileID: 508697597}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -2021,6 +2032,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 675315287}
+        m_MethodName: TapMainBackButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &508697595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,6 +2079,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508697590}
   m_CullTransparentMesh: 0
+--- !u!114 &508697597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508697590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95bd440971a4d374bab9ee3752ef7a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &521759979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,6 +2327,7 @@ GameObject:
   - component: {fileID: 638353205}
   - component: {fileID: 638353204}
   - component: {fileID: 638353208}
+  - component: {fileID: 638353209}
   m_Layer: 5
   m_Name: Creditbutton
   m_TagString: Untagged
@@ -2445,6 +2481,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 675315287}
   StartAutoEnabled: 1
+--- !u!114 &638353209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638353202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95bd440971a4d374bab9ee3752ef7a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &655513411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2708,6 +2757,7 @@ GameObject:
   - component: {fileID: 710408722}
   - component: {fileID: 710408725}
   - component: {fileID: 710408726}
+  - component: {fileID: 710408727}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -2873,6 +2923,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 675315287}
   StartAutoEnabled: 1
+--- !u!114 &710408727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710408720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7971a9ed72771574186708f8294dba8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1001 &760979284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3483,6 +3546,7 @@ GameObject:
   - component: {fileID: 955371095}
   - component: {fileID: 955371094}
   - component: {fileID: 955371093}
+  - component: {fileID: 955371098}
   m_Layer: 5
   m_Name: AchievementButton
   m_TagString: Untagged
@@ -3636,6 +3700,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955371091}
   m_CullTransparentMesh: 0
+--- !u!114 &955371098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955371091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95bd440971a4d374bab9ee3752ef7a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &971143218
 GameObject:
   m_ObjectHideFlags: 0
@@ -4223,6 +4300,7 @@ GameObject:
   - component: {fileID: 1090683444}
   - component: {fileID: 1090683447}
   - component: {fileID: 1090683448}
+  - component: {fileID: 1090683449}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -4411,6 +4489,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 675315287}
   StartAutoEnabled: 1
+--- !u!114 &1090683449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090683442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95bd440971a4d374bab9ee3752ef7a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &1100842042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5273,6 +5364,7 @@ GameObject:
   - component: {fileID: 1435474772}
   - component: {fileID: 1435474771}
   - component: {fileID: 1435474770}
+  - component: {fileID: 1435474775}
   m_Layer: 5
   m_Name: RankingButton
   m_TagString: Untagged
@@ -5426,6 +5518,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1435474768}
   m_CullTransparentMesh: 0
+--- !u!114 &1435474775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435474768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95bd440971a4d374bab9ee3752ef7a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &1462159282
 GameObject:
   m_ObjectHideFlags: 0
@@ -7099,6 +7204,7 @@ GameObject:
   - component: {fileID: 2111998590}
   - component: {fileID: 2111998589}
   - component: {fileID: 2111998593}
+  - component: {fileID: 2111998594}
   m_Layer: 5
   m_Name: ShopButton
   m_TagString: Untagged
@@ -7252,6 +7358,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 675315287}
   StartAutoEnabled: 1
+--- !u!114 &2111998594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111998587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95bd440971a4d374bab9ee3752ef7a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleManager: {fileID: 675315287}
 --- !u!1 &2133923599
 GameObject:
   m_ObjectHideFlags: 0

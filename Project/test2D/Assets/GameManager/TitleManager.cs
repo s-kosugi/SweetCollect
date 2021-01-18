@@ -206,4 +206,12 @@ public class TitleManager : BaseScene
     {
         state = STATE.SIGNBOARD_CONTROL;
     }
+
+    /// <summary>
+    /// メイン状態に戻るボタンを押した時の処理
+    /// </summary>
+    public void TapMainBackButton()
+    {
+        state = STATE.MAIN;
+    }
 }
