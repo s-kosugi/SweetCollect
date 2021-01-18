@@ -25,6 +25,7 @@ public class TitleManager : BaseScene
         FADEIN,
         MAIN,
         SIGNBOARD_CONTROL,
+        OPTION_CONTROL,
         FADEOUT
     }
     public STATE state { get; private set; }
@@ -50,6 +51,7 @@ public class TitleManager : BaseScene
             case STATE.FADEOUT: TitleFadeOut(); break;
             case STATE.MAIN: TitleMain(); break;
             case STATE.SIGNBOARD_CONTROL: SignBoardControl(); break;
+            case STATE.OPTION_CONTROL: OptionControl(); break;
         }
         base.Update();
 
@@ -97,6 +99,13 @@ public class TitleManager : BaseScene
     /// 立て看板の操作状態
     /// </summary>
     private void SignBoardControl()
+    {
+    }
+
+    /// <summary>
+    /// オプション画面操作状態
+    /// </summary>
+    private void OptionControl()
     {
     }
 
@@ -197,6 +206,7 @@ public class TitleManager : BaseScene
     public void TapOptionButton()
     {
         optionButtonTap = true;
+        state = STATE.OPTION_CONTROL;
     }
 
     /// <summary>
