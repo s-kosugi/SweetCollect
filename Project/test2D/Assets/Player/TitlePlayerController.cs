@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Effekseer;
+using UnityEngine;
 
 public class TitlePlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class TitlePlayerController : MonoBehaviour
     [SerializeField] int jumpNum = 2;
     [SerializeField] float runDistance = 600f;
     [SerializeField] float runTime = 3.0f;
+    [SerializeField] EffekseerEffectAsset heartEffect = default;
     private float animeCount = 0f;
     private float startPosX = 0f;
     private bool leftWalkFlag = true;
@@ -188,5 +190,14 @@ public class TitlePlayerController : MonoBehaviour
     {
         state = STATE.JUMP;
         jumpFlag = false;
+    }
+
+    /// <summary>
+    /// ハートエフェクトの出現
+    /// </summary>
+    public void StartHeartEffect()
+    {
+        EffekseerSystem.PlayEffect(heartEffect, this.transform.position);
+        SoundManager.Instance.PlaySE("Heart");
     }
 }
