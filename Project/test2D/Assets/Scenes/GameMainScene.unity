@@ -5453,6 +5453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 919473542}
+  waitConnect: {fileID: 51051811}
 --- !u!114 &1953754674
 MonoBehaviour:
   m_ObjectHideFlags: 0

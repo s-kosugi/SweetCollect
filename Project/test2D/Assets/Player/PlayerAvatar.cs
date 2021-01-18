@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerAvatar : MonoBehaviour
 {
     [SerializeField] PlayFabPlayerData playerData = default;
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
     private SpriteRenderer m_SpriteRenderer = null;
     public bool m_isAvatarChange { get; private set; }
 
@@ -24,7 +25,7 @@ public class PlayerAvatar : MonoBehaviour
         if (!m_isAvatarChange)
         {
             // 通信待ちしていないかどうか。
-            if (playerData.m_isGet)
+            if (playerData.m_isGet && !waitConnect.IsWait())
             {
                 UserDataRecord record;
                 // プレイヤーデータを取得して衣服を変更する

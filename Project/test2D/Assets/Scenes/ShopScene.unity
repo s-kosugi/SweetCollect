@@ -3338,6 +3338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 1866403476}
+  waitConnect: {fileID: 648793398}
 --- !u!50 &1706139073
 Rigidbody2D:
   serializedVersion: 4
