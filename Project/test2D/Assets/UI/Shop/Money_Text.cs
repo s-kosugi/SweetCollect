@@ -15,7 +15,7 @@ public class Money_Text : MonoBehaviour
     private void Awake()
     {
         Text_Money = this.GetComponent<TextMeshProUGUI>();
-        IsRequest = false;
+        IsRequest = true;
         Text_Money.text = "??????";
         RequestMoney();
     }
