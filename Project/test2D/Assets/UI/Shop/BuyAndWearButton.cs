@@ -137,7 +137,7 @@ public class BuyAndWearButton : MonoBehaviour
                     Debug.Log(shop.GetItemInfo().catalogItem.ItemId + "を着用しました");
 
                     // プレイヤーの見た目更新
-                    playerAvatar.UpdateAvatar();
+                    playerAvatar.UpdateAvatar(shop.GetItemInfo().catalogItem.ItemId);
 
                     // カーテンを開くアニメーション
                     curtainAnime.ChangeOpen();
