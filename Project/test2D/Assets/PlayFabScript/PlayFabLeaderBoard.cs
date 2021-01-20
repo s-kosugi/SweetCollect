@@ -227,4 +227,12 @@ public class PlayFabLeaderBoard : MonoBehaviour
         RankingName = rankingName;
         isGet = false;
     }
+
+    /// <summary>
+    /// 自身から数えたランキングかどうか
+    /// </summary>
+    public bool GetSelfCount()
+    {
+        return isSelfCount;
+    }
 }

@@ -105,8 +105,8 @@ public class BuyAndWearButton : MonoBehaviour
             //通信中でなければ購入・着用処理へ
             if (!connect.IsWait())
             {
-                State_Button = STATE.BUYorWEAR;
-                IsAction = false;
+                    State_Button = STATE.BUYorWEAR;
+                    IsAction = false;
             }
             else
             {
@@ -137,7 +137,7 @@ public class BuyAndWearButton : MonoBehaviour
                     Debug.Log(shop.GetItemInfo().catalogItem.ItemId + "を着用しました");
 
                     // プレイヤーの見た目更新
-                    playerAvatar.UpdateAvatar();
+                    playerAvatar.UpdateAvatar(shop.GetItemInfo().catalogItem.ItemId);
 
                     // カーテンを開くアニメーション
                     curtainAnime.ChangeOpen();
@@ -224,6 +224,9 @@ public class BuyAndWearButton : MonoBehaviour
         {
             button.enabled = true;
         }
+        else
+            button.enabled = false;
+
         // アイテムを持っておらず、条件付きの場合はボタンを無効化
         var catalogItem = store.CatalogItems.Find(x => x.ItemId == shop.GetItemInfo().catalogItem.ItemId);
         if (!inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId) && catalogItem.CustomData != null)

@@ -4,9 +4,11 @@ public class RankingSceneManager : BaseScene
 {
     [SerializeField] PlayFabWaitConnect waitConnect = default;
     [SerializeField] PlayFabLeaderBoard leaderBoard = default;
-    //[SerializeField] PlayFabLeaderBoard selfLeaderBoard = default;
+    [SerializeField] PlayFabLeaderBoard selfLeaderBoard = default;
     [SerializeField] RankingRecordParent recordParent = default;
+    [SerializeField] RankingSelfRecord recordSelf = default;
     [SerializeField] CanvasGroup recordParentGroup = default;
+    [SerializeField] CanvasGroup recordSelfGroup = default;
     [SerializeField] float recordFadeTime = 0.5f;
     private SELECT_DIFFICULT SelectDifficult = SELECT_DIFFICULT.HARD;
     [SerializeField] float connectWaitFrame = 5f;
@@ -121,11 +123,6 @@ public class RankingSceneManager : BaseScene
     // メイン状態
     void GameMain()
     {
-        // クリックして状態移行
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    state = STATE.FADEOUT;
-        //}
     }
 
     /// <summary>
@@ -137,11 +134,11 @@ public class RankingSceneManager : BaseScene
         recordFadeCount += Time.deltaTime;
         if (recordFadeCount < recordFadeTime)
         {
-            recordParentGroup.alpha = Easing.Linear(recordFadeCount, recordFadeTime, 0.0f, 1.0f);
+            recordSelfGroup.alpha = recordParentGroup.alpha = Easing.Linear(recordFadeCount, recordFadeTime, 0.0f, 1.0f);
         }
         else
         {
-            recordParentGroup.alpha = 0f;
+            recordSelfGroup.alpha = recordParentGroup.alpha = 0f;
             recordFadeCount = 0f;
 
             // 完全に消えたので新しい難易度をロードする
@@ -155,10 +152,12 @@ public class RankingSceneManager : BaseScene
             }
             // リーダーボードの再取得要求
             leaderBoard.RequestGetLeaderBoard(rankingName);
-            //selfLeaderBoard.RequestGetLeaderBoard(rankingName);
+            selfLeaderBoard.RequestGetLeaderBoard(rankingName);
 
             // レコードの子の再ロード
             recordParent.ReloadChild();
+            recordSelf.ReloadRecord();
+
 
             state = STATE.LOAD_DIFFICULT;
         }
@@ -198,11 +197,11 @@ public class RankingSceneManager : BaseScene
         recordFadeCount += Time.deltaTime;
         if (recordFadeCount < recordFadeTime)
         {
-            recordParentGroup.alpha = Easing.Linear(recordFadeCount, recordFadeTime, 1.0f, 0.0f);
+            recordSelfGroup.alpha = recordParentGroup.alpha = Easing.Linear(recordFadeCount, recordFadeTime, 1.0f, 0.0f);
         }
         else
         {
-            recordParentGroup.alpha = 1f;
+            recordSelfGroup.alpha = recordParentGroup.alpha = 1f;
 
             recordFadeCount = 0f;
             // 出現処理が終わったら操作可能にする

@@ -13,12 +13,21 @@ public class RankingPlayerNameText : MonoBehaviour
     {
         // 親からランキングレコードをもらう
         leaderBoard = rankingRecord.leaderBoard;
-        if (!isSet && leaderBoard.isGet && rankingRecord.rankPosition != -1)
+        if (leaderBoard != default)
         {
-            // プレイヤー名の取得
-            textMesh.text = leaderBoard.entries[rankingRecord.rankPosition].DisplayName;
+            if (!isSet && leaderBoard.isGet && rankingRecord.rankPosition != -1)
+            {
+                int position = rankingRecord.rankPosition;
 
-            isSet = true;
+                // 自身から数えたランキングだったら0番目を参照する
+                if (leaderBoard.GetSelfCount())
+                    position = 0;
+
+                // プレイヤー名の取得
+                textMesh.text = leaderBoard.entries[position].DisplayName;
+
+                isSet = true;
+            }
         }
     }
 }

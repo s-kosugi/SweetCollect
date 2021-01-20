@@ -50,4 +50,18 @@ public class PlayerAvatar : MonoBehaviour
     {
         m_isAvatarChange = false;
     }
+
+    /// <summary>
+    /// アバターの更新
+    /// </summary>
+    /// <param name="itemID">服のID</param>
+    public void UpdateAvatar(string itemID)
+    {
+        Sprite sprite = Resources.Load<Sprite>("Player\\" + itemID);
+        if (sprite)
+        {
+            m_SpriteRenderer.sprite = sprite;
+            Debug.Log("PlayerAvaterChanged");
+        }
+    }
 }
