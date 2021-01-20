@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class RankingRecord : MonoBehaviour
 {
-    public PlayFabLeaderBoard leaderBoard { get; private set; } = default;
+    public PlayFabLeaderBoard leaderBoard { get; private set; }= default;
     GameObject leaderBoardObject = default;
     public PlayFabStore store { get; private set; } = default;
 
@@ -21,24 +21,36 @@ public class RankingRecord : MonoBehaviour
 
     void Start()
     {
-        leaderBoardObject = GameObject.Find("PlayFabManager/PlayFabLeaderBoard");
-        leaderBoard = leaderBoardObject.GetComponent<PlayFabLeaderBoard>();
         store = GameObject.Find("PlayFabManager/PlayFabStore").GetComponent<PlayFabStore>();
     }
 
 
     void Update()
     {
-        // プレイヤーデータのオブジェクトが作成されたら取得する
-        if (playerDataObj == null)
+        if (leaderBoardObject != default)
         {
-            Transform trs = leaderBoardObject.transform.Find("PlayFabPlayerDataRank" + rankPosition);
-            if( trs != null)  playerDataObj = trs.gameObject;
+            // プレイヤーデータのオブジェクトが作成されたら取得する
+            if (playerDataObj == null)
+            {
+                Transform trs = leaderBoardObject.transform.Find("PlayFabPlayerDataRank" + rankPosition);
+                if (trs != null) playerDataObj = trs.gameObject;
+            }
+            else
+            {
+                // プレイヤーデータを取得する
+                if (playerData == default) playerData = playerDataObj.GetComponent<PlayFabPlayerData>();
+            }
         }
-        else
-        {
-            // プレイヤーデータを取得する
-            if (playerData == default) playerData = playerDataObj.GetComponent<PlayFabPlayerData>();
-        }
+    }
+
+    /// <summary>
+    /// リーダーボードの設定
+    /// </summary>
+    /// <param name="obj">リーダーボードのオブジェクト</param>
+    /// <param name="leader">リーダーボードのスクリプト</param>
+    public void SetLeaderBoard(GameObject obj, PlayFabLeaderBoard leader)
+    {
+        leaderBoardObject = obj;
+        leaderBoard = leader;
     }
 }

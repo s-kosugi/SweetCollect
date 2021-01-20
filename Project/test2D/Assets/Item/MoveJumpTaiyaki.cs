@@ -7,7 +7,6 @@ public class MoveJumpTaiyaki : MonoBehaviour
     [SerializeField] float jumpPower = 50.0f;
     [SerializeField] float hiJumpPowerRate = 3.0f;
     Rigidbody2D rb = default;
-    int jumpCount = 0;
     bool jumpFlag = true;
     float gravityScale = 0f;
 
