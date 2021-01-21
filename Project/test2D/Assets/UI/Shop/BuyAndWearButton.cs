@@ -10,10 +10,12 @@ public class BuyAndWearButton : MonoBehaviour
     private PlayFabInventory inventory = null;    //インベントリ
     private PlayFabWaitConnect connect = null;    //通信
     private PlayFabPlayerData playerData = null;  //プレイヤーデータ
+    private PlayFabStore PlayFabStoreAchivement = null; //達成ストア
 
     private ShopCanvasController shop = null;
     [SerializeField] private Money_Text playermoney = null;
-     private Clothing clothing = null;
+    private Clothing clothing = null;
+    [SerializeField] private Descript_Text achievementtext = null;
 
     private Button button;     //ボタン
     private bool IsConnect;    //通信中
@@ -21,6 +23,7 @@ public class BuyAndWearButton : MonoBehaviour
     private bool IsAction;     //行動できるかどうか
     private bool IsSelect;     //選択中(購入または着用)
     private bool IsUpdate;     //更新中
+    private bool IsPreviewHit; //ヒント表示
 
     [SerializeField] private PlayerAvatar playerAvatar = default;
     [SerializeField] private CurtainAnime curtainAnime = default;
@@ -46,7 +49,8 @@ public class BuyAndWearButton : MonoBehaviour
         inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
         playerData = GameObject.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
-        
+        PlayFabStoreAchivement = GameObject.Find("PlayFabStoreAchivement").GetComponent<PlayFabStore>();
+
         shop = this.transform.root.GetComponent<ShopCanvasController>();
         // ハードコーディングで可変に対応できない為コメントアウト
         //playermoney = this.transform.root.transform.Find("Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
@@ -58,6 +62,7 @@ public class BuyAndWearButton : MonoBehaviour
         IsAction = false;
         IsSelect = false;
         IsUpdate = false;
+        IsPreviewHit = false;
 
         PriceName = "HA";
 
@@ -84,7 +89,7 @@ public class BuyAndWearButton : MonoBehaviour
     private void Reception()
     {
         //押された際にアクション・通信中でなければ押された状態へ
-        if(IsPush && !IsAction && !IsConnect)
+        if (IsPush && !IsAction && !IsConnect)
         {
             if (inventory.IsHaveItem(shop.GetItemInfo().storeItem.ItemId))
             {
@@ -105,8 +110,29 @@ public class BuyAndWearButton : MonoBehaviour
             //通信中でなければ購入・着用処理へ
             if (!connect.IsWait())
             {
+                if (!IsPreviewHit)
+                {
                     State_Button = STATE.BUYorWEAR;
                     IsAction = false;
+                }
+                else
+                {
+                    State_Button = STATE.RECEPTION;
+                    IsAction = false;
+                    IsPreviewHit = false;
+
+                    // アイテムがカタログ内にあるのかを探し、それに対応する説明を設定
+                    var catalogItem = store.CatalogItems.Find(x => x.ItemId == shop.GetItemInfo().catalogItem.ItemId);
+                    if (catalogItem.CustomData != null)
+                    {
+                        //データがあれば、そのデータを表示
+                        var achievementItem = PlayFabStoreAchivement.CatalogItems.Find(x => x.ItemId == catalogItem.CustomData);
+                        if (achievementItem != null)
+                            achievementtext.SetAchievementText(achievementItem.Description);
+                        else
+                            achievementtext.SetAchievementText("設定されていない または 設定し忘れている");
+                    }
+                }
             }
             else
             {
@@ -190,7 +216,7 @@ public class BuyAndWearButton : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     //===========================================================================================================
@@ -199,7 +225,7 @@ public class BuyAndWearButton : MonoBehaviour
     public void Push_Button()
     {
         // 受付状態且つ表示状態ならボタンを押せる
-        if (State_Button ==  STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
+        if (State_Button == STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
         {
             IsPush = true;
         }
@@ -230,7 +256,10 @@ public class BuyAndWearButton : MonoBehaviour
         // アイテムを持っておらず、条件付きの場合はボタンを無効化
         var catalogItem = store.CatalogItems.Find(x => x.ItemId == shop.GetItemInfo().catalogItem.ItemId);
         if (!inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId) && catalogItem.CustomData != null)
-            button.enabled = false;
+        {
+            button.enabled = true;
+            IsPreviewHit = true;
+        }
     }
 
 }
