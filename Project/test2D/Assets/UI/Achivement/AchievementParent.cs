@@ -12,12 +12,13 @@ public class AchievementParent : MonoBehaviour
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] Button achivementButton = default;
     [SerializeField] TextMeshProUGUI descript = default;
-    [SerializeField] RewordImage rewordImage = default;
-    [SerializeField] Button equipButton = default;
     [SerializeField] SwipeMove swipeMove = default;
-    [SerializeField] float buttonInterval = 100f;
+    [SerializeField] float buttonVerticalInterval = 100f;
+    [SerializeField] float buttonHorizonInterval = 400.0f;
+    [SerializeField] int buttonHorizonNum = 2;
 
     public string descriptAchievementID = default;      // Descriptに表示中のID
+    public string descriptAchievementName { get; private set; } = default;    // Descriptに表示中の実績名
     public string selectAchievementID { get; private set; } = default;      // 装備中の称号ID
 
     public bool isCreate { get; private set; } = false;
@@ -47,7 +48,7 @@ public class AchievementParent : MonoBehaviour
             // ボタンオブジェクトの生成と初期化
             Button button = Instantiate(achivementButton, this.transform);
             AchievementButton achievementButtonScript = button.GetComponent<AchievementButton>();
-            button.transform.localPosition = new Vector3(button.transform.localPosition.x, button.transform.localPosition.y - i * buttonInterval, button.transform.localPosition.z);
+            button.transform.localPosition = new Vector3(button.transform.localPosition.x + i % buttonHorizonNum * buttonHorizonInterval, button.transform.localPosition.y - (int)(i / buttonHorizonNum) * buttonVerticalInterval, button.transform.localPosition.z);
             button.name = store.StoreItems[i].ItemId;
 
             //--------------------------------------------------------------------------------
@@ -87,7 +88,7 @@ public class AchievementParent : MonoBehaviour
         }
 
         // ボタン生成数に応じてスワイプの移動の制限値を変える
-        swipeMove.moveLimitRect.height = swipeMove.moveLimitRect.yMin + store.StoreItems.Count * buttonInterval;
+        swipeMove.moveLimitRect.height = swipeMove.moveLimitRect.yMin + store.StoreItems.Count / buttonHorizonNum * buttonVerticalInterval;
     }
 
     /// <summary>
@@ -100,12 +101,10 @@ public class AchievementParent : MonoBehaviour
         var catalogItem = store.CatalogItems.Find(x => x.ItemId == achievementID);
 
         descript.text = catalogItem.Description;
-        rewordImage.ApplyImage(achievementID);
 
         descriptAchievementID = achievementID;
 
-        // 実績達成済みならボタンを有効化する
-        equipButton.interactable = reachAchievement;
+        descriptAchievementName = catalogItem.DisplayName;
 
         // 現在表示中の実績が解放済みかどうか
         isNowAchievementReach = reachAchievement;
@@ -117,22 +116,26 @@ public class AchievementParent : MonoBehaviour
     /// </summary>
     public void SelectedAchievement()
     {
-        // 選択されているIDを変更
-        selectAchievementID = descriptAchievementID;
-
-        foreach (Transform item in this.transform)
+        // 開放済みの物だけ選択できる
+        if (isNowAchievementReach)
         {
-            // 孫を参照して選択アイコンの表示を変更する
-            foreach (Transform grandChild in item)
-            {
-                if(grandChild.name == "SelectedIcon")
-                {
-                    if (item.name == descriptAchievementID)
-                        grandChild.gameObject.SetActive(true);
-                    else
-                        grandChild.gameObject.SetActive(false);
+            // 選択されているIDを変更
+            selectAchievementID = descriptAchievementID;
 
-                    break;
+            foreach (Transform item in this.transform)
+            {
+                // 孫を参照して選択アイコンの表示を変更する
+                foreach (Transform grandChild in item)
+                {
+                    if (grandChild.name == "SelectedIcon")
+                    {
+                        if (item.name == descriptAchievementID)
+                            grandChild.gameObject.SetActive(true);
+                        else
+                            grandChild.gameObject.SetActive(false);
+
+                        break;
+                    }
                 }
             }
         }
@@ -144,6 +147,9 @@ public class AchievementParent : MonoBehaviour
     {
         // 選択されているIDを変更
         descriptAchievementID = achievementID;
+
+        // Descriptの内容を更新する
+        UpdateDescript(achievementID,true);
 
         SelectedAchievement();
 

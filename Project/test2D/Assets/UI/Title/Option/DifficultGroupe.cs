@@ -6,6 +6,7 @@ public class DifficultGroupe : MonoBehaviour
 {
     [SerializeField] private Toggle normalToggle = default;
     [SerializeField] private Toggle hardToggle = default;
+    [SerializeField] private Toggle veryhardToggle = default;
     [SerializeField] private PlayFabPlayerData playerData = default;
 
     public string selectedDifficult { get; private set; } = DifficultName.EASY;
@@ -32,6 +33,10 @@ public class DifficultGroupe : MonoBehaviour
         {
             selectedDifficult = DifficultName.HARD;
         }
+        else if (veryhardToggle.isOn)
+        {
+            selectedDifficult = DifficultName.VERYHARD;
+        }
         else
         {
             selectedDifficult = DifficultName.EASY;
@@ -52,6 +57,9 @@ public class DifficultGroupe : MonoBehaviour
                         break;
                     case DifficultName.HARD:
                         hardToggle.isOn = true;
+                        break;
+                    case DifficultName.VERYHARD:
+                        veryhardToggle.isOn = true;
                         break;
                     default:
                         // 選択はイージーのまま(初期値)

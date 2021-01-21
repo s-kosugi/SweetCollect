@@ -6,6 +6,7 @@ public class AchievementSceneManager : BaseScene
     [SerializeField] private PlayFabPlayerData playFabPlayerData = default;
     [SerializeField] PlayFabWaitConnect waitConnect = default;
     [SerializeField] AchievementParent achivementParent = default;
+    [SerializeField] AchievementEquipFrame frame = default;
 
 
     public enum STATE
@@ -13,6 +14,7 @@ public class AchievementSceneManager : BaseScene
         PREPARATION,
         FADEIN,
         MAIN,
+        POPUP,
         FADEOUT
     }
     public STATE state { get; private set; }
@@ -38,6 +40,7 @@ public class AchievementSceneManager : BaseScene
             case STATE.FADEIN: AchiveFadeIn(); break;
             case STATE.FADEOUT: AchiveFadeOut(); break;
             case STATE.MAIN: AchiveMain(); break;
+            case STATE.POPUP: AchievePopUp(); break;
         }
         base.Update();
 
@@ -73,6 +76,13 @@ public class AchievementSceneManager : BaseScene
     {
 
     }
+
+    /// <summary>
+    /// ポップアップ表示状態
+    /// </summary>
+    private void AchievePopUp()
+    {
+    }
     // フェードアウト中
     private void AchiveFadeOut()
     {
@@ -105,5 +115,26 @@ public class AchievementSceneManager : BaseScene
         NextSceneName = sceneName;
 
         NextScene();
+    }
+
+    /// <summary>
+    /// ポップアップ状態に変更する
+    /// </summary>
+    public void StartPopUp()
+    {
+        // 開放済みの称号だった場合ポップアップ状態に移行する
+        if (achivementParent.isNowAchievementReach)
+        {
+            frame.StartAppear();
+            state = STATE.POPUP;
+        }
+    }
+
+    /// <summary>
+    /// メイン状態に変更する
+    /// </summary>
+    public void StartMain()
+    {
+        state = STATE.MAIN;
     }
 }
