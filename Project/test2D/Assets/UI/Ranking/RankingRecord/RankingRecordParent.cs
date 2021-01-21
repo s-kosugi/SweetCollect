@@ -6,6 +6,7 @@ public class RankingRecordParent : MonoBehaviour
 {
     [SerializeField] GameObject rankingRecord = default;
     [SerializeField] PlayFabLeaderBoard leaderBoard = default;
+    [SerializeField] GameObject leaderBoardObject = default;
     [SerializeField] float HeightInterval = 80;
     [SerializeField] Vector2 startPos = default;
     [SerializeField] SwipeMove swipe = default;
@@ -56,6 +57,8 @@ public class RankingRecordParent : MonoBehaviour
 
             obj = Instantiate(rankingRecord, this.transform);
             record = obj.GetComponent<RankingRecord>();
+            record.SetLeaderBoard(leaderBoardObject, leaderBoard);
+
             record.rankPosition = i;
 
             obj.transform.localPosition = new Vector3(startPos.x, i * -HeightInterval + startPos.y);
