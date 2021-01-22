@@ -134,4 +134,13 @@ public class AchievementParent : MonoBehaviour
         SelectedAchievement();
 
     }
+
+    /// <summary>
+    /// プレイヤーデータの取得
+    /// </summary>
+    /// <returns>プレイヤーデータ</returns>
+    public PlayFabPlayerData GetPlayerData()
+    {
+        return playerData;
+    }
 }
