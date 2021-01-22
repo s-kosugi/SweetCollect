@@ -122,4 +122,12 @@ public class ReachAchievement : MonoBehaviour
 
         return info;
     }
+
+    /// <summary>
+    /// 実績達成したかどうかを更新しなおす
+    /// </summary>
+    public void RequestUpdate()
+    {
+        isSet = false;
+    }
 }

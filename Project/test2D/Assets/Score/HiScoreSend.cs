@@ -1,13 +1,11 @@
 ﻿using PlayFab.ClientModels;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class HiScoreSend : MonoBehaviour
 {
     [SerializeField] PlayFabStatistics statistics = default;
     [SerializeField] PlayFabPlayerData playerData = default;
+    [SerializeField] NoticeAchievement noticeAchievement = default;
     private ScoreManager scoreManager = default;
     public bool isPlayfabConnectEnd { get; private set; } = false;
     public bool isUpdate { get; private set; } = false;
@@ -62,6 +60,9 @@ public class HiScoreSend : MonoBehaviour
 
                         // 実績参照用のスコアをプレイヤーデータへ保存しておく
                         playerData.SetPlayerData(updatePlayerDataName, scoreManager.GameScore.ToString());
+
+                        // 実績通知を要求する
+                        noticeAchievement.RequestNotice();
 
                         // ハイスコア更新済みフラグ
                         isUpdate = true;
