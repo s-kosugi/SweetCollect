@@ -714,7 +714,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1671069067}
-  - {fileID: 430918624}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -768,11 +767,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PreviewSprite: {fileID: 2189110483647629879, guid: 39c4923f42ec8964ebd1600bbe83f11a,
     type: 3}
+  ClothingChild: []
   SpriteDictionaryNumber: 0
   SelectNumber: 0
   ChildSize: {x: 144, y: 144}
   Margin: 24
   DIRECTION_TIME: 0.3
+  EventDirectionTime: 0
+  EventMoveFlag: 0
   buyButtonPicture: {fileID: 1139846102}
   State: 0
 --- !u!1 &326027670
@@ -877,13 +879,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430918623}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 671908872}
-  m_Father: {fileID: 301034030}
-  m_RootOrder: 1
+  m_Father: {fileID: 1671069067}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3460,6 +3462,7 @@ RectTransform:
   - {fileID: 293160763}
   - {fileID: 2062947244}
   - {fileID: 73579816}
+  - {fileID: 430918624}
   m_Father: {fileID: 301034030}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3483,6 +3486,53 @@ MonoBehaviour:
   refRect: {fileID: 1671069067}
   referenceResolution: {x: 480, y: 270}
   matchWidthOrHeight: 0
+--- !u!1 &1677005746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1677005748}
+  - component: {fileID: 1677005747}
+  m_Layer: 0
+  m_Name: AchievementEventController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1677005747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677005746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f158be65657caab47bd552c03d105c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shop: {fileID: 1726004099}
+  clothing: {fileID: 321649656}
+  buyandwearbutton: {fileID: 1139846101}
+  EventState: -1
+--- !u!4 &1677005748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677005746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 222.58604, y: 78.325615, z: -656.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1706139067
 GameObject:
   m_ObjectHideFlags: 0

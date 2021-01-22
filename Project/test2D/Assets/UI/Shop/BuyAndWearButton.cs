@@ -31,13 +31,15 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] ShopAchievement achievement = default;
 
     //状態分け
-    enum STATE
+    public enum STATE
     {
         NONE = -1,
-        RECEPTION = 0,    //受付
+
+        RECEPTION,    //受付
         PUSH,             //押された
         BUYorWEAR,        //購入または着る
         UPDATE,           //更新
+        ACHIEVEMENT,      //イベント
     }
     [SerializeField] private STATE State_Button = STATE.NONE;      //ボタンの状態
 
@@ -78,6 +80,7 @@ public class BuyAndWearButton : MonoBehaviour
             case STATE.PUSH: Push(); break;
             case STATE.BUYorWEAR: BuyorWear(); break;
             case STATE.UPDATE: Button_Update(); break;
+            case STATE.ACHIEVEMENT: ;break;
         }
 
         EnableButton();
@@ -219,6 +222,12 @@ public class BuyAndWearButton : MonoBehaviour
 
     }
 
+    //実績達成
+    private void Achievement()
+    {
+
+    }
+
     //===========================================================================================================
     //===========================================================================================================
     //ボタン
@@ -261,5 +270,10 @@ public class BuyAndWearButton : MonoBehaviour
             IsPreviewHit = true;
         }
     }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //取得
+    public STATE GetState()
+    {
+        return State_Button;
+    }
 }
