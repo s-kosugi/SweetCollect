@@ -13,6 +13,7 @@ public class ReleaseDifficult : MonoBehaviour
     [SerializeField] GameObject hardReleaseText = default;
     [SerializeField] GameObject veryhardReleaseText = default;
     [SerializeField] TextMeshProUGUI nextText = default;
+    [SerializeField] NoticeAchievement noticeAchievement = default;
     private EffekseerHandle releaseEffectHandle = default;
     private ScoreManager scoreManager = default;
     [SerializeField] float AppearTime = 1.0f;
@@ -131,6 +132,10 @@ public class ReleaseDifficult : MonoBehaviour
             playerData.SetPlayerData(TargetDifficult, "RELEASED");
             // オプションに通知を送る
             playerData.SetPlayerData(PlayerDataName.NOTICE_OPTION, "TRUE");
+
+            // 実績通知を要求する
+            noticeAchievement.RequestNotice();
+
             ret = true;
 
         }
