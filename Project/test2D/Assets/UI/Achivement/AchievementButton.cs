@@ -35,6 +35,7 @@ public class AchievementButton : MonoBehaviour
         }
         else
         {
+            title.text = "？？？？？";
             title.color = defaultColor;
             progress.color = defaultColor;
         }
