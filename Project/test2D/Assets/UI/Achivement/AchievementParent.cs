@@ -1,7 +1,4 @@
-﻿using PlayFab.ClientModels;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +13,7 @@ public class AchievementParent : MonoBehaviour
     [SerializeField] float buttonVerticalInterval = 100f;
     [SerializeField] float buttonHorizonInterval = 400.0f;
     [SerializeField] int buttonHorizonNum = 2;
+    [SerializeField] ReachAchievement reach = default;
 
     public string descriptAchievementID = default;      // Descriptに表示中のID
     public string descriptAchievementName { get; private set; } = default;    // Descriptに表示中の実績名
@@ -26,7 +24,8 @@ public class AchievementParent : MonoBehaviour
 
     void Update()
     {
-        if (!isCreate && !waitConnect.IsWait() && store.m_isStoreGet && store.m_isCatalogGet)
+        if (!isCreate && !waitConnect.IsWait() && store.m_isStoreGet && store.m_isCatalogGet &&
+            playerData.m_isGet && reach.isSet)
         {
             // アチーブメントボタン生成処理
             CreateAchivementButton();
@@ -34,6 +33,10 @@ public class AchievementParent : MonoBehaviour
             isCreate = true;
         }
     }
+
+    /// <summary>
+    /// 実績ボタンの作成
+    /// </summary>
     private void CreateAchivementButton()
     {
         for (int i = 0; i < store.StoreItems.Count; i++)
@@ -41,8 +44,7 @@ public class AchievementParent : MonoBehaviour
             // カタログと一致するアイテムの取得
             var catalogItem = store.CatalogItems.Find(x => x.ItemId == store.StoreItems[i].ItemId);
 
-            // LitJsonを使ってJsonを連想配列化する
-            var jsonDic = LitJson.JsonMapper.ToObject<Dictionary<string, string>>(catalogItem.CustomData);
+            var info = reach.GetInfo(store.StoreItems[i].ItemId);
 
             //--------------------------------------------------------------------------------
             // ボタンオブジェクトの生成と初期化
@@ -59,32 +61,10 @@ public class AchievementParent : MonoBehaviour
             //--------------------------------------------------------------------------------
             // 進捗度をセット
             textMesh = button.transform.Find("ProgressText").GetComponent<TextMeshProUGUI>();
-            UserDataRecord playerRecord;
-            string progressString = "0";
-            // 実績内のカスタムデータからキーを取得してプレイヤーデータにアクセスする
-            if (playerData.m_Data.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out playerRecord))
-            {
+            textMesh.text = info.progressValue + "/" + info.progressMax;
 
-                double num;
-                // 進捗度が数値ではなかった場合は実績内の該当キーと一致しているかで判断をする
-                if (!double.TryParse(playerRecord.Value, out num))
-                {
-                    string achievementValue;
-                    // 実績内のプレイヤーデータを持つキーとプレイヤーデータが一致したら達成済み(1)とする
-                    if (jsonDic.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out achievementValue))
-                    {
-                        if (playerRecord.Value == achievementValue) progressString = "1";
-                    }
-                }
-                else
-                {
-                    // 数値データだったのでそのまま格納する
-                    progressString = playerRecord.Value;
-                }
-            }
-            textMesh.text = progressString + "/" + jsonDic[AchievementDataName.PROGRESS_MAX];
             // 実績達成済みなら達成済みフラグをON
-            if (double.Parse(progressString) >= double.Parse(jsonDic[AchievementDataName.PROGRESS_MAX])) achievementButtonScript.ReachAchievement = true;
+            if (info.reach) achievementButtonScript.ReachAchievement = true;
         }
 
         // ボタン生成数に応じてスワイプの移動の制限値を変える
