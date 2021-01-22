@@ -41,6 +41,8 @@ public class PlayFabVirtualCurrency : MonoBehaviour
     public void RequestUpdate()
     {
         isGet = false;
+        m_AutoRequest.FinishTimer();
+        Update();
     }
 
     /// <summary>

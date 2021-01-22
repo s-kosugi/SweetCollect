@@ -38,4 +38,12 @@ public class PlayFabAutoRequest : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// タイマーを強制的に終了状態にする
+    /// </summary>
+    public void FinishTimer()
+    {
+        m_RequestTimer = RequestInterval;
+    }
 }
