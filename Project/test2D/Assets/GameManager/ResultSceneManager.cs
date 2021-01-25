@@ -17,6 +17,8 @@ public class ResultSceneManager : BaseScene
     [SerializeField] ResultScoreText scoreNumber = default;
 
     [SerializeField] ReleaseDifficult releaseDifficult = default;
+
+    [SerializeField] ResultPlayerController player = default;
     
     private CanvasGroup m_CanvasGroup = null;
 
@@ -102,6 +104,9 @@ public class ResultSceneManager : BaseScene
             m_AppearTimer = 0.0f;
             scoreNumber.state = ResultScoreText.STATE.APPEAR;
             scoreNumber.animationTime = AppearEndTime;
+
+            // プレイヤーの走るアニメーションの開始
+            player.StartRun();
         }
     }
 

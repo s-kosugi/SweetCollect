@@ -61,11 +61,13 @@ public class ResultScoreText : MonoBehaviour
         // ゲームスコアを取得して表示
         if (scoreManager != null && !isSet)
         {
-            // スコアマネージャーが取得できなかった時用に0をいれておく。
-            text.text = string.Format("{0:0000}",0);
             text.text = string.Format("{0:0000}", scoreManager.GameScore);
             animationCount = 0f;
             isSet = true;
+        }
+        else
+        {
+            text.text = string.Format("{0:0000}", 0);
         }
     }
 
