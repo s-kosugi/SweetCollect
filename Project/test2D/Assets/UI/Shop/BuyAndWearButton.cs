@@ -237,7 +237,7 @@ public class BuyAndWearButton : MonoBehaviour
     //実績達成
     private void AchievementRewardRelease()
     {
-        if(!AchievementEvents.BuyEventFlag)
+        if(!AchievementEvents.BuyEndFlag)
         {
             if(!IsAchievementsClothingRelease)
             {
