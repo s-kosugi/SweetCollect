@@ -61,6 +61,9 @@ public class TitleManager : BaseScene
     // 準備
     private void Preparation()
     {
+        // 必ずタイムスケールを戻しておく(ゲームメインから戻ってきた場合)
+        Time.timeScale = 1f;
+
         if (!m_WaitConnect.IsWait())
         {
             state = STATE.FADEIN;

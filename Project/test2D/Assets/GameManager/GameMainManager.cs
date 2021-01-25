@@ -257,4 +257,13 @@ public class GameMainManager : BaseScene
     {
         state = STATE.PRERESTART;
     }
+
+    public void ReturnTitle()
+    {
+
+        NextSceneName = "TitleScene";
+
+        // フェードアウト状態に変更する
+        state = STATE.FADEOUT;
+    }
 }
