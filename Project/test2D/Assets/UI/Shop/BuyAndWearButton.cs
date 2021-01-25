@@ -1,21 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuyAndWearButton : MonoBehaviour
 {
-    private PlayFabStore store = null;            //ストア
-    private PlayFabInventory inventory = null;    //インベントリ
-    private PlayFabWaitConnect connect = null;    //通信
-    private PlayFabPlayerData playerData = null;  //プレイヤーデータ
-    private PlayFabStore PlayFabStoreAchivement = null; //達成ストア
+    [SerializeField] private PlayFabStore store = null;            //ストア
+    [SerializeField] private PlayFabInventory inventory = null;    //インベントリ
+    [SerializeField] private PlayFabWaitConnect connect = null;    //通信
+    [SerializeField] private PlayFabPlayerData playerData = null;  //プレイヤーデータ
+    [SerializeField] private PlayFabStore PlayFabStoreAchivement = null; //達成ストア
+    [SerializeField] private ReachAchievement reachachievement = null;         //実績達成管理
+    [SerializeField]private AchievementRewardRelease AchievementEvents = null; //達成イベント
 
-    private ShopCanvasController shop = null;
+    private ShopCanvasController ShopCanvas = null;
     [SerializeField] private Money_Text playermoney = null;
     private Clothing clothing = null;
-    [SerializeField] private Descript_Text achievementtext = null;
+    [SerializeField] private AchievementName achievementtext = null;
 
     private Button button;     //ボタン
     private bool IsConnect;    //通信中
@@ -23,7 +26,8 @@ public class BuyAndWearButton : MonoBehaviour
     private bool IsAction;     //行動できるかどうか
     private bool IsSelect;     //選択中(購入または着用)
     private bool IsUpdate;     //更新中
-    private bool IsPreviewHit; //ヒント表示
+    [SerializeField] private bool IsPreviewHint; //ヒント表示
+    private bool IsAchievementsClothingRelease; //実績服の解放
 
     [SerializeField] private PlayerAvatar playerAvatar = default;
     [SerializeField] private CurtainAnime curtainAnime = default;
@@ -35,13 +39,14 @@ public class BuyAndWearButton : MonoBehaviour
     {
         NONE = -1,
 
-        RECEPTION,    //受付
+        RECEPTION,        //受付
         PUSH,             //押された
         BUYorWEAR,        //購入または着る
         UPDATE,           //更新
-        ACHIEVEMENT,      //イベント
+        ACHIEVEMENTREWARDRELEASE,      //実績報酬解放
+        PREVIEWHINT,          //表示
     }
-    [SerializeField] private STATE State_Button = STATE.NONE;      //ボタンの状態
+    [SerializeField] private STATE State = STATE.NONE;      //ボタンの状態
 
 
     // Start is called before the first frame update
@@ -53,7 +58,7 @@ public class BuyAndWearButton : MonoBehaviour
         playerData = GameObject.Find("PlayFabPlayerData").GetComponent<PlayFabPlayerData>();
         PlayFabStoreAchivement = GameObject.Find("PlayFabStoreAchivement").GetComponent<PlayFabStore>();
 
-        shop = this.transform.root.GetComponent<ShopCanvasController>();
+        ShopCanvas = this.transform.root.GetComponent<ShopCanvasController>();
         // ハードコーディングで可変に対応できない為コメントアウト
         //playermoney = this.transform.root.transform.Find("Player_Money/Money_Buck/Money_Text").GetComponent<Money_Text>();
         clothing = GameObject.Find("Clothing_Parent/Clothing").GetComponent<Clothing>();
@@ -64,23 +69,25 @@ public class BuyAndWearButton : MonoBehaviour
         IsAction = false;
         IsSelect = false;
         IsUpdate = false;
-        IsPreviewHit = false;
+        IsPreviewHint = false;
+        IsAchievementsClothingRelease = false;
 
         PriceName = "HA";
 
-        State_Button = STATE.UPDATE;
+        State = STATE.UPDATE;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (State_Button)
+        switch (State)
         {
             case STATE.RECEPTION: Reception(); break;
             case STATE.PUSH: Push(); break;
             case STATE.BUYorWEAR: BuyorWear(); break;
             case STATE.UPDATE: Button_Update(); break;
-            case STATE.ACHIEVEMENT: ;break;
+            case STATE.ACHIEVEMENTREWARDRELEASE: AchievementRewardRelease(); break;
+            case STATE.PREVIEWHINT: PreviewHint(); break;
         }
 
         EnableButton();
@@ -94,14 +101,20 @@ public class BuyAndWearButton : MonoBehaviour
         //押された際にアクション・通信中でなければ押された状態へ
         if (IsPush && !IsAction && !IsConnect)
         {
-            if (inventory.IsHaveItem(shop.GetItemInfo().storeItem.ItemId))
+            if (inventory.IsHaveItem(ShopCanvas.GetItemInfo().storeItem.ItemId))
             {
                 // 押されてボタンが有効化された時にカーテンを閉じるアニメーションに変更
                 curtainAnime.ChangeClose();
             }
-            State_Button = STATE.PUSH;
+            State = STATE.PUSH;
             IsPush = false;
             IsAction = true;
+        }
+
+        //服開放実行
+        if (AchievementEvents.AchievementFlag)
+        {
+            State = STATE.ACHIEVEMENTREWARDRELEASE;
         }
     }
     //押された
@@ -113,33 +126,32 @@ public class BuyAndWearButton : MonoBehaviour
             //通信中でなければ購入・着用処理へ
             if (!connect.IsWait())
             {
-                if (!IsPreviewHit)
+                if (!IsPreviewHint)
                 {
-                    State_Button = STATE.BUYorWEAR;
+                    State = STATE.BUYorWEAR;
                     IsAction = false;
                 }
                 else
                 {
-                    State_Button = STATE.RECEPTION;
+                    State = STATE.PREVIEWHINT;
                     IsAction = false;
-                    IsPreviewHit = false;
 
                     // アイテムがカタログ内にあるのかを探し、それに対応する説明を設定
-                    var catalogItem = store.CatalogItems.Find(x => x.ItemId == shop.GetItemInfo().catalogItem.ItemId);
+                    var catalogItem = store.CatalogItems.Find(x => x.ItemId == ShopCanvas.GetItemInfo().catalogItem.ItemId);
                     if (catalogItem.CustomData != null)
                     {
                         //データがあれば、そのデータを表示
                         var achievementItem = PlayFabStoreAchivement.CatalogItems.Find(x => x.ItemId == catalogItem.CustomData);
                         if (achievementItem != null)
-                            achievementtext.SetAchievementText(achievementItem.Description);
+                            achievementtext.GetAchievementName(achievementItem.DisplayName);
                         else
-                            achievementtext.SetAchievementText("設定されていない または 設定し忘れている");
+                            achievementtext.GetAchievementName("設定されていません");
                     }
                 }
             }
             else
             {
-                State_Button = STATE.RECEPTION;
+                State = STATE.RECEPTION;
                 IsAction = false;
             }
         }
@@ -152,21 +164,21 @@ public class BuyAndWearButton : MonoBehaviour
             if (!connect.IsWait())
             {
                 //インベントリ内にアイテムがなければ購入
-                if (!inventory.IsHaveItem(shop.GetItemInfo().storeItem.ItemId))
+                if (!inventory.IsHaveItem(ShopCanvas.GetItemInfo().storeItem.ItemId))
                 {
-                    store.BuyItem(shop.GetItemInfo().storeItem.ItemId, PriceName);
-                    Debug.Log(shop.GetItemInfo().storeItem.ItemId + "を購入しました");
+                    store.BuyItem(ShopCanvas.GetItemInfo().storeItem.ItemId, PriceName);
+                    Debug.Log(ShopCanvas.GetItemInfo().storeItem.ItemId + "を購入しました");
                 }
                 //持っていれば着用
                 else
                 {
-                    playerData.SetPlayerData(PlayerDataName.ECLOTHES, shop.GetItemInfo().catalogItem.ItemId);
+                    playerData.SetPlayerData(PlayerDataName.ECLOTHES, ShopCanvas.GetItemInfo().catalogItem.ItemId);
                     // ユーザーデータの更新
                     playerData.RequestGetUserData();
-                    Debug.Log(shop.GetItemInfo().catalogItem.ItemId + "を着用しました");
+                    Debug.Log(ShopCanvas.GetItemInfo().catalogItem.ItemId + "を着用しました");
 
                     // プレイヤーの見た目更新
-                    playerAvatar.UpdateAvatar(shop.GetItemInfo().catalogItem.ItemId);
+                    playerAvatar.UpdateAvatar(ShopCanvas.GetItemInfo().catalogItem.ItemId);
 
                     // カーテンを開くアニメーション
                     curtainAnime.ChangeOpen();
@@ -179,7 +191,7 @@ public class BuyAndWearButton : MonoBehaviour
         {
             if (!connect.IsWait())
             {
-                State_Button = STATE.UPDATE;
+                State = STATE.UPDATE;
                 IsSelect = false;
             }
         }
@@ -205,7 +217,7 @@ public class BuyAndWearButton : MonoBehaviour
                 //通信中になるまで待機
                 if (!connect.IsWait())
                 {
-                    State_Button = STATE.RECEPTION;
+                    State = STATE.RECEPTION;
                     IsUpdate = false;
                     IsConnect = false;
                     clothing.CheckHavingCloting();
@@ -223,7 +235,39 @@ public class BuyAndWearButton : MonoBehaviour
     }
 
     //実績達成
-    private void Achievement()
+    private void AchievementRewardRelease()
+    {
+        if(!AchievementEvents.BuyEventFlag)
+        {
+            if(!IsAchievementsClothingRelease)
+            {
+                if (!connect.IsWait())
+                {
+                    //インベントリ内にアイテムがなければ購入
+                    if (!inventory.IsHaveItem(ShopCanvas.GetItemInfo().storeItem.ItemId))
+                    {
+                        store.BuyItem(ShopCanvas.GetItemInfo().storeItem.ItemId, PriceName);
+                        Debug.Log(ShopCanvas.GetItemInfo().storeItem.ItemId + "を購入しました");
+                    }
+                    playermoney.RequestMoney();
+                    IsAchievementsClothingRelease = true;
+                    clothing.BuyButtonPush();
+                }
+            }
+            else
+            {
+                AchievementEvents.FinishBuyEvent();
+            }
+        }
+
+        if(!AchievementEvents.AchievementFlag)
+        {
+            State = STATE.RECEPTION;
+            IsAchievementsClothingRelease = false;
+        }
+    }
+    //ヒント表示
+    public void PreviewHint()
     {
 
     }
@@ -234,7 +278,7 @@ public class BuyAndWearButton : MonoBehaviour
     public void Push_Button()
     {
         // 受付状態且つ表示状態ならボタンを押せる
-        if (State_Button == STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
+        if (State == STATE.RECEPTION && clothing.GetState() == Clothing.SHELFSTATE.PREVIEW)
         {
             IsPush = true;
         }
@@ -246,7 +290,7 @@ public class BuyAndWearButton : MonoBehaviour
         if (connect.IsWait() ||
             !store.m_isStoreGet ||
             clothing.GetState() != Clothing.SHELFSTATE.PREVIEW ||
-            State_Button != STATE.RECEPTION
+            State != STATE.RECEPTION
             )
         {
             button.enabled = false;
@@ -254,26 +298,50 @@ public class BuyAndWearButton : MonoBehaviour
         }
 
         // (アイテムを持っているorお金が足りている)ならボタンを有効化
-        if ((shop.GetItemInfo().storeItem.VirtualCurrencyPrices[PriceName] <= playermoney.GetPossessionMoney() ||
-            inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId)))
-        {
+        if ((ShopCanvas.GetItemInfo().storeItem.VirtualCurrencyPrices[PriceName] <= playermoney.GetPossessionMoney() ||
+            inventory.IsHaveItem(ShopCanvas.GetItemInfo().catalogItem.ItemId)))
             button.enabled = true;
-        }
         else
             button.enabled = false;
 
-        // アイテムを持っておらず、条件付きの場合はボタンを無効化
-        var catalogItem = store.CatalogItems.Find(x => x.ItemId == shop.GetItemInfo().catalogItem.ItemId);
-        if (!inventory.IsHaveItem(shop.GetItemInfo().catalogItem.ItemId) && catalogItem.CustomData != null)
+
+        //取得完了
+        if (!connect.IsWait() && store.m_isCatalogGet && PlayFabStoreAchivement.m_isStoreGet && store.m_isStoreGet)
         {
-            button.enabled = true;
-            IsPreviewHit = true;
+            if(ShopCanvas.GetItemInfo().catalogItem.CustomData != null)
+            {
+                //実績達成アイテムを所持しているか
+                var achievementItem = PlayFabStoreAchivement.StoreItems.Find(x => x.ItemId == ShopCanvas.GetItemInfo().catalogItem.CustomData.ToString());
+                //条件達成服を持っておらず、実績を達成していなければ、ヒントを表示
+                if (!inventory.IsHaveItem(ShopCanvas.GetItemInfo().catalogItem.ItemId) && !reachachievement.IsReachAchievement(achievementItem.ItemId.ToString()))
+                {
+                    button.enabled = true;
+                    IsPreviewHint = true;
+                }
+                else
+                {
+                    button.enabled = true;
+                    IsPreviewHint = false;
+                }
+            }
+            else
+                IsPreviewHint = false;
+        }
+        else
+        {
+            button.enabled = false;
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //取得
     public STATE GetState()
     {
-        return State_Button;
+        return State;
+    }
+
+    //表示関連
+    public void PreviewEnd()
+    {
+        State = STATE.RECEPTION;
     }
 }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Descript_Text : MonoBehaviour
+public class AchievementName : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI Text_Achievement; //表示テキスト
+    [SerializeField] AchievementEquipFrame AchievementEquipFrame = null;
+    [SerializeField] TextMeshProUGUI textmesh = default;
 
     private void Awake()
     {
-        Text_Achievement = this.GetComponent<TextMeshProUGUI>();
-        Text_Achievement.text = "?????????????????????????????";
+        textmesh.text = "?????????????????????????????";
     }
 
     void Start()
@@ -24,12 +24,13 @@ public class Descript_Text : MonoBehaviour
     }
     //===========================================================================================================
     //設定関連
-    public void SetAchievementText(string text)
+    //実績名称の取得
+    //name : 実績名称の名前
+    public void GetAchievementName(string name)
     {
-        Text_Achievement.text = text;
+        textmesh.text = name;
+        AchievementEquipFrame.StartAppear();
     }
-    //===========================================================================================================
-
     //===========================================================================================================
     //===========================================================================================================
 

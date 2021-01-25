@@ -7,7 +7,7 @@ public class Clothing : MonoBehaviour
     PlayFabStore playFabStore;                                               //プレイハブ
     private PlayFabInventory inventory = null;                               //インベントリ
     private PlayFabWaitConnect connect = null;                               //通信
-    private AchievementEvents AchievementEvents = null;                      //達成イベント
+    private AchievementRewardRelease AchievementEvents = null;               //達成イベント
     ShopCanvasController shopcanvas = null;                                  //ショップキャンバス
     [SerializeField] GameObject PreviewSprite = default;                     //服表示オブジェクト
 
@@ -35,7 +35,7 @@ public class Clothing : MonoBehaviour
         LOAD,
         CHANGE,
         PREVIEW,
-        ACHIEVEMENT,
+        ACHIEVEMENTREWARDRELEASE,
         MAX,
     }
     [SerializeField] SHELFSTATE State;      //状態
@@ -45,7 +45,7 @@ public class Clothing : MonoBehaviour
         playFabStore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
         inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
         connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
-        AchievementEvents = GameObject.Find("AchievementEventController").GetComponent<AchievementEvents>();
+        AchievementEvents = GameObject.Find("AchievementEventController").GetComponent<AchievementRewardRelease>();
 
         shopcanvas = GameObject.Find("ShopCanvas").GetComponentInParent<ShopCanvasController>();
         // ハードコーディングで可変に対応できない為コメントアウト
@@ -68,7 +68,7 @@ public class Clothing : MonoBehaviour
             case SHELFSTATE.LOAD: Load(); break;
             case SHELFSTATE.CHANGE: Change(); break;
             case SHELFSTATE.PREVIEW: Preview(); break;
-            case SHELFSTATE.ACHIEVEMENT: Achievement(); break;
+            case SHELFSTATE.ACHIEVEMENTREWARDRELEASE: AchievementRewardRelease(); break;
         }
     }
 
@@ -145,10 +145,10 @@ public class Clothing : MonoBehaviour
 
     private void Preview()
     {
-        //イベント実行
+        //服開放実行
         if(AchievementEvents.AchievementFlag)
         {
-            State = SHELFSTATE.ACHIEVEMENT;
+            State = SHELFSTATE.ACHIEVEMENTREWARDRELEASE;
         }
         
         //所持しているかを確認
@@ -158,28 +158,40 @@ public class Clothing : MonoBehaviour
 
     }
 
-    private void Achievement()
+    private void AchievementRewardRelease()
     {
-        if(AchievementEvents.GetState() != AchievementEvents.ACHIECEMETEVENT.WAIT)
+        if (!AchievementEvents.ClotingMoveEventFlag)
         {
             if(!EventMoveFlag)
             {
-                SelectNumber = SpriteNumber[AchievementEvents.AchievementName];
-                CheckSelectNum();
-
-                for (int i = 0; i < ClothingChild.Count; i++)
+                int value;
+                if (SpriteNumber.TryGetValue(AchievementEvents.AchievementClotingName, out value))
                 {
-                    ClothingChild[i].WhatFromPreview(SelectNumber);
+                    SelectNumber = value;
+
+                    //ショップキャンバスに選択されているアイテムを設定
+                    if (shopcanvas)
+                    {
+                        shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
+                    }
+
+                    CheckSelectNum();
+
+                    for (int i = 0; i < ClothingChild.Count; i++)
+                    {
+                        ClothingChild[i].WhatFromPreview(SelectNumber);
+                    }
+                    EventMoveFlag = true;
                 }
-                EventMoveFlag = true;
             }
 
             if (EventDirectionTime > DIRECTION_TIME)
-                AchievementEvents.ClotingMoveEventFinish();
+                AchievementEvents.FinishClotingMoveEvent();
             else
                 EventDirectionTime += Time.deltaTime;
         }
-        else
+
+        if(!AchievementEvents.AchievementFlag)
         {
             State = SHELFSTATE.CHANGE;
             EventMoveFlag = false;
