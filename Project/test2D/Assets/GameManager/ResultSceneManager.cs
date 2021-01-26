@@ -14,8 +14,11 @@ public class ResultSceneManager : BaseScene
     [SerializeField] GameObject AppearGroup2 = null;
     [SerializeField] GameObject AppearGroup3 = null;
     [SerializeField] GameObject AppearGroup4 = null;
+    [SerializeField] ResultScoreText scoreNumber = default;
 
     [SerializeField] ReleaseDifficult releaseDifficult = default;
+
+    [SerializeField] ResultPlayerController player = default;
     
     private CanvasGroup m_CanvasGroup = null;
 
@@ -99,6 +102,11 @@ public class ResultSceneManager : BaseScene
         {
             state = STATE.APPEAR;
             m_AppearTimer = 0.0f;
+            scoreNumber.state = ResultScoreText.STATE.APPEAR;
+            scoreNumber.animationTime = AppearEndTime;
+
+            // プレイヤーの走るアニメーションの開始
+            player.StartRun();
         }
     }
 
@@ -129,7 +137,7 @@ public class ResultSceneManager : BaseScene
             for (int i = 0; i < list.Count; i++)
             {
                 // UIを上段から少しずつずらして出現させる
-                float posX = Easing.OutSine(m_AppearTimer, AppearEndTime - (float)(list.Count - i) * AppearSubTime, 0, -AppearPos);
+                float posX = Easing.OutBack(m_AppearTimer, AppearEndTime - (float)(list.Count - i) * AppearSubTime, 0, -AppearPos,1.0f);
                 if (AppearEndTime - (float)(list.Count - i) * AppearSubTime <= m_AppearTimer)
                 {
                     list[i].transform.localPosition = new Vector3(0, 0);
@@ -144,6 +152,9 @@ public class ResultSceneManager : BaseScene
         {
             // メインに移行する
             state = STATE.MAIN;
+
+            // スコア出現演出を終了する
+            scoreNumber.state = ResultScoreText.STATE.WAIT;
 
             // アンロックメッセージを表示するかどうか
             if (releaseDifficult.isShowUnlockMessage())
