@@ -65,10 +65,6 @@ public class ResultScoreText : MonoBehaviour
             animationCount = 0f;
             isSet = true;
         }
-        else
-        {
-            text.text = string.Format("{0:0000}", 0);
-        }
     }
 
 }

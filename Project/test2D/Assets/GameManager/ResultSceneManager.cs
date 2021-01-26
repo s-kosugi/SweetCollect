@@ -19,8 +19,6 @@ public class ResultSceneManager : BaseScene
     [SerializeField] ReleaseDifficult releaseDifficult = default;
 
     [SerializeField] ResultPlayerController player = default;
-    
-    private CanvasGroup m_CanvasGroup = null;
 
     // リザルトシーン状態
     public enum STATE
@@ -55,8 +53,6 @@ public class ResultSceneManager : BaseScene
         AppearGroup2.transform.localPosition = new Vector3(AppearPos, 0);
         AppearGroup3.transform.localPosition = new Vector3(AppearPos, 0);
         AppearGroup4.transform.localPosition = new Vector3(AppearPos, 0);
-
-        m_CanvasGroup = GameObject.Find("Canvas").GetComponent<CanvasGroup>();
 
         SoundManager.Instance.PlayBGM("MainGame");
 
