@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Effekseer;
+using PlayFab.ClientModels;
 
 public class Clothing : MonoBehaviour
 {
     PlayFabStore playFabStore;                                               //プレイハブ
     private PlayFabInventory inventory = null;                               //インベントリ
     private PlayFabWaitConnect connect = null;                               //通信
-    private AchievementRewardRelease RewardRelease = null;               //達成イベント
+    private AchievementRewardRelease RewardRelease = null;                   //達成イベント
     ShopCanvasController shopcanvas = null;                                  //ショップキャンバス
     [SerializeField] GameObject PreviewSprite = default;                     //服表示オブジェクト
+    [SerializeField] CurtainAnime Curtain = null;                            //カーテンアニメ
+    [SerializeField] PlayFabPlayerData PlayerData = null;                    //プレイヤーデータ
 
     [SerializeField] List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>(); //表示する子供の数
     [SerializeField] private int SpriteDictionaryNumber;                      //画像の最大数
@@ -24,6 +27,7 @@ public class Clothing : MonoBehaviour
     [SerializeField] private float DIRECTION_TIME_ACHIEVEMENT = 0.2f;                     //演出時間
     [SerializeField] private float DirectionTime = 0.0f;                                  //実績達成演出時間
     [SerializeField] private bool MoveEndFlag;                                //実績達成イベント移動(服の移動)
+    [SerializeField] private bool InfoChild;                                    //子に情報を与えた
 
     [SerializeField] private BuyButtonPicture buyButtonPicture = default;       //
     private List<bool> oldClothingChild = new List<bool>();                     //
@@ -57,7 +61,7 @@ public class Clothing : MonoBehaviour
         SelectNumber = 0;
         IsHaveCheck = false;
         MoveEndFlag = false;
-
+        InfoChild = false;
     }
 
     // Update is called once per frame
@@ -78,9 +82,9 @@ public class Clothing : MonoBehaviour
     private void Wait()
     {
         //プレイファブのストアとカタログ情報が入手できればロード状態
-        if(playFabStore.m_isCatalogGet)
+        if(!connect.IsWait())
         {
-            if (playFabStore.m_isStoreGet)
+            if (playFabStore.m_isCatalogGet && playFabStore.m_isStoreGet)
             {
                 State = SHELFSTATE.LOAD;
             }
@@ -89,39 +93,48 @@ public class Clothing : MonoBehaviour
 
     private void Load()
     {
-        //ストアのアイテムカウント分リストを追加
-        for (int i = 0; i < playFabStore.StoreItems.Count; i++)
+        if(!InfoChild)
         {
-            Sprite sprite = Resources.Load<Sprite>("Player\\" + playFabStore.StoreItems[i].ItemId);
-            if (sprite == null)
+            //複数回通してはいけない
+
+            //ストアのアイテムカウント分リストを追加
+            for (int i = 0; i < playFabStore.StoreItems.Count; i++)
             {
-                continue;
+                Sprite sprite = Resources.Load<Sprite>("Player\\" + playFabStore.StoreItems[i].ItemId);
+                if (sprite == null)
+                {
+                    continue;
+                }
+                SpriteDictionary.Add(playFabStore.StoreItems[i].ItemId, sprite);
+                SpriteNumber.Add(playFabStore.StoreItems[i].ItemId, i);
+                SpriteDictionaryNumber = SpriteDictionary.Count;
             }
-            SpriteDictionary.Add(playFabStore.StoreItems[i].ItemId, sprite);
-            SpriteNumber.Add(playFabStore.StoreItems[i].ItemId, i);
-            SpriteDictionaryNumber = SpriteDictionary.Count;
+
+            //画像表示オブジェクトの追加
+            CreateChild();
+
+            //画像表示オブジェクトにスプライトを設定
+            for (int i = 0; i < ClothingChild.Count; i++)
+            {
+                if (i < playFabStore.StoreItems.Count)
+                {
+                    ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[i].ItemId]);
+                }
+                else
+                {
+                    ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[0].ItemId]);
+                }
+                ClothingChild[i].SetPreviewOrder(i);
+                ClothingChild[i].WhatFromPreview(SelectNumber);
+            }
+
+            //全ての処理が通ったから情報を与えられたと仮定
+            InfoChild = true;
         }
 
-        //画像表示オブジェクトの追加
-        CreateChild();
+        PlayerWearing();
 
-        //画像表示オブジェクトにスプライトを設定
-        for (int i = 0; i < ClothingChild.Count; i++)
-        {
-            if (i < playFabStore.StoreItems.Count)
-            {
-                ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[i].ItemId]);
-            }
-            else
-            {
-                ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[0].ItemId]);
-            }
-            ClothingChild[i].SetPreviewOrder(i);
-            ClothingChild[i].WhatFromPreview(SelectNumber);
-        }
 
-        State = SHELFSTATE.CHANGE;
-        
     }
     private void Change()
     {
@@ -214,7 +227,8 @@ public class Clothing : MonoBehaviour
     //一つ進める
     public void PushButton_Next()
     {
-        if (State == SHELFSTATE.PREVIEW)
+        //表示状態でカーテンが待機状態なら洗濯している服を変更
+        if (State == SHELFSTATE.PREVIEW && Curtain.state == CurtainAnime.STATE.WAIT)
         {
             SelectNumber += 1;
             CheckSelectNum();
@@ -224,7 +238,8 @@ public class Clothing : MonoBehaviour
     //一つ戻す
     public void PushButton_Back()
     {
-        if (State == SHELFSTATE.PREVIEW)
+        //表示状態でカーテンが待機状態なら洗濯している服を変更
+        if (State == SHELFSTATE.PREVIEW && Curtain.state == CurtainAnime.STATE.WAIT)
         {
             SelectNumber -= 1;
             CheckSelectNum();
@@ -391,5 +406,22 @@ public class Clothing : MonoBehaviour
     public void BuyButtonPush()
     {
         isBuyButtonPush = true;
+    }
+
+    //プレイヤーがどの服を着ているか
+    private void PlayerWearing()
+    {
+        if(!connect.IsWait())
+        {
+            if(PlayerData.m_isGet)
+            {
+                UserDataRecord playerclothingdata = null;
+                if(PlayerData.m_Data.TryGetValue(PlayerDataName.ECLOTHES, out playerclothingdata))
+                {
+                    SelectNumber = SpriteNumber[playerclothingdata.Value];
+                    State = SHELFSTATE.CHANGE;
+                }
+            }
+        }
     }
 }
