@@ -1097,6 +1097,7 @@ MonoBehaviour:
   DIRECTION_TIME_ACHIEVEMENT: 0.2
   DirectionTime: 0
   MoveEndFlag: 0
+  InfoChild: 0
   buyButtonPicture: {fileID: 1139846102}
   State: 0
 --- !u!1 &326027670
@@ -1896,22 +1897,22 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 640
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 480
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.x
-      value: 640
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.y
-      value: 480
+      value: 270
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581ccab5d4f2d434d8a1ae9519e8158a, type: 3}
@@ -2720,7 +2721,7 @@ MonoBehaviour:
   playerData: {fileID: 0}
   PlayFabStoreAchivement: {fileID: 0}
   reachachievement: {fileID: 1677005749}
-  AchievementEvents: {fileID: 1677005747}
+  RewardRelease: {fileID: 1677005747}
   playermoney: {fileID: 1158271998}
   achievementtext: {fileID: 346237387}
   IsPreviewHint: 0

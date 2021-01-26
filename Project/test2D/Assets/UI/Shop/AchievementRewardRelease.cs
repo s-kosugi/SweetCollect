@@ -19,8 +19,8 @@ public class AchievementRewardRelease : MonoBehaviour
     public string AchievementClotingName { get; private set; }      //実績達成のアイテムID
     private string ClotingName = "??";                              //実績達成の服の名前
 
-    public bool ClotingMoveEndFlag { get; private set; }                       //服の移動終了
-    public bool BuyEndFlag { get; private set; }                               //購入終了
+    public bool ClotingMoveEndFlag { get; private set; }                         //服の移動終了
+    public bool BuyEndFlag { get; private set; }                                 //購入終了
     public bool PreviewFlag  { get; private set; }                               //表示終了
 
     private float PreviewTimer = 0.0f;                                           //テロップ表示までの時間
@@ -95,7 +95,7 @@ public class AchievementRewardRelease : MonoBehaviour
     //服の購入
     private void Clothig_Buy()
     {
-        if(ClotingMoveEndFlag)
+        if(BuyEndFlag)
         {
             EventState = ACHIEVEMENTREWARDRELEASE.UPDATA;
             ClotingMoveEndFlag = false;

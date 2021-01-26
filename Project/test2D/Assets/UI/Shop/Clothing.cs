@@ -22,7 +22,7 @@ public class Clothing : MonoBehaviour
     Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>(); //画像
     Dictionary<string, int> SpriteNumber = new Dictionary<string, int>(); //画像の番号
 
-    private bool IsHaveCheck;                                                 //取得確認中
+    private bool IsHaveCheck;                                                             //取得確認中
     [SerializeField] private float DIRECTION_TIME_NORMAL      = 0.3f;                     //演出時間
     [SerializeField] private float DIRECTION_TIME_ACHIEVEMENT = 0.2f;                     //演出時間
     [SerializeField] private float DirectionTime = 0.0f;                                  //実績達成演出時間
@@ -151,6 +151,7 @@ public class Clothing : MonoBehaviour
         }
 
         CheckHavingCloting();
+
         State = SHELFSTATE.PREVIEW;
 
         // 持っていない服の黒塗り処理
@@ -160,7 +161,7 @@ public class Clothing : MonoBehaviour
     private void Preview()
     {
         //服開放実行
-        if(RewardRelease.AchievementFlag)
+        if(RewardRelease.AchievementFlag && RewardRelease.GetState() == global::AchievementRewardRelease.ACHIEVEMENTREWARDRELEASE.CHECK_CLOTHING_RELEASE)
         {
             State = SHELFSTATE.ACHIEVEMENTREWARDRELEASE;
         }
@@ -174,40 +175,43 @@ public class Clothing : MonoBehaviour
 
     private void AchievementRewardRelease()
     {
-        //服の移動が終了していなければ
-        if (!RewardRelease.ClotingMoveEndFlag)
+        if(RewardRelease.GetState() == global::AchievementRewardRelease.ACHIEVEMENTREWARDRELEASE.CLOTHING_MOVE)
         {
-            //移動が終了していなければ移動継続
-            if(!MoveEndFlag)
+            //服の移動が終了していなければ
+            if (!RewardRelease.ClotingMoveEndFlag)
             {
-                int value;
-                if (SpriteNumber.TryGetValue(RewardRelease.AchievementClotingName, out value))
+                //移動が終了していなければ移動継続
+                if(!MoveEndFlag)
                 {
-                    SelectNumber = value;
-
-                    //ショップキャンバスに選択されているアイテムを設定
-                    if (shopcanvas)
+                    int value;
+                    if (SpriteNumber.TryGetValue(RewardRelease.AchievementClotingName, out value))
                     {
-                        shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
-                    }
+                        SelectNumber = value;
 
-                    //選択されている番号が配列外参照を起こさないかをチェック
-                    CheckSelectNum();
+                        //ショップキャンバスに選択されているアイテムを設定
+                        if (shopcanvas)
+                        {
+                            shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
+                        }
 
-                    //子供がどの位置にいればよいかを伝える
-                    for (int i = 0; i < ClothingChild.Count; i++)
-                    {
-                        ClothingChild[i].WhatFromPreview(SelectNumber);
+                        //選択されている番号が配列外参照を起こさないかをチェック
+                        CheckSelectNum();
+
+                        //子供がどの位置にいればよいかを伝える
+                        for (int i = 0; i < ClothingChild.Count; i++)
+                        {
+                            ClothingChild[i].WhatFromPreview(SelectNumber);
+                        }
+                        MoveEndFlag = true;
                     }
-                    MoveEndFlag = true;
                 }
-            }
 
-            //一定時間経過で移動を終了
-            if (DirectionTime > DIRECTION_TIME_NORMAL)
-                RewardRelease.FinishClotingMove();
-            else
-                DirectionTime += Time.deltaTime;
+                //一定時間経過で移動を終了
+                if (DirectionTime > GetDirectionTime())
+                    RewardRelease.FinishClotingMove();
+                else
+                    DirectionTime += Time.deltaTime;
+            }
         }
 
         //実績を達成した服の購入が終わったら変更状態に戻す
