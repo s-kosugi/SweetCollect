@@ -80,6 +80,8 @@ public class PlayFabInventory : MonoBehaviour
     public void RequestUpdate()
     {
         m_isGet = false;
+        m_Request.FinishTimer();
+        Update();
     }
 
     /// <summary>

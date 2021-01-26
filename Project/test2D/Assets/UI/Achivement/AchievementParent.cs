@@ -1,7 +1,4 @@
-﻿using PlayFab.ClientModels;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +9,14 @@ public class AchievementParent : MonoBehaviour
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] Button achivementButton = default;
     [SerializeField] TextMeshProUGUI descript = default;
-    [SerializeField] RewordImage rewordImage = default;
-    [SerializeField] Button equipButton = default;
     [SerializeField] SwipeMove swipeMove = default;
-    [SerializeField] float buttonInterval = 100f;
+    [SerializeField] float buttonVerticalInterval = 100f;
+    [SerializeField] float buttonHorizonInterval = 400.0f;
+    [SerializeField] int buttonHorizonNum = 2;
+    [SerializeField] ReachAchievement reach = default;
 
     public string descriptAchievementID = default;      // Descriptに表示中のID
+    public string descriptAchievementName { get; private set; } = default;    // Descriptに表示中の実績名
     public string selectAchievementID { get; private set; } = default;      // 装備中の称号ID
 
     public bool isCreate { get; private set; } = false;
@@ -25,7 +24,8 @@ public class AchievementParent : MonoBehaviour
 
     void Update()
     {
-        if (!isCreate && !waitConnect.IsWait() && store.m_isStoreGet && store.m_isCatalogGet)
+        if (!isCreate && !waitConnect.IsWait() && store.m_isStoreGet && store.m_isCatalogGet &&
+            playerData.m_isGet && reach.isSet)
         {
             // アチーブメントボタン生成処理
             CreateAchivementButton();
@@ -33,6 +33,10 @@ public class AchievementParent : MonoBehaviour
             isCreate = true;
         }
     }
+
+    /// <summary>
+    /// 実績ボタンの作成
+    /// </summary>
     private void CreateAchivementButton()
     {
         for (int i = 0; i < store.StoreItems.Count; i++)
@@ -40,14 +44,13 @@ public class AchievementParent : MonoBehaviour
             // カタログと一致するアイテムの取得
             var catalogItem = store.CatalogItems.Find(x => x.ItemId == store.StoreItems[i].ItemId);
 
-            // LitJsonを使ってJsonを連想配列化する
-            var jsonDic = LitJson.JsonMapper.ToObject<Dictionary<string, string>>(catalogItem.CustomData);
+            var info = reach.GetInfo(store.StoreItems[i].ItemId);
 
             //--------------------------------------------------------------------------------
             // ボタンオブジェクトの生成と初期化
             Button button = Instantiate(achivementButton, this.transform);
             AchievementButton achievementButtonScript = button.GetComponent<AchievementButton>();
-            button.transform.localPosition = new Vector3(button.transform.localPosition.x, button.transform.localPosition.y - i * buttonInterval, button.transform.localPosition.z);
+            button.transform.localPosition = new Vector3(button.transform.localPosition.x + i % buttonHorizonNum * buttonHorizonInterval, button.transform.localPosition.y - (int)(i / buttonHorizonNum) * buttonVerticalInterval, button.transform.localPosition.z);
             button.name = store.StoreItems[i].ItemId;
 
             //--------------------------------------------------------------------------------
@@ -58,36 +61,14 @@ public class AchievementParent : MonoBehaviour
             //--------------------------------------------------------------------------------
             // 進捗度をセット
             textMesh = button.transform.Find("ProgressText").GetComponent<TextMeshProUGUI>();
-            UserDataRecord playerRecord;
-            string progressString = "0";
-            // 実績内のカスタムデータからキーを取得してプレイヤーデータにアクセスする
-            if (playerData.m_Data.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out playerRecord))
-            {
+            textMesh.text = info.progressValue + "/" + info.progressMax;
 
-                double num;
-                // 進捗度が数値ではなかった場合は実績内の該当キーと一致しているかで判断をする
-                if (!double.TryParse(playerRecord.Value, out num))
-                {
-                    string achievementValue;
-                    // 実績内のプレイヤーデータを持つキーとプレイヤーデータが一致したら達成済み(1)とする
-                    if (jsonDic.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out achievementValue))
-                    {
-                        if (playerRecord.Value == achievementValue) progressString = "1";
-                    }
-                }
-                else
-                {
-                    // 数値データだったのでそのまま格納する
-                    progressString = playerRecord.Value;
-                }
-            }
-            textMesh.text = progressString + "/" + jsonDic[AchievementDataName.PROGRESS_MAX];
             // 実績達成済みなら達成済みフラグをON
-            if (double.Parse(progressString) >= double.Parse(jsonDic[AchievementDataName.PROGRESS_MAX])) achievementButtonScript.ReachAchievement = true;
+            if (info.reach) achievementButtonScript.ReachAchievement = true;
         }
 
         // ボタン生成数に応じてスワイプの移動の制限値を変える
-        swipeMove.moveLimitRect.height = swipeMove.moveLimitRect.yMin + store.StoreItems.Count * buttonInterval;
+        swipeMove.moveLimitRect.height = swipeMove.moveLimitRect.yMin + store.StoreItems.Count / buttonHorizonNum * buttonVerticalInterval;
     }
 
     /// <summary>
@@ -100,12 +81,10 @@ public class AchievementParent : MonoBehaviour
         var catalogItem = store.CatalogItems.Find(x => x.ItemId == achievementID);
 
         descript.text = catalogItem.Description;
-        rewordImage.ApplyImage(achievementID);
 
         descriptAchievementID = achievementID;
 
-        // 実績達成済みならボタンを有効化する
-        equipButton.interactable = reachAchievement;
+        descriptAchievementName = catalogItem.DisplayName;
 
         // 現在表示中の実績が解放済みかどうか
         isNowAchievementReach = reachAchievement;
@@ -117,22 +96,26 @@ public class AchievementParent : MonoBehaviour
     /// </summary>
     public void SelectedAchievement()
     {
-        // 選択されているIDを変更
-        selectAchievementID = descriptAchievementID;
-
-        foreach (Transform item in this.transform)
+        // 開放済みの物だけ選択できる
+        if (isNowAchievementReach)
         {
-            // 孫を参照して選択アイコンの表示を変更する
-            foreach (Transform grandChild in item)
-            {
-                if(grandChild.name == "SelectedIcon")
-                {
-                    if (item.name == descriptAchievementID)
-                        grandChild.gameObject.SetActive(true);
-                    else
-                        grandChild.gameObject.SetActive(false);
+            // 選択されているIDを変更
+            selectAchievementID = descriptAchievementID;
 
-                    break;
+            foreach (Transform item in this.transform)
+            {
+                // 孫を参照して選択アイコンの表示を変更する
+                foreach (Transform grandChild in item)
+                {
+                    if (grandChild.name == "SelectedIcon")
+                    {
+                        if (item.name == descriptAchievementID)
+                            grandChild.gameObject.SetActive(true);
+                        else
+                            grandChild.gameObject.SetActive(false);
+
+                        break;
+                    }
                 }
             }
         }
@@ -145,7 +128,19 @@ public class AchievementParent : MonoBehaviour
         // 選択されているIDを変更
         descriptAchievementID = achievementID;
 
+        // Descriptの内容を更新する
+        UpdateDescript(achievementID,true);
+
         SelectedAchievement();
 
+    }
+
+    /// <summary>
+    /// プレイヤーデータの取得
+    /// </summary>
+    /// <returns>プレイヤーデータ</returns>
+    public PlayFabPlayerData GetPlayerData()
+    {
+        return playerData;
     }
 }

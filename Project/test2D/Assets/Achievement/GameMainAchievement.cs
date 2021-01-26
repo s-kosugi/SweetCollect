@@ -1,12 +1,11 @@
 ﻿using PlayFab.ClientModels;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMainAchievement : MonoBehaviour
 {
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] PlayerController player = default;
+    [SerializeField] NoticeAchievement notice = default;
 
     /// <summary>
     /// 実績カウント送信
@@ -17,6 +16,7 @@ public class GameMainAchievement : MonoBehaviour
         {
             // ジャンプ回数
             AddAchievementCount(PlayerDataName.COUNT_JUMP, player.jumpCount);
+            // お菓子ゲット数
             AddAchievementCount(PlayerDataName.COUNT_GETSWEET, player.sweetGetCount);
         }
     }
@@ -37,5 +37,8 @@ public class GameMainAchievement : MonoBehaviour
 
         // 足した結果をPlayFabへ送信する
         playerData.SetPlayerData(achievementName, result.ToString());
+
+        // 実績通知を要求する
+        notice.RequestNotice();
     }
 }

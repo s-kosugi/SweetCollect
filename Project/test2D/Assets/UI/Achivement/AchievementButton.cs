@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using PlayFab.ClientModels;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AchievementButton : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class AchievementButton : MonoBehaviour
     [SerializeField] Color defaultColor = default;
     [SerializeField] DisableWaitConnectButton disableWait = default;
     [SerializeField] DisableSceneFadeButton disableSceneFade = default;
+    [SerializeField] Image noticeIcon = default;
 
     /// <summary>
     /// 実績達成済みかどうか
@@ -27,6 +30,9 @@ public class AchievementButton : MonoBehaviour
 
     private void Update()
     {
+        // 通知アイコンの有効化
+        EnableNoticeIcon();
+
         // 解放状態によってテキストの色を変更する
         if (ReachAchievement)
         {
@@ -35,6 +41,7 @@ public class AchievementButton : MonoBehaviour
         }
         else
         {
+            title.text = "？？？？？";
             title.color = defaultColor;
             progress.color = defaultColor;
         }
@@ -46,6 +53,42 @@ public class AchievementButton : MonoBehaviour
     public void SendPushData()
     {
         // ボタンを押されたのでどのIDが押されたかを親へ教える
-        parent.UpdateDescript(this.name,ReachAchievement);
+        parent.UpdateDescript(this.name, ReachAchievement);
+
+        // ボタンが押されたので通知を削除する
+        UserDataRecord record;
+        PlayFabPlayerData playerData = parent.GetPlayerData();
+        if (playerData.m_isGet && playerData.m_Data.TryGetValue("NOTICE_" + gameObject.name, out record))
+        {
+            if (record.Value == "TRUE")
+            {
+                playerData.SetPlayerData("NOTICE_" + gameObject.name,"FALSE");
+                noticeIcon.enabled = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 通知アイコンの有効化
+    /// </summary>
+    void EnableNoticeIcon()
+    {
+        UserDataRecord record;
+        PlayFabPlayerData playerData = parent.GetPlayerData();
+        if (playerData.m_isGet && playerData.m_Data.TryGetValue("NOTICE_" + gameObject.name, out record))
+        {
+            if (noticeIcon.enabled != true && record.Value == "TRUE")
+            {
+                noticeIcon.enabled = true;
+            }
+            else if(record.Value == "FALSE")
+            {
+                noticeIcon.enabled = false;
+            }
+        }
+        else
+        {
+            noticeIcon.enabled = false;
+        }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AchievementNoticeManager : MonoBehaviour
 {
-    [SerializeField] GameObject achievementNoticeWindow = default;
     [SerializeField] BaseScene scene = default;
 
     // Start is called before the first frame update
