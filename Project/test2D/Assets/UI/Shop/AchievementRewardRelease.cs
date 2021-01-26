@@ -19,8 +19,8 @@ public class AchievementRewardRelease : MonoBehaviour
     public string AchievementClotingName { get; private set; }      //実績達成のアイテムID
     private string ClotingName = "??";                              //実績達成の服の名前
 
-    public bool ClotingMoveEventFlag { get; private set; }                       //服の移動終了
-    public bool BuyEventFlag { get; private set; }                               //購入終了
+    public bool ClotingMoveEndFlag { get; private set; }                         //服の移動終了
+    public bool BuyEndFlag { get; private set; }                                 //購入終了
     public bool PreviewFlag  { get; private set; }                               //表示終了
 
     private float PreviewTimer = 0.0f;                                           //テロップ表示までの時間
@@ -47,8 +47,8 @@ public class AchievementRewardRelease : MonoBehaviour
         AchievementFlag = false;
         AchievementClotingName = "009_GOTHIC";
 
-        ClotingMoveEventFlag = false;
-        BuyEventFlag = false;
+        ClotingMoveEndFlag = false;
+        BuyEndFlag = false;
         PreviewFlag = false;
         PreviewTimer = 0.0f;
 
@@ -89,17 +89,17 @@ public class AchievementRewardRelease : MonoBehaviour
     //服の移動
     private void Clothing_Move()
     {
-        if(ClotingMoveEventFlag)
+        if(ClotingMoveEndFlag)
             EventState = ACHIEVEMENTREWARDRELEASE.CLOTHING_BUY;
     }
     //服の購入
     private void Clothig_Buy()
     {
-        if(ClotingMoveEventFlag)
+        if(BuyEndFlag)
         {
             EventState = ACHIEVEMENTREWARDRELEASE.UPDATA;
-            ClotingMoveEventFlag = false;
-            BuyEventFlag = false;
+            ClotingMoveEndFlag = false;
+            BuyEndFlag = false;
             inventory.RequestUpdate();
         }
 
@@ -140,14 +140,14 @@ public class AchievementRewardRelease : MonoBehaviour
     }
 
     //実績達成の服までの移動
-    public void FinishClotingMoveEvent()
+    public void FinishClotingMove()
     {
-        ClotingMoveEventFlag = true;
+        ClotingMoveEndFlag = true;
     }
     //服の購入終了
     public void FinishBuyEvent()
     {
-        BuyEventFlag = true;
+        BuyEndFlag = true;
     }
     //実績解除確認開始
     public void IsCheck()

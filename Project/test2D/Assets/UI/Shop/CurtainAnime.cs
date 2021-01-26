@@ -10,7 +10,7 @@ public class CurtainAnime : MonoBehaviour
 
     private float AnimeCounter = 0f;
 
-    enum STATE
+    public enum STATE
     {
         CLOSE,
         OPEN,
@@ -18,7 +18,7 @@ public class CurtainAnime : MonoBehaviour
         CLOSE_WAIT
     }
 
-    STATE state;
+    public STATE state { get; private set; }
     STATE nextState;
     
     void Start()

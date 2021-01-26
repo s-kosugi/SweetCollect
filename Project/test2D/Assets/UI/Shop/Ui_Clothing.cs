@@ -12,7 +12,7 @@ public class Ui_Clothing : MonoBehaviour
     private int PreviewOrder = 0;   //リストの何番目か
     private int OrderFromTheCenter;  //中心から見て何番目か
 
-    private bool    IsMoveStart = false;                   //移動開始
+    private bool    IsMoveStart = false;           //移動開始
     private Vector3 MoveStartPosition;             //移動開始場所
     private Vector3 EndPosition;                 //最終的な最終位置
     private float DirectionTimer;                //演出時間
@@ -40,7 +40,7 @@ public class Ui_Clothing : MonoBehaviour
             //時間内は移動
             if(DirectionTimer < clothing.GetDirectionTime())
             {
-                    this.transform.localPosition = new Vector3(Easing.Linear(DirectionTimer, clothing.GetDirectionTime(), EndPosition.x , MoveStartPosition.x)
+                    this.transform.localPosition = new Vector3(Easing.OutSine(DirectionTimer, clothing.GetDirectionTime(), EndPosition.x , MoveStartPosition.x)
                         , 0.0f, 0.0f);
             }
             else
@@ -65,6 +65,7 @@ public class Ui_Clothing : MonoBehaviour
         PreviewOrder = order;
     }
     //選択されたPreviewから何番目か
+    //selectnum : 選択されている番号
     public void WhatFromPreview(int selectnum)
     {
         //自分の番号から選択されている番号への差を求める

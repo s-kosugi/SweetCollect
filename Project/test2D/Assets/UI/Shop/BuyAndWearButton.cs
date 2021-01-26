@@ -13,7 +13,7 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private PlayFabPlayerData playerData = null;  //プレイヤーデータ
     [SerializeField] private PlayFabStore PlayFabStoreAchivement = null; //達成ストア
     [SerializeField] private ReachAchievement reachachievement = null;         //実績達成管理
-    [SerializeField]private AchievementRewardRelease AchievementEvents = null; //達成イベント
+    [SerializeField]private AchievementRewardRelease RewardRelease = null; //達成服解放
 
     private ShopCanvasController ShopCanvas = null;
     [SerializeField] private Money_Text playermoney = null;
@@ -112,7 +112,7 @@ public class BuyAndWearButton : MonoBehaviour
         }
 
         //服開放実行
-        if (AchievementEvents.AchievementFlag)
+        if (RewardRelease.AchievementFlag && RewardRelease.GetState() == global::AchievementRewardRelease.ACHIEVEMENTREWARDRELEASE.CHECK_CLOTHING_RELEASE)
         {
             State = STATE.ACHIEVEMENTREWARDRELEASE;
         }
@@ -237,30 +237,36 @@ public class BuyAndWearButton : MonoBehaviour
     //実績達成
     private void AchievementRewardRelease()
     {
-        if(!AchievementEvents.BuyEventFlag)
+        if (RewardRelease.GetState() == global::AchievementRewardRelease.ACHIEVEMENTREWARDRELEASE.CLOTHING_BUY)
         {
-            if(!IsAchievementsClothingRelease)
+            if (!connect.IsWait())
             {
-                if (!connect.IsWait())
+                if (!RewardRelease.BuyEndFlag)
                 {
-                    //インベントリ内にアイテムがなければ購入
-                    if (!inventory.IsHaveItem(ShopCanvas.GetItemInfo().storeItem.ItemId))
+                    if (!IsAchievementsClothingRelease)
                     {
-                        store.BuyItem(ShopCanvas.GetItemInfo().storeItem.ItemId, PriceName);
-                        Debug.Log(ShopCanvas.GetItemInfo().storeItem.ItemId + "を購入しました");
+
+                        //インベントリ内にアイテムがなければ購入
+                        if (!inventory.IsHaveItem(ShopCanvas.GetItemInfo().storeItem.ItemId))
+                        {
+                            store.BuyItem(ShopCanvas.GetItemInfo().storeItem.ItemId, PriceName);
+                            Debug.Log(ShopCanvas.GetItemInfo().storeItem.ItemId + "を購入しました");
+                        }
+                        playermoney.RequestMoney();
+                        IsAchievementsClothingRelease = true;
+                        clothing.BuyButtonPush();
                     }
-                    playermoney.RequestMoney();
-                    IsAchievementsClothingRelease = true;
-                    clothing.BuyButtonPush();
+                    else
+                    {
+                        if (!connect.IsWait())
+                            RewardRelease.FinishBuyEvent();
+                    }
                 }
-            }
-            else
-            {
-                AchievementEvents.FinishBuyEvent();
+
             }
         }
 
-        if(!AchievementEvents.AchievementFlag)
+        if (!RewardRelease.AchievementFlag)
         {
             State = STATE.RECEPTION;
             IsAchievementsClothingRelease = false;
