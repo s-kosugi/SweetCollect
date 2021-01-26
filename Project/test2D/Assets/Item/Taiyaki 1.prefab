@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2096663550315118265
+--- !u!1 &4312788967597664849
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,105 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2096663550315118258}
-  - component: {fileID: 2096663550315118257}
-  - component: {fileID: 2096663550315118256}
-  - component: {fileID: 2096663550315118263}
-  - component: {fileID: 2096663550315118262}
-  - component: {fileID: 2096663550315118261}
-  - component: {fileID: 2096663550315118267}
-  - component: {fileID: 2096663550315118266}
-  m_Layer: 12
-  m_Name: Taiyaki
-  m_TagString: Untagged
+  - component: {fileID: 5048096312252682372}
+  - component: {fileID: 5804287520719076231}
+  - component: {fileID: 1990363320236067797}
+  m_Layer: 9
+  m_Name: TaiyakiHitCol
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2096663550315118258
+--- !u!4 &5048096312252682372
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 4312788967597664849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7734197474306703782}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5804287520719076231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4312788967597664849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048bf1a82fdc48940978a8ecbaf438f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score: 30
+--- !u!58 &1990363320236067797
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4312788967597664849}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 16
+--- !u!1 &7734197474306703789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7734197474306703782}
+  - component: {fileID: 7734197474306703781}
+  - component: {fileID: 7734197474306703780}
+  - component: {fileID: 7734197474306703779}
+  - component: {fileID: 7734197474306703778}
+  - component: {fileID: 7734197474306703777}
+  - component: {fileID: 7734197474306703791}
+  - component: {fileID: 7734197474306703790}
+  m_Layer: 12
+  m_Name: Taiyaki 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7734197474306703782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7734197474306703789}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -55.51538, y: 8.913971, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1982573827479696260}
-  - {fileID: 3477846651921182608}
+  - {fileID: 7912331584834178192}
+  - {fileID: 5048096312252682372}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2096663550315118257
+--- !u!212 &7734197474306703781
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 7734197474306703789}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -89,13 +150,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2096663550315118256
+--- !u!58 &7734197474306703780
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 7734197474306703789}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -105,14 +166,14 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 14
---- !u!50 &2096663550315118263
+--- !u!50 &7734197474306703779
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 7734197474306703789}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -126,126 +187,65 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2096663550315118262
+--- !u!114 &7734197474306703778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 7734197474306703789}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea3f12b54965b1142abda6bd0bfe7802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2096663550315118261
+--- !u!114 &7734197474306703777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 7734197474306703789}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96ebf10c5aef27848a6aadd1538f3c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetTagName: Player
---- !u!114 &2096663550315118267
+--- !u!114 &7734197474306703791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 7734197474306703789}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2068d0c717123d4c94559707a711b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 80
---- !u!114 &2096663550315118266
+--- !u!114 &7734197474306703790
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096663550315118265}
+  m_GameObject: {fileID: 7734197474306703789}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 248f7612248e1934887095facae954bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hiJumpLine: 100
-  jumpPower: 80
+  hiJumpLine: 250
+  jumpPower: 110
   hiJumpPowerRate: 3
---- !u!1 &5591114984679347525
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3477846651921182608}
-  - component: {fileID: 2792587445990687891}
-  - component: {fileID: 7913540495139124417}
-  m_Layer: 9
-  m_Name: TaiyakiHitCol
-  m_TagString: Item
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3477846651921182608
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5591114984679347525}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2096663550315118258}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2792587445990687891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5591114984679347525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 048bf1a82fdc48940978a8ecbaf438f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Score: 30
---- !u!58 &7913540495139124417
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5591114984679347525}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 16
---- !u!1001 &9110536187388603845
+--- !u!1001 &586202044926218961
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2096663550315118258}
+    m_TransformParent: {fileID: 7734197474306703782}
     m_Modifications:
     - target: {fileID: 7344425415954030144, guid: 161af77941cfe1b4d95080d8cf6c4f40,
         type: 3}
@@ -309,9 +309,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 161af77941cfe1b4d95080d8cf6c4f40, type: 3}
---- !u!4 &1982573827479696260 stripped
+--- !u!4 &7912331584834178192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7344425415954030145, guid: 161af77941cfe1b4d95080d8cf6c4f40,
     type: 3}
-  m_PrefabInstance: {fileID: 9110536187388603845}
+  m_PrefabInstance: {fileID: 586202044926218961}
   m_PrefabAsset: {fileID: 0}
