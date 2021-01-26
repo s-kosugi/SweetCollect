@@ -7,6 +7,7 @@ public class ShopAchievement : MonoBehaviour
 {
     [SerializeField] PlayFabInventory inventory = default;
     [SerializeField] PlayFabPlayerData playerData = default;
+    [SerializeField] NoticeAchievement noticeAchievement = default;
     public bool isHaveClothesCount { get; set; } = false;       // 服の所持数をカウント済みかどうか
 
     void Update()
@@ -36,6 +37,9 @@ public class ShopAchievement : MonoBehaviour
 
             // 服の所持数を送信する
             playerData.SetPlayerData(PlayerDataName.COUNT_HAVECLOTHES, count.ToString());
+
+            // 実績通知をリクエストする
+            noticeAchievement.RequestNotice();
         }
     }
 }
