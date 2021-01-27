@@ -7784,7 +7784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 860361242}
-  ReleaseKey: RELEAS_VERYHARD
+  ReleaseKey: RELEASE_VERYHARD
 --- !u!114 &1685800910
 MonoBehaviour:
   m_ObjectHideFlags: 0
