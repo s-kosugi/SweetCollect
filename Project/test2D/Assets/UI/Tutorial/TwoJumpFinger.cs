@@ -27,7 +27,7 @@ public class TwoJumpFinger : MonoBehaviour
 
     void Update()
     {
-        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_02)
+        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_DOUBLEJUMP)
         {
             switch (state)
             {

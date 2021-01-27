@@ -39,7 +39,10 @@ public class TutrialPlayer : MonoBehaviour
         // マウスがクリックされたらプレイヤーをジャンプ状態にする。
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_TutrialManager.state == TutrialSceneManager.STATE.MAIN && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_04)
+            if (m_TutrialManager.state == TutrialSceneManager.STATE.MAIN 
+                && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_CHEF 
+                && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_DESCRIPTION
+                && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_FINISHDESCRIPTION)
             {
                 if (JumpFlag == false)
                 {

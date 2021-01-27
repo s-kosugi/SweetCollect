@@ -31,7 +31,7 @@ public class TutrialArrangeManager : MonoBehaviour
     void Update()
     {
 
-        if (m_TutrialManager.state == TutrialSceneManager.STATE.MAIN)
+        if (m_TutrialManager.state == TutrialSceneManager.STATE.MAIN && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_DESCRIPTION)
         {
             m_Timer += Time.deltaTime;
             if (OneDisplayTime <= m_Timer)
@@ -39,19 +39,19 @@ public class TutrialArrangeManager : MonoBehaviour
                 m_Timer = 0;
                 GameObject obj = null;
                 // ランダムでテーブルからどのパターンから出るかを決める
-                if (m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_01)
+                if (m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_JUMP)
                 {
                     obj = Instantiate(Tutrial_01, this.transform);
                 }
-                else if (m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_02)
+                else if (m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_DOUBLEJUMP)
                 {
                     obj = Instantiate(Tutrial_02, this.transform);
                 }
-                else if (m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_03)
+                else if (m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_SYOKUDAI)
                 {
                     obj = Instantiate(Tutrial_03, this.transform);
                 }
-                else
+                else if (m_TutrialManager.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_CHEF)
                 {
                     obj = Instantiate(Tutrial_04, this.transform);
                 }
