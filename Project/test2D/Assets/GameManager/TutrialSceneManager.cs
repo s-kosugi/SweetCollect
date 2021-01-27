@@ -5,6 +5,7 @@ public class TutrialSceneManager : BaseScene
 {
     [SerializeField] PlayFabWaitConnect WaitConnect = default;
     [SerializeField] PlayFabPlayerData PlayerData = default;
+
     public enum STATE
     {
         PREPARE,
@@ -22,20 +23,30 @@ public class TutrialSceneManager : BaseScene
         { return this.m_State; }
     }
 
+
+    [SerializeField] Tutrial_EquipFrame Discription_Start = null; //開始時説明
+    [SerializeField] Tutrial_EquipFrame Discription_Play = null; //説明
+    [SerializeField] Tutrial_EquipFrame Discription_End = null; //終了後説明
+    [SerializeField] Tutorial_Playing_Text Palying_Test = null;     //プレイ中テキスト
+
     public enum TUTRIAL
     {
-        TUTRIAL_01,
-        TUTRIAL_02,
-        TUTRIAL_03,
-        TUTRIAL_04,
-        TUTRIAL_END
+        NONE = -1,
+        TUTRIAL_DESCRIPTION = 0, //説明
+        TUTRIAL_JUMP,            //ジャンプ
+        TUTRIAL_DOUBLEJUMP,      //空中ジャンプ
+        TUTRIAL_SYOKUDAI,        //燭台
+        TUTRIAL_CHEF,            //シェフ
+        TUTRIAL_FINISHDESCRIPTION,//終了
+        TUTRIAL_END,//終了
     }
-    [SerializeField] private TUTRIAL m_Tutrial = TUTRIAL.TUTRIAL_01;
-    [SerializeField] private TUTRIAL m_NextTutrial = TUTRIAL.TUTRIAL_01;
+    [SerializeField] private TUTRIAL m_Tutrial = TUTRIAL.NONE;
+    [SerializeField] private TUTRIAL m_NextTutrial = TUTRIAL.TUTRIAL_DESCRIPTION;
 
 
-    float TutrialEndTimer = 0.0f;                          //チュートリアル終了時間 
-    const float TUTRIAL_END_TIME = 2.0f;                   //チュートリアル終了時間 
+    float TutrialFinishMarginTimer = 0.0f;                                      //チュートリアル終了後の余白時間 
+    [SerializeField] private float TUTRIAL_FINISH_MARGIN_TIME = 2.0f;                   //チュートリアル終了後の余白時間 
+    private bool FinishMargin = false;
 
     public TUTRIAL tutrial
     {
@@ -54,9 +65,10 @@ public class TutrialSceneManager : BaseScene
         fadeState = FADE_STATE.BLACK;
 
         //チュートリアル
-        m_Tutrial = TUTRIAL.TUTRIAL_01;
+        m_Tutrial = TUTRIAL.TUTRIAL_DESCRIPTION;
 
-        TutrialEndTimer = 0.0f;
+        TutrialFinishMarginTimer = 0.0f;
+        FinishMargin = false;
     }
 
     override protected void Update()
@@ -78,7 +90,7 @@ public class TutrialSceneManager : BaseScene
         {
             // フェードインにする
             fadeState = FADE_STATE.FADEIN;
-            m_State = STATE.MAIN;
+            m_State = STATE.FADEIN;
         }
     }
     // フェードイン中
@@ -87,6 +99,7 @@ public class TutrialSceneManager : BaseScene
         if (IsFadeEnd())
         {
             m_State = STATE.MAIN;
+            Discription_Start.StartAppear();
         }
     }
     // メイン状態
@@ -94,11 +107,13 @@ public class TutrialSceneManager : BaseScene
     {
         switch (m_Tutrial)
         {
-            case TUTRIAL.TUTRIAL_01: Tutrial_01(); break;
-            case TUTRIAL.TUTRIAL_02: Tutrial_02(); break;
-            case TUTRIAL.TUTRIAL_03: Tutrial_03(); break;
-            case TUTRIAL.TUTRIAL_04: Tutrial_04(); break;
-            case TUTRIAL.TUTRIAL_END: Tutrial_End(); break;
+            case TUTRIAL.TUTRIAL_DESCRIPTION: Tutrial_Description(); break;
+            case TUTRIAL.TUTRIAL_JUMP: Tutrial_Jump(); break;
+            case TUTRIAL.TUTRIAL_DOUBLEJUMP: Tutrial_DoubleJump(); break;
+            case TUTRIAL.TUTRIAL_SYOKUDAI: Tutrial_Syokudai(); break;
+            case TUTRIAL.TUTRIAL_CHEF: Tutrial_Chef(); break;
+            case TUTRIAL.TUTRIAL_FINISHDESCRIPTION: Tutrial_FinishDescription(); break;
+            case TUTRIAL.TUTRIAL_END: End(); break;
         }
     }
     // フェードアウト中
@@ -108,56 +123,83 @@ public class TutrialSceneManager : BaseScene
     }
 
     // チュートリアル
-    private void Tutrial_01()
+    private void Tutrial_Description()
     {
-        if (m_NextTutrial == TUTRIAL.TUTRIAL_02)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_JUMP)
         {
             m_Tutrial = m_NextTutrial;
+            Discription_Play.StartAppear();
         }
         else
-            m_NextTutrial = TUTRIAL.TUTRIAL_01;
+            m_NextTutrial = TUTRIAL.TUTRIAL_DESCRIPTION;
     } 
     // チュートリアル
-    private void Tutrial_02()
+    private void Tutrial_Jump()
     {
-        if (m_NextTutrial == TUTRIAL.TUTRIAL_03)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_DOUBLEJUMP)
         {
             m_Tutrial = m_NextTutrial;
+            Palying_Test.StartFade();
         }
         else
-            m_NextTutrial = TUTRIAL.TUTRIAL_02;
+            m_NextTutrial = TUTRIAL.TUTRIAL_JUMP;
+    } 
+    // チュートリアル
+    private void Tutrial_DoubleJump()
+    {
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_SYOKUDAI)
+        {
+            m_Tutrial = m_NextTutrial;
+            Palying_Test.StartFade();
+        }
+        else
+            m_NextTutrial = TUTRIAL.TUTRIAL_DOUBLEJUMP;
     }  
     // チュートリアル
-    private void Tutrial_03()
+    private void Tutrial_Syokudai()
     {
-        if (m_NextTutrial == TUTRIAL.TUTRIAL_04)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_CHEF)
         {
             m_Tutrial = m_NextTutrial;
+            Palying_Test.StartFade();
         }
         else
-            m_NextTutrial = TUTRIAL.TUTRIAL_03;
+            m_NextTutrial = TUTRIAL.TUTRIAL_SYOKUDAI;
 
     }
     // チュートリアル
-    private void Tutrial_04()
+    private void Tutrial_Chef()
     {
-        if (m_NextTutrial == TUTRIAL.TUTRIAL_END)
+        if (m_NextTutrial == TUTRIAL.TUTRIAL_FINISHDESCRIPTION)
         {
             m_Tutrial = m_NextTutrial;
+            Discription_Play.StartVanish();
         }
         else
-            m_NextTutrial = TUTRIAL.TUTRIAL_04;
+            m_NextTutrial = TUTRIAL.TUTRIAL_CHEF;
     }
 
-    private void Tutrial_End()
+    private void Tutrial_FinishDescription()
     {
-        TutrialEndTimer += Time.deltaTime;
-        if (TutrialEndTimer > TUTRIAL_END_TIME)
+        if(!FinishMargin)
         {
-            m_State = STATE.FADEOUT;
-            fadeState = FADE_STATE.FADEOUT;
-            PlayerData.SetPlayerData(PlayerDataName.TUTORIAL,"End");
+            TutrialFinishMarginTimer += Time.deltaTime;
+            if (TutrialFinishMarginTimer > TUTRIAL_FINISH_MARGIN_TIME)
+            {
+                FinishMargin = true;
+                Discription_End.StartAppear();
+            }
         }
+
+        if(m_NextTutrial == TUTRIAL.TUTRIAL_END)
+            m_Tutrial = m_NextTutrial;
+    }
+     
+    private void End()
+    {
+        m_State = STATE.FADEOUT;
+        fadeState = FADE_STATE.FADEOUT;
+        PlayerData.SetPlayerData(PlayerDataName.TUTORIAL, "End");
     }
 
     //チュートリアル

@@ -15,9 +15,9 @@ public class HideFinger : MonoBehaviour
     void Update()
     {
 
-        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_03 ||
-            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_04 ||
-            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_END
+        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_SYOKUDAI ||
+            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_CHEF ||
+            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_FINISHDESCRIPTION
             )
         {
             // 透明にする

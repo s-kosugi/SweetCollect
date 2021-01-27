@@ -15,9 +15,9 @@ public class HideBatu : MonoBehaviour
     void Update()
     {
 
-        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_01 ||
-            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_02 ||
-            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_END
+        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_JUMP ||
+            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_DOUBLEJUMP ||
+            tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_FINISHDESCRIPTION
             )
         {
             // 透明にする

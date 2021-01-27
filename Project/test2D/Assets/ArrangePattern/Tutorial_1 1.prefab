@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &4429682115041571328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026093929472411619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c229fb36ee3754698fe261cb589abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TutrialManager: {fileID: 0}
+  TargetTagName: Player
+  m_StateID: 2
+--- !u!114 &7477394252612166075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026093931048949046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c229fb36ee3754698fe261cb589abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TutrialManager: {fileID: 0}
+  TargetTagName: Player
+  m_StateID: 2
 --- !u!1 &6236313876983220394
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,10 +141,16 @@ PrefabInstance:
     - target: {fileID: 7013328888936064547, guid: a6da289958a44044b8f318013bb11487,
         type: 3}
       propertyPath: m_Name
-      value: Tutrial_Candy (1)
+      value: Tutrial_Candy_Target
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6da289958a44044b8f318013bb11487, type: 3}
+--- !u!1 &4026093931048949046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7013328888936064547, guid: a6da289958a44044b8f318013bb11487,
+    type: 3}
+  m_PrefabInstance: {fileID: 6236313878008148757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7704036727034404374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4351017082497887491, guid: a6da289958a44044b8f318013bb11487,
@@ -136,7 +172,7 @@ PrefabInstance:
     - target: {fileID: 6542625862763969263, guid: e7e6d8da019d063419f16426e757ea68,
         type: 3}
       propertyPath: m_StateID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9212674807965158973, guid: e7e6d8da019d063419f16426e757ea68,
         type: 3}
@@ -266,10 +302,16 @@ PrefabInstance:
     - target: {fileID: 7013328888936064547, guid: a6da289958a44044b8f318013bb11487,
         type: 3}
       propertyPath: m_Name
-      value: Tutrial_Candy
+      value: Tutrial_Candy_Target
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6da289958a44044b8f318013bb11487, type: 3}
+--- !u!1 &4026093929472411619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7013328888936064547, guid: a6da289958a44044b8f318013bb11487,
+    type: 3}
+  m_PrefabInstance: {fileID: 6236313878511985088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7704036725390757059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4351017082497887491, guid: a6da289958a44044b8f318013bb11487,

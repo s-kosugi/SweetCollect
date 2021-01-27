@@ -8,24 +8,32 @@ public class BatumageController : MonoBehaviour
     [SerializeField] float AnimationTime = 2.0f;
     [SerializeField] TutrialSceneManager tutrial = default;
     float animationCounter = 0f;
+    bool DisplayFlag = false;                                   //表示フラグ
 
     void Start()
     {
         BatuImage = GetComponent<Image>();
         BatuImage.color = new Color(255f, 255f, 255f, 0f);
         BatuImage.transform.localScale = new Vector3(StartScale, StartScale);
+        DisplayFlag = false;
     }
 
 
     void Update()
     {
-        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_03 || tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_04)
-        {
+        DisplayUi();
+    }
 
+    //表示
+    private void DisplayUi()
+    {
+        if (DisplayFlag)
+        {
             animationCounter += Time.deltaTime;
             if (animationCounter >= AnimationTime)
             {
                 animationCounter = 0f;
+                DisplayFlag = false;
             }
 
             float scale = Easing.OutQuint(animationCounter, AnimationTime, 1f, StartScale);
@@ -34,4 +42,11 @@ public class BatumageController : MonoBehaviour
             BatuImage.color = new Color(1f, 1f, 1f, alpha);
         }
     }
+
+    //UI表示開始
+    public void StartDisplay()
+    {
+        DisplayFlag = true;
+    }
+
 }

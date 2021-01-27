@@ -16,11 +16,14 @@ public class Tutrial_chefAngry : MonoBehaviour
     private Camera cameraObject = default;
     [SerializeField] TutrialSceneManager m_TutrialManager = null;
     [SerializeField] TutrialSceneManager.TUTRIAL m_StateID = default;         //チュートリアルID
+
+    [SerializeField] BatumageController batumage = null;                      //バツイメージUi
     void Start()
     {
         CanvasObject = GameObject.Find("Canvas");
         cameraObject = GameObject.Find("Main Camera").GetComponent<Camera>();
         m_TutrialManager = GameObject.Find("TutrialSceneManager").GetComponent<TutrialSceneManager>();
+        batumage = GameObject.Find("Canvas").GetComponentInChildren<BatumageController>();
     }
 
     void Update()
@@ -61,6 +64,7 @@ public class Tutrial_chefAngry : MonoBehaviour
 
                 //チュートリアルの変更
                 m_TutrialManager.TutrialChange(m_StateID);
+                batumage.StartDisplay();
             }
         }
     }

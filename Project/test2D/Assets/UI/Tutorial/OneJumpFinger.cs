@@ -19,7 +19,7 @@ public class OneJumpFinger : MonoBehaviour
 
     void Update()
     {
-        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_01)
+        if (tutrial.tutrial == TutrialSceneManager.TUTRIAL.TUTRIAL_JUMP)
         {
 
             animationCounter += Time.deltaTime;
