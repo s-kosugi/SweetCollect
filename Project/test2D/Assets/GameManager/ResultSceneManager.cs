@@ -98,7 +98,7 @@ public class ResultSceneManager : BaseScene
         {
             state = STATE.APPEAR;
             m_AppearTimer = 0.0f;
-            scoreNumber.state = ResultScoreText.STATE.APPEAR;
+            scoreNumber.SetStateAppear();
             scoreNumber.animationTime = AppearEndTime;
 
             // プレイヤーの走るアニメーションの開始
@@ -150,7 +150,7 @@ public class ResultSceneManager : BaseScene
             state = STATE.MAIN;
 
             // スコア出現演出を終了する
-            scoreNumber.state = ResultScoreText.STATE.WAIT;
+            scoreNumber.SetStateWait();
 
             // アンロックメッセージを表示するかどうか
             if (releaseDifficult.isShowUnlockMessage())

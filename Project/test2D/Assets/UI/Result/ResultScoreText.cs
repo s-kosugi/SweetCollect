@@ -10,7 +10,7 @@ public class ResultScoreText : MonoBehaviour
     public float animationTime = 3.0f;
     private float animationCount = 0f;
 
-    public STATE state = STATE.WAIT;
+    private STATE state = STATE.WAIT;
     
     public enum STATE
     {
@@ -41,10 +41,7 @@ public class ResultScoreText : MonoBehaviour
         animationCount += Time.deltaTime;
         if (animationCount >= animationTime)
         {
-            state = STATE.WAIT;
-            animationCount = 0f;
-            text.text = string.Format("{0:0000}", 0);
-            isSet = false;
+            SetStateWait();
         }
         else
         {
@@ -65,6 +62,28 @@ public class ResultScoreText : MonoBehaviour
             animationCount = 0f;
             isSet = true;
         }
+    }
+
+    /// <summary>
+    /// スコアの状態を出現状態へ変更する
+    /// </summary>
+    public void SetStateAppear()
+    {
+        state = STATE.APPEAR;
+        animationCount = 0f;
+        text.text = string.Format("{0:0000}", 0);
+        isSet = false;
+    }
+
+    /// <summary>
+    /// スコアの状態を待機状態へ変更する
+    /// </summary>
+    public void SetStateWait()
+    {
+        state = STATE.WAIT;
+        animationCount = 0f;
+        text.text = string.Format("{0:0000}", 0);
+        isSet = false;
     }
 
 }
