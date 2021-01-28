@@ -529,12 +529,12 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2160
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1080
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -4526,7 +4526,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2160, y: 1080}
+  m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1421188463
 MonoBehaviour:
@@ -4541,7 +4541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1421188462}
-  referenceResolution: {x: 2160, y: 1080}
+  referenceResolution: {x: 960, y: 540}
   matchWidthOrHeight: 0
 --- !u!1 &1461134709
 GameObject:
@@ -4898,6 +4898,7 @@ MonoBehaviour:
   playerData: {fileID: 919473542}
   player: {fileID: 1953754666}
   notice: {fileID: 1656351506}
+  scoreManager: {fileID: 1530234767}
 --- !u!4 &1656351504
 Transform:
   m_ObjectHideFlags: 0
@@ -5815,6 +5816,7 @@ MonoBehaviour:
   AdsObject: {fileID: 2059281801}
   arrangeManager: {fileID: 282166920}
   achievement: {fileID: 1656351503}
+  WebGLGameOverTime: 2
   RestartBonusRate: 2
 --- !u!4 &2040733010
 Transform:

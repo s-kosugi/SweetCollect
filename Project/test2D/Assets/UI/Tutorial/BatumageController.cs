@@ -6,7 +6,6 @@ public class BatumageController : MonoBehaviour
     Image BatuImage = default;
     [SerializeField] float StartScale = 3.0f;
     [SerializeField] float AnimationTime = 2.0f;
-    [SerializeField] TutrialSceneManager tutrial = default;
     float animationCounter = 0f;
     bool DisplayFlag = false;                                   //表示フラグ
 
