@@ -34,6 +34,7 @@ public class BreakHitObject : MonoBehaviour
             GameObject obj = Instantiate(MinusCoinUIObject, CanvasObject.transform);
             obj.transform.position = RectTransformUtility.WorldToScreenPoint(cameraObject, this.transform.position);
             obj.GetComponent<TextMeshProUGUI>().text = SubScore.ToString();
+            obj.transform.SetAsFirstSibling(); //一番上(uGUIなら背面)
 
             Destroy(this.gameObject);
         }
