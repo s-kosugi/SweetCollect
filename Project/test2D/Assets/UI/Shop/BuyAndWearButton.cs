@@ -143,7 +143,7 @@ public class BuyAndWearButton : MonoBehaviour
                         //データがあれば、そのデータを表示
                         var achievementItem = PlayFabStoreAchivement.CatalogItems.Find(x => x.ItemId == catalogItem.CustomData);
                         if (achievementItem != null)
-                            achievementtext.GetAchievementName(achievementItem.DisplayName);
+                            achievementtext.GetAchievementName(achievementItem.Description);
                         else
                             achievementtext.GetAchievementName("設定されていません");
                     }
