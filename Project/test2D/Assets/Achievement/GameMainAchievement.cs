@@ -6,6 +6,7 @@ public class GameMainAchievement : MonoBehaviour
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] PlayerController player = default;
     [SerializeField] NoticeAchievement notice = default;
+    [SerializeField] ScoreManager scoreManager = default;
 
     /// <summary>
     /// 実績カウント送信
@@ -18,6 +19,13 @@ public class GameMainAchievement : MonoBehaviour
             AddAchievementCount(PlayerDataName.COUNT_JUMP, player.jumpCount);
             // お菓子ゲット数
             AddAchievementCount(PlayerDataName.COUNT_GETSWEET, player.sweetGetCount);
+            // プレイ回数
+            AddAchievementCount(PlayerDataName.COUNT_PLAYED, 1);
+            // コイン入手総数
+            AddAchievementCount(PlayerDataName.COUNT_GETCOIN, scoreManager.GetCoinScore());
+
+            // 実績通知を要求する
+            notice.RequestNotice();
         }
     }
 
@@ -37,8 +45,5 @@ public class GameMainAchievement : MonoBehaviour
 
         // 足した結果をPlayFabへ送信する
         playerData.SetPlayerData(achievementName, result.ToString());
-
-        // 実績通知を要求する
-        notice.RequestNotice();
     }
 }
