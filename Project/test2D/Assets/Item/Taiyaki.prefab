@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2068d0c717123d4c94559707a711b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 90
+  MoveSpeed: 80
 --- !u!114 &2096663550315118266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248f7612248e1934887095facae954bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hiJumpLine: 120
-  jumpPower: 100
+  hiJumpLine: 100
+  jumpPower: 80
   hiJumpPowerRate: 3
 --- !u!1 &5591114984679347525
 GameObject:

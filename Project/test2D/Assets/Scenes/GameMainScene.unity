@@ -529,12 +529,12 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 960
+      value: 2160
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 540
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -1118,7 +1118,7 @@ MonoBehaviour:
   easyTable: {fileID: 11400000, guid: 690c4a4b5cf5acf4aa9905fdfb08cea2, type: 2}
   normalTable: {fileID: 11400000, guid: 971af6db35c13754693e87c1acc9d38d, type: 2}
   hardTable: {fileID: 11400000, guid: 309ef0adf16acc14ca922ca3ab48168a, type: 2}
-  veryhardTable: {fileID: 11400000, guid: 309ef0adf16acc14ca922ca3ab48168a, type: 2}
+  veryhardTable: {fileID: 11400000, guid: ae33591053e18da44bde3bd49de03023, type: 2}
   patternList: []
   playerData: {fileID: 919473542}
 --- !u!1 &282480093
@@ -4526,7 +4526,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 2160, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1421188463
 MonoBehaviour:
@@ -4541,7 +4541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1421188462}
-  referenceResolution: {x: 960, y: 540}
+  referenceResolution: {x: 2160, y: 1080}
   matchWidthOrHeight: 0
 --- !u!1 &1461134709
 GameObject:
@@ -5815,7 +5815,6 @@ MonoBehaviour:
   AdsObject: {fileID: 2059281801}
   arrangeManager: {fileID: 282166920}
   achievement: {fileID: 1656351503}
-  WebGLGameOverTime: 2
   RestartBonusRate: 2
 --- !u!4 &2040733010
 Transform:
