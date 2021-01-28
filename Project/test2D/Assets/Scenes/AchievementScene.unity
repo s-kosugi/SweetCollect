@@ -196,67 +196,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676210}
   m_CullTransparentMesh: 0
---- !u!1 &27462165
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 27462166}
-  - component: {fileID: 27462168}
-  - component: {fileID: 27462167}
-  m_Layer: 0
-  m_Name: PlayFabClothesStore
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &27462166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27462165}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 85.47849, y: 91.97555, z: 214.95834}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 412848124}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &27462167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27462165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RequestInterval: 1
---- !u!114 &27462168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27462165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce536457c86747c4eb214e68695ebb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CatalogName: clothes
-  StoreName: StandardStore
-  Inventory: {fileID: 160440620}
-  VirtualCurrency: {fileID: 0}
 --- !u!1 &28961314
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +768,6 @@ Transform:
   - {fileID: 544201925}
   - {fileID: 160440618}
   - {fileID: 415249418}
-  - {fileID: 27462166}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -17,6 +17,8 @@ public static class PlayerDataName
     public const string COUNT_JUMP = "COUNT_JUMP";
     public const string COUNT_GETSWEET = "COUNT_GETSWEET";
     public const string COUNT_HAVECLOTHES = "COUNT_HAVECLOTHES";
+    public const string COUNT_PLAYED = "COUNT_PLAYED";
+    public const string COUNT_GETCOIN = "COUNT_GETCOIN";
     public const string HISCORE_EASY = "HISCORE_EASY";
     public const string HISCORE_NORMAL = "HISCORE_NORMAL";
     public const string HISCORE_HARD = "HISCORE_HARD";

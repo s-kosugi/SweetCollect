@@ -3,7 +3,7 @@
 // 範囲外チェック
 public class CheckAreaOut : MonoBehaviour
 {
-    [SerializeField] DIRECTION direction;
+    [SerializeField] DIRECTION direction = DIRECTION.LEFT;
     private bool MainCameraIn = false;
 
     enum DIRECTION
