@@ -13,5 +13,19 @@ MonoBehaviour:
   m_Name: Map_VeryHard
   m_EditorClassIdentifier: 
   ArrangeTableItemList:
-  - PatternPrefab: {fileID: 3946246409205885322, guid: ef0fe7488e5debb4d9f826e06055dc7c,
+  - PatternPrefab: {fileID: 6754392694207653715, guid: 8dde437531d86ca428183f6a17e07aac,
+      type: 3}
+  - PatternPrefab: {fileID: 3721813232452920395, guid: 8386154d613f49f4ab6e9cae12dafac7,
+      type: 3}
+  - PatternPrefab: {fileID: 8963624007754988486, guid: 5a47db401263926438a190ccf4a9ad6f,
+      type: 3}
+  - PatternPrefab: {fileID: 213077659906661152, guid: b0224a9d511763e46ae008fefc9daa5a,
+      type: 3}
+  - PatternPrefab: {fileID: 6406394965890826665, guid: bc865550d7980bd4e903958a359e7e47,
+      type: 3}
+  - PatternPrefab: {fileID: 8769503919819407348, guid: 813a11c313518a24697de878f89253bb,
+      type: 3}
+  - PatternPrefab: {fileID: 9126007346670675094, guid: 2fa5d1546a28a5b4ab4893b9fcd25e69,
+      type: 3}
+  - PatternPrefab: {fileID: 1462611374854704224, guid: 493e3a94c5503e3459282b27046f0ec6,
       type: 3}
