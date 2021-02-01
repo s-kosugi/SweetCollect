@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class PlayFabLogin : MonoBehaviour
 {
     [SerializeField] float AutoLoginTime = 1f;
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
     private float AutoLoginCount = 0f;
 
     //アカウントを作成するか
@@ -33,6 +34,7 @@ public class PlayFabLogin : MonoBehaviour
     //=================================================================================
     public void Start()
     {
+        if (waitConnect == default) waitConnect = GetComponent<PlayFabWaitConnect>();
         Login();
     }
 
@@ -48,14 +50,24 @@ public class PlayFabLogin : MonoBehaviour
             return;
         }
 
-        _customID = LoadCustomID();
-        var request = new LoginWithCustomIDRequest { CustomId = _customID, CreateAccount = _shouldCreateAccount };
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+        // 通信待ちでなかったら通信開始
+        if (!waitConnect.GetWait(gameObject.name))
+        {
+            _customID = LoadCustomID();
+            var request = new LoginWithCustomIDRequest { CustomId = _customID, CreateAccount = _shouldCreateAccount };
+            PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+
+            // 通信待ちに設定する
+            waitConnect.AddWait(gameObject.name);
+        }
     }
 
     //ログイン成功
     private void OnLoginSuccess(LoginResult result)
     {
+        // 通信待ちを解除する
+        waitConnect.RemoveWait(gameObject.name);
+
         //アカウントを作成しようとしたのに、IDが既に使われていて、出来なかった場合
         if (_shouldCreateAccount && !result.NewlyCreated)
         {
@@ -89,6 +101,10 @@ public class PlayFabLogin : MonoBehaviour
     //ログイン失敗
     private void OnLoginFailure(PlayFabError error)
     {
+
+        // 通信待ちを解除する
+        waitConnect.RemoveWait(gameObject.name);
+
         Debug.LogError($"PlayFabのログインに失敗\n{error.GenerateErrorReport()}");
 
     }
