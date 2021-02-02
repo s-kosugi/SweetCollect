@@ -24,6 +24,8 @@ public class ArrangeManager : MonoBehaviour
     GameMainManager m_GameMainManager = null;
     [SerializeField]private List<ArrangePattern> patternList = default;
     [SerializeField]private PlayFabPlayerData playerData = default;
+    //固定配置位置
+    private float AddCreatePorision = 590.0f;     //親からのローカル位置
 
     void Start()
     {
@@ -67,7 +69,7 @@ public class ArrangeManager : MonoBehaviour
                 // ランダムでテーブルからどのパターンから出るかを決める
                 int index = Random.Range(0, patternList.Count);
                 GameObject obj = Instantiate(patternList[index].PatternPrefab, this.transform);
-                obj.transform.position = new Vector3(m_Camera.GetScreenRight() * 2.0f, 0f, 0f);
+                obj.transform.position = new Vector3(this.transform.position.x + AddCreatePorision, 0f, 0f);
                 // 一度出たパターンは出ないようにする
                 patternList.RemoveAt(index);
 
