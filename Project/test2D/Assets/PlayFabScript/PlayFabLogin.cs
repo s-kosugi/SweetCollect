@@ -19,6 +19,9 @@ public class PlayFabLogin : MonoBehaviour
     //ログイン時に使うID
     private string _customID;
 
+    // IDの長さ
+    public const int idLength = 32;
+
     // PlayFabID
     private string _playfabID;
     public string _PlayfabID
@@ -143,7 +146,6 @@ public class PlayFabLogin : MonoBehaviour
     //IDを生成する
     private string GenerateCustomID()
     {
-        int idLength = 32;//IDの長さ
         StringBuilder stringBuilder = new StringBuilder(idLength);
         var random = new System.Random();
 
@@ -156,39 +158,18 @@ public class PlayFabLogin : MonoBehaviour
         return stringBuilder.ToString();
     }
 
+    public void LogOut()
+    {
+        // ログアウト処理
+        PlayFabClientAPI.ForgetAllCredentials();
+    }
+
     //=================================================================================
     //取得
     //=================================================================================
-
-    /// <summary>
-    /// タイトルデータの取得
-    /// </summary>
-    public void GetTitleData()
+    public string GetCustomID()
     {
-        //GetTitleDataRequestのインスタンスを生成
-        var request = new GetTitleDataRequest();
-
-        //タイトルデータ取得開始
-        Debug.Log($"タイトルデータの取得開始");
-        PlayFabClientAPI.GetTitleData(request, OnSuccess, OnError);
+        return PlayerPrefs.GetString(CUSTOM_ID_SAVE_KEY);
     }
 
-    //=================================================================================
-    //取得結果
-    //=================================================================================
-
-    //タイトルデータの取得に成功
-    private void OnSuccess(GetTitleDataResult result)
-    {
-        Debug.Log($"タイトルデータの取得に成功しました");
-
-        //result.Data(Dictionary)に全タイトルデータが入っていて、Keyを文字列で指定すると値が取り出せる
-        //_text.text = $"Test1 : {result.Data["Test1"]}\nTest2 : {result.Data["Test2"]}";
-    }
-
-    //タイトルデータの取得に失敗
-    private void OnError(PlayFabError error)
-    {
-        Debug.LogWarning($"タイトルデータの取得に失敗しました : {error.GenerateErrorReport()}");
-    }
 }

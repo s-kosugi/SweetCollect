@@ -8,11 +8,15 @@ using UnityEngine.UI;
 public class DataRestoration : MonoBehaviour
 {
     [SerializeField] InputField inputField = default;
+    PlayFabLogin playfabLogin = default;
     Vector3 oldPosition = default;
 
     void Start()
     {
         oldPosition = this.transform.localPosition;
+        GameObject manager = GameObject.Find("PlayFabManager");
+        if( manager != null)
+            playfabLogin = manager.GetComponent<PlayFabLogin>(); ;
     }
 
     /// <summary>
@@ -21,6 +25,9 @@ public class DataRestoration : MonoBehaviour
     public void StartRestoration()
     {
         PlayerPrefs.SetString(PlayFabLogin.CUSTOM_ID_SAVE_KEY, inputField.text);
+        // スプラッシュに戻す前にログアウト処理を行う
+        if (playfabLogin)
+            playfabLogin.LogOut();
         // スプラッシュシーンに戻ってデータを再ロードする
         SceneManager.LoadScene("SplashScene");
     }
