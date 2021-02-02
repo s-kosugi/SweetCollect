@@ -114,7 +114,7 @@ public class PlayFabLogin : MonoBehaviour
     //=================================================================================
 
     //IDを保存する時のKEY
-    private static readonly string CUSTOM_ID_SAVE_KEY = "CUSTOM_ID_SAVE_KEY";
+    public static readonly string CUSTOM_ID_SAVE_KEY = "CUSTOM_ID_SAVE_KEY";
 
     //IDを取得
     private string LoadCustomID()
