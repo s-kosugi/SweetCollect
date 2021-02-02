@@ -20,7 +20,7 @@ public class PlayFabLogin : MonoBehaviour
     private string _customID;
 
     // IDの長さ
-    public const int idLength = 32;
+    public int idLength { get; private set; } = 32;
 
     // PlayFabID
     private string _playfabID;

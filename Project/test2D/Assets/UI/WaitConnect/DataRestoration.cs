@@ -24,12 +24,16 @@ public class DataRestoration : MonoBehaviour
     /// </summary>
     public void StartRestoration()
     {
-        PlayerPrefs.SetString(PlayFabLogin.CUSTOM_ID_SAVE_KEY, inputField.text);
-        // スプラッシュに戻す前にログアウト処理を行う
-        if (playfabLogin)
-            playfabLogin.LogOut();
-        // スプラッシュシーンに戻ってデータを再ロードする
-        SceneManager.LoadScene("SplashScene");
+        // 文字数を満たしていない場合はロードできない
+        if (inputField.text.Length >= playfabLogin.idLength)
+        {
+            PlayerPrefs.SetString(PlayFabLogin.CUSTOM_ID_SAVE_KEY, inputField.text);
+            // スプラッシュに戻す前にログアウト処理を行う
+            if (playfabLogin)
+                playfabLogin.LogOut();
+            // スプラッシュシーンに戻ってデータを再ロードする
+            SceneManager.LoadScene("SplashScene");
+        }
     }
 
     /// <summary>
