@@ -1738,6 +1738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoginTime: 1
+  waitConnect: {fileID: 0}
 --- !u!4 &648793400
 Transform:
   m_ObjectHideFlags: 0

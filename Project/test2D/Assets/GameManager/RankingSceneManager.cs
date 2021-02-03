@@ -25,7 +25,7 @@ public class RankingSceneManager : BaseScene
         EASY = MIN,
         NORMAL,
         HARD,
-        //VERYHARD,
+        VERYHARD,
 
         MAX
     }
@@ -68,7 +68,7 @@ public class RankingSceneManager : BaseScene
             case RankingName.EASY: SelectDifficult = SELECT_DIFFICULT.EASY; break;
             case RankingName.NORMAL: SelectDifficult = SELECT_DIFFICULT.NORMAL; break;
             case RankingName.HARD: SelectDifficult = SELECT_DIFFICULT.HARD; break;
-            //case RankingName.VERYHARD: SelectDifficult = SELECT_DIFFICULT.VERYHARD; break;
+            case RankingName.VERYHARD: SelectDifficult = SELECT_DIFFICULT.VERYHARD; break;
         }
     }
 
@@ -148,7 +148,7 @@ public class RankingSceneManager : BaseScene
                 case SELECT_DIFFICULT.EASY: rankingName = RankingName.EASY; break;
                 case SELECT_DIFFICULT.NORMAL: rankingName = RankingName.NORMAL; break;
                 case SELECT_DIFFICULT.HARD: rankingName = RankingName.HARD; break;
-                    //case SELECT_DIFFICULT.VERYHARD: rankingName = RankingName.VERYHARD; break;
+                case SELECT_DIFFICULT.VERYHARD: rankingName = RankingName.VERYHARD; break;
             }
             // リーダーボードの再取得要求
             leaderBoard.RequestGetLeaderBoard(rankingName);

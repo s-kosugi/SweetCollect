@@ -1378,7 +1378,7 @@ RectTransform:
   m_Children:
   - {fileID: 140184123}
   m_Father: {fileID: 1957505783}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1710,12 +1710,12 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2160
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1080
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 7666168494144472157, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -2468,6 +2468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoginTime: 1
+  waitConnect: {fileID: 0}
 --- !u!4 &1166488381
 Transform:
   m_ObjectHideFlags: 0
@@ -2991,7 +2992,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1957505783}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3280,6 +3281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimeSpeed: 8
+  MinAlpha: 0
 --- !u!114 &1369420421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3603,7 +3605,7 @@ RectTransform:
   m_Children:
   - {fileID: 1303914161}
   m_Father: {fileID: 1957505783}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4600,7 +4602,7 @@ RectTransform:
   - {fileID: 661344339}
   - {fileID: 1724321354}
   m_Father: {fileID: 1957505783}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5004,6 +5006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimeSpeed: 8
+  MinAlpha: 0
 --- !u!114 &1910205503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5108,18 +5111,18 @@ RectTransform:
   - {fileID: 1728079633}
   - {fileID: 1491623666}
   - {fileID: 685491392}
-  - {fileID: 1837349926}
   - {fileID: 1424084390}
   - {fileID: 2100282243}
   - {fileID: 1320971521}
   - {fileID: 531103741}
+  - {fileID: 1837349926}
   m_Father: {fileID: 1785971202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2160, y: 1080}
+  m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957505784
 MonoBehaviour:
@@ -5134,7 +5137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1957505783}
-  referenceResolution: {x: 2160, y: 1080}
+  referenceResolution: {x: 960, y: 540}
   matchWidthOrHeight: 0
 --- !u!1 &1977976223
 GameObject:
@@ -5398,7 +5401,7 @@ RectTransform:
   - {fileID: 810356338}
   - {fileID: 759921372}
   m_Father: {fileID: 1957505783}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

@@ -1097,6 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimeSpeed: 10
+  MinAlpha: 0
 --- !u!114 &643030133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2270,6 +2271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoginTime: 1
+  waitConnect: {fileID: 0}
 --- !u!4 &1173385036
 Transform:
   m_ObjectHideFlags: 0
@@ -3172,3 +3174,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  text: {fileID: 0}
+  statistics: {fileID: 0}
