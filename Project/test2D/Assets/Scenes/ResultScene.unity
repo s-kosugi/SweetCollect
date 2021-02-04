@@ -4667,6 +4667,9 @@ MonoBehaviour:
   veryhardReleaseText: {fileID: 661344338}
   nextText: {fileID: 1977976225}
   noticeAchievement: {fileID: 661728472}
+  appearStartPos: {x: -215, y: 0}
+  appearGoalPos: {x: 0, y: 0}
+  cameraController: {fileID: 29141195}
   AppearTime: 1
 --- !u!1 &1871134709
 GameObject:
