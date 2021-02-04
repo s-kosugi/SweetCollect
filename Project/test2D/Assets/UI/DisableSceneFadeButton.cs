@@ -30,4 +30,10 @@ public class DisableSceneFadeButton : MonoBehaviour
             }
         }
     }
+
+    //スタート時の有効化の有無
+    public bool GetStartEnable()
+    {
+        return StartAutoEnabled;
+    }
 }

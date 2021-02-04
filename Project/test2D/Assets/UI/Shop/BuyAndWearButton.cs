@@ -21,7 +21,6 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private AchievementName achievementtext = null;
 
     private Button button;     //ボタン
-    private bool IsConnect;    //通信中
     private bool IsPush;       //ボタンを押したかどうか
     private bool IsAction;     //行動できるかどうか
     private bool IsSelect;     //選択中(購入または着用)
@@ -64,7 +63,6 @@ public class BuyAndWearButton : MonoBehaviour
         clothing = GameObject.Find("Clothing_Parent/Clothing").GetComponent<Clothing>();
         button = this.GetComponent<Button>();
 
-        IsConnect = false;
         IsPush = false;
         IsAction = false;
         IsSelect = false;
@@ -99,7 +97,7 @@ public class BuyAndWearButton : MonoBehaviour
     private void Reception()
     {
         //押された際にアクション・通信中でなければ押された状態へ
-        if (IsPush && !IsAction && !IsConnect)
+        if (IsPush && !IsAction)
         {
             if (inventory.IsHaveItem(ShopCanvas.GetItemInfo().storeItem.ItemId))
             {
@@ -212,23 +210,12 @@ public class BuyAndWearButton : MonoBehaviour
         }
         else
         {
-            if (IsConnect)
+            //通信中でなければ待機へ
+            if (!connect.IsWait())
             {
-                //通信中になるまで待機
-                if (!connect.IsWait())
-                {
-                    State = STATE.RECEPTION;
-                    IsUpdate = false;
-                    IsConnect = false;
-                    clothing.CheckHavingCloting();
-                }
-            }
-            else
-            {
-                if (connect.IsWait())
-                {
-                    IsConnect = true;
-                }
+                State = STATE.RECEPTION;
+                IsUpdate = false;
+                clothing.CheckHavingCloting();
             }
         }
 

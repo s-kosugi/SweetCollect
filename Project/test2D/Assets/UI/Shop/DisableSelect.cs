@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class DisableShopFadeButton : MonoBehaviour
+public class DisableSelect : MonoBehaviour
 {
     [SerializeField] private DisableSceneFadeButton disable = null;
     [SerializeField] private BuyAndWearButton buyAndWear = null;
+    [SerializeField] private Clothing clothing = null;
     Button button = default;
 
     // Start is called before the first frame update
@@ -16,9 +17,9 @@ public class DisableShopFadeButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!disable.GetStartEnable())
+        if (!disable.GetStartEnable())
         {
-            if (buyAndWear.GetState() == BuyAndWearButton.STATE.PREVIEWHINT || buyAndWear.GetState() == BuyAndWearButton.STATE.UPDATE)
+            if (buyAndWear.GetState() != BuyAndWearButton.STATE.RECEPTION)
                 button.enabled = false;
             else
                 button.enabled = true;
