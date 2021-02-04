@@ -4,8 +4,10 @@ using UnityEngine.Networking;
 
 public class TwitterButton : MonoBehaviour
 {
+#if UNITY_WEBGL
     // Assets/Plugins/WebGLにあるOpenNewTabPluginをインポートする
     [DllImport("__Internal")] private static extern void OpenNewTab(string URL);
+#endif
 
     private ScoreManager scoreManager = default;
     void Start()
