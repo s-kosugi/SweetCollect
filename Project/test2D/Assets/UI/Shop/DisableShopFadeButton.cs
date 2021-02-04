@@ -18,7 +18,7 @@ public class DisableShopFadeButton : MonoBehaviour
     {
         if(!disable.GetStartEnable())
         {
-            if (buyAndWear.GetState() == BuyAndWearButton.STATE.PREVIEWHINT || buyAndWear.GetState() == BuyAndWearButton.STATE.UPDATE)
+            if (buyAndWear.GetState() == BuyAndWearButton.STATE.PREVIEWHINT)
                 button.enabled = false;
             else
                 button.enabled = true;

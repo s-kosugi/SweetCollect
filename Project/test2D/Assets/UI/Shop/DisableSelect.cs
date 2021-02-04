@@ -5,7 +5,7 @@ public class DisableSelect : MonoBehaviour
 {
     [SerializeField] private DisableSceneFadeButton disable = null;
     [SerializeField] private BuyAndWearButton buyAndWear = null;
-    [SerializeField] private Clothing clothing = null;
+    [SerializeField] private CurtainAnime curtainAnime = null;
     Button button = default;
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class DisableSelect : MonoBehaviour
     {
         if (!disable.GetStartEnable())
         {
-            if (buyAndWear.GetState() != BuyAndWearButton.STATE.RECEPTION)
+            if (buyAndWear.GetState() != BuyAndWearButton.STATE.RECEPTION || curtainAnime.state != CurtainAnime.STATE.WAIT)
                 button.enabled = false;
             else
                 button.enabled = true;

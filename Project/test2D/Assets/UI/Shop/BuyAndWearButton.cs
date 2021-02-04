@@ -284,6 +284,7 @@ public class BuyAndWearButton : MonoBehaviour
             !store.m_isStoreGet ||
             clothing.GetState() != Clothing.SHELFSTATE.PREVIEW ||
             State != STATE.RECEPTION
+            || curtainAnime.state != CurtainAnime.STATE.WAIT
             )
         {
             button.enabled = false;
