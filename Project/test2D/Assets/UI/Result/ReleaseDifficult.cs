@@ -15,6 +15,9 @@ public class ReleaseDifficult : MonoBehaviour
     [SerializeField] GameObject veryhardReleaseText = default;
     [SerializeField] TextMeshProUGUI nextText = default;
     [SerializeField] NoticeAchievement noticeAchievement = default;
+    [SerializeField] Vector2 appearStartPos = new Vector2(-215f,0f);
+    [SerializeField] Vector2 appearGoalPos = Vector2.zero;
+    [SerializeField] CameraController cameraController = default;
     private EffekseerHandle releaseEffectHandle = default;
     private ScoreManager scoreManager = default;
     [SerializeField] float AppearTime = 1.0f;
@@ -31,7 +34,7 @@ public class ReleaseDifficult : MonoBehaviour
     void Start()
     {
         state = MESSAGE_STATE.HIDE;
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = appearStartPos;
 
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
     }
@@ -60,6 +63,7 @@ public class ReleaseDifficult : MonoBehaviour
         {
             state = MESSAGE_STATE.WAIT;
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            transform.localPosition = appearGoalPos;
             AppearCounter = 0f;
         }
         else
@@ -67,11 +71,17 @@ public class ReleaseDifficult : MonoBehaviour
             // outbackで出現させる
             float scale = Easing.OutBack(AppearCounter, AppearTime, 1.0f, 0.0f, 0.8f);
             transform.localScale = new Vector3(scale, scale, scale);
+
+            // 少しずつ移動する
+            float positionX = Easing.OutCubic(AppearCounter, AppearTime, appearGoalPos.x, appearStartPos.x);
+            float positionY = Easing.OutCubic(AppearCounter, AppearTime, appearGoalPos.y, appearStartPos.y);
+            transform.localPosition = new Vector3(positionX,positionY);
         }
     }
     private void WaitMessage()
     {
         transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        transform.localPosition = appearGoalPos;
         AppearCounter = 0f;
     }
     private void DisappearMessage()
@@ -158,8 +168,10 @@ public class ReleaseDifficult : MonoBehaviour
     }
     public void StartReleaseEffect()
     {
-        // エフェクト再生
-        releaseEffectHandle = EffekseerSystem.PlayEffect(releaseEffect,new Vector3(0f,0f,0f));
+        float size = cameraController.GetScreenRight() - cameraController.GetScreenLeft();
+        size =  size / 5.0f;
+        // エフェクト再生(画面の中心から1/5の位置に出す)
+        releaseEffectHandle = EffekseerSystem.PlayEffect(releaseEffect,new Vector3(-size,0f));
         SoundManager.Instance.PlaySE("Release");
     }
 
