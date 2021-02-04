@@ -5287,7 +5287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disable: {fileID: 1908391127}
   buyAndWear: {fileID: 1139846101}
-  clothing: {fileID: 321649656}
+  curtainAnime: {fileID: 258928816}
 --- !u!1 &1954558473
 GameObject:
   m_ObjectHideFlags: 0
@@ -5939,4 +5939,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disable: {fileID: 2121321511}
   buyAndWear: {fileID: 1139846101}
-  clothing: {fileID: 321649656}
+  curtainAnime: {fileID: 258928816}
