@@ -26,6 +26,7 @@ public class TitleManager : BaseScene
         MAIN,
         SIGNBOARD_CONTROL,
         OPTION_CONTROL,
+        STAGESELECT_CONTROL,
         FADEOUT
     }
     public STATE state { get; private set; }
@@ -52,6 +53,7 @@ public class TitleManager : BaseScene
             case STATE.MAIN: TitleMain(); break;
             case STATE.SIGNBOARD_CONTROL: SignBoardControl(); break;
             case STATE.OPTION_CONTROL: OptionControl(); break;
+            case STATE.STAGESELECT_CONTROL: StageSelectControl(); break;
         }
         base.Update();
 
@@ -112,6 +114,13 @@ public class TitleManager : BaseScene
     {
     }
 
+    /// <summary>
+    /// ステージセレクト画面操作状態
+    /// </summary>
+    private void StageSelectControl()
+    {
+    }
+
     // 次のシーンへ
     public void NextScene()
     {
@@ -148,14 +157,6 @@ public class TitleManager : BaseScene
     public void NextScene(string sceneName)
     {
         NextSceneName = sceneName;
-        // チュートリアル終了済みでなかったら名前入力へ飛ばす
-        if (NextSceneName == "GameMainScene")
-        {
-            if (!m_PlayFabPlayerData.m_Data.ContainsKey(PlayerDataName.TUTORIAL) || m_PlayFabPlayerData.m_Data[PlayerDataName.TUTORIAL].Value != "End")
-            {
-                NextSceneName = "InputNameScene";
-            }
-        }
         NextScene();
     }
     /// <summary>
@@ -218,6 +219,14 @@ public class TitleManager : BaseScene
     public void TapSignBoard()
     {
         state = STATE.SIGNBOARD_CONTROL;
+    }
+
+    /// <summary>
+    /// ステージセレクト画面タップ時の処理
+    /// </summary>
+    public void TapStageSelect()
+    {
+        state = STATE.STAGESELECT_CONTROL;
     }
 
     /// <summary>
