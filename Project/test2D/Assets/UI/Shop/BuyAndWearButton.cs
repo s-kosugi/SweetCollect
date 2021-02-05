@@ -14,6 +14,7 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private PlayFabStore PlayFabStoreAchivement = null; //達成ストア
     [SerializeField] private ReachAchievement reachachievement = null;         //実績達成管理
     [SerializeField]private AchievementRewardRelease RewardRelease = null; //達成服解放
+    [SerializeField]private PreviewParent previewParent = null;            //表示衣服の親
 
     private ShopCanvasController ShopCanvas = null;
     [SerializeField] private Money_Text playermoney = null;
@@ -32,6 +33,9 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private CurtainAnime curtainAnime = default;
     [SerializeField] private string PriceName = default;
     [SerializeField] ShopAchievement achievement = default;
+
+    //サウンド
+    [SerializeField] private string sefilename = "Tap";
 
     //状態分け
     public enum STATE
@@ -133,6 +137,8 @@ public class BuyAndWearButton : MonoBehaviour
                 {
                     State = STATE.PREVIEWHINT;
                     IsAction = false;
+       
+                    SoundManager.Instance.PlaySE(sefilename);
 
                     // アイテムがカタログ内にあるのかを探し、それに対応する説明を設定
                     var catalogItem = store.CatalogItems.Find(x => x.ItemId == ShopCanvas.GetItemInfo().catalogItem.ItemId);
@@ -285,6 +291,7 @@ public class BuyAndWearButton : MonoBehaviour
             clothing.GetState() != Clothing.SHELFSTATE.PREVIEW ||
             State != STATE.RECEPTION
             || curtainAnime.state != CurtainAnime.STATE.WAIT
+            || previewParent.State != PreviewParent.STATE.WAIT
             )
         {
             button.enabled = false;
