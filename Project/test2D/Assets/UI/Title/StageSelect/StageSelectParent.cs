@@ -5,6 +5,7 @@ public class StageSelectParent : MonoBehaviour
     [SerializeField] float appearAnimationTime = 1.0f;
     [SerializeField] float goalHeight = 0.0f;
     [SerializeField] float vanishAnimationTime = 1.0f;
+    public string difficultName { get;private set; }
     float animationCount = 0f;
     float startHeight = default;
 
@@ -24,6 +25,8 @@ public class StageSelectParent : MonoBehaviour
         state = STATE.WAIT;
 
         startHeight = transform.localPosition.y;
+
+        difficultName = DifficultName.EASY;
     }
 
     // Update is called once per frame
@@ -102,5 +105,13 @@ public class StageSelectParent : MonoBehaviour
         animationCount = 0f;
         state = STATE.VANISH;
         transform.localPosition = new Vector3(transform.localPosition.x, goalHeight);
+    }
+
+    /// <summary>
+    /// ステージの設定
+    /// </summary>
+    public void SelectDifficult(string DifficultName)
+    {
+        difficultName = DifficultName;
     }
 }
