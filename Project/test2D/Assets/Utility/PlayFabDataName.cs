@@ -34,6 +34,7 @@ public static class DifficultName
     public const string NORMAL = "NORMAL";
     public const string HARD = "HARD";
     public const string VERYHARD = "VERYHARD";
+
 }
 
 /// <summary>

@@ -13,7 +13,7 @@ public class TitleManager : BaseScene
     private bool isSetDefault = false;
     [SerializeField] BGMSlider bgmSlider= default;
     [SerializeField] SESlider seSlider = default;
-    [SerializeField] DifficultGroupe difficultGroupe = default;
+    [SerializeField] StageSelectParent stageSelect = default;
     [SerializeField] TitlePlayerController titlePlayer = default;
 
     private bool optionButtonTap = false;
@@ -138,7 +138,7 @@ public class TitleManager : BaseScene
             m_PlayFabPlayerData.SetPlayerData(PlayerDataName.SEVOLUME, SoundManager.Instance.m_SEVolume.ToString());
 
             // 選択難易度の更新
-            m_PlayFabPlayerData.SetPlayerData(PlayerDataName.SELECTED_DIFFICULT,difficultGroupe.selectedDifficult);
+            m_PlayFabPlayerData.SetPlayerData(PlayerDataName.SELECTED_DIFFICULT, stageSelect.difficultName);
 
             // オプションボタンがタップされていたらオプション通知処理を非表示にする
             if (optionButtonTap)
