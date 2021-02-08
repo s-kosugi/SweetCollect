@@ -25,4 +25,11 @@ public class FlashingAnimeImage : MonoBehaviour
         c = new Color(c.r, c.g, c.b, alpha);
         image.color = c;
     }
+
+    public void ResetAlpha()
+    {
+        Color c = image.color;
+        c = new Color(c.r, c.g, c.b, 1.0f);
+        image.color = c;
+    }
 }

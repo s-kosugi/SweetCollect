@@ -27,4 +27,11 @@ public class FlashingAnimeText : MonoBehaviour
         c = new Color(c.r, c.g, c.b, alpha);
         text.color = c;
     }
+
+    public void ResetAlpha()
+    {
+        Color c = text.color;
+        c = new Color(c.r, c.g, c.b, 1.0f);
+        text.color = c;
+    }
 }

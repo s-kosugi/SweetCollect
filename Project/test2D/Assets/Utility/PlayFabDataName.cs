@@ -68,3 +68,31 @@ public static class AchievementDataName
     public const string PROGRESS_MAX = "PROGRESS_MAX";
     public const string REWORD = "REWORD";
 }
+/// <summary>
+/// 実績アイテム名の定数
+/// </summary>
+public static class AchievementItemName
+{
+    public const string EASY_HISCORE = "017_EASY_HISCORE";
+    public const string NORMAL_HISCORE = "018_NORMAL_HISCORE";
+    public const string HARD_HISCORE = "019_HEAD_HISCORE";
+    public const string VERYHARD_HISCORE = "020_VERYHEAD_HISCORE";
+}
+
+public static class AchievementItemCustomDataKey
+{
+    public const string REWORD = "REWORD";
+    public const string PROGRESS_KEY = "PROGRESS_KEY";
+    public const string PROGRESS_MAX = "PROGRESS_MAX";
+}
+
+/// <summary>
+/// タイトルデータの定数
+/// </summary>
+public static class TitleDataName
+{
+    public const string GAME_VERSION = "GameVersion";
+    public const string RELEASE_THRESHOLD_NORMAL = "ReleaseThreshold_Normal";
+    public const string RELEASE_THRESHOLD_HARD = "ReleaseThreshold_Hard";
+    public const string RELEASE_THRESHOLD_VERYHARD = "ReleaseThreshold_VeryHard";
+}

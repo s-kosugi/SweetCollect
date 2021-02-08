@@ -1,13 +1,20 @@
-﻿using UnityEngine;
+﻿using PlayFab.ClientModels;
+using UnityEngine;
 
 public class StageSelectParent : MonoBehaviour
 {
     [SerializeField] float appearAnimationTime = 1.0f;
     [SerializeField] float goalHeight = 0.0f;
     [SerializeField] float vanishAnimationTime = 1.0f;
+    [SerializeField] PlayFabPlayerData playerData = default;
     public string difficultName { get;private set; }
     float animationCount = 0f;
     float startHeight = default;
+
+    /// <summary>
+    /// 最初に選択されている難易度をセットしたかどうか
+    /// </summary>
+    bool isDifficultSet = false;
 
 
     STATE state = default;
@@ -37,6 +44,16 @@ public class StageSelectParent : MonoBehaviour
             case STATE.APPEAR: Appear(); break;
             case STATE.WAIT: Wait(); break;
             case STATE.VANISH: Vanish(); break;
+        }
+
+        if (playerData.m_isGet && !isDifficultSet)
+        {
+            UserDataRecord record;
+            if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+            {
+                difficultName = record.Value;
+            }
+            isDifficultSet = true;
         }
     }
 

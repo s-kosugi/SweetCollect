@@ -26,4 +26,11 @@ public class FlashingAnimeSprite : MonoBehaviour
         c = new Color(c.r, c.g, c.b, alpha);
         spriteRenderer.color = c;
     }
+
+    public void ResetAlpha()
+    {
+        Color c = spriteRenderer.color;
+        c = new Color(c.r, c.g, c.b, 1.0f);
+        spriteRenderer.color = c;
+    }
 }

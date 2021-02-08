@@ -32,8 +32,11 @@ public class StageSelectThumbnail : MonoBehaviour
         else
         {
             buttonAnime.enabled = false;
+            buttonAnime.ResetAlpha();
             thumbnailAnime.enabled = false;
+            thumbnailAnime.ResetAlpha();
             textAnime.enabled = false;
+            textAnime.ResetAlpha();
         }
 
         // 解放されているかを確認してボタンの有効無効を決める

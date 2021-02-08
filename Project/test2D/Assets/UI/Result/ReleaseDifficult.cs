@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class ReleaseDifficult : MonoBehaviour
 {
-    [SerializeField] int NormalReleaseThreshold = 80;
-    [SerializeField] int HardReleaseThreshold = 150;
-    [SerializeField] int VeryHardReleaseThreshold = 350;
+    [SerializeField] PlayFabTitleData titleData = default;
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] EffekseerEffectAsset releaseEffect = default;
     [SerializeField] GameObject normalReleaseText = default;
@@ -116,7 +114,8 @@ public class ReleaseDifficult : MonoBehaviour
                     // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
                     if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_NORMAL, out record))
                     {
-                        Threshold = NormalReleaseThreshold;
+
+                        Threshold = int.Parse(titleData.titleData[TitleDataName.RELEASE_THRESHOLD_NORMAL]);
                         TargetDifficult = PlayerDataName.RELEASE_NORMAL;
                     }
                     break;
@@ -124,7 +123,7 @@ public class ReleaseDifficult : MonoBehaviour
                     // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
                     if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_HARD, out record))
                     {
-                        Threshold = HardReleaseThreshold;
+                        Threshold = int.Parse(titleData.titleData[TitleDataName.RELEASE_THRESHOLD_HARD]);
                         TargetDifficult = PlayerDataName.RELEASE_HARD;
                     }
                     break;
@@ -132,7 +131,7 @@ public class ReleaseDifficult : MonoBehaviour
                     // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
                     if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_VERYHARD, out record))
                     {
-                        Threshold = VeryHardReleaseThreshold;
+                        Threshold = int.Parse(titleData.titleData[TitleDataName.RELEASE_THRESHOLD_VERYHARD]);
                         TargetDifficult = PlayerDataName.RELEASE_VERYHARD;
                     }
                     break;
