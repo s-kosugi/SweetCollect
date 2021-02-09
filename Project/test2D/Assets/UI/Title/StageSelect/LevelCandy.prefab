@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6564463043708335794}
   - component: {fileID: 7193674872959703779}
   - component: {fileID: 9090424335417264661}
+  - component: {fileID: 8034743593939189313}
   m_Layer: 5
   m_Name: LevelCandy
   m_TagString: Untagged
@@ -73,3 +74,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8034743593939189313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2481079776465945492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5a07247dc004644ac8648b16e80bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimeSpeed: 4
+  ScaleRate: 0.3
