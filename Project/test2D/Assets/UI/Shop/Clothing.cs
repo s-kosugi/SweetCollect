@@ -14,11 +14,17 @@ public class Clothing : MonoBehaviour
     [SerializeField] CurtainAnime Curtain = null;                            //カーテンアニメ
     [SerializeField] PlayFabPlayerData PlayerData = null;                    //プレイヤーデータ
 
+    [SerializeField] PreviewParent PreviewParentSprict = null;                    //服表示オブジェクトの親
+    [SerializeField] SwipeMove_Shop SwipeMove_Shop = null;                        //スワイプ
+
+    [SerializeField] private GameObject PreviewParent = null;                       //画像表示オブジェクトの親
     [SerializeField] List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>(); //表示する子供の数
-    [SerializeField] private int SpriteDictionaryNumber;                      //画像の最大数
-    [SerializeField] private int SelectNumber;                                //選択されている画像の番号
-    [SerializeField] private Vector2 ChildSize = new Vector2(144.0f, 144.0f); //表示画像のサイズ（子）
-    [SerializeField] private float Margin = 0;                                 //余白
+    [SerializeField] private int SpriteDictionaryNumber;                        //画像の最大数
+    [SerializeField] private int SelectNumber;                                  //選択されている画像の番号
+    [SerializeField] private float SpriteSize_Wight = 144.0f;  //表示画像のサイズ（子）
+    [SerializeField] private float Margin = 0;                                  //余白
+    [SerializeField] public float HalfSize{ get; private set; }                             //画像と余白を合わせた半分サイズ
+
     Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>(); //画像
     Dictionary<string, int> SpriteNumber = new Dictionary<string, int>(); //画像の番号
 
@@ -59,6 +65,7 @@ public class Clothing : MonoBehaviour
 
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
+        HalfSize = SpriteSize_Wight / 2 + Margin / 2;
         IsHaveCheck = false;
         MoveEndFlag = false;
         InfoChild = false;
@@ -110,6 +117,9 @@ public class Clothing : MonoBehaviour
                 SpriteDictionaryNumber = SpriteDictionary.Count;
             }
 
+            //最大スワイプ位置を設定
+            SwipeMove_Shop.MaxMoveCalculation(SpriteSize_Wight, Margin, SpriteDictionaryNumber);
+
             //画像表示オブジェクトの追加
             CreateChild();
 
@@ -124,10 +134,7 @@ public class Clothing : MonoBehaviour
                 {
                     ClothingChild[i].SetPreviewImage(SpriteDictionary[playFabStore.StoreItems[0].ItemId]);
                 }
-                ClothingChild[i].SetPreviewOrder(i);
-                ClothingChild[i].WhatFromPreview(SelectNumber);
             }
-
             //全ての処理が通ったから情報を与えられたと仮定
             InfoChild = true;
         }
@@ -138,14 +145,14 @@ public class Clothing : MonoBehaviour
     }
     private void Change()
     {
+        //配列外参照
+        CheckSelectNum();
+
         //現在選択されている配列から何番目かを設定
-        for(int i = 0; i < ClothingChild.Count; i++)
-        {
-            ClothingChild[i].WhatFromPreview(SelectNumber);
-        }
+        PreviewParentSprict.ChangePosition(SelectNumber);
 
         //ショップキャンバスに選択されているアイテムを設定
-        if(shopcanvas)
+        if (shopcanvas)
         {
             shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
         }
@@ -198,10 +205,8 @@ public class Clothing : MonoBehaviour
                         CheckSelectNum();
 
                         //子供がどの位置にいればよいかを伝える
-                        for (int i = 0; i < ClothingChild.Count; i++)
-                        {
-                            ClothingChild[i].WhatFromPreview(SelectNumber);
-                        }
+                        PreviewParentSprict.ChangePosition(SelectNumber);
+
                         MoveEndFlag = true;
                     }
                 }
@@ -279,7 +284,7 @@ public class Clothing : MonoBehaviour
             {
                 continue;
             }
-            GameObject Preview = Instantiate(PreviewSprite, this.transform);
+            GameObject Preview = Instantiate(PreviewSprite, PreviewParent.transform);
             Ui_Clothing ItemInfo = Preview.GetComponent<Ui_Clothing>();
             ClothingChild.Add(ItemInfo);
         }
@@ -291,14 +296,14 @@ public class Clothing : MonoBehaviour
     {
         for (int x = 0; x < ClothingChild.Count; x++)
         {
-            ClothingChild[x].transform.localPosition = new Vector3((ChildSize.x + Margin) * x, 0.0f, 0.0f);
+            ClothingChild[x].transform.localPosition = new Vector3((SpriteSize_Wight + Margin) * x + HalfSize, 0.0f, 0.0f);
         }
     }
     //オブジェクトソート
     // Num : 中心から見て何番目
-    public Vector3 SortChildPosition(int Num)
+    public Vector3 Sort_ParentPos(int Num)
     {
-        return new Vector3((ChildSize.x + Margin) * Num, 0.0f, 0.0f);
+        return new Vector3((-(SpriteSize_Wight + Margin) * Num) - HalfSize, 0.0f, 0.0f);
     }
     //===========================================================================================================
     //===========================================================================================================
@@ -357,6 +362,23 @@ public class Clothing : MonoBehaviour
     {
         return State;
     }
+    //画像サイズ
+    public float GetSpriteSize()
+    {
+        return SpriteSize_Wight;
+    }
+
+    //余白サイズ
+    public float GetMarginSize()
+    {
+        return Margin;
+    }
+    //選択中の番号
+    public int GetSelectNumber()
+    {
+        return SelectNumber;
+    }
+
     //===========================================================================================================
 
     /// <summary>
@@ -428,4 +450,23 @@ public class Clothing : MonoBehaviour
             }
         }
     }
+
+    //スワイプ移動による選択衣服を変更
+    public void ChangeClothing_Swipe(int select)
+    {
+        SelectNumber = select;
+
+        //配列外参照
+        CheckSelectNum();
+
+        //ショップキャンバスに選択されているアイテムを設定
+        if (shopcanvas)
+        {
+            shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
+        }
+
+        CheckHavingCloting();
+
+    }
+
 }

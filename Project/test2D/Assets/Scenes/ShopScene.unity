@@ -377,6 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disable: {fileID: 73579817}
   buyAndWear: {fileID: 1139846101}
+  curtainAnime: {fileID: 258928816}
 --- !u!1 &96408962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,10 +1104,13 @@ MonoBehaviour:
     type: 3}
   Curtain: {fileID: 258928816}
   PlayerData: {fileID: 1866403476}
+  PreviewParentSprict: {fileID: 827679703}
+  SwipeMove_Shop: {fileID: 827679704}
+  PreviewParent: {fileID: 827679701}
   ClothingChild: []
   SpriteDictionaryNumber: 0
   SelectNumber: 0
-  ChildSize: {x: 144, y: 144}
+  SpriteSize_Wight: 144
   Margin: 24
   DIRECTION_TIME_NORMAL: 0.3
   DIRECTION_TIME_ACHIEVEMENT: 0.2
@@ -1913,22 +1917,37 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 480
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 270
+      value: 480
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.x
-      value: 480
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.y
-      value: 270
+      value: 480
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581ccab5d4f2d434d8a1ae9519e8158a, type: 3}
@@ -2291,6 +2310,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
+--- !u!1 &827679701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 827679702}
+  - component: {fileID: 827679703}
+  - component: {fileID: 827679704}
+  m_Layer: 5
+  m_Name: PreviewParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &827679702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827679701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1785465159}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827679703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827679701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d07da8d2f03f1741946951be4d17a30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clothing: {fileID: 321649656}
+  BuyAndWearButton: {fileID: 1139846101}
+  curtainAnime: {fileID: 258928816}
+  swipeMove_shop: {fileID: 827679704}
+  SpriteSize: 0
+  MarginSize: 0
+  StartPosWight: 0
+--- !u!114 &827679704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827679701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e5aa84e087ef545b973946e6d29295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clothing: {fileID: 321649656}
+  BuyAndWearButton: {fileID: 1139846101}
+  curtainAnime: {fileID: 258928816}
+  horizontalRate: 1
+  verticalRate: 0
+  friction: 0.96
+  stopThreshold: 0.25
+  MinmoveLimitRect: {x: 0, y: 0}
+  MaxmoveLimitRect: {x: 0, y: 0}
+  inertiaMove: {x: 0, y: 0, z: 0}
+  Max_Wight: 0
+  TouchPos: {x: 0, y: 0, z: 0}
+  MinMoveDistance: 4
+  HalfScreenSizeHeight: 0
+  ScreenSizeHeight: 0
+  Percentage: 0
 --- !u!1 &907776686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,6 +2836,7 @@ MonoBehaviour:
   PlayFabStoreAchivement: {fileID: 0}
   reachachievement: {fileID: 1677005749}
   RewardRelease: {fileID: 1677005747}
+  previewParent: {fileID: 827679703}
   playermoney: {fileID: 1158271998}
   achievementtext: {fileID: 346237387}
   IsPreviewHint: 0
@@ -2745,6 +2844,7 @@ MonoBehaviour:
   curtainAnime: {fileID: 258928816}
   PriceName: 
   achievement: {fileID: 1876162502}
+  sefilename: Tap
   State: -1
 --- !u!114 &1139846102
 MonoBehaviour:
@@ -3520,7 +3620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1328949555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3805,6 +3905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disable: {fileID: 1459840295}
   buyAndWear: {fileID: 1139846101}
+  curtainAnime: {fileID: 258928816}
 --- !u!1 &1487618354
 GameObject:
   m_ObjectHideFlags: 0
@@ -4319,7 +4420,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 480, y: 270}
+  m_SizeDelta: {x: 839, y: 472}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1671069068
 MonoBehaviour:
@@ -4334,7 +4435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1671069067}
-  referenceResolution: {x: 480, y: 270}
+  referenceResolution: {x: 839, y: 472}
   matchWidthOrHeight: 0
 --- !u!1 &1677005746
 GameObject:
@@ -4716,6 +4817,7 @@ Transform:
   m_Children:
   - {fileID: 321649655}
   - {fileID: 1154748142}
+  - {fileID: 827679702}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
