@@ -13,7 +13,7 @@ public class NonAlphaFlashImage : MonoBehaviour
         image = GetComponent<Image>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // サインカーブでカラー値を変える(minColor～1.0)
         Angle += fadeSpeed * Time.deltaTime * 60.0f;

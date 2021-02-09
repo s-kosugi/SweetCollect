@@ -14,7 +14,7 @@ public class FlashingAnimeImage : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         // サインカーブでα値を変える(0.0～1.0)
         Angle += AnimeSpeed;
