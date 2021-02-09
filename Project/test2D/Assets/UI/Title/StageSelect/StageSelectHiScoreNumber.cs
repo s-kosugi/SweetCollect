@@ -33,6 +33,11 @@ public class StageSelectHiScoreNumber : MonoBehaviour
 
                 oldDifficultName = parent.difficultName;
             }
+            else
+            {
+                // ハイスコアがない場所は０埋め
+                textmesh.text = "００００";
+            }
         }
     }
 }

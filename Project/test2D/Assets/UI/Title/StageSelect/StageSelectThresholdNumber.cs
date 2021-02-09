@@ -33,6 +33,7 @@ public class StageSelectThresholdNumber : MonoBehaviour
             if (titleDataName == default)
             {
                 textmesh.text = "";
+                oldDifficultName = parent.difficultName;
             }
             else
             {

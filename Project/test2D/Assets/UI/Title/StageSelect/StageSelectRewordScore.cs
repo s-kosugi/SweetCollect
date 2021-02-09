@@ -41,7 +41,7 @@ public class StageSelectRewordScore : MonoBehaviour
                 var achievementDictionary = LitJson.JsonMapper.ToObject<Dictionary<string, string>>(catalogItem.CustomData);
                 // 報酬のアイテムの得点を読み込む
                 int score = int.Parse(achievementDictionary[AchievementItemCustomDataKey.PROGRESS_MAX]);
-                textMesh.text = StringWidthConverter.ConvertToFullWidth(string.Format("{0:0000}", score));
+                textMesh.text = StringWidthConverter.ConvertToFullWidth(string.Format("{0:000}", score));
 
                 oldDifficutName = parent.difficultName;
             }

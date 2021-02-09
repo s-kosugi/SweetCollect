@@ -7,6 +7,7 @@ public class StageSelectParent : MonoBehaviour
     [SerializeField] float goalHeight = 0.0f;
     [SerializeField] float vanishAnimationTime = 1.0f;
     [SerializeField] PlayFabPlayerData playerData = default;
+    CanvasGroup canvasGroup = default;
     public string difficultName { get;private set; }
     float animationCount = 0f;
     float startHeight = default;
@@ -24,6 +25,7 @@ public class StageSelectParent : MonoBehaviour
         APPEAR,
         WAIT,
         VANISH,
+        FADEOUT,
     }
 
     void Start()
@@ -34,6 +36,8 @@ public class StageSelectParent : MonoBehaviour
         startHeight = transform.localPosition.y;
 
         difficultName = DifficultName.EASY;
+
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -44,6 +48,7 @@ public class StageSelectParent : MonoBehaviour
             case STATE.APPEAR: Appear(); break;
             case STATE.WAIT: Wait(); break;
             case STATE.VANISH: Vanish(); break;
+            case STATE.FADEOUT: FadeOut(); break;
         }
 
         if (playerData.m_isGet && !isDifficultSet)
@@ -105,6 +110,26 @@ public class StageSelectParent : MonoBehaviour
     }
 
     /// <summary>
+    /// フェードアウトアニメーション
+    /// </summary>
+    private void FadeOut()
+    {
+        animationCount += Time.deltaTime;
+        float alpha = 0.0f;
+        if (animationCount >= vanishAnimationTime)
+        {
+            state = STATE.WAIT;
+            animationCount = 0f;
+        }
+        else
+        {
+            alpha = Easing.OutCubic(animationCount, vanishAnimationTime, 0.0f, 1.0f);
+        }
+
+        canvasGroup.alpha = alpha;
+    }
+
+    /// <summary>
     ///  出現処理の開始
     /// </summary>
     public void StartAppear()
@@ -122,6 +147,15 @@ public class StageSelectParent : MonoBehaviour
         animationCount = 0f;
         state = STATE.VANISH;
         transform.localPosition = new Vector3(transform.localPosition.x, goalHeight);
+    }
+
+    /// <summary>
+    /// フェードアウト状態の開始
+    /// </summary>
+    public void StartFadeOut()
+    {
+        state = STATE.FADEOUT;
+        canvasGroup.alpha = 1.0f;
     }
 
     /// <summary>

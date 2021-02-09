@@ -142,8 +142,6 @@ public class ReleaseDifficult : MonoBehaviour
         if (Threshold <= scoreManager.GameScore)
         {
             playerData.SetPlayerData(TargetDifficult, "RELEASED");
-            // オプションに通知を送る
-            playerData.SetPlayerData(PlayerDataName.NOTICE_OPTION, "TRUE");
 
             // 実績通知を要求する
             noticeAchievement.RequestNotice();

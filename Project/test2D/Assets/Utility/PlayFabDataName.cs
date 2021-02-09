@@ -76,7 +76,7 @@ public static class AchievementItemName
     public const string EASY_HISCORE = "017_EASY_HISCORE";
     public const string NORMAL_HISCORE = "018_NORMAL_HISCORE";
     public const string HARD_HISCORE = "019_HEAD_HISCORE";
-    public const string VERYHARD_HISCORE = "020_VERYHEAD_HISCORE";
+    public const string VERYHARD_HISCORE = "020_VERYHEAD_HISCORE ";
 }
 
 public static class AchievementItemCustomDataKey
