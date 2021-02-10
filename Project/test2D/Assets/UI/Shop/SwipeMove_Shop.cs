@@ -36,6 +36,15 @@ public class SwipeMove_Shop : MonoBehaviour
     {
         ScreenSizeHeight = Screen.height;
         HalfScreenSizeHeight = ScreenSizeHeight / 2;
+
+#if UNITY_WEBGL
+        horizontalRate = 1.0f;
+        friction = 0.92f;
+#endif
+#if UNITY_ANDROID
+        horizontalRate = 0.6f;
+        friction = 0.88f;
+#endif
     }
 
     void Update()
