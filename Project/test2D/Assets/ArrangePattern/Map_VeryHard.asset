@@ -15,7 +15,7 @@ MonoBehaviour:
   ArrangeTableItemList:
   - PatternPrefab: {fileID: 9096739501140725365, guid: 8dde437531d86ca428183f6a17e07aac,
       type: 3}
-  - PatternPrefab: {fileID: 7389089179493060709, guid: 8386154d613f49f4ab6e9cae12dafac7,
+  - PatternPrefab: {fileID: 222262397124435212, guid: 8386154d613f49f4ab6e9cae12dafac7,
       type: 3}
   - PatternPrefab: {fileID: 8963624007754988486, guid: 5a47db401263926438a190ccf4a9ad6f,
       type: 3}
