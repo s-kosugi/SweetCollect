@@ -15,11 +15,11 @@ MonoBehaviour:
   ArrangeTableItemList:
   - PatternPrefab: {fileID: 9096739501140725365, guid: 8dde437531d86ca428183f6a17e07aac,
       type: 3}
-  - PatternPrefab: {fileID: 7389089179493060709, guid: 8386154d613f49f4ab6e9cae12dafac7,
+  - PatternPrefab: {fileID: 222262397124435212, guid: 8386154d613f49f4ab6e9cae12dafac7,
       type: 3}
   - PatternPrefab: {fileID: 8963624007754988486, guid: 5a47db401263926438a190ccf4a9ad6f,
       type: 3}
-  - PatternPrefab: {fileID: 6280456874666518032, guid: b0224a9d511763e46ae008fefc9daa5a,
+  - PatternPrefab: {fileID: 3757068376868192088, guid: b0224a9d511763e46ae008fefc9daa5a,
       type: 3}
   - PatternPrefab: {fileID: 4334066191908471273, guid: bc865550d7980bd4e903958a359e7e47,
       type: 3}
