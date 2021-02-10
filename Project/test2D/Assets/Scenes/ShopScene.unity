@@ -2379,7 +2379,7 @@ MonoBehaviour:
   horizontalRate: 1
   verticalRate: 0
   friction: 0.96
-  stopThreshold: 0.6
+  stopThreshold: 1
   MinmoveLimitRect: {x: 0, y: 0}
   MaxmoveLimitRect: {x: 0, y: 0}
   inertiaMove: {x: 0, y: 0, z: 0}
