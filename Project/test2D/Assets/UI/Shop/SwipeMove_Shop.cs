@@ -10,8 +10,12 @@ public class SwipeMove_Shop : MonoBehaviour
     [SerializeField] private CurtainAnime curtainAnime = null;                  //カーテン
 
     [SerializeField] float horizontalRate = 1.0f;
+    [SerializeField] float horizontalRateWebgl = 1.0f;
+    [SerializeField] float horizontalRateAndroid = 0.7f;
     [SerializeField] float verticalRate = 1.0f;
     [SerializeField] float friction = 0.9f;
+    [SerializeField] float frictionWebgl = 0.92f;
+    [SerializeField] float frictionAndroid = 0.92f;
     [SerializeField] float stopThreshold = 0.01f;
     [SerializeField] public Vector2 MinmoveLimitRect = default;
     [SerializeField] public Vector2 MaxmoveLimitRect = default;
@@ -38,12 +42,12 @@ public class SwipeMove_Shop : MonoBehaviour
         HalfScreenSizeHeight = ScreenSizeHeight / 2;
 
 #if UNITY_WEBGL
-        horizontalRate = 1.0f;
-        friction = 0.92f;
+        horizontalRate =horizontalRateWebgl;
+        friction = frictionWebgl;
 #endif
 #if UNITY_ANDROID
-        horizontalRate = 0.6f;
-        friction = 0.88f;
+        horizontalRate = horizontalRateAndroid;
+        friction = frictionAndroid;
 #endif
     }
 

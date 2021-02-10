@@ -2377,8 +2377,12 @@ MonoBehaviour:
   BuyAndWearButton: {fileID: 1139846101}
   curtainAnime: {fileID: 258928816}
   horizontalRate: 0.7
+  horizontalRateWebgl: 1
+  horizontalRateAndroid: 0.8
   verticalRate: 0
   friction: 0.92
+  frictionWebgl: 0.92
+  frictionAndroid: 0.94
   stopThreshold: 10
   MinmoveLimitRect: {x: 0, y: 0}
   MaxmoveLimitRect: {x: 0, y: 0}
