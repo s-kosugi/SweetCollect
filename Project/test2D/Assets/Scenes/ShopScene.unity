@@ -2376,7 +2376,7 @@ MonoBehaviour:
   clothing: {fileID: 321649656}
   BuyAndWearButton: {fileID: 1139846101}
   curtainAnime: {fileID: 258928816}
-  horizontalRate: 0.75
+  horizontalRate: 0.7
   verticalRate: 0
   friction: 0.92
   stopThreshold: 10
