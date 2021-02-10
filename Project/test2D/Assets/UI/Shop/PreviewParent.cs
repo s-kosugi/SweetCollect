@@ -113,6 +113,9 @@ public class PreviewParent : MonoBehaviour
 
         MoveStartPosition = this.transform.localPosition;
         EndPosition = clothing.Sort_ParentPos(PreviewNumber);
+
+        //ここを消してスワイプコードを実行すればスワイプ処理が実行される
+        State = STATE.MOVE;
     }
 
     //移動
