@@ -717,6 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimeSpeed: 5
+  MinAlpha: 0
 --- !u!1 &874601597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,6 +1454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoginTime: 1
+  waitConnect: {fileID: 0}
 --- !u!4 &1615812018
 Transform:
   m_ObjectHideFlags: 0
@@ -1751,7 +1753,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22, y: -136}
+  m_AnchoredPosition: {x: 95, y: -92}
   m_SizeDelta: {x: 320, y: 59.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2065582270
@@ -1772,7 +1774,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u306B\u3085\u3046\u308A\u3087\u304F\u3067\u304D\u306A\u3044\u306A\u307E\u3048\u3067\u3059\u3002\n\u307B\u304B\u306E\u306A\u307E\u3048\u3092\u305F\u3081\u3057\u3066\u306D\u3002"
+  m_text: "\u306B\u3085\u3046\u308A\u3087\u304F \u3067\u304D\u306A\u3044 \u306A\u307E\u3048
+    \u3067\u3059\u3002\n3\u3082\u3058\u3044\u3058\u3087\u3046 \u306E \u307B\u304B\u306E\u306A\u307E\u3048
+    \u3092 \u305F\u3081\u3057\u3066\u306D\u3002"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6cc78477bb4c8b449ab6b8eace6cd91a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f842304c30f4a1749a617265370f5aa7, type: 2}
@@ -1800,10 +1804,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 32.75
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1838,13 +1842,13 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -129.39613, y: -36.742107, z: -75.08173, w: 0}
+  m_margin: {x: -292.78552, y: -36.742107, z: -113.16495, w: 0}
   m_textInfo:
     textComponent: {fileID: 2065582270}
-    characterCount: 30
+    characterCount: 45
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 8
+    wordCount: 9
     linkCount: 0
     lineCount: 2
     pageCount: 1
