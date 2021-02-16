@@ -1,21 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// GooglePlayStoreからダウンロードさせるボタン
+/// </summary>
 public class DownLoadButton : MonoBehaviour
 {
-
-    void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-        
-    }
-
     public void Click()
     {
         // GooglePlayStoreを表示する

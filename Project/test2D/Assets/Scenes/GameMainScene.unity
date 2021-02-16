@@ -1070,9 +1070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29954dc7416eaa046886195b5558fc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TraceObject: {fileID: 767655190}
-  MoveSpeed: 60
-  GameMainManagerObject: {fileID: 2040733008}
+  traceObject: {fileID: 767655190}
+  moveSpeed: 60
+  gameMainManager: {fileID: 2040733009}
 --- !u!1 &282166918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2785,9 +2785,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29954dc7416eaa046886195b5558fc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TraceObject: {fileID: 216759662}
-  MoveSpeed: 60
-  GameMainManagerObject: {fileID: 2040733008}
+  traceObject: {fileID: 216759662}
+  moveSpeed: 60
+  gameMainManager: {fileID: 2040733009}
 --- !u!212 &767655193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5578,6 +5578,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpPower: 225
+  gameMainManager: {fileID: 2040733009}
+  jumpEffect: {fileID: 11400000, guid: e6cb17f67426abf42b739341db90f8f7, type: 2}
+  heartEffect: {fileID: 11400000, guid: 2c416fe4a11650244b65f68a5323d626, type: 2}
+  heartShineEffect: {fileID: 11400000, guid: db708cb729d1d36418c0d9e4d2fcd8dc, type: 2}
 --- !u!50 &1953754667
 Rigidbody2D:
   serializedVersion: 4
@@ -5703,7 +5707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27eb1cb9c71b834f845731ace268926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationJumpower: 50
+  animationJumpower: 50
 --- !u!1 &1957053248
 GameObject:
   m_ObjectHideFlags: 0

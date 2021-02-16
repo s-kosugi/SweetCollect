@@ -1,29 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// ショップ中のジャンプアニメーション
+/// </summary>
 public class ShopJumpAnime : MonoBehaviour
 {
-    Rigidbody2D rigidbody2 = default;
-    [SerializeField] float JumpPower = 5000;
-    [SerializeField] float JumpInterval = 1.0f;
+    Rigidbody2D rigidBody2D = default;
+    [SerializeField] float jumpPower = 7000;
+    [SerializeField] float jumpInterval = 1.3f;
     float JumpCounter = 0f;
+
     void Start()
     {
-        rigidbody2 = GetComponent<Rigidbody2D>();
+        rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         JumpCounter += Time.deltaTime;
-        if ( JumpCounter >= JumpInterval)
+        if ( JumpCounter >= jumpInterval)
         {
-            Vector2 v = new Vector2(0.0f, JumpPower);
-            rigidbody2.AddForce(v);
+            Vector2 v = new Vector2(0.0f, jumpPower);
+            rigidBody2D.AddForce(v);
 
             JumpCounter = 0f;
         }
     }
-
-
 }

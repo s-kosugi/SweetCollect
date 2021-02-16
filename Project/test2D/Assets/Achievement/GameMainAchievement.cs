@@ -1,6 +1,9 @@
 ﻿using PlayFab.ClientModels;
 using UnityEngine;
 
+/// <summary>
+/// ゲームメイン実績送信クラス
+/// </summary>
 public class GameMainAchievement : MonoBehaviour
 {
     [SerializeField] PlayFabPlayerData playerData = default;
@@ -13,20 +16,17 @@ public class GameMainAchievement : MonoBehaviour
     /// </summary>
     public void SendAchievementCount()
     {
-        if (player != default)
-        {
-            // ジャンプ回数
-            AddAchievementCount(PlayerDataName.COUNT_JUMP, player.jumpCount);
-            // お菓子ゲット数
-            AddAchievementCount(PlayerDataName.COUNT_GETSWEET, player.sweetGetCount);
-            // プレイ回数
-            AddAchievementCount(PlayerDataName.COUNT_PLAYED, 1);
-            // コイン入手総数
-            AddAchievementCount(PlayerDataName.COUNT_GETCOIN, scoreManager.GetCoinScore());
+        // ジャンプ回数
+        AddAchievementCount(PlayerDataName.COUNT_JUMP, player.jumpCount);
+        // お菓子ゲット数
+        AddAchievementCount(PlayerDataName.COUNT_GETSWEET, player.sweetGetCount);
+        // プレイ回数
+        AddAchievementCount(PlayerDataName.COUNT_PLAYED, 1);
+        // コイン入手総数
+        AddAchievementCount(PlayerDataName.COUNT_GETCOIN, scoreManager.GetCoinScore());
 
-            // 実績通知を要求する
-            notice.RequestNotice();
-        }
+        // 実績通知を要求する
+        notice.RequestNotice();
     }
 
     /// <summary>

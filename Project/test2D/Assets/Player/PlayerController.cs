@@ -1,35 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Effekseer;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float JumpPower = 250;
-    public bool JumpFlag { get; private set; }      // ジャンプ中かどうか
-    private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
-    private GameMainManager gameMainManager = null;  // ゲームメインマネージャー
-    private ScoreManager ScoreManager = null;
-    private EffekseerEffectAsset m_JumpEffect = null;
-    private EffekseerEffectAsset m_HeartEffect = null;
-    private EffekseerEffectAsset m_HeartShineEffect = null;
-    private Rigidbody2D m_RigidBody = null;
-    private List<EffekseerHandle> m_HeartEffectList = default;
+    [SerializeField] float jumpPower = 225;
+    public bool jumpFlag { get; private set; }      // ジャンプ中かどうか
+    private bool twoJumpFlag;   // 2段ジャンプ中かどうか
+    private ScoreManager scoreManager = null;
+    [SerializeField] GameMainManager gameMainManager = default;  // ゲームメインマネージャー
+    [SerializeField] EffekseerEffectAsset jumpEffect = default;
+    [SerializeField] EffekseerEffectAsset heartEffect = default;
+    [SerializeField] EffekseerEffectAsset heartShineEffect = default;
+    private Rigidbody2D rigidBody2D = default;
+    private List<EffekseerHandle> heartEffectList = default;
     public int jumpCount { get; private set; } = 0;     // 実績カウント用
     public int sweetGetCount { get; private set; } = 0;  // 実績カウント用
 
 
     void Start()
     {
-        JumpFlag = true;
-        TwoJumpFlag = true;
-        gameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
-        ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        m_JumpEffect = Resources.Load<EffekseerEffectAsset>("Effect\\jump");
-        m_HeartEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart");
-        m_HeartShineEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart_shine");
-        m_RigidBody = GetComponent<Rigidbody2D>();
-        m_HeartEffectList = new List<EffekseerHandle>();
+        jumpFlag = true;
+        twoJumpFlag = true;
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        rigidBody2D = GetComponent<Rigidbody2D>();
+        heartEffectList = new List<EffekseerHandle>();
     }
 
     void Update()
@@ -39,28 +34,28 @@ public class PlayerController : MonoBehaviour
         {
             if (gameMainManager.state == GameMainManager.STATE.MAIN)
             {
-                if (JumpFlag == false)
+                if (jumpFlag == false)
                 {
-                    JumpFlag = true;
-                    m_RigidBody.velocity = Vector2.zero;
-                    m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
+                    jumpFlag = true;
+                    rigidBody2D.velocity = Vector2.zero;
+                    rigidBody2D.AddForce(new Vector2(0.0f, jumpPower), ForceMode2D.Impulse);
                     jumpCount++;
 
                     // エフェクトの取得
-                    EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
+                    EffekseerSystem.PlayEffect(jumpEffect, transform.position + new Vector3(0f, -10f));
 
                     // ジャンプ音を再生
                     SoundManager.Instance.PlaySE("Jump");
                 }
-                else if (TwoJumpFlag == false)
+                else if (twoJumpFlag == false)
                 {
-                    TwoJumpFlag = true;
-                    m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
-                    m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
+                    twoJumpFlag = true;
+                    rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, 0.0f);
+                    rigidBody2D.AddForce(new Vector2(0.0f, jumpPower), ForceMode2D.Impulse);
                     jumpCount++;
 
                     // エフェクトの取得
-                    EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
+                    EffekseerSystem.PlayEffect(jumpEffect, transform.position + new Vector3(0f, -10f));
 
                     // ジャンプ音を再生
                     SoundManager.Instance.PlaySE("Jump");
@@ -68,7 +63,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         // ハートエフェクトを追従させる
-        foreach( EffekseerHandle handle in m_HeartEffectList)
+        foreach( EffekseerHandle handle in heartEffectList)
         {
             if (handle.enabled)
             {
@@ -77,7 +72,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 // リストから除去
-                m_HeartEffectList.Remove(handle);
+                heartEffectList.Remove(handle);
             }
         }
     }
@@ -88,7 +83,7 @@ public class PlayerController : MonoBehaviour
         {
             ItemEffect item = collision.gameObject.GetComponent<ItemEffect>();
 
-            ScoreManager.AddScore(item.score);
+            scoreManager.AddScore(item.score);
 
             sweetGetCount++;
 
@@ -98,15 +93,15 @@ public class PlayerController : MonoBehaviour
             // ボーナス中かどうかで取得した時のエフェクトを変更する
             if (gameMainManager.CoinGetRate > 1.0f)
             {
-                handle = EffekseerSystem.PlayEffect(m_HeartShineEffect, transform.position);
+                handle = EffekseerSystem.PlayEffect(heartShineEffect, transform.position);
                 SoundManager.Instance.PlaySE("Heart_Shine");
             } else {
-                handle = EffekseerSystem.PlayEffect(m_HeartEffect, transform.position);
+                handle = EffekseerSystem.PlayEffect(heartEffect, transform.position);
                 SoundManager.Instance.PlaySE("Heart");
             }
 
             // エフェクトを更新で追従させるためにリストにいれる
-            m_HeartEffectList.Add(handle);
+            heartEffectList.Add(handle);
 
         }
     }
@@ -115,8 +110,8 @@ public class PlayerController : MonoBehaviour
         // 地面についたらジャンプ可能にする
         if (collision.gameObject.tag == "Ground")
         {
-            JumpFlag = false;
-            TwoJumpFlag = false;
+            jumpFlag = false;
+            twoJumpFlag = false;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Effekseer;
 
@@ -11,11 +10,7 @@ public class TutrialPlayer : MonoBehaviour
     private TutrialSceneManager m_TutrialManager = null;
     private EffekseerEffectAsset m_JumpEffect = null;
     private EffekseerEffectAsset m_HeartEffect = null;
-    private EffekseerEffectAsset m_HeartShineEffect = null;
-    private EffekseerEffectAsset m_CoinGetEffect = null;
     private Rigidbody2D m_RigidBody = null;
-    private CalcDamage m_CalcDamage = null;
-    private BlinkAnimeSpriteRenderer m_Blink = null;
     private List<EffekseerHandle> m_HeartEffectList = default;
 
 
@@ -26,11 +21,7 @@ public class TutrialPlayer : MonoBehaviour
         m_TutrialManager = GameObject.Find("TutrialSceneManager").GetComponent<TutrialSceneManager>();
         m_JumpEffect = Resources.Load<EffekseerEffectAsset>("Effect\\jump");
         m_HeartEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart");
-        m_HeartShineEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart_shine");
-        m_CoinGetEffect = Resources.Load<EffekseerEffectAsset>("Effect\\CoinGet");
         m_RigidBody = GetComponent<Rigidbody2D>();
-        m_CalcDamage = GetComponent<CalcDamage>();
-        m_Blink = GetComponent<BlinkAnimeSpriteRenderer>();
         m_HeartEffectList = new List<EffekseerHandle>();
     }
 

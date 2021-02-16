@@ -37,7 +37,7 @@ public class Clothing : MonoBehaviour
 
     [SerializeField] private BuyButtonPicture buyButtonPicture = default;       //
     private List<bool> oldClothingChild = new List<bool>();                     //
-    private EffekseerEffectAsset buyEffect = null;                              //
+    [SerializeField] EffekseerEffectAsset buyEffect = default;                              //
     private bool isBuyButtonPush = false;                                       // 購入ボタンの押下チェック
     public enum SHELFSTATE
     {
@@ -61,7 +61,6 @@ public class Clothing : MonoBehaviour
         shopcanvas = GameObject.Find("ShopCanvas").GetComponentInParent<ShopCanvasController>();
         // ハードコーディングで可変に対応できない為コメントアウト
         //buyButtonPicture = GameObject.Find("ShopCanvas/RectScaleParent/ShopButton/BuyAndWearButton").GetComponent<BuyButtonPicture>();
-        buyEffect = Resources.Load<EffekseerEffectAsset>("Effect\\buy");
 
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
