@@ -5,8 +5,6 @@ using UnityEngine;
 public class PreviewParent : MonoBehaviour
 {
     [SerializeField] private Clothing clothing = null;                          //棚オブジェクト
-    [SerializeField] private BuyAndWearButton BuyAndWearButton = null;          //着用購入ボタン
-    [SerializeField] private CurtainAnime curtainAnime = null;                  //カーテン
     [SerializeField] private SwipeMove_Shop swipeMove_shop = null;              //スワイプ
 
     private int PreviewNumber = 0;                                  //選択されている服の番号
@@ -66,21 +64,21 @@ public class PreviewParent : MonoBehaviour
     private void Wait()
     {
         //スワイプ開始
-        if(swipeMove_shop.touchFlag && swipeMove_shop.CheckDistance())
+        if(swipeMove_shop.TouchFlag && swipeMove_shop.CheckDistance())
         {
             State = STATE.SWIP;
         }
     }
     private void Swip()
     {
-        Check();
+        SelectClothingNumCheck();
         FinishSwipe();
     }
     private void Friction()
     {
-        Check();
+        SelectClothingNumCheck();
         //スワイプ開始
-        if (swipeMove_shop.touchFlag)
+        if (swipeMove_shop.TouchFlag)
         {
             State = STATE.SWIP;
             return;
@@ -114,7 +112,6 @@ public class PreviewParent : MonoBehaviour
         MoveStartPosition = this.transform.localPosition;
         EndPosition = clothing.Sort_ParentPos(PreviewNumber);
 
-        //ここを消してスワイプコードを実行すればスワイプ処理が実行される
         State = STATE.MOVE;
     }
 
@@ -127,9 +124,9 @@ public class PreviewParent : MonoBehaviour
             DirectionTimer += Time.deltaTime;
 
             //時間内は移動
-            if (DirectionTimer < clothing.GetDirectionTime())
+            if (DirectionTimer < clothing.GetMoveTime())
             {
-                this.transform.localPosition = new Vector3(Easing.OutSine(DirectionTimer, clothing.GetDirectionTime(), EndPosition.x, MoveStartPosition.x)
+                this.transform.localPosition = new Vector3(Easing.OutSine(DirectionTimer, clothing.GetMoveTime(), EndPosition.x, MoveStartPosition.x)
                     , 0.0f, 0.0f);
             }
             else
@@ -144,7 +141,7 @@ public class PreviewParent : MonoBehaviour
     }
 
     //自分が選択されるべき番号
-    private void Check()
+    private void SelectClothingNumCheck()
     {
         //現在の自分の位置から何番目を表示するのかを求める
         int previewdisplaynum = (int)(this.transform.localPosition.x / (SpriteSize + MarginSize)) * -1;

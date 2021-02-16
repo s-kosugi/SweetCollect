@@ -12,10 +12,10 @@ public class AchievementRewardRelease : MonoBehaviour
     [SerializeField] private PlayFabStore PlayFabStoreAchivement = null;                      //実績ストア
     [SerializeField] private ShopSceneManager shop = null;                                    //ショップマネージャー
     [SerializeField] private Clothing clothing = null;                                        //洋服
-    [SerializeField] private BuyAndWearButton buyandwearbutton = null;                        //購入または着用
+    [SerializeField] private ClothingBuyAndWear buyandwearbutton = null;                       //購入または着用
     [SerializeField] private ClotingNameText clotingNameText = null;                          //衣服名表示テキスト
 
-    public bool AchievementFlag { get; private set; }        //実績達成
+    public bool AchievementFlag { get; private set; }                                       　 //実績達成
     public string AchievementClotingName { get; private set; }      //実績達成のアイテムID
     private string ClotingName = "??";                              //実績達成の服の名前
 
@@ -26,23 +26,23 @@ public class AchievementRewardRelease : MonoBehaviour
     private float PreviewTimer = 0.0f;                                           //テロップ表示までの時間
     private float PREVIEW_TIME = 1.0f;                                           //テロップ表示までの時間
 
-    public enum ACHIEVEMENTREWARDRELEASE
+    public enum REWARDRELEASE
     {
         NONE = -1,     //
         CHECK_CLOTHING_RELEASE = 0,     //服開放
-        CLOTHING_MOVE, //服の移動
-        CLOTHING_BUY,  //衣服の購入
-        UPDATA,        //購入情報を更新
-        PREVIEW,       //表示
-        SEARCH,         //検索
-        WAIT,          //実行待ち
+        CLOTHING_MOVE,                  //服の移動
+        CLOTHING_BUY,                   //衣服の購入
+        UPDATA,                         //購入情報を更新
+        PREVIEW,                        //表示
+        SEARCH,                         //検索
+        WAIT,                           //待ち
     }
-    [SerializeField] ACHIEVEMENTREWARDRELEASE EventState = ACHIEVEMENTREWARDRELEASE.NONE; //実勢達積イベント状態
+    [SerializeField] REWARDRELEASE State = REWARDRELEASE.NONE; //実勢達積イベント状態
 
     // Start is called before the first frame update
     void Start()
     {
-        EventState = ACHIEVEMENTREWARDRELEASE.WAIT;
+        State = REWARDRELEASE.WAIT;
 
         AchievementFlag = false;
         AchievementClotingName = "009_GOTHIC";
@@ -58,15 +58,15 @@ public class AchievementRewardRelease : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (EventState)
+        switch (State)
         {
-            case ACHIEVEMENTREWARDRELEASE.CHECK_CLOTHING_RELEASE: Check(); break;
-            case ACHIEVEMENTREWARDRELEASE.CLOTHING_MOVE: Clothing_Move(); break;
-            case ACHIEVEMENTREWARDRELEASE.CLOTHING_BUY: Clothig_Buy(); break;
-            case ACHIEVEMENTREWARDRELEASE.UPDATA: Data_Update(); break;
-            case ACHIEVEMENTREWARDRELEASE.PREVIEW: Preview(); break;
-            case ACHIEVEMENTREWARDRELEASE.SEARCH: Search(); break;
-            case ACHIEVEMENTREWARDRELEASE.WAIT: Wait(); break;
+            case REWARDRELEASE.CHECK_CLOTHING_RELEASE: Check(); break;
+            case REWARDRELEASE.CLOTHING_MOVE: Clothing_Move(); break;
+            case REWARDRELEASE.CLOTHING_BUY: Clothig_Buy(); break;
+            case REWARDRELEASE.UPDATA: Data_Update(); break;
+            case REWARDRELEASE.PREVIEW: Preview(); break;
+            case REWARDRELEASE.SEARCH: Search(); break;
+            case REWARDRELEASE.WAIT: Wait(); break;
         }
     }
 
@@ -78,10 +78,10 @@ public class AchievementRewardRelease : MonoBehaviour
         {
             if(!connect.IsWait())
             {
-                //二つの状態が実績になっているならイベントを実行
-                if(clothing.GetState() == Clothing.SHELFSTATE.ACHIEVEMENTREWARDRELEASE 
-                    && buyandwearbutton.GetState() == BuyAndWearButton.STATE.ACHIEVEMENTREWARDRELEASE)
-                    EventState = ACHIEVEMENTREWARDRELEASE.CLOTHING_MOVE;
+                //二つの状態が服開放になっているならイベントを実行
+                if(clothing.GetState() == Clothing.SHELFSTATE.REWARDRELEASE 
+                    && buyandwearbutton.GetState() == ClothingBuyAndWear.STATE.REWARDRELEASE)
+                    State = REWARDRELEASE.CLOTHING_MOVE;
             }
         }
 
@@ -90,14 +90,14 @@ public class AchievementRewardRelease : MonoBehaviour
     private void Clothing_Move()
     {
         if(ClotingMoveEndFlag)
-            EventState = ACHIEVEMENTREWARDRELEASE.CLOTHING_BUY;
+            State = REWARDRELEASE.CLOTHING_BUY;
     }
     //服の購入
     private void Clothig_Buy()
     {
         if(BuyEndFlag)
         {
-            EventState = ACHIEVEMENTREWARDRELEASE.UPDATA;
+            State = REWARDRELEASE.UPDATA;
             ClotingMoveEndFlag = false;
             BuyEndFlag = false;
             inventory.RequestUpdate();
@@ -115,7 +115,7 @@ public class AchievementRewardRelease : MonoBehaviour
             {
                 PreviewTimer = 0.0f;
                 clotingNameText.GetClotingName(ClotingName);
-                EventState = ACHIEVEMENTREWARDRELEASE.PREVIEW;
+                State = REWARDRELEASE.PREVIEW;
             }
         }
     }
@@ -152,7 +152,7 @@ public class AchievementRewardRelease : MonoBehaviour
     //実績解除確認開始
     public void IsCheck()
     {
-        EventState = ACHIEVEMENTREWARDRELEASE.SEARCH;
+        State = REWARDRELEASE.SEARCH;
     }
 
     //実績達成と服の所持
@@ -170,7 +170,7 @@ public class AchievementRewardRelease : MonoBehaviour
                     //検索処理を終了する
                     if(StoreItem == null && value.ItemId != "-1")
                     {
-                        EventState = ACHIEVEMENTREWARDRELEASE.WAIT;
+                        State = REWARDRELEASE.WAIT;
                         break;
                     }
 
@@ -187,7 +187,7 @@ public class AchievementRewardRelease : MonoBehaviour
                                 AchievementClotingName = value.ItemId;
                                 ClotingName = value.DisplayName;
                                 AchievementFlag = true;
-                                EventState = ACHIEVEMENTREWARDRELEASE.CHECK_CLOTHING_RELEASE;
+                                State = REWARDRELEASE.CHECK_CLOTHING_RELEASE;
                                 break;
                             }
                         }
@@ -198,9 +198,9 @@ public class AchievementRewardRelease : MonoBehaviour
     }
 
     //取得
-    public ACHIEVEMENTREWARDRELEASE GetState()
+    public REWARDRELEASE GetState()
     {
-        return EventState;
+        return State;
     }
 
     //ボタン処理

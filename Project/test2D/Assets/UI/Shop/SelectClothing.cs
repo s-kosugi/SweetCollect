@@ -1,7 +1,7 @@
 ﻿using PlayFab.ClientModels;
 using UnityEngine;
 
-public class ShopCanvasController : MonoBehaviour
+public class SelectClothing : MonoBehaviour
 {
     //[SerializeField] StoreItem SelectItem;                          //選択しているアイテム
     [SerializeField] PlayFabStore PalyFabStore;                     //プレイハブのストア系統の処理

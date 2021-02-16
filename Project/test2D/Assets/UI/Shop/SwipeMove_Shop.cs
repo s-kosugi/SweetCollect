@@ -5,97 +5,94 @@ using UnityEngine.SceneManagement;
 
 public class SwipeMove_Shop : MonoBehaviour
 {
-    [SerializeField] private Clothing clothing = null;
-    [SerializeField] private BuyAndWearButton BuyAndWearButton = null;          //着用購入ボタン
+    [SerializeField] private Clothing clothing = null;                          //服
+    [SerializeField] private ClothingBuyAndWear BuyAndWearButton = null;        //着用購入ボタン
     [SerializeField] private CurtainAnime curtainAnime = null;                  //カーテン
 
-    [SerializeField] float horizontalRate = 1.0f;
-    [SerializeField] float horizontalRateWebgl = 1.0f;
-    [SerializeField] float horizontalRateAndroid = 0.7f;
-    [SerializeField] float verticalRate = 1.0f;
-    [SerializeField] float friction = 0.9f;
-    [SerializeField] float frictionWebgl = 0.92f;
-    [SerializeField] float frictionAndroid = 0.92f;
-    [SerializeField] float stopThreshold = 0.01f;
-    [SerializeField] public Vector2 MinmoveLimitRect = default;
-    [SerializeField] public Vector2 MaxmoveLimitRect = default;
+    float HorizontalRate = 1.0f;                                                //水平方向レート
+    [SerializeField] float HorizontalRateAndroid = 0.5f;                        //アンドロイド版水平方向レート
+    [SerializeField] float VerticalRate = 1.0f;                                 //垂直方向レート
+    float Friction = 0.9f;                                                      //摩擦力
+    [SerializeField] float FrictionAndroid = 0.88f;                             //アンドロイド版摩擦力
+    [SerializeField] float StopThreshold = 0.01f;                               //停止速度
+    [SerializeField] public Vector2 MinmoveLimitRect = default;                 //最小範囲
+    [SerializeField] public Vector2 MaxmoveLimitRect = default;                 //最大範囲
 
-    public bool touchFlag { get; private set; }
-    private bool PrevtouchFlag = false;
-    private Vector3 oldTouchPos = Vector3.zero;
-    [SerializeField] private Vector3 inertiaMove = Vector3.zero;
+    public bool TouchFlag { get; private set; }                                 //タッチフラグ
+    private bool PrevtouchFlag = false;                                         //一つ前フレームのタッチフラグ
+    private Vector3 OldTouchPos = Vector3.zero;                                 //過去位置
+    [SerializeField] private Vector3 InertiaMove = Vector3.zero;                //移動量
 
     //移動したい値の最大値関連
     [SerializeField] private float Max_Wight = 0;
 
     //移動距離
-    [SerializeField] private Vector3 TouchPos = Vector3.zero; //押された瞬間の位置
-    [SerializeField] private float MinMoveDistance = 1.0f;   　//最小移動距離
+    [SerializeField] private Vector3 TouchPos = Vector3.zero;                   //押された瞬間の位置
+    [SerializeField] private float MinMoveDistance = 1.0f;                      //最小移動距離
     //画面
-    [SerializeField] private int HalfScreenSizeHeight = 0;  //高さのサイズ()
-    [SerializeField] private int ScreenSizeHeight = 0;  //高さのサイズ
-    [SerializeField] private float Percentage = 0.0f;       //割合
+    [SerializeField] private int HalfScreenSizeHeight = 0;                      //高さのサイズ()
+    [SerializeField] private int ScreenSizeHeight = 0;                          //高さのサイズ
 
     private void Start()
     {
         ScreenSizeHeight = Screen.height;
         HalfScreenSizeHeight = ScreenSizeHeight / 2;
 
-#if UNITY_WEBGL
-        horizontalRate =horizontalRateWebgl;
-        friction = frictionWebgl;
+#if UNITY_WEBGL    
+        this.enabled = false;
 #endif
 #if UNITY_ANDROID
-        horizontalRate = horizontalRateAndroid;
-        friction = frictionAndroid;
+        this.enabled = true;
+        HorizontalRate = HorizontalRateAndroid;
+        Friction = FrictionAndroid;
 #endif
     }
 
     void Update()
     {
-        if (clothing.GetState() == Clothing.SHELFSTATE.PREVIEW && BuyAndWearButton.GetState() == BuyAndWearButton.STATE.RECEPTION && curtainAnime.state == CurtainAnime.STATE.WAIT)
+        if (clothing.GetState() == Clothing.SHELFSTATE.PREVIEW && BuyAndWearButton.GetState() == ClothingBuyAndWear.STATE.RECEPTION && curtainAnime.state == CurtainAnime.STATE.WAIT)
         {
             if (Input.GetMouseButton(0))
             {  
                 // 押された瞬間だった場合は旧座標を保存する
-                if (!touchFlag)
+                if (!TouchFlag)
                 {
-                    oldTouchPos = Input.mousePosition;
-                    TouchPos = oldTouchPos;
-                    touchFlag = true;
+                    OldTouchPos = Input.mousePosition;
+                    TouchPos = OldTouchPos;
+                    TouchFlag = true;
                 }
 
                 if (CheckDistance())
                 {
-                    Vector3 velocity = Input.mousePosition - oldTouchPos;
+                    Vector3 velocity = Input.mousePosition - OldTouchPos;
 
                     // 上下左右それぞれの移動倍率をかける
-                    velocity = new Vector3(velocity.x * horizontalRate, velocity.y * verticalRate, velocity.z);
+                    velocity = new Vector3(velocity.x * HorizontalRate, velocity.y * VerticalRate, velocity.z);
                     // 慣性移動用の値を保存
-                    inertiaMove = velocity;
+                    InertiaMove = velocity;
 
                     // オブジェクトを移動させる
                     MoveObject(velocity);
                 }
                 // 移動が終わったので旧座標を保存する
-                oldTouchPos = Input.mousePosition;
+                OldTouchPos = Input.mousePosition;
             }
             else
             {
-                touchFlag = false;
+                TouchFlag = false;
 
 
                 // 摩擦率をかける
-                inertiaMove *= friction;
+                InertiaMove *= Friction;
 
                 // スピードが遅くなったら完全停止させる
-                if (Mathf.Abs(inertiaMove.x) <= stopThreshold && Mathf.Abs(inertiaMove.y) <= stopThreshold)
+                if (Mathf.Abs(InertiaMove.x) <= StopThreshold && Mathf.Abs(InertiaMove.y) <= StopThreshold)
                 {
-                    inertiaMove = Vector3.zero;
+                    InertiaMove = Vector3.zero;
                 }
 
                 // 摩擦計算込みの移動をする
-                MoveObject(inertiaMove);
+                MoveObject(InertiaMove);
 
             }
         }
@@ -114,13 +111,13 @@ public class SwipeMove_Shop : MonoBehaviour
         if (checkPos.x < MinmoveLimitRect.x)
         {
             checkPos.x = MinmoveLimitRect.x;
-            inertiaMove = Vector3.zero;
+            InertiaMove = Vector3.zero;
         }
         // 右側チェック
         if (checkPos.x > MaxmoveLimitRect.x)
         {
             checkPos.x = MaxmoveLimitRect.x;
-            inertiaMove = Vector3.zero;
+            InertiaMove = Vector3.zero;
         }
         // 上側チェック
         if (checkPos.y < MinmoveLimitRect.y)
@@ -152,13 +149,13 @@ public class SwipeMove_Shop : MonoBehaviour
     {
         bool release = false;
 
-        if (!touchFlag && PrevtouchFlag)
+        if (!TouchFlag && PrevtouchFlag)
             release = true;
         else
             release = false;
 
         //1フレーム前の状態を保存
-        PrevtouchFlag = touchFlag;
+        PrevtouchFlag = TouchFlag;
 
         return release;
     }
@@ -166,18 +163,18 @@ public class SwipeMove_Shop : MonoBehaviour
     //現在の移動速度
     public float GetInertiaMove()
     {
-        return inertiaMove.magnitude;
+        return InertiaMove.magnitude;
     }
     //移動最低速度
     public float GetStopThreshold()
     {
-        return stopThreshold;
+        return StopThreshold;
     }
 
     //移動距離が一定以上か
     public bool CheckDistance()
     {
-        float distance = Mathf.Abs(Vector3.Distance(oldTouchPos, TouchPos));
+        float distance = Mathf.Abs(Vector3.Distance(OldTouchPos, TouchPos));
 
         if (distance > MinMoveDistance)
             return true;
