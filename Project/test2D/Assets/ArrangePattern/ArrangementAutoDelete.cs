@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 配置オブジェクトの自動削除クラス
+/// </summary>
 public class ArrangementAutoDelete : MonoBehaviour
 {
     void Update()

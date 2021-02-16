@@ -1,8 +1,9 @@
 ﻿using PlayFab.ClientModels;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ショップ実績達成確認クラス
+/// </summary>
 public class ShopAchievement : MonoBehaviour
 {
     [SerializeField] PlayFabInventory inventory = default;

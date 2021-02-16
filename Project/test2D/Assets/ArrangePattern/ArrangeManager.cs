@@ -1,5 +1,4 @@
 ﻿using PlayFab.ClientModels;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,19 +18,17 @@ public class ArrangeManager : MonoBehaviour
     [SerializeField] ArrangeTable normalTable = default;
     [SerializeField] ArrangeTable hardTable = default;
     [SerializeField] ArrangeTable veryhardTable = default;
-    private float m_Timer = 0f;
-    private CameraController m_Camera = null;
-    GameMainManager m_GameMainManager = null;
+    private float popTimer = 0f;
+    [SerializeField] GameMainManager gameMainManager = default;
     [SerializeField]private List<ArrangePattern> patternList = default;
     [SerializeField]private PlayFabPlayerData playerData = default;
-    //固定配置位置
-    private float AddCreatePorision = 590.0f;     //親からのローカル位置
+
+
+    [SerializeField] float adjustmentPosition = 590.0f;     // 親からの差分で出現位置を決める
 
     void Start()
     {
-        m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>().GetComponent<CameraController>();
-        m_Timer = OneDisplayTime;
-        m_GameMainManager = transform.root.GetComponent<GameMainManager>();
+        popTimer = OneDisplayTime;
         // とりあえずイージーをいれておく
         patternList = new List<ArrangePattern>(easyTable.ArrangeTableItemList);
     }
@@ -59,17 +56,16 @@ public class ArrangeManager : MonoBehaviour
 
     void Update()
     {
-
-        if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
+        if (gameMainManager.state == GameMainManager.STATE.MAIN)
         {
-            m_Timer += Time.deltaTime;
-            if (OneDisplayTime <= m_Timer)
+            popTimer += Time.deltaTime;
+            if (OneDisplayTime <= popTimer)
             {
-                m_Timer = 0;
+                popTimer = 0;
                 // ランダムでテーブルからどのパターンから出るかを決める
                 int index = Random.Range(0, patternList.Count);
                 GameObject obj = Instantiate(patternList[index].PatternPrefab, this.transform);
-                obj.transform.position = new Vector3(this.transform.position.x + AddCreatePorision, 0f, 0f);
+                obj.transform.position = new Vector3(this.transform.position.x + adjustmentPosition, 0f, 0f);
                 // 一度出たパターンは出ないようにする
                 patternList.RemoveAt(index);
 
@@ -80,7 +76,7 @@ public class ArrangeManager : MonoBehaviour
                 }
             }
         }
-        if (m_GameMainManager.state == GameMainManager.STATE.OVER)
+        if (gameMainManager.state == GameMainManager.STATE.OVER)
         {
             // すべての子オブジェクトを削除
             foreach (Transform n in gameObject.transform)
@@ -88,7 +84,7 @@ public class ArrangeManager : MonoBehaviour
                 GameObject.Destroy(n.gameObject);
             }
             // 次にすぐ出現するためにタイマーを満たしておく
-            m_Timer = OneDisplayTime;
+            popTimer = OneDisplayTime;
         }
     }
 }

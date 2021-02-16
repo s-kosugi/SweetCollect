@@ -23,6 +23,7 @@ public class ReachAchievement : MonoBehaviour
     }
     void Update()
     {
+        // 実績を達成したかどうか一度だけチェックする
         if (!isSet)
         {
             CheckReachAchievement();
