@@ -22,7 +22,7 @@ public class BreakHitObject : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             // スコアの減算
-            transform.root.GetComponent<GameMainManager>().m_ScoreManager.AddScore(SubScore);
+            transform.root.GetComponent<GameMainManager>().scoreManager.AddScore(SubScore);
 
             // 破壊エフェクトの再生
             EffekseerSystem.PlayEffect(Effect, transform.position);

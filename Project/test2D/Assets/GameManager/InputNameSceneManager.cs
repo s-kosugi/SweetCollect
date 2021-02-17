@@ -2,12 +2,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 名前入力シーン
+/// </summary>
 public class InputNameSceneManager : BaseScene
 {
     [SerializeField] InputField nameInputField = default;
     [SerializeField] PlayFabWaitConnect waitConnect = default;
     [SerializeField] PlayFabUserProfiel userProfiel = default;
     [SerializeField] TextMeshProUGUI errortextMesh = default;
+
+    /// <summary>
+    /// シーン状態
+    /// </summary>
     public enum STATE
     {
         FADEIN,
@@ -15,7 +22,7 @@ public class InputNameSceneManager : BaseScene
         CHECKNAME,
         FADEOUT
     }
-    private STATE m_State = STATE.FADEIN;
+    private STATE state = STATE.FADEIN;
 
     override protected void Start()
     {
@@ -29,7 +36,7 @@ public class InputNameSceneManager : BaseScene
 
     override protected void Update()
     {
-        switch (m_State)
+        switch (state)
         {
             case STATE.FADEIN: SceneFadeIn(); break;
             case STATE.FADEOUT: SceneFadeOut(); break;
@@ -43,7 +50,7 @@ public class InputNameSceneManager : BaseScene
     {
         if (IsFadeEnd())
         {
-            m_State = STATE.MAIN;
+            state = STATE.MAIN;
         }
     }
     // メイン状態
@@ -68,12 +75,12 @@ public class InputNameSceneManager : BaseScene
             {
                 // フェードアウト状態にする
                 fadeState = FADE_STATE.FADEOUT;
-                m_State = STATE.FADEOUT;
+                state = STATE.FADEOUT;
             }
             // エラー表示をしてもう一度名前入力をさせる
             if (userProfiel.setNameResult == PlayFabUserProfiel.SETNAME_RESULT.ERROR)
             {
-                m_State = STATE.MAIN;
+                state = STATE.MAIN;
                 errortextMesh.enabled = true;
             }
         }
@@ -82,7 +89,7 @@ public class InputNameSceneManager : BaseScene
     public void Push_NextButton()
     {
         // 名前チェックをする
-        m_State = STATE.CHECKNAME;
+        state = STATE.CHECKNAME;
         // 名前送信
         userProfiel.SetUserName(nameInputField.text);
     }

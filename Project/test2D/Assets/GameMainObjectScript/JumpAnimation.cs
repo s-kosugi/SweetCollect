@@ -1,26 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// キャラクターのジャンプアニメーションスクリプト
+/// </summary>
 public class JumpAnimation : MonoBehaviour
 {
-    GameMainManager m_GameMainManager = null;
-    Rigidbody2D m_Rigidbody2D = null;
-    [SerializeField] float AnimationJumpower = 50;
+    GameMainManager gameMainManager = default;
+    Rigidbody2D rb2D = default;
+    [SerializeField] float animationJumpower = 50;
 
     void Start()
     {
-        m_GameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
-        m_Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        gameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
+        rb2D = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // メイン状態なのに動いていなかったらアニメーションさせる
-        if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
+        if (gameMainManager.state == GameMainManager.STATE.MAIN)
         {
-            if (m_Rigidbody2D.velocity == Vector2.zero)
+            if (rb2D.velocity == Vector2.zero)
             {
                 StartJumpAnimation();
             }
@@ -32,7 +33,7 @@ public class JumpAnimation : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             // ゲームメイン時のみアニメーションさせる
-            if (m_GameMainManager.state == GameMainManager.STATE.MAIN)
+            if (gameMainManager.state == GameMainManager.STATE.MAIN)
             {
                 // 歩きアニメーションをする。
                 StartJumpAnimation();
@@ -45,7 +46,7 @@ public class JumpAnimation : MonoBehaviour
     /// </summary>
     public void StartJumpAnimation()
     {
-        Vector2 v = new Vector2(0.0f, AnimationJumpower);
-        m_Rigidbody2D.velocity = v;
+        Vector2 v = new Vector2(0.0f, animationJumpower);
+        rb2D.velocity = v;
     }
 }

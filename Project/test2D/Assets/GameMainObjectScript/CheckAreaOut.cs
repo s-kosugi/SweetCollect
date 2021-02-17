@@ -4,7 +4,7 @@
 public class CheckAreaOut : MonoBehaviour
 {
     [SerializeField] DIRECTION direction = DIRECTION.LEFT;
-    private bool MainCameraIn = false;
+    private bool mainCameraIn = false;
 
     enum DIRECTION
     {
@@ -25,12 +25,12 @@ public class CheckAreaOut : MonoBehaviour
             case DIRECTION.BOTTOM: if (transform.position.y> 100) areaOut = true; break;
         }
         // 画面外に出た場合消去する
-        if (areaOut && !MainCameraIn)
+        if (areaOut && !mainCameraIn)
         {
             Destroy(gameObject);
         }
         // フラグリセット
-        MainCameraIn = false;
+        mainCameraIn = false;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class CheckAreaOut : MonoBehaviour
         // 映っているカメラがメインだったら
         if (Camera.current.name == "Main Camera")
         {
-            MainCameraIn = true;
+            mainCameraIn = true;
         }
     }
 }

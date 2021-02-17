@@ -8,7 +8,9 @@ public class AchievementSceneManager : BaseScene
     [SerializeField] AchievementParent achivementParent = default;
     [SerializeField] AchievementEquipFrame frame = default;
 
-
+    /// <summary>
+    /// シーン状態
+    /// </summary>
     public enum STATE
     {
         PREPARATION,
@@ -23,9 +25,7 @@ public class AchievementSceneManager : BaseScene
     {
 
         NextSceneName = "ShopScene";
-
         base.Start();
-
         state = STATE.PREPARATION;
 
         // 黒画面にする

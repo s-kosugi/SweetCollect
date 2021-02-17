@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ゲームメインシーン
+/// </summary>
 public class GameMainManager : BaseScene
 {
     [SerializeField] public float GameOverTime = 2.0f;
@@ -10,13 +13,13 @@ public class GameMainManager : BaseScene
     [SerializeField] GameObject ReStartUIObject = null;
     [SerializeField] public float GameTimer = 60.0f;
     [SerializeField] Ads AdsObject = null;
-    private StartUI m_StartUI = null;
-    private StartUI m_ReStartUI = null;
+    private StartUI startUI = default;
+    private StartUI restartUI = default;
 
-    private float GameOverCount = 0.0f;
-    public ScoreManager m_ScoreManager { get; private set; }
-    private JumpAnimation m_PlayerJump = null;
-    private PlayFabWaitConnect m_WaitConnect = null;
+    private float gameOverCount = 0.0f;
+    public ScoreManager scoreManager { get; private set; }
+    private JumpAnimation playerJump = default;
+    private PlayFabWaitConnect waitConnect = null;
 
     [SerializeField] ArrangeManager arrangeManager = default;
     [SerializeField] GameMainAchievement achievement = default;
@@ -61,15 +64,15 @@ public class GameMainManager : BaseScene
 
     override protected void Start()
     {
-        GameOverCount = 0.0f;
+        gameOverCount = 0.0f;
         CoinGetRate = 1f;
-        m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         GameObject playFabManager = GameObject.Find("PlayFabManager");
-        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
-        m_PlayerJump = Player.GetComponent<JumpAnimation>();
+        waitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        playerJump = Player.GetComponent<JumpAnimation>();
 
-        m_StartUI = StartUIObject.GetComponent<StartUI>();
-        m_ReStartUI = ReStartUIObject.GetComponent<StartUI>();
+        startUI = StartUIObject.GetComponent<StartUI>();
+        restartUI = ReStartUIObject.GetComponent<StartUI>();
 
         adsButton = GameObject.Find("AdsButton").GetComponent<Button>();
 
@@ -102,7 +105,7 @@ public class GameMainManager : BaseScene
     void GamePreParation()
     {
         // 通信待ちが終わった
-        if(!m_WaitConnect.IsWait() )
+        if(!waitConnect.IsWait() )
         {
 
             // 配置を難易度にあわせて更新
@@ -111,7 +114,7 @@ public class GameMainManager : BaseScene
             state = STATE.FADEIN;
             fadeState = FADE_STATE.FADEIN;
 
-            m_ScoreManager.Reset();
+            scoreManager.Reset();
         }
     }
 
@@ -130,11 +133,11 @@ public class GameMainManager : BaseScene
     void GameStart()
     {
         // UI演出が終了したらメイン状態に移る
-        if (m_StartUI.isEnd)
+        if (startUI.isEnd)
         {
             state = STATE.MAIN;
             // プレイヤーのジャンプアニメーションを開始する
-            m_PlayerJump.StartJumpAnimation();
+            playerJump.StartJumpAnimation();
         }
     }
     // ゲームメイン状態
@@ -156,13 +159,13 @@ public class GameMainManager : BaseScene
         if (!AdsObject.isShow)
         {
             // ゲームスコアを確定する
-            m_ScoreManager.ConfirmScore();
+            scoreManager.ConfirmScore();
         }
 
-        GameOverCount += Time.deltaTime;
-        if (GameOverCount >= GameOverTime)
+        gameOverCount += Time.deltaTime;
+        if (gameOverCount >= GameOverTime)
         {
-            GameOverCount = 0f;
+            gameOverCount = 0f;
             state = STATE.NEXT;
         }
     }
@@ -215,20 +218,20 @@ public class GameMainManager : BaseScene
     void GameReStart()
     {
         // UIの動きが終わったらリスタートさせる
-        if (m_ReStartUI.isEnd)
+        if (restartUI.isEnd)
         {
             SoundManager.Instance.PlayBGM("BonusTime");
 
             state = STATE.MAIN;
             // プレイヤーのジャンプアニメーションを開始する
-            m_PlayerJump.StartJumpAnimation();
+            playerJump.StartJumpAnimation();
         }
     }
     // ゲームフェードアウト中
     void GameFadeOut()
     {
         // 通信終了したらフェードアウト状態に変更する
-        if(!m_WaitConnect.IsWait())
+        if(!waitConnect.IsWait())
         {
             fadeState = FADE_STATE.FADEOUT;
         }
@@ -240,7 +243,7 @@ public class GameMainManager : BaseScene
         state = STATE.FADEOUT;
 
         // 現在のスコアを仮想通貨に追加する
-        m_ScoreManager.AddVirtualCurrency();
+        scoreManager.AddVirtualCurrency();
 
         // 実績カウントの送信
         achievement.SendAchievementCount();

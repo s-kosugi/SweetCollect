@@ -1,12 +1,10 @@
-﻿using PlayFab.ClientModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ResultSceneManager : BaseScene
 {
-    private PlayFabWaitConnect m_WaitConnect = null;
-    private float m_AppearTimer = 0.0f;
+    private PlayFabWaitConnect waitConnect = null;
+    private float appearTimer = 0.0f;
     [SerializeField] float AppearPos = -1000;
     [SerializeField] float AppearEndTime = 2.0f;
     [SerializeField] float AppearSubTime = 0.2f;
@@ -46,7 +44,7 @@ public class ResultSceneManager : BaseScene
     override protected void Start()
     {
         GameObject PlayFabManager = GameObject.Find("PlayFabManager");
-        m_WaitConnect = PlayFabManager.GetComponent<PlayFabWaitConnect>();
+        waitConnect = PlayFabManager.GetComponent<PlayFabWaitConnect>();
 
         // 出現前にUIを画面外に配置しておく
         AppearGroup1.transform.localPosition = new Vector3(AppearPos, 0);
@@ -62,7 +60,7 @@ public class ResultSceneManager : BaseScene
         fadeState = FADE_STATE.BLACK;
     }
 
-    // Update is called once per frame
+
     override protected void Update()
     {
 
@@ -83,7 +81,7 @@ public class ResultSceneManager : BaseScene
     void Preparation()
     {
         // 通信が終了したらフェードインへ移行する
-        if (!m_WaitConnect.IsWait())
+        if (!waitConnect.IsWait())
         {
             fadeState = FADE_STATE.FADEIN;
             state = STATE.FADEIN;
@@ -97,7 +95,7 @@ public class ResultSceneManager : BaseScene
         if (IsFadeEnd())
         {
             state = STATE.APPEAR;
-            m_AppearTimer = 0.0f;
+            appearTimer = 0.0f;
             scoreNumber.SetStateAppear();
             scoreNumber.animationTime = AppearEndTime;
 
@@ -109,7 +107,7 @@ public class ResultSceneManager : BaseScene
     // UIの出現状態
     void Appear()
     {
-        m_AppearTimer += Time.deltaTime;
+        appearTimer += Time.deltaTime;
 
         // 出現タイマー制御用のリスト
         List<GameObject> list = new List<GameObject>();
@@ -126,15 +124,15 @@ public class ResultSceneManager : BaseScene
 
         // タップしたらアニメーションをスキップ
         if (Input.GetMouseButtonDown(0))
-            m_AppearTimer = AppearEndTime;
+            appearTimer = AppearEndTime;
 
-        if (AppearEndTime > m_AppearTimer)
+        if (AppearEndTime > appearTimer)
         {
             for (int i = 0; i < list.Count; i++)
             {
                 // UIを上段から少しずつずらして出現させる
-                float posX = Easing.OutBack(m_AppearTimer, AppearEndTime - (float)(list.Count - i) * AppearSubTime, 0, -AppearPos,1.0f);
-                if (AppearEndTime - (float)(list.Count - i) * AppearSubTime <= m_AppearTimer)
+                float posX = Easing.OutBack(appearTimer, AppearEndTime - (float)(list.Count - i) * AppearSubTime, 0, -AppearPos,1.0f);
+                if (AppearEndTime - (float)(list.Count - i) * AppearSubTime <= appearTimer)
                 {
                     list[i].transform.localPosition = new Vector3(0, 0);
                 }
@@ -192,7 +190,7 @@ public class ResultSceneManager : BaseScene
     void GameFadeOut()
     {
         // 通信が終わったらシーンをフェードアウトに変更する
-        if( !m_WaitConnect.IsWait())
+        if( !waitConnect.IsWait())
         {
             fadeState = FADE_STATE.FADEOUT;
         }

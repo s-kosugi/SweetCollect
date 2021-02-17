@@ -1,14 +1,18 @@
-﻿using UnityEngine;
-
+﻿/// <summary>
+/// クレジットシーン
+/// </summary>
 public class CreditSceneManager : BaseScene
 {
+    /// <summary>
+    /// シーン状態
+    /// </summary>
     public enum STATE
     {
         FADEIN,
         MAIN,
         FADEOUT
     }
-    private STATE m_State = STATE.FADEIN;
+    private STATE state = STATE.FADEIN;
 
     override protected void Start()
     {
@@ -21,7 +25,7 @@ public class CreditSceneManager : BaseScene
 
     override protected void Update()
     {
-        switch (m_State)
+        switch (state)
         {
             case STATE.FADEIN: CreditFadeIn(); break;
             case STATE.FADEOUT: CreditFadeOut(); break;
@@ -34,7 +38,7 @@ public class CreditSceneManager : BaseScene
     {
         if (IsFadeEnd())
         {
-            m_State = STATE.MAIN;
+            state = STATE.MAIN;
         }
     }
     // メイン状態
@@ -53,12 +57,12 @@ public class CreditSceneManager : BaseScene
     {
         // フェードアウト状態にする
         fadeState = FADE_STATE.FADEOUT;
-        m_State = STATE.FADEOUT;
+        state = STATE.FADEOUT;
     }
 
     //状態の取得
     public STATE GetState()
     {
-        return m_State;
+        return state;
     }
 }
