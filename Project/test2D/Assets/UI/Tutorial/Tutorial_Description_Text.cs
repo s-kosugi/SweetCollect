@@ -10,17 +10,17 @@ public class Tutorial_Description_Text : MonoBehaviour
     [SerializeField] Tutrial_EquipFrame TutrialEquipFrame = null;
     [SerializeField] TextMeshProUGUI textmesh = default;
 
-    [SerializeField] List<string> WordList = new List<string>();  //説明文
+    [SerializeField] List<string> WordList = new List<string>();                                //説明文
 
-    [SerializeField] int NowWordNumber = 0;                       //現在の説明の番号
-    [SerializeField] float DisplayTimer = 0;                      //表示時間
-    [SerializeField] float DISPLAY_TIME = 1.0f;                   //表示時間
-    [SerializeField] string DisplayDescription = "";              //表示する説明
+    [SerializeField] int NowWordNumber = 0;                                                     //現在の説明の番号
+    float DisplayTimer = 0;                                                    //表示時間
+    [SerializeField] float DISPLAY_TIME = 1.0f;                                                 //表示時間
+    [SerializeField] string DisplayDescription = "";                                            //表示する説明
 
     [SerializeField] TutrialSceneManager.TUTRIAL NextState = TutrialSceneManager.TUTRIAL.NONE;  //次に進めたい状態
-    [SerializeField] float FadeTimer = 0.0f;                      //フェード時間
-    [SerializeField] float FADETIME = 1.0f;                      //フェード時間
-    [SerializeField] float TextAlpha = 0.0f;                      //アルファ値
+    float FadeTimer = 0.0f;                                                    //フェード時間
+    [SerializeField] float FADETIME = 1.0f;                                                     //フェード時間
+    [SerializeField] float TextAlpha = 0.0f;                                                    //アルファ値
 
     public enum STATE
     {
@@ -28,8 +28,8 @@ public class Tutorial_Description_Text : MonoBehaviour
         CHECK = 0,   //確認
         CHANGE,      //変更
         DISPLAY,     //表示
-        FADEIN,         //フェードイン
-        FADEOUT,        //フェードアウト
+        FADEIN,      //フェードイン
+        FADEOUT,     //フェードアウト
         WAIT         //待機
     }
     [SerializeField] public STATE State = STATE.NONE;       //テキスト状態

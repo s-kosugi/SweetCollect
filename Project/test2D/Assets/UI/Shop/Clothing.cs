@@ -29,16 +29,16 @@ public class Clothing : MonoBehaviour
     Dictionary<string, int> SpriteNumber = new Dictionary<string, int>();                         //画像の番号
 
     private bool IsHaveCheck;                                                                     //取得確認中
-    [SerializeField] private float MOVETIMENORMAL      = 0.15f;                                 //移動時間
-    [SerializeField] private float MOVETIMEACHIEVEMENT = 0.1f;                                  //移動時間
+    [SerializeField] private float MOVETIMENORMAL      = 0.15f;                                   //移動時間
+    [SerializeField] private float MOVETIMEACHIEVEMENT = 0.1f;                                    //移動時間
     private float DirectionTime = 0.0f;                                                           //実績達成演出時間
     private bool MoveEndFlag;                                                                     //実績達成イベント移動(服の移動)
     private bool InfoChild;                                                                       //子に情報を与えた
 
-    [SerializeField] private BuyButtonPicture buyButtonPicture = default;                 //
-    private List<bool> oldClothingChild = new List<bool>();                               //
-    [SerializeField] EffekseerEffectAsset buyEffect = default;                                        //
-    private bool isBuyButtonPush = false;                                                 // 購入ボタンの押下チェック
+    [SerializeField] private BuyButtonPicture buyButtonPicture = default;                         //ボタンの画像
+    private List<bool> oldClothingChild = new List<bool>();                                       //黒塗をする際に必要な情報
+    [SerializeField] EffekseerEffectAsset buyEffect = default;                                    //購入時のエフェクト
+    private bool isBuyButtonPush = false;                                                         // 購入ボタンの押下チェック
     public enum SHELFSTATE
     {
         NONE = -1,

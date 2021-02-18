@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class BuyAndWearButton : MonoBehaviour
 {
-    [SerializeField]ClothingBuyAndWear clothingbuyandwear = null;//服の着用購入
-    private Button button;     //ボタン
+    [SerializeField]ClothingBuyAndWear clothingbuyandwear = null;           //服の着用購入
+    private Button button;                                                  //ボタン
 
     [SerializeField] private PlayFabStore playfabstore = null;              //ストア
     [SerializeField] private PlayFabInventory inventory = null;             //インベントリ

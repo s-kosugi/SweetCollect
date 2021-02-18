@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class MoveCredit : MonoBehaviour
 {
-    [SerializeField] private CreditSceneManager creditscene;        //クレジット
-    [SerializeField] private RectTransform recttransform;
-    [SerializeField] private CreditDistance creaditdistance;
-    [SerializeField] private GameObject EndPoint;                //停止位置オブジェクト
+    [SerializeField] private CreditSceneManager creditscene;            //クレジットシーンマネージャー
+    [SerializeField] private RectTransform recttransform;               //描画範囲トランスフォーム
+    [SerializeField] private CreditDistance creaditdistance;            //距離関係
+    [SerializeField] private GameObject EndPoint;                       //停止位置オブジェクト
 
-    [SerializeField] private Vector3 StartPosition = Vector3.zero; //スタート地点
-    [SerializeField] private float MoveSpee = 1.0f;               //移動速度
-    [SerializeField] private bool IsFinishMove;                         //移動終了
-    [SerializeField] private bool IsEsing;                         //イージング
-    [SerializeField] private float MoveTimer = 0.0f;              //移動時間
-    [SerializeField] private float MOVE_TIME = 5.0f;              //移動時間 
-
-    [SerializeField] private float Test;
+    private Vector3 StartPosition = Vector3.zero;      //スタート地点
+    [SerializeField] private float MoveSpeed = 150.0f;                  //移動速度
+    private bool IsFinishMove;                         //移動終了
+    [SerializeField] private bool IsEsing;                              //イージング
+    private float MoveTimer = 0.0f;                    //移動時間
+    [SerializeField] private float MOVETIME = 5.0f;                     //移動時間 
 
     private void Awake()
     {
@@ -25,9 +23,6 @@ public class MoveCredit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        creditscene = GameObject.Find("CreditSceneManager").GetComponent<CreditSceneManager>();
-        creaditdistance = this.transform.parent.Find("Size").GetComponent<CreditDistance>();
-        EndPoint = this.transform.Find("EndPoint").gameObject;
         SetStartPosition();
         IsFinishMove = false;
         IsEsing = false;
@@ -38,7 +33,6 @@ public class MoveCredit : MonoBehaviour
     void Update()
     {
         Movement();
-        Test =  Screen.width;
     }
 
     //自分の開始位置の設定
@@ -58,9 +52,9 @@ public class MoveCredit : MonoBehaviour
                 if (creaditdistance.IsConfirmed && !IsFinishMove)
                 {
                     MoveTimer += Time.deltaTime;
-                    if (MoveTimer < MOVE_TIME)
+                    if (MoveTimer < MOVETIME)
                     {
-                        recttransform.localPosition = new Vector3(Easing.Linear(MoveTimer, MOVE_TIME, -(creaditdistance.GetDistance() + Screen.width), StartPosition.x), 0.0f, 0.0f);
+                        recttransform.localPosition = new Vector3(Easing.Linear(MoveTimer, MOVETIME, -(creaditdistance.GetDistance() + Screen.width), StartPosition.x), 0.0f, 0.0f);
                     }
                     else
                     {
@@ -70,7 +64,7 @@ public class MoveCredit : MonoBehaviour
             }
             else
             {
-                recttransform.localPosition += new Vector3(-MoveSpee, 0.0f, 0.0f) * Time.deltaTime;
+                recttransform.localPosition += new Vector3(-MoveSpeed, 0.0f, 0.0f) * Time.deltaTime;
             }
         }
         if (EndPoint.transform.position.x < 0.0f)

@@ -11,7 +11,6 @@ public class Money_Text : MonoBehaviour
     [SerializeField] TextMeshProUGUI Text_Money;                                    //表示テキスト
     bool IsCheck;                                                  //確認中
     bool IsRequest;                                                //リクエスト中
-    // Start is called before the first frame update
     private void Awake()
     {
         IsRequest = true;
