@@ -1,17 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
-// ランキングクラス
+/// <summary>
+/// PlayFabのリーダーボード(ランキング)クラス
+/// </summary>
 public class PlayFabLeaderBoard : MonoBehaviour
 {
     [SerializeField] string RankingName="";
     [SerializeField] int StartPosition = 0;
     [SerializeField] int MaxRecordCount= 3;
-    private PlayFabAutoRequest m_AutoRequest = null;
-    private PlayFabWaitConnect m_WaitConnect = null;
+    private PlayFabAutoRequest autoRequest = default;
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
     public List<PlayerLeaderboardEntry> entries { get; private set; } = new List<PlayerLeaderboardEntry>();
 
     [SerializeField] bool isSelfCount = false;      // 自身から数えたランキングかどうか
@@ -22,9 +23,13 @@ public class PlayFabLeaderBoard : MonoBehaviour
     public bool isGet { get; private set; }
     private void Start()
     {
-        GameObject playFabManager = transform.parent.gameObject;
-        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
-        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        autoRequest = GetComponent<PlayFabAutoRequest>();
+
+        if (waitConnect == default)
+        {
+            GameObject playFabManager = transform.parent.gameObject;
+            waitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        }
     }
 
     private void Update()
@@ -33,25 +38,31 @@ public class PlayFabLeaderBoard : MonoBehaviour
         if (isGet == false)
         {
             // リーダーボードの取得に成功するまで続ける
-            if (m_AutoRequest.IsRequest())
+            if (autoRequest.IsRequest())
             {
                 if (!isSelfCount) GetLeaderboard(RankingName, StartPosition, MaxRecordCount);
                 else GetLeaderboardAroundSelfPlayer(RankingName, MaxRecordCount);
             }
         }
     }
+
+
+
     /// <summary>
-    /// ランキング(リーダーボード)を取得
+    /// リーダーボードの取得
     /// </summary>
+    /// <param name="rankingName">ランキング名</param>
+    /// <param name="startPosition">何位以降のランキングを取得するか</param>
+    /// <param name="maxResultsCount">何件ランキングを取得するか</param>
     private void GetLeaderboard(string rankingName, int startPosition, int maxResultsCount)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait( gameObject.name))
+        if (!waitConnect.GetWait( gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.AddWait(gameObject.name);
+            waitConnect.AddWait(gameObject.name);
 
-            //GetLeaderboardRequestのインスタンスを生成
+            // GetLeaderboardRequestのインスタンスを生成
             var request = new GetLeaderboardRequest
             {
                 StatisticName = rankingName,            //ランキング名(統計情報名)
@@ -65,13 +76,16 @@ public class PlayFabLeaderBoard : MonoBehaviour
         }
     }
 
-    //ランキング(リーダーボード)の取得成功
+    /// <summary>
+    /// リーダーボードの取得に成功
+    /// </summary>
+    /// <param name="result">取得結果</param>
     private void OnGetLeaderboardSuccess(GetLeaderboardResult result)
     {
         Debug.Log($"ランキング(リーダーボード)の取得に成功しました");
 
         // 通信終了
-        m_WaitConnect.RemoveWait(gameObject.name);
+        waitConnect.RemoveWait(gameObject.name);
 
         // リストを空にしてから受け取る
         entries.Clear();
@@ -111,26 +125,30 @@ public class PlayFabLeaderBoard : MonoBehaviour
         isGet = true;
     }
 
-    //ランキング(リーダーボード)の取得失敗
+    /// <summary>
+    /// リーダーボードの取得に失敗
+    /// </summary>
+    /// <param name="error">エラー内容</param>
     private void OnGetLeaderboardFailure(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.RemoveWait(gameObject.name);
+        waitConnect.RemoveWait(gameObject.name);
 
         Debug.LogError($"ランキング(リーダーボード)の取得に失敗しました\n{error.GenerateErrorReport()}");
     }
 
-
     /// <summary>
     /// 自身周囲のランキング(リーダーボード)を取得
     /// </summary>
+    /// <param name="rankingName">ランキング名</param>
+    /// <param name="maxResultsCount">ランキング取得件数</param>
     private void GetLeaderboardAroundSelfPlayer(string rankingName, int maxResultsCount)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(gameObject.name))
+        if (!waitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.AddWait(gameObject.name);
+            waitConnect.AddWait(gameObject.name);
 
             // リストを空にしてから受け取る
             entries.Clear();
@@ -141,7 +159,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
                 GameObject.Destroy(n.gameObject);
             }
 
-            //ランキング(リーダーボード)を取得
+            // ランキング(リーダーボード)を取得
             Debug.Log($"自身の周囲のランキング(リーダーボード)の取得開始");
             Debug.Log(PlayFabSettings.staticPlayer.PlayFabId);
             PlayFabClientAPI.GetLeaderboardAroundPlayer( new GetLeaderboardAroundPlayerRequest()
@@ -152,13 +170,13 @@ public class PlayFabLeaderBoard : MonoBehaviour
             }, result =>
             {
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                waitConnect.RemoveWait(gameObject.name);
+
+                Debug.Log($"ランキング(リーダーボード)の取得に成功しました");
 
                 foreach (var entry in result.Leaderboard)
                 {
                     entries.Add(entry);
-                    Debug.Log("自身の周囲のランキングのID : " + entry.PlayFabId);
-                    Debug.Log("自身の周囲のランキングのポジション : " + entry.Position);
 
                     // PlayFabPlayerDataを人数分取得する
                     string objectName = "PlayFabPlayerData" + "Rank" + entry.Position;
@@ -178,7 +196,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
             }, error =>
             {
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                waitConnect.RemoveWait(gameObject.name);
                 Debug.LogError($"ランキング(リーダーボード)の取得に失敗しました\n{error.GenerateErrorReport()}");
             });
         }

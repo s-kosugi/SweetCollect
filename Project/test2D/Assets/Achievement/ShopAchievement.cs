@@ -24,7 +24,7 @@ public class ShopAchievement : MonoBehaviour
     private void SendHaveClothesCount()
     {
         // アイテムを数える
-        if (inventory.m_isGet && playerData.isGet && !isHaveClothesCount)
+        if (inventory.isGet && playerData.isGet && !isHaveClothesCount)
         {
             int count = inventory.CountItemsCategory("clothes");
             UserDataRecord record = default;

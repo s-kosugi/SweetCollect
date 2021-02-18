@@ -31,7 +31,7 @@ public class GetAchievementReword : MonoBehaviour
         // 通信していない
         if (!waitConnect.IsWait())
         {
-            if (inventory.m_isGet)
+            if (inventory.isGet)
             {
                 // 服を未所持かつデフォルト（報酬無し）でないか
                 if (rewordImage.sprite != default && !inventory.IsHaveItem(rewordImage.sprite.name))
