@@ -21,7 +21,7 @@ public class HiScoreSend : MonoBehaviour
     {
         if (!isPlayfabConnectEnd)
         {
-            if (statistics.isGet && scoreManager && playerData.m_isGet)
+            if (statistics.isGet && scoreManager && playerData.isGet)
             {
                 string selectDifficult = default;
                 string rankingName = default;
@@ -29,7 +29,7 @@ public class HiScoreSend : MonoBehaviour
 
                 UserDataRecord record = default;
                 // 現在遊んでいる難易度の取得
-                if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+                if (playerData.data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
                 {
                     selectDifficult = record.Value;
                 }

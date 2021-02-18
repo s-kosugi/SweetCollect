@@ -105,7 +105,7 @@ public class PlayFabLeaderBoard : MonoBehaviour
                 PlayFabPlayerData playerData = trs.gameObject.GetComponent<PlayFabPlayerData>();
                 playerData.nominationID = entry.PlayFabId;
                 // プレイヤーデータの取得要求をする
-                playerData.RequestGetUserData();
+                playerData.RequestGetData();
             }
         }
         isGet = true;

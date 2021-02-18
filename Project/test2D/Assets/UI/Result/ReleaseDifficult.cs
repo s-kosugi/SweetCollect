@@ -106,13 +106,13 @@ public class ReleaseDifficult : MonoBehaviour
         string TargetDifficult = PlayerDataName.RELEASE_NORMAL;
 
         // 現在の難易度を見てスコアを超えているかどうかを確認する。
-        if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+        if (playerData.data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
         {
             switch (record.Value)
             {
                 case DifficultName.EASY:
                     // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
-                    if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_NORMAL, out record))
+                    if (!playerData.data.TryGetValue(PlayerDataName.RELEASE_NORMAL, out record))
                     {
 
                         Threshold = int.Parse(titleData.titleData[TitleDataName.RELEASE_THRESHOLD_NORMAL]);
@@ -121,7 +121,7 @@ public class ReleaseDifficult : MonoBehaviour
                     break;
                 case DifficultName.NORMAL:
                     // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
-                    if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_HARD, out record))
+                    if (!playerData.data.TryGetValue(PlayerDataName.RELEASE_HARD, out record))
                     {
                         Threshold = int.Parse(titleData.titleData[TitleDataName.RELEASE_THRESHOLD_HARD]);
                         TargetDifficult = PlayerDataName.RELEASE_HARD;
@@ -129,7 +129,7 @@ public class ReleaseDifficult : MonoBehaviour
                     break;
                 case DifficultName.HARD:
                     // 解放対象難易度が解放済みかどうかをチェックする(キーが無ければ未開放)
-                    if (!playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_VERYHARD, out record))
+                    if (!playerData.data.TryGetValue(PlayerDataName.RELEASE_VERYHARD, out record))
                     {
                         Threshold = int.Parse(titleData.titleData[TitleDataName.RELEASE_THRESHOLD_VERYHARD]);
                         TargetDifficult = PlayerDataName.RELEASE_VERYHARD;
@@ -191,7 +191,7 @@ public class ReleaseDifficult : MonoBehaviour
 
         UserDataRecord record = default;
         // 現在の難易度を見てどのオブジェクトを有効化するかを変える
-        if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+        if (playerData.data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
         {
             switch (record.Value)
             {

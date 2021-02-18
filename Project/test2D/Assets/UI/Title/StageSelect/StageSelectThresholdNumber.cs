@@ -20,7 +20,7 @@ public class StageSelectThresholdNumber : MonoBehaviour
     void Update()
     {
         // プレイヤーデータ取得済み且つ難易度が変更されていた場合読み込む
-        if (titleData.m_isGet && oldDifficultName != parent.difficultName)
+        if (titleData.isGet && oldDifficultName != parent.difficultName)
         {
             string titleDataName = default;
             switch (parent.difficultName)

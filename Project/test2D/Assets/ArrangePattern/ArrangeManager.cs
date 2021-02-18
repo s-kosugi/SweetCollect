@@ -38,10 +38,10 @@ public class ArrangeManager : MonoBehaviour
     /// </summary>
     public void ChangeDifficultPattern()
     {
-        if( playerData.m_isGet)
+        if( playerData.isGet)
         {
             UserDataRecord record = default;
-            if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+            if (playerData.data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
             {
                 switch (record.Value)
                 {

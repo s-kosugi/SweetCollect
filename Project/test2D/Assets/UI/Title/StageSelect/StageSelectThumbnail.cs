@@ -40,15 +40,15 @@ public class StageSelectThumbnail : MonoBehaviour
         }
 
         // 解放されているかを確認してボタンの有効無効を決める
-        if (playerData.m_isGet)
+        if (playerData.isGet)
         {
             UserDataRecord record = default;
             switch (difficultName)
             {
                 case DifficultName.EASY: return;        // イージーは無条件解放
-                case DifficultName.NORMAL: playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_NORMAL, out record); break;
-                case DifficultName.HARD: playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_HARD, out record); break;
-                case DifficultName.VERYHARD: playerData.m_Data.TryGetValue(PlayerDataName.RELEASE_VERYHARD, out record); break;
+                case DifficultName.NORMAL: playerData.data.TryGetValue(PlayerDataName.RELEASE_NORMAL, out record); break;
+                case DifficultName.HARD: playerData.data.TryGetValue(PlayerDataName.RELEASE_HARD, out record); break;
+                case DifficultName.VERYHARD: playerData.data.TryGetValue(PlayerDataName.RELEASE_VERYHARD, out record); break;
             }
 
             // 未開放の場合はボタンを無効化する

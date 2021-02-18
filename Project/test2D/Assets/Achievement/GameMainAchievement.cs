@@ -36,7 +36,7 @@ public class GameMainAchievement : MonoBehaviour
     {
         UserDataRecord record = default;
         int result = 0;
-        if (playerData.m_Data.TryGetValue(achievementName, out record))
+        if (playerData.data.TryGetValue(achievementName, out record))
         {
             result += int.Parse(record.Value);
         }

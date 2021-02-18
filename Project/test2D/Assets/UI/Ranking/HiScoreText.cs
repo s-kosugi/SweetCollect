@@ -15,11 +15,11 @@ public class HiScoreText : MonoBehaviour
 
     void Update()
     {
-        if (statistics.isGet && !isSet && playerData.m_isGet)
+        if (statistics.isGet && !isSet && playerData.isGet)
         {
             string rankingName = default;
             UserDataRecord record = default;
-            if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+            if (playerData.data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
             {
                 switch (record.Value)
                 {

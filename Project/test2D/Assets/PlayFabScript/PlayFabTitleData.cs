@@ -3,34 +3,43 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections.Generic;
 
-
+/// <summary>
+/// PlayFabタイトルデータクラス
+/// </summary>
 public class PlayFabTitleData : MonoBehaviour
 {
-    // 受信した全データ
+    /// <summary>
+    /// 受信した全データ
+    /// </summary>
     public Dictionary<string, string> titleData { get; private set; } = default;
 
-    private PlayFabAutoRequest m_AutoRequest = null;
+    private PlayFabAutoRequest autoRequest = default;
 
-    public bool m_isGet { get; private set; }
+    /// <summary>
+    /// データ取得済みかどうか
+    /// </summary>
+    public bool isGet { get; private set; }
 
     void Start()
     {
-        GameObject playFabManager = GameObject.Find("PlayFabManager");
-        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
-        m_isGet = false;
+        autoRequest = GetComponent<PlayFabAutoRequest>();
+        isGet = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // タイトル情報は2回以上自動取得しない
-        if (!m_isGet)
+        if (!isGet)
         {
             // 自動リクエストができる且つログイン済みだったらタイトルデータ取得を試みる
-            if (m_AutoRequest.IsRequest() && PlayFabClientAPI.IsClientLoggedIn()) GetTitleData();
+            if (autoRequest.IsRequest() && PlayFabClientAPI.IsClientLoggedIn()) GetTitleData();
         }
     }
 
+    /// <summary>
+    /// タイトルデータの取得
+    /// </summary>
     private void GetTitleData()
     {
         var request = new GetTitleDataRequest();
@@ -43,7 +52,7 @@ public class PlayFabTitleData : MonoBehaviour
             // タイトルデータのコピー
             titleData = result.Data;
 
-            m_isGet = true;
+            isGet = true;
 
         }
 

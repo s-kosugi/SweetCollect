@@ -57,7 +57,7 @@ public class AchievementSceneManager : BaseScene
 
             // シーン開始時に現在つけている称号を選択済みにする
             UserDataRecord item = default;
-            if (playFabPlayerData.m_Data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out item))
+            if (playFabPlayerData.data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out item))
             {
                 achivementParent.SelectedAchievement(item.Value);
             }

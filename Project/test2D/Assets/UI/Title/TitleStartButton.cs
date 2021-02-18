@@ -25,13 +25,13 @@ public class TitleStartButton : MonoBehaviour
     public void PushButton()
     {
         // ボタンを押したら他ボタンを無効化する
-        if (playerData.m_isGet)
+        if (playerData.isGet)
         {
             // シーンをステージセレクト操作状態にする
             titleManager.TapStageSelect();
 
             // チュートリアル終了済みでなかったら名前入力へ飛ばす
-            if (!playerData.m_Data.ContainsKey(PlayerDataName.TUTORIAL) || playerData.m_Data[PlayerDataName.TUTORIAL].Value != "End")
+            if (!playerData.data.ContainsKey(PlayerDataName.TUTORIAL) || playerData.data[PlayerDataName.TUTORIAL].Value != "End")
             {
                 StartNextScene("InputNameScene");
             }

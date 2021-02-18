@@ -169,7 +169,7 @@ public class TitleManager : BaseScene
             if (!m_WaitConnect.IsWait())
             {
                 // ユーザーデータを取得できていなかったらデフォルトデータを設定しておく
-                if (!m_PlayFabPlayerData.m_Data.ContainsKey(PlayerDataName.ECLOTHES))
+                if (!m_PlayFabPlayerData.data.ContainsKey(PlayerDataName.ECLOTHES))
                 {
                     m_PlayFabPlayerData.SetPlayerData(PlayerDataName.ECLOTHES, "001_NORMAL");
                 }
@@ -188,11 +188,11 @@ public class TitleManager : BaseScene
     {
         UserDataRecord record = default;
         // キーがない場合の事を考慮する
-        if (m_PlayFabPlayerData.m_Data.TryGetValue(PlayerDataName.BGMVOLUME, out record))
+        if (m_PlayFabPlayerData.data.TryGetValue(PlayerDataName.BGMVOLUME, out record))
         {
             SoundManager.Instance.SetBGMVolume(float.Parse(record.Value));
         }
-        if (m_PlayFabPlayerData.m_Data.TryGetValue(PlayerDataName.SEVOLUME, out record))
+        if (m_PlayFabPlayerData.data.TryGetValue(PlayerDataName.SEVOLUME, out record))
         {
             SoundManager.Instance.SetSEVolume(float.Parse(record.Value));
         }

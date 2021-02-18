@@ -438,10 +438,10 @@ public class Clothing : MonoBehaviour
     {
         if(!connect.IsWait())
         {
-            if(PlayerData.m_isGet)
+            if(PlayerData.isGet)
             {
                 UserDataRecord playerclothingdata = null;
-                if(PlayerData.m_Data.TryGetValue(PlayerDataName.ECLOTHES, out playerclothingdata))
+                if(PlayerData.data.TryGetValue(PlayerDataName.ECLOTHES, out playerclothingdata))
                 {
                     SelectNumber = SpriteNumber[playerclothingdata.Value];
                     State = SHELFSTATE.CHANGE;

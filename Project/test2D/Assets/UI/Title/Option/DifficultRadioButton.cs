@@ -19,11 +19,11 @@ public class DifficultRadioButton : MonoBehaviour
 
     void Update()
     {
-        if (playerData.m_isGet && !isInit)
+        if (playerData.isGet && !isInit)
         {
             UserDataRecord record = default;
             // 該当難易度が開放済みかどうかをチェックしてボタンの有効性を決める
-            if (playerData.m_Data.TryGetValue(ReleaseKey, out record))
+            if (playerData.data.TryGetValue(ReleaseKey, out record))
             {
                 if( record.Value == "RELEASED")
                     toggle.interactable = true;

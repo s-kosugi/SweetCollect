@@ -1,19 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
-// PlayFabのプロフィール関連に関するクラス
+/// <summary>
+/// PlayFabのプロフィール関連に関するクラス
+/// </summary>
 public class PlayFabUserProfiel : MonoBehaviour
 {
-    // ユーザー名
+    /// <summary>
+    /// ユーザー名
+    /// </summary>
     public string DisplayName { get; private set;}
     public bool isGet { get; private set; }
-    private PlayFabAutoRequest m_AutoRequest = null;
-    private PlayFabWaitConnect m_WaitConnect = null;
+    private PlayFabAutoRequest autoRequest = default;
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
     public SETNAME_RESULT setNameResult { get; private set; }
 
+    /// <summary>
+    /// 名前変更結果
+    /// </summary>
     public enum SETNAME_RESULT
     {
         NONE,
@@ -24,11 +29,14 @@ public class PlayFabUserProfiel : MonoBehaviour
 
     private void Start()
     {
-        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
+        autoRequest = GetComponent<PlayFabAutoRequest>();
         setNameResult = SETNAME_RESULT.NONE;
 
-        GameObject playFabManager = GameObject.Find("PlayFabManager");
-        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        if (waitConnect == default)
+        {
+            GameObject playFabManager = GameObject.Find("PlayFabManager");
+            waitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        }
     }
 
     public void Update()
@@ -36,11 +44,14 @@ public class PlayFabUserProfiel : MonoBehaviour
         // ユーザー名が未取得の場合は取得する。
         if(!isGet)
         {
-            if(m_AutoRequest.IsRequest()) GetUserName();
+            if(autoRequest.IsRequest()) GetUserName();
         }
     }
 
-    // PlayfabへUserName(DisplayName)を更新する。
+    /// <summary>
+    /// PlayfabへUserName(DisplayName)を更新する。
+    /// </summary>
+    /// <param name="userName">変更したい名前</param>
     public void SetUserName(string userName)
     {
         // 取得した名前と同じだった場合は更新しない
@@ -51,47 +62,51 @@ public class PlayFabUserProfiel : MonoBehaviour
             return;
         }
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(gameObject.name))
+        if (!waitConnect.GetWait(gameObject.name))
         {
             // 通信待ちに設定する
-            m_WaitConnect.AddWait(gameObject.name);
+            waitConnect.AddWait(gameObject.name);
 
             var request = new UpdateUserTitleDisplayNameRequest { DisplayName = userName };
 
             PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, OnError);
 
+            // 成功した場合
             void OnSuccess(UpdateUserTitleDisplayNameResult result)
             {
                 Debug.Log("SetDisplayName : success! " + result.DisplayName);
                 DisplayName = result.DisplayName;
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                waitConnect.RemoveWait(gameObject.name);
 
                 setNameResult = SETNAME_RESULT.SUCCESS;
             }
 
+            // 失敗した場合
             void OnError(PlayFabError error)
             {
                 Debug.Log($"{error.Error}");
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                waitConnect.RemoveWait(gameObject.name);
 
                 setNameResult = SETNAME_RESULT.ERROR;
             }
         }
     }
 
-    // Playfabからユーザー名を取得する。
-    public void GetUserName()
+    /// <summary>
+    /// Playfabからユーザー名を取得する。
+    /// </summary>
+    private void GetUserName()
     {
         // PlayFabにログイン済みかどうかを確認する
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
             // 通信待ちでなかったら通信開始
-            if (!m_WaitConnect.GetWait(gameObject.name))
+            if (!waitConnect.GetWait(gameObject.name))
             {
                 // 通信待ちに設定する
-                m_WaitConnect.AddWait(gameObject.name);
+                waitConnect.AddWait(gameObject.name);
 
                 PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest
                 {
@@ -108,13 +123,13 @@ public class PlayFabUserProfiel : MonoBehaviour
                     Debug.Log($"DisplayName: {DisplayName}");
                     isGet = true;
                     // 通信終了
-                    m_WaitConnect.RemoveWait(gameObject.name);
+                    waitConnect.RemoveWait(gameObject.name);
                 },
                 error =>
                 {
                     Debug.LogError(error.GenerateErrorReport());
                     // 通信終了
-                    m_WaitConnect.RemoveWait(gameObject.name);
+                    waitConnect.RemoveWait(gameObject.name);
                 }
                 );
             }

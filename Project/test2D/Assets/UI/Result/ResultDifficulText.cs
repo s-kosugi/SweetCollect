@@ -19,10 +19,10 @@ public class ResultDifficulText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isSet && playerData.m_isGet)
+        if (!isSet && playerData.isGet)
         {
             // 難易度毎で色とテキストを変更
-            switch (playerData.m_Data[PlayerDataName.SELECTED_DIFFICULT].Value)
+            switch (playerData.data[PlayerDataName.SELECTED_DIFFICULT].Value)
             {
                 case DifficultName.EASY: textMesh.text = DifficultHiraganaName.EASY; textMesh.color = easyTextColor; break;
                 case DifficultName.NORMAL: textMesh.text = DifficultHiraganaName.NORMAL; textMesh.color = normalTextColor; break;
