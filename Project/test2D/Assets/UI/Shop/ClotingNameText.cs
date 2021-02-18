@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ClotingNameText : MonoBehaviour
 {
-    [SerializeField] AchievementEquipFrame AchievementEquipFrame = null;
-    [SerializeField] TextMeshProUGUI textmesh = default;
+    [SerializeField] AchievementEquipFrame achievementequipframe = null;    //表示フレーム
+    [SerializeField] TextMeshProUGUI textmesh = default;                    //テキスト
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +24,6 @@ public class ClotingNameText : MonoBehaviour
     public void GetClotingName(string name)
     {
         textmesh.text = name;
-        AchievementEquipFrame.StartAppear();
+        achievementequipframe.StartAppear();
     }
 }

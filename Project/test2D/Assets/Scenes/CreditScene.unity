@@ -314,7 +314,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 574, y: 323}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34532822
 MonoBehaviour:
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 34532821}
-  referenceResolution: {x: 960, y: 540}
+  referenceResolution: {x: 574, y: 323}
   matchWidthOrHeight: 0
 --- !u!1 &41858069
 GameObject:
@@ -1217,17 +1217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a9a9be95d809e42bc48725e2668e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditscene: {fileID: 0}
+  creditscene: {fileID: 729325030}
   recttransform: {fileID: 0}
-  creaditdistance: {fileID: 0}
-  EndPoint: {fileID: 0}
-  StartPosition: {x: 0, y: 0, z: 0}
-  MoveSpee: 150
-  IsFinishMove: 0
+  creaditdistance: {fileID: 512936941}
+  EndPoint: {fileID: 1965728937}
+  MoveSpeed: 150
   IsEsing: 0
-  MoveTimer: 0
-  MOVE_TIME: 5
-  Test: 0
+  MOVETIME: 5
 --- !u!1 &713237675
 GameObject:
   m_ObjectHideFlags: 0

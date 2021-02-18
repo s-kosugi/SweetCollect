@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class AchievementName : MonoBehaviour
 {
-    [SerializeField] AchievementEquipFrame AchievementEquipFrame = null;
-    [SerializeField] TextMeshProUGUI textmesh = default;
+    [SerializeField] AchievementEquipFrame achievementequipframe = null;        //表示フレーム
+    [SerializeField] TextMeshProUGUI textmesh = default;                        //テキスト
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class AchievementName : MonoBehaviour
     public void GetAchievementName(string name)
     {
         textmesh.text = name;
-        AchievementEquipFrame.StartAppear();
+        achievementequipframe.StartAppear();
     }
     //===========================================================================================================
     //===========================================================================================================

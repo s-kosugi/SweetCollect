@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class DisableShopFadeButton : MonoBehaviour
 {
-    [SerializeField] private DisableSceneFadeButton disable = null;
-    [SerializeField] private BuyAndWearButton buyAndWear = null;
-    [SerializeField] private CurtainAnime curtainAnime = null;
-    Button button = default;
+    [SerializeField] private DisableSceneFadeButton disable = null;    //シーンフェード
+    [SerializeField] private ClothingBuyAndWear buyandwear = null;     //着用購入関連処理
+    [SerializeField] private CurtainAnime curtainanime = null;         //カーテン
+    Button button = default;                                           //ボタン
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,8 @@ public class DisableShopFadeButton : MonoBehaviour
     {
         if(!disable.GetStartEnable())
         {
-            if (buyAndWear.GetState() == BuyAndWearButton.STATE.PREVIEWHINT || curtainAnime.state != CurtainAnime.STATE.WAIT)
+            if (buyandwear.GetState() == ClothingBuyAndWear.STATE.PREVIEWHINT 
+                || curtainanime.state != CurtainAnime.STATE.WAIT)
                 button.enabled = false;
             else
                 button.enabled = true;

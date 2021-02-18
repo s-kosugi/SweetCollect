@@ -5,16 +5,14 @@ using UnityEngine;
 
 public class Money_Text : MonoBehaviour
 {
-    private PlayFabVirtualCurrency playFabVirtualCurrency = null;
-    [SerializeField] PlayFabWaitConnect connect = null;
-    [SerializeField] uint MyMoney;  //所持金
-    [SerializeField] TextMeshProUGUI Text_Money; //表示テキスト
-    [SerializeField] bool IsCheck;
-    [SerializeField] bool IsRequest;
-    // Start is called before the first frame update
+    [SerializeField] private PlayFabVirtualCurrency playFabVirtualCurrency = null;  //仮想通貨
+    [SerializeField] PlayFabWaitConnect connect = null;                             //通信関連
+    uint MyMoney;                                                  //所持金
+    [SerializeField] TextMeshProUGUI Text_Money;                                    //表示テキスト
+    bool IsCheck;                                                  //確認中
+    bool IsRequest;                                                //リクエスト中
     private void Awake()
     {
-        Text_Money = this.GetComponent<TextMeshProUGUI>();
         IsRequest = true;
         Text_Money.text = "??????";
         RequestMoney();
@@ -22,8 +20,6 @@ public class Money_Text : MonoBehaviour
 
     void Start()
     {
-        playFabVirtualCurrency = GameObject.Find("PlayFabVirtualCurrency").GetComponent<PlayFabVirtualCurrency>();
-        connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
     }
 
     // Update is called once per frame
@@ -42,10 +38,13 @@ public class Money_Text : MonoBehaviour
     //所持金の確認
     public void CheckMoney()
     {
+        //確認中
         if (IsCheck)
         {
+            //通信終了
             if(!connect.IsWait())
             {
+                //リクエストしていなければリクエスト
                 if(!IsRequest)
                 {
                     playFabVirtualCurrency.RequestUpdate();

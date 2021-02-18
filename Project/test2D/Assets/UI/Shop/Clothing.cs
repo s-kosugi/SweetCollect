@@ -1,68 +1,58 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Effekseer;
+﻿using Effekseer;
 using PlayFab.ClientModels;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Clothing : MonoBehaviour
 {
-    PlayFabStore playFabStore;                                               //プレイハブ
-    private PlayFabInventory inventory = null;                               //インベントリ
-    private PlayFabWaitConnect connect = null;                               //通信
-    private AchievementRewardRelease RewardRelease = null;                   //達成イベント
-    ShopCanvasController shopcanvas = null;                                  //ショップキャンバス
-    [SerializeField] GameObject PreviewSprite = default;                     //服表示オブジェクト
-    [SerializeField] CurtainAnime Curtain = null;                            //カーテンアニメ
-    [SerializeField] PlayFabPlayerData PlayerData = null;                    //プレイヤーデータ
+    [SerializeField] private PlayFabStore playFabStore = null;                                    //プレイハブ
+    [SerializeField] private PlayFabInventory inventory = null;                                   //インベントリ
+    [SerializeField] private PlayFabWaitConnect connect = null;                                   //通信
+    [SerializeField] private AchievementRewardRelease rewardrelease = null;                       //達成イベント
+    [SerializeField] private SelectClothing selectclothing = null;                                //選択されている服
+    [SerializeField] private GameObject previewsprite = default;                                  //服表示オブジェクト
+    [SerializeField] private CurtainAnime curtain = null;                                         //カーテンアニメ
+    [SerializeField] private PlayFabPlayerData playerdata = null;                                 //プレイヤーデータ
 
-    [SerializeField] PreviewParent PreviewParentSprict = null;                    //服表示オブジェクトの親
-    [SerializeField] SwipeMove_Shop SwipeMove_Shop = null;                        //スワイプ
+    [SerializeField] PreviewParent previewparent = null;                                          //服表示オブジェクトの親
+    [SerializeField] SwipeMove_Shop SwipeMove_Shop = null;                                        //スワイプ
 
-    [SerializeField] private GameObject PreviewParent = null;                       //画像表示オブジェクトの親
-    [SerializeField] List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>(); //表示する子供の数
-    [SerializeField] private int SpriteDictionaryNumber;                        //画像の最大数
-    [SerializeField] private int SelectNumber;                                  //選択されている画像の番号
-    [SerializeField] private float SpriteSize_Wight = 144.0f;  //表示画像のサイズ（子）
-    [SerializeField] private float Margin = 0;                                  //余白
-    [SerializeField] public float HalfSize{ get; private set; }                             //画像と余白を合わせた半分サイズ
+    [SerializeField] private GameObject PreviewParent = null;                                     //画像表示オブジェクトの親
+    List<Ui_Clothing> ClothingChild = new List<Ui_Clothing>();                                    //表示する子供の数
+    private int SpriteDictionaryNumber;                                                           //画像の最大数
+    private int SelectNumber;                                                                     //選択されている画像の番号
+    [SerializeField] private float SpriteSize_Wight = 144.0f;                                     //表示画像のサイズ（子）
+    [SerializeField] private float Margin = 0;                                                    //余白
+    public float HalfSize{ get; private set; }                                                    //画像と余白を合わせた半分サイズ
 
-    Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>(); //画像
-    Dictionary<string, int> SpriteNumber = new Dictionary<string, int>(); //画像の番号
+    Dictionary<string, Sprite> SpriteDictionary = new Dictionary<string, Sprite>();               //画像
+    Dictionary<string, int> SpriteNumber = new Dictionary<string, int>();                         //画像の番号
 
-    private bool IsHaveCheck;                                                             //取得確認中
-    [SerializeField] private float DIRECTION_TIME_NORMAL      = 0.3f;                     //演出時間
-    [SerializeField] private float DIRECTION_TIME_ACHIEVEMENT = 0.2f;                     //演出時間
-    [SerializeField] private float DirectionTime = 0.0f;                                  //実績達成演出時間
-    [SerializeField] private bool MoveEndFlag;                                //実績達成イベント移動(服の移動)
-    [SerializeField] private bool InfoChild;                                    //子に情報を与えた
+    private bool IsHaveCheck;                                                                     //取得確認中
+    [SerializeField] private float MOVETIMENORMAL      = 0.15f;                                   //移動時間
+    [SerializeField] private float MOVETIMEACHIEVEMENT = 0.1f;                                    //移動時間
+    private float DirectionTime = 0.0f;                                                           //実績達成演出時間
+    private bool MoveEndFlag;                                                                     //実績達成イベント移動(服の移動)
+    private bool InfoChild;                                                                       //子に情報を与えた
 
-    [SerializeField] private BuyButtonPicture buyButtonPicture = default;       //
-    private List<bool> oldClothingChild = new List<bool>();                     //
-    private EffekseerEffectAsset buyEffect = null;                              //
-    private bool isBuyButtonPush = false;                                       // 購入ボタンの押下チェック
+    [SerializeField] private BuyButtonPicture buyButtonPicture = default;                         //ボタンの画像
+    private List<bool> oldClothingChild = new List<bool>();                                       //黒塗をする際に必要な情報
+    [SerializeField] EffekseerEffectAsset buyEffect = default;                                    //購入時のエフェクト
+    private bool isBuyButtonPush = false;                                                         // 購入ボタンの押下チェック
     public enum SHELFSTATE
     {
         NONE = -1,
-        WAIT = 0,
-        LOAD,
-        CHANGE,
-        PREVIEW,
-        ACHIEVEMENTREWARDRELEASE,
+        WAIT = 0,                       //待機
+        LOAD,                           //取得
+        CHANGE,                         //変更
+        PREVIEW,                        //表示
+        REWARDRELEASE,                  //服開放
         MAX,
     }
     [SerializeField] SHELFSTATE State;      //状態
     // Start is called before the first frame update
     void Start()
     {
-        playFabStore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
-        inventory = GameObject.Find("PlayFabInventory").GetComponent<PlayFabInventory>();
-        connect = GameObject.Find("PlayFabManager").GetComponent<PlayFabWaitConnect>();
-        RewardRelease = GameObject.Find("AchievementEventController").GetComponent<AchievementRewardRelease>();
-
-        shopcanvas = GameObject.Find("ShopCanvas").GetComponentInParent<ShopCanvasController>();
-        // ハードコーディングで可変に対応できない為コメントアウト
-        //buyButtonPicture = GameObject.Find("ShopCanvas/RectScaleParent/ShopButton/BuyAndWearButton").GetComponent<BuyButtonPicture>();
-        buyEffect = Resources.Load<EffekseerEffectAsset>("Effect\\buy");
-
         State = SHELFSTATE.WAIT;
         SelectNumber = 0;
         HalfSize = SpriteSize_Wight / 2 + Margin / 2;
@@ -80,7 +70,7 @@ public class Clothing : MonoBehaviour
             case SHELFSTATE.LOAD: Load(); break;
             case SHELFSTATE.CHANGE: Change(); break;
             case SHELFSTATE.PREVIEW: Preview(); break;
-            case SHELFSTATE.ACHIEVEMENTREWARDRELEASE: AchievementRewardRelease(); break;
+            case SHELFSTATE.REWARDRELEASE: AchievementRewardRelease(); break;
         }
     }
 
@@ -88,8 +78,8 @@ public class Clothing : MonoBehaviour
     //状態関連
     private void Wait()
     {
-        //プレイファブのストアとカタログ情報が入手できればロード状態
-        if(!connect.IsWait())
+        //PlayFabのストアとカタログ情報が入手できればロード状態
+        if (!connect.IsWait())
         {
             if (playFabStore.m_isCatalogGet && playFabStore.m_isStoreGet)
             {
@@ -100,6 +90,7 @@ public class Clothing : MonoBehaviour
 
     private void Load()
     {
+        //子供の情報を設定
         if(!InfoChild)
         {
             //複数回通してはいけない
@@ -139,24 +130,25 @@ public class Clothing : MonoBehaviour
             InfoChild = true;
         }
 
+        //プレイヤーが着ている服
         PlayerWearing();
-
 
     }
     private void Change()
     {
-        //配列外参照
+        //配列外参照防止
         CheckSelectNum();
 
-        //現在選択されている配列から何番目かを設定
-        PreviewParentSprict.ChangePosition(SelectNumber);
+        //現在の選択番号
+        previewparent.ChangePosition(SelectNumber);
 
-        //ショップキャンバスに選択されているアイテムを設定
-        if (shopcanvas)
+        //選択されている服を設定
+        if (selectclothing)
         {
-            shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
+            selectclothing.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
         }
 
+        //その服を持っているかどうかを確認
         CheckHavingCloting();
 
         State = SHELFSTATE.PREVIEW;
@@ -168,9 +160,9 @@ public class Clothing : MonoBehaviour
     private void Preview()
     {
         //服開放実行
-        if(RewardRelease.AchievementFlag && RewardRelease.GetState() == global::AchievementRewardRelease.ACHIEVEMENTREWARDRELEASE.CHECK_CLOTHING_RELEASE)
+        if(rewardrelease.AchievementFlag && rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CHECK_CLOTHING_RELEASE)
         {
-            State = SHELFSTATE.ACHIEVEMENTREWARDRELEASE;
+            State = SHELFSTATE.REWARDRELEASE;
         }
         
         //所持しているかを確認
@@ -179,48 +171,48 @@ public class Clothing : MonoBehaviour
         FillBlack();
 
     }
-
+    //実績達成演出
     private void AchievementRewardRelease()
     {
-        if(RewardRelease.GetState() == global::AchievementRewardRelease.ACHIEVEMENTREWARDRELEASE.CLOTHING_MOVE)
+        if(rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CLOTHING_MOVE)
         {
             //服の移動が終了していなければ
-            if (!RewardRelease.ClotingMoveEndFlag)
+            if (!rewardrelease.ClotingMoveEndFlag)
             {
                 //移動が終了していなければ移動継続
                 if(!MoveEndFlag)
                 {
                     int value;
-                    if (SpriteNumber.TryGetValue(RewardRelease.AchievementClotingName, out value))
+                    if (SpriteNumber.TryGetValue(rewardrelease.AchievementClotingName, out value))
                     {
                         SelectNumber = value;
 
-                        //ショップキャンバスに選択されているアイテムを設定
-                        if (shopcanvas)
+                        //選択されている服を設定
+                        if (selectclothing)
                         {
-                            shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
+                            selectclothing.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
                         }
 
                         //選択されている番号が配列外参照を起こさないかをチェック
                         CheckSelectNum();
 
-                        //子供がどの位置にいればよいかを伝える
-                        PreviewParentSprict.ChangePosition(SelectNumber);
+                        //選択番号まで位置を変更
+                        previewparent.ChangePosition(SelectNumber);
 
                         MoveEndFlag = true;
                     }
                 }
 
                 //一定時間経過で移動を終了
-                if (DirectionTime > GetDirectionTime())
-                    RewardRelease.FinishClotingMove();
+                if (DirectionTime > GetMoveTime())
+                    rewardrelease.FinishClotingMove();
                 else
                     DirectionTime += Time.deltaTime;
             }
         }
 
         //実績を達成した服の購入が終わったら変更状態に戻す
-        if(!RewardRelease.AchievementFlag)
+        if(!rewardrelease.AchievementFlag)
         {
             State = SHELFSTATE.CHANGE;
             MoveEndFlag = false;
@@ -237,7 +229,7 @@ public class Clothing : MonoBehaviour
     public void PushButton_Next()
     {
         //表示状態でカーテンが待機状態なら洗濯している服を変更
-        if (State == SHELFSTATE.PREVIEW && Curtain.state == CurtainAnime.STATE.WAIT)
+        if (State == SHELFSTATE.PREVIEW && curtain.state == CurtainAnime.STATE.WAIT)
         {
             SelectNumber += 1;
             CheckSelectNum();
@@ -248,7 +240,7 @@ public class Clothing : MonoBehaviour
     public void PushButton_Back()
     {
         //表示状態でカーテンが待機状態なら洗濯している服を変更
-        if (State == SHELFSTATE.PREVIEW && Curtain.state == CurtainAnime.STATE.WAIT)
+        if (State == SHELFSTATE.PREVIEW && curtain.state == CurtainAnime.STATE.WAIT)
         {
             SelectNumber -= 1;
             CheckSelectNum();
@@ -284,15 +276,17 @@ public class Clothing : MonoBehaviour
             {
                 continue;
             }
-            GameObject Preview = Instantiate(PreviewSprite, PreviewParent.transform);
+            GameObject Preview = Instantiate(previewsprite, PreviewParent.transform);
             Ui_Clothing ItemInfo = Preview.GetComponent<Ui_Clothing>();
             ClothingChild.Add(ItemInfo);
         }
-        SortChild();
+
+        //子供を並び替え
+        SortCreateObject();
     }
 
     //生成されたオブジェクトを並べる
-    private void SortChild()
+    private void SortCreateObject()
     {
         for (int x = 0; x < ClothingChild.Count; x++)
         {
@@ -316,7 +310,7 @@ public class Clothing : MonoBehaviour
         {
             if (!connect.IsWait())
             {
-                string ItemID = shopcanvas.GetItemInfo().storeItem.ItemId;
+                string ItemID = selectclothing.GetItemInfo().storeItem.ItemId;
                 //インベントリで所持状態を確認
                 if (inventory.IsHaveItem(ItemID))
                 {
@@ -350,14 +344,15 @@ public class Clothing : MonoBehaviour
 
     //===========================================================================================================
     //取得(Getter)
-    public float GetDirectionTime()
+    //移動時間
+    public float GetMoveTime()
     {
-        if(State == SHELFSTATE.ACHIEVEMENTREWARDRELEASE)
-            return DIRECTION_TIME_ACHIEVEMENT;
+        if(State == SHELFSTATE.REWARDRELEASE)
+            return MOVETIMEACHIEVEMENT;
         else
-           return DIRECTION_TIME_NORMAL;
+           return MOVETIMENORMAL;
     }
-
+    //状態取得
     public SHELFSTATE GetState()
     {
         return State;
@@ -439,10 +434,10 @@ public class Clothing : MonoBehaviour
     {
         if(!connect.IsWait())
         {
-            if(PlayerData.m_isGet)
+            if(playerdata.m_isGet)
             {
                 UserDataRecord playerclothingdata = null;
-                if(PlayerData.m_Data.TryGetValue(PlayerDataName.ECLOTHES, out playerclothingdata))
+                if(playerdata.m_Data.TryGetValue(PlayerDataName.ECLOTHES, out playerclothingdata))
                 {
                     SelectNumber = SpriteNumber[playerclothingdata.Value];
                     State = SHELFSTATE.CHANGE;
@@ -459,10 +454,10 @@ public class Clothing : MonoBehaviour
         //配列外参照
         CheckSelectNum();
 
-        //ショップキャンバスに選択されているアイテムを設定
-        if (shopcanvas)
+        //選択されている服を設定
+        if (selectclothing)
         {
-            shopcanvas.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
+            selectclothing.SetSelectItem(playFabStore.StoreItems[SelectNumber]);
         }
 
         CheckHavingCloting();
