@@ -2,6 +2,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ハイスコアテキストクラス
+/// </summary>
 public class HiScoreText : MonoBehaviour
 {
     [SerializeField] PlayFabPlayerData playerData = default;
@@ -9,12 +12,10 @@ public class HiScoreText : MonoBehaviour
     [SerializeField] PlayFabStatistics statistics = default;
     public bool isSet { get; private set; } = false;
     public int hiScore { get; private set; }
-    void Start()
-    {
-    }
 
     void Update()
     {
+        // スコア情報が取得できている時
         if (statistics.isGet && !isSet && playerData.isGet)
         {
             string rankingName = default;

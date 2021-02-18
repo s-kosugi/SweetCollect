@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// ツイッターボタンクラス
+/// </summary>
 public class TwitterButton : MonoBehaviour
 {
 #if UNITY_WEBGL
@@ -15,12 +17,9 @@ public class TwitterButton : MonoBehaviour
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// ボタン押下処理
+    /// </summary>
     public void PushButton()
     {
         //urlの作成

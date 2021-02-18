@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ランキングボタンの自動無効化クラス
+/// </summary>
 public class RankingDisableButton : MonoBehaviour
 {
     [SerializeField] RankingSceneManager sceneManager = default;

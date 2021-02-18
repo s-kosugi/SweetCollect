@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // 広告
 using UnityEngine.Advertisements;
 
+/// <summary>
+/// UnityAds広告表示クラス
+/// </summary>
 public class Ads : MonoBehaviour
 {
     // 表示済みフラグ
@@ -21,10 +23,6 @@ public class Ads : MonoBehaviour
         Advertisement.Initialize("3890947", true);
 #endif
     }
-
-    void Update()
-    {
-            }
 
     // 広告の表示
     public void ShowAds()

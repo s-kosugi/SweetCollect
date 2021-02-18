@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class GameTime : MonoBehaviour
 {
-    TextMeshProUGUI m_Text;
-    GameMainManager m_GameMain = null;
+    TextMeshProUGUI textMesh;
+    [SerializeField] GameMainManager gameMain = default;
     [SerializeField] Color textChangeColor = default;
     [SerializeField] Image clockIcon = default;
     [SerializeField] GameObject scaleBigTextObject = default;
@@ -14,19 +14,21 @@ public class GameTime : MonoBehaviour
 
     void Start()
     {
-        m_GameMain = GameObject.Find("GameManager").GetComponent<GameMainManager>();
-        m_Text = GetComponent<TextMeshProUGUI>();
-        textSorceColor = m_Text.color;
+        if(gameMain == default)
+            gameMain = GameObject.Find("GameManager").GetComponent<GameMainManager>();
+
+        textMesh = GetComponent<TextMeshProUGUI>();
+        textSorceColor = textMesh.color;
     }
 
     void Update()
     {
-        m_Text.text = ":" + string.Format("{0:00}", (int)m_GameMain.GameTimer);
+        textMesh.text = ":" + string.Format("{0:00}", (int)gameMain.GameTimer);
 
         // 一定秒数以下になったらゲーム時間文字と時計アイコンを赤くする
-        if (m_GameMain.GameDengerTime >= m_GameMain.GameTimer)
+        if (gameMain.GameDengerTime >= gameMain.GameTimer)
         {
-            m_Text.color = textChangeColor;
+            textMesh.color = textChangeColor;
             clockIcon.color = textChangeColor;
 
             // 文字が赤くなった瞬間
@@ -35,9 +37,10 @@ public class GameTime : MonoBehaviour
                 oldFrameisRed = true;
                 scaleBigTextObject.SetActive(true);
             }
-        } else
+        } 
+        else
         {
-            m_Text.color = textSorceColor;
+            textMesh.color = textSorceColor;
             clockIcon.color = textSorceColor;
             oldFrameisRed = false;
         }

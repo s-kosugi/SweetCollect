@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 看板内ボタンクラス
+/// </summary>
 public class TitleSignBoardButton : MonoBehaviour
 {
     [SerializeField] TitleManager titleManager = default;

@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 実績生成親クラス
+/// </summary>
 public class AchievementParent : MonoBehaviour
 {
     [SerializeField] PlayFabWaitConnect waitConnect = default;

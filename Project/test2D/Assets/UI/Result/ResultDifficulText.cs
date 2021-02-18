@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// リザルト難易度テキストクラス
+/// </summary>
 public class ResultDifficulText : MonoBehaviour
 {
     [SerializeField] PlayFabPlayerData playerData = default;
@@ -15,8 +18,8 @@ public class ResultDifficulText : MonoBehaviour
     {
         textMesh = GetComponent<TextMeshProUGUI>();
     }
+    
 
-    // Update is called once per frame
     void Update()
     {
         if (!isSet && playerData.isGet)

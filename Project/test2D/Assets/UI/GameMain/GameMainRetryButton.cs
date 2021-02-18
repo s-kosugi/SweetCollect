@@ -1,9 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// リトライボタンクラス
+/// </summary>
 public class GameMainRetryButton : MonoBehaviour
 {
     [SerializeField] Transform retryTransform = default;
@@ -12,7 +14,7 @@ public class GameMainRetryButton : MonoBehaviour
     Button button = default;
     bool retry = false;     // リトライ中かどうか
 
-    // Start is called before the first frame update
+
     void Start()
     {
         // リトライフレームは隠しておく
@@ -20,7 +22,7 @@ public class GameMainRetryButton : MonoBehaviour
         button = GetComponent<Button>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Time.timeScale != 0 && !retry)

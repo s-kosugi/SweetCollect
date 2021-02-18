@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ランキングレコードのスコアテキストクラス
+/// </summary>
 public class RankingRecordScoreText : MonoBehaviour
 {
     [SerializeField] RankingRecord rankingRecord = default;

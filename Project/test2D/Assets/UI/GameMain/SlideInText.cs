@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// スライドインするテキストクラス
+/// </summary>
 public class SlideInText : MonoBehaviour
 {
     [SerializeField] float StartPositionX = -1000.0f;
@@ -10,28 +11,28 @@ public class SlideInText : MonoBehaviour
     [SerializeField] float EndPositionY = 0;
     [SerializeField] float SlideTime = 2.0f;
     [SerializeField] bool EndDestroy = true;
-    private RectTransform m_Rect;
-    private float m_Timer = 0f;
+    private RectTransform rectTrans;
+    private float timer = 0f;
 
     // スライドインが終わったかどうか
     public bool isEnd { get; private set; }
 
     void Start()
     {
-        m_Rect = GetComponent<RectTransform>();
-        m_Rect.localPosition = new Vector3(StartPositionX, StartPositionY);
-        m_Timer = 0;
+        rectTrans = GetComponent<RectTransform>();
+        rectTrans.localPosition = new Vector3(StartPositionX, StartPositionY);
+        timer = 0;
         isEnd = false;
     }
 
 
     void Update()
     {
-        m_Timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-        if( m_Timer >= SlideTime)
+        if( timer >= SlideTime)
         {
-            m_Rect.localPosition = new Vector3(EndPositionX, EndPositionY);
+            rectTrans.localPosition = new Vector3(EndPositionX, EndPositionY);
             isEnd = true;
 
             // 削除フラグが立っていたら削除する
@@ -39,9 +40,9 @@ public class SlideInText : MonoBehaviour
         }
         else
         {
-            float positionX = Easing.OutExp(m_Timer, SlideTime, EndPositionX, StartPositionX);
-            float positionY = Easing.OutExp(m_Timer, SlideTime, EndPositionY, StartPositionY);
-            m_Rect.localPosition = new Vector3(positionX, positionY);
+            float positionX = Easing.OutExp(timer, SlideTime, EndPositionX, StartPositionX);
+            float positionY = Easing.OutExp(timer, SlideTime, EndPositionY, StartPositionY);
+            rectTrans.localPosition = new Vector3(positionX, positionY);
         }
     }
 }

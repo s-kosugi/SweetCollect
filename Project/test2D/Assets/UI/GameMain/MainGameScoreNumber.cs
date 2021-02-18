@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// スコア数字クラス
+/// </summary>
 public class MainGameScoreNumber : MonoBehaviour
 {
-    private ScoreManager ScoreMan = null;
-    private TextMeshProUGUI Text = null;
+    private ScoreManager scoreManager = default;
+    private TextMeshProUGUI textMesh = default;
     void Start()
     {
-        ScoreMan = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        Text = gameObject.GetComponent<TextMeshProUGUI>();
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        textMesh = gameObject.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if( ScoreMan ) Text.text = string.Format("× {0:0000}", ScoreMan.GetCoinScore());
+        if( scoreManager ) textMesh.text = string.Format("× {0:0000}", scoreManager.GetCoinScore());
     }
 }

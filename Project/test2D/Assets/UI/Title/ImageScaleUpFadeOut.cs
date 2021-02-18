@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 拡大しながらのフェードアウトイメージクラス
+/// </summary>
 public class ImageScaleUpFadeOut : MonoBehaviour
 {
     Image image = default;

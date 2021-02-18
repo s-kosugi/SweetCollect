@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ランキングのプレイヤー名テキストクラス
+/// </summary>
 public class RankingPlayerNameText : MonoBehaviour
 {
     [SerializeField] RankingRecord rankingRecord = default;

@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6346d47d9e90dd244908d633b1f47849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMain: {fileID: 2040733009}
   textChangeColor: {r: 0.9528302, g: 0.49439302, b: 0.49439302, a: 1}
   clockIcon: {fileID: 1686569340}
   scaleBigTextObject: {fileID: 292241743}
@@ -371,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5d0c4a91fd8da418cc7982e2e19a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoLoginTime: 1
+  autoLoginTime: 1
   waitConnect: {fileID: 0}
 --- !u!4 &51051813
 Transform:
@@ -789,7 +790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &101238900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +807,7 @@ MonoBehaviour:
   StoreName: AchivementList
   Inventory: {fileID: 0}
   VirtualCurrency: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &126684391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1126,7 @@ MonoBehaviour:
   gameMainManager: {fileID: 2040733009}
   patternList: []
   playerData: {fileID: 919473542}
+  adjustmentPosition: 590
 --- !u!1 &282480093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,6 +2745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AppearEndTime: 0.5
+  gameMainManager: {fileID: 2040733009}
 --- !u!1 &767655190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2883,7 +2887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &772115337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2896,6 +2900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28507b671107134480f7d50595d6c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitConnect: {fileID: 0}
 --- !u!1 &861172193
 GameObject:
   m_ObjectHideFlags: 0
@@ -3164,7 +3169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &919473542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3177,6 +3182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playFabLogin: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &924856304
 GameObject:
   m_ObjectHideFlags: 0
@@ -5708,7 +5715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27eb1cb9c71b834f845731ace268926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationJumpower: 50
+  animationJumpower: 50
 --- !u!1 &1957053248
 GameObject:
   m_ObjectHideFlags: 0

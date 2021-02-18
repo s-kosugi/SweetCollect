@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 自身のランキングレコードクラス
+/// </summary>
 public class RankingSelfRecord : MonoBehaviour
 {
     [SerializeField] GameObject leaderBoardObject = default;

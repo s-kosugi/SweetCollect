@@ -1,23 +1,15 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
+
+/// <summary>
+/// タイトルスタートボタンクラス
+/// </summary>
 public class TitleStartButton : MonoBehaviour
 {
     [SerializeField] PlayFabPlayerData playerData = default;
     [SerializeField] TitleManager titleManager = default;
     [SerializeField] TitlePlayerController playerController = default;
     [SerializeField] StageSelectParent stageSelect = default;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// スタートボタン押下

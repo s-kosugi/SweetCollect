@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// ゲームオーバーのプレート表示
+/// </summary>
 public class GameOverPlate : MonoBehaviour
 {
-    private float m_AppearTimer = 0f;
+    private float appearTimer = 0f;
     [SerializeField] float AppearEndTime = 1.0f;
-    private GameMainManager gameMainManager = default;
+    [SerializeField] GameMainManager gameMainManager = default;
     public enum STATE
     {
         HIDE,
@@ -22,10 +23,11 @@ public class GameOverPlate : MonoBehaviour
     void Start()
     {
         gameObject.transform.localScale = Vector3.zero;
-        gameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
+        if( gameMainManager == default)
+            gameMainManager = GameObject.Find("GameManager").GetComponent<GameMainManager>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
 #if UNITY_ANDROID
@@ -47,18 +49,18 @@ public class GameOverPlate : MonoBehaviour
     }
     void Appear()
     {
-        m_AppearTimer += Time.deltaTime;
-        if (m_AppearTimer >= AppearEndTime)
+        appearTimer += Time.deltaTime;
+        if (appearTimer >= AppearEndTime)
         {
             gameObject.transform.localScale = new Vector3(1f, 1f);
             gameObject.transform.localEulerAngles = Vector3.zero;
             m_State = STATE.WAIT;
-            m_AppearTimer = 0f;
+            appearTimer = 0f;
         }
         else
         {
-            float scale = Easing.Linear(m_AppearTimer, AppearEndTime, 1.0f, 0.0f);
-            float angle = Easing.Linear(m_AppearTimer, AppearEndTime, 0.0f, 180.0f);
+            float scale = Easing.Linear(appearTimer, AppearEndTime, 1.0f, 0.0f);
+            float angle = Easing.Linear(appearTimer, AppearEndTime, 0.0f, 180.0f);
             gameObject.transform.localScale = new Vector3(scale, scale);
             gameObject.transform.localEulerAngles = new Vector3(0f, 0f, angle);
         }

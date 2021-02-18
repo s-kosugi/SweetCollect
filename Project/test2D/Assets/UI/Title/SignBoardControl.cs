@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 看板(小)操作クラス
+/// </summary>
 public class SignBoardControl : MonoBehaviour
 {
     [SerializeField] float GoalMovePosY = -500f;

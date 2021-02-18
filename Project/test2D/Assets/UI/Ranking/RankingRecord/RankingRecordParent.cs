@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// ランキングレコード生成クラス
+/// </summary>
 public class RankingRecordParent : MonoBehaviour
 {
     [SerializeField] GameObject rankingRecord = default;
@@ -14,9 +15,6 @@ public class RankingRecordParent : MonoBehaviour
     bool isLoadChild = false;
 
 
-    void Start()
-    {
-    }
     void Update()
     {
         if (!isLoadChild)

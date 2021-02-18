@@ -2,6 +2,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ランキングの実績名テキストクラス
+/// </summary>
 public class RankingAchievementTitleText : MonoBehaviour
 {
     [SerializeField] RankingRecord rankingRecord = default;
@@ -19,6 +22,7 @@ public class RankingAchievementTitleText : MonoBehaviour
 
                 if (rankingRecord.store.m_isCatalogGet)
                 {
+                    // ランキングのレコードから選択実績を取得する
                     if (rankingRecord.playerData.data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out userData))
                     {
                         var catalogItem = rankingRecord.store.CatalogItems.Find(x => x.ItemId == userData.Value);

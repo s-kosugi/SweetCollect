@@ -2,7 +2,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResultAppearCoinText : MonoBehaviour
+/// <summary>
+/// リザルトコインオブジェクト出現クラス
+/// </summary>
+public class ResultAppearCoin : MonoBehaviour
 {
     [SerializeField] ResultSceneManager resultScene = default;
     [SerializeField] float AnimeTime = 1.0f;

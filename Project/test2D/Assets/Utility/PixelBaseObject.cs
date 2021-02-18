@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// ピクセル単位で表示するオブジェクトクラス
+/// </summary>
 public class PixelBaseObject : MonoBehaviour
 {
     private Vector3 cashPosition;
