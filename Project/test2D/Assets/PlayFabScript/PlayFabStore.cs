@@ -1,32 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
 public class PlayFabStore : MonoBehaviour
 {
+    /// <summary>
+    /// カタログを取得済みかどうか
+    /// </summary>
     public bool m_isCatalogGet { get; private set; }
+    /// <summary>
+    /// ストアを取得済みかどうか
+    /// </summary>
     public bool m_isStoreGet { get; private set; }
+    /// <summary>
+    /// カタログアイテムリスト
+    /// </summary>
+    public List<CatalogItem> CatalogItems { get; private set; }
+    /// <summary>
+    /// ストアアイテムリスト
+    /// </summary>
+    public List<StoreItem> StoreItems { get; private set; }
 
     [SerializeField] string CatalogName = "clothes";
     [SerializeField] string StoreName = "StandardStore";
+
+    /// <summary>
+    /// 自動更新するインベントリ　未設定の場合は自動更新しない
+    /// </summary>
     [SerializeField] PlayFabInventory Inventory = default;
+
+    /// <summary>
+    /// 自動更新する仮想通貨　未設定の場合は自動更新しない
+    /// </summary>
     [SerializeField] PlayFabVirtualCurrency VirtualCurrency = default;
 
-    private PlayFabAutoRequest m_AutoRequest = null;
-    private PlayFabWaitConnect m_WaitConnect = null;
+    private PlayFabAutoRequest autoRequest = default;
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
 
     private const string connectCatalogTaskName = "CatalogData";
     private const string connectStoreTaskName = "StoreData";
 
     void Start()
     {
-        GameObject playFabManager = GameObject.Find("PlayFabManager");
         m_isCatalogGet = false;
         m_isStoreGet = false;
-        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
-        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        autoRequest = GetComponent<PlayFabAutoRequest>();
+        if(waitConnect == default)
+        {
+            GameObject playFabManager = GameObject.Find("PlayFabManager");
+            waitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        }
     }
 
     void Update()
@@ -34,7 +58,7 @@ public class PlayFabStore : MonoBehaviour
         // ストア情報は2回以上取得しない
         if (m_isCatalogGet == false && m_isStoreGet == false)
         {
-            if(m_AutoRequest.IsRequest())
+            if(autoRequest.IsRequest())
             {
                 if ( !m_isCatalogGet ) GetCatalogData();
                 if ( !m_isStoreGet ) GetStoreData();
@@ -42,17 +66,17 @@ public class PlayFabStore : MonoBehaviour
         }
     }
 
-    public List<CatalogItem> CatalogItems { get; private set; }
-    public List<StoreItem> StoreItems { get; private set; }
-
+    /// <summary>
+    /// カタログデータの取得
+    /// </summary>
     private void GetCatalogData()
     {
         // 通信タスク名はゲームオブジェクト+Catalog
         string taskName = gameObject.name + connectCatalogTaskName;
-        if (!m_WaitConnect.GetWait(taskName))
+        if (!waitConnect.GetWait(taskName))
         {
             // 通信待ちに設定する
-            m_WaitConnect.AddWait(taskName);
+            waitConnect.AddWait(taskName);
 
             PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest()
             {
@@ -65,26 +89,29 @@ public class PlayFabStore : MonoBehaviour
                 m_isCatalogGet = true;
 
             // 通信終了
-            m_WaitConnect.RemoveWait(taskName);
+            waitConnect.RemoveWait(taskName);
             }
             , error =>
             {
                 Debug.Log(error.GenerateErrorReport());
             // 通信終了
-            m_WaitConnect.RemoveWait(taskName);
+            waitConnect.RemoveWait(taskName);
             });
         }
     }
 
+    /// <summary>
+    /// ストアデータの取得
+    /// </summary>
     private void GetStoreData()
     {
         // 通信タスク名はゲームオブジェクト+Store
         string taskName = gameObject.name + connectStoreTaskName;
 
-        if (!m_WaitConnect.GetWait(taskName))
+        if (!waitConnect.GetWait(taskName))
         {
             // 通信待ちに設定する
-            m_WaitConnect.AddWait(taskName);
+            waitConnect.AddWait(taskName);
 
             PlayFabClientAPI.GetStoreItems(new GetStoreItemsRequest()
             {
@@ -98,14 +125,14 @@ public class PlayFabStore : MonoBehaviour
                 m_isStoreGet = true;
 
                 // 通信終了
-                m_WaitConnect.RemoveWait(taskName);
+                waitConnect.RemoveWait(taskName);
 
             }
             , (error) =>
             {
                 Debug.Log(error.GenerateErrorReport());
                 // 通信終了
-                m_WaitConnect.RemoveWait(taskName);
+                waitConnect.RemoveWait(taskName);
             });
         }
     }
@@ -118,7 +145,7 @@ public class PlayFabStore : MonoBehaviour
     public void BuyItem(string itemID,string virtualCurrency)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(gameObject.name))
+        if (!waitConnect.GetWait(gameObject.name))
         {
             StoreItem item = StoreItems.Find(x => x.ItemId == itemID);
             // アイテムがなかった
@@ -129,7 +156,7 @@ public class PlayFabStore : MonoBehaviour
             }
 
             // 通信待ちに設定する
-            m_WaitConnect.AddWait(gameObject.name);
+            waitConnect.AddWait(gameObject.name);
 
             PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest()
             {
@@ -143,7 +170,7 @@ public class PlayFabStore : MonoBehaviour
             {
 
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                waitConnect.RemoveWait(gameObject.name);
                 Debug.Log($"{purchaseResult.Items[0].DisplayName}購入成功！");
                 // インベントリの更新要求
                 if( Inventory != default) Inventory.RequestUpdate();
@@ -161,7 +188,7 @@ public class PlayFabStore : MonoBehaviour
             }, error =>
             {
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name);
+                waitConnect.RemoveWait(gameObject.name);
 
                 // 金額不足
                 if (error.Error == PlayFabErrorCode.InsufficientFunds)

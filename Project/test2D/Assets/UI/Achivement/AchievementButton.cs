@@ -58,7 +58,7 @@ public class AchievementButton : MonoBehaviour
         // ボタンが押されたので通知を削除する
         UserDataRecord record;
         PlayFabPlayerData playerData = parent.GetPlayerData();
-        if (playerData.m_isGet && playerData.m_Data.TryGetValue("NOTICE_" + gameObject.name, out record))
+        if (playerData.isGet && playerData.data.TryGetValue("NOTICE_" + gameObject.name, out record))
         {
             if (record.Value == "TRUE")
             {
@@ -75,7 +75,7 @@ public class AchievementButton : MonoBehaviour
     {
         UserDataRecord record;
         PlayFabPlayerData playerData = parent.GetPlayerData();
-        if (playerData.m_isGet && playerData.m_Data.TryGetValue("NOTICE_" + gameObject.name, out record))
+        if (playerData.isGet && playerData.data.TryGetValue("NOTICE_" + gameObject.name, out record))
         {
             if (noticeIcon.enabled != true && record.Value == "TRUE")
             {

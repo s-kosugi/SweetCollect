@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6346d47d9e90dd244908d633b1f47849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMain: {fileID: 2040733009}
   textChangeColor: {r: 0.9528302, g: 0.49439302, b: 0.49439302, a: 1}
   clockIcon: {fileID: 1686569340}
   scaleBigTextObject: {fileID: 292241743}
@@ -371,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5d0c4a91fd8da418cc7982e2e19a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoLoginTime: 1
+  autoLoginTime: 1
   waitConnect: {fileID: 0}
 --- !u!4 &51051813
 Transform:
@@ -530,22 +531,22 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 960
+      value: 2960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 540
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.x
-      value: 960
+      value: 2960
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.y
-      value: 540
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 7666168494144472157, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -789,7 +790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &101238900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +807,7 @@ MonoBehaviour:
   StoreName: AchivementList
   Inventory: {fileID: 0}
   VirtualCurrency: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &126684391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,9 +1072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29954dc7416eaa046886195b5558fc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TraceObject: {fileID: 767655190}
-  MoveSpeed: 60
-  GameMainManagerObject: {fileID: 2040733008}
+  traceObject: {fileID: 767655190}
+  moveSpeed: 60
+  gameMainManager: {fileID: 2040733009}
 --- !u!1 &282166918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,8 +1123,10 @@ MonoBehaviour:
   normalTable: {fileID: 11400000, guid: 971af6db35c13754693e87c1acc9d38d, type: 2}
   hardTable: {fileID: 11400000, guid: 309ef0adf16acc14ca922ca3ab48168a, type: 2}
   veryhardTable: {fileID: 11400000, guid: ae33591053e18da44bde3bd49de03023, type: 2}
+  gameMainManager: {fileID: 2040733009}
   patternList: []
   playerData: {fileID: 919473542}
+  adjustmentPosition: 590
 --- !u!1 &282480093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,6 +2745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AppearEndTime: 0.5
+  gameMainManager: {fileID: 2040733009}
 --- !u!1 &767655190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2785,9 +2790,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29954dc7416eaa046886195b5558fc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TraceObject: {fileID: 216759662}
-  MoveSpeed: 60
-  GameMainManagerObject: {fileID: 2040733008}
+  traceObject: {fileID: 216759662}
+  moveSpeed: 60
+  gameMainManager: {fileID: 2040733009}
 --- !u!212 &767655193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2882,7 +2887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &772115337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2895,6 +2900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28507b671107134480f7d50595d6c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitConnect: {fileID: 0}
 --- !u!1 &861172193
 GameObject:
   m_ObjectHideFlags: 0
@@ -3163,7 +3169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &919473542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3176,6 +3182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playFabLogin: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &924856304
 GameObject:
   m_ObjectHideFlags: 0
@@ -4528,7 +4536,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 2960, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1421188463
 MonoBehaviour:
@@ -4543,7 +4551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1421188462}
-  referenceResolution: {x: 960, y: 540}
+  referenceResolution: {x: 2960, y: 1440}
   matchWidthOrHeight: 0
 --- !u!1 &1461134709
 GameObject:
@@ -5577,7 +5585,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24b60c89a6df5141a55ae702f3bd008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 225
+  jumpPower: 225
+  gameMainManager: {fileID: 2040733009}
+  jumpEffect: {fileID: 11400000, guid: e6cb17f67426abf42b739341db90f8f7, type: 2}
+  heartEffect: {fileID: 11400000, guid: 2c416fe4a11650244b65f68a5323d626, type: 2}
+  heartShineEffect: {fileID: 11400000, guid: db708cb729d1d36418c0d9e4d2fcd8dc, type: 2}
 --- !u!50 &1953754667
 Rigidbody2D:
   serializedVersion: 4
@@ -5703,7 +5715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27eb1cb9c71b834f845731ace268926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationJumpower: 50
+  animationJumpower: 50
 --- !u!1 &1957053248
 GameObject:
   m_ObjectHideFlags: 0
@@ -5818,7 +5830,6 @@ MonoBehaviour:
   AdsObject: {fileID: 2059281801}
   arrangeManager: {fileID: 282166920}
   achievement: {fileID: 1656351503}
-  WebGLGameOverTime: 2
   RestartBonusRate: 2
 --- !u!4 &2040733010
 Transform:

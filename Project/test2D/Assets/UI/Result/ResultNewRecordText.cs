@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// リザルトニューレコードテキスト
+/// </summary>
 public class ResultNewRecordText : MonoBehaviour
 {
     [SerializeField] ResultSceneManager sceneManager = default;

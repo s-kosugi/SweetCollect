@@ -16,14 +16,14 @@ public class NoticeAchievement : MonoBehaviour
 
     void Update()
     {
-        if (playerData.m_isGet && reachAchievement.isSet && store.m_isStoreGet && !isSend)
+        if (playerData.isGet && reachAchievement.isSet && store.m_isStoreGet && !isSend)
         {
             foreach( var item in store.StoreItems)
             {
                 UserDataRecord record = default;
                 string key = "NOTICE_" + item.ItemId;
                 // 通知キーが未生成なら通知をONにする
-                if (!playerData.m_Data.TryGetValue(key, out record))
+                if (!playerData.data.TryGetValue(key, out record))
                 {
                     // 実績達成済みなら送信
                     if (reachAchievement.isSet && reachAchievement.IsReachAchievement(item.ItemId))

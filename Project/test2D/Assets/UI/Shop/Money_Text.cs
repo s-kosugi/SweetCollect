@@ -7,10 +7,10 @@ public class Money_Text : MonoBehaviour
 {
     [SerializeField] private PlayFabVirtualCurrency playFabVirtualCurrency = null;  //仮想通貨
     [SerializeField] PlayFabWaitConnect connect = null;                             //通信関連
-    uint MyMoney;                                                  //所持金
-    [SerializeField] TextMeshProUGUI Text_Money;                                    //表示テキスト
-    bool IsCheck;                                                  //確認中
-    bool IsRequest;                                                //リクエスト中
+    uint MyMoney = default;                                                         //所持金
+    [SerializeField] TextMeshProUGUI Text_Money = default;                          //表示テキスト
+    bool IsCheck = default;                                                         //確認中
+    bool IsRequest = default;                                                       //リクエスト中
     private void Awake()
     {
         IsRequest = true;
@@ -18,11 +18,7 @@ public class Money_Text : MonoBehaviour
         RequestMoney();
     }
 
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
         CheckMoney();

@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// スコア減算オブジェクトクラス
+/// </summary>
 public class MinusUIObject : MonoBehaviour
 {
     [SerializeField] float UpSpeed = 300.0f;
     [SerializeField] float LifeTime = 1.5f;
     [SerializeField] Image image = default;
-    private float LifeCount = 0;
-    TextMeshProUGUI Text = default;
+    private float lifeCount = 0;
+    TextMeshProUGUI textMesh = default;
     void Start()
     {
-        Text = GetComponent<TextMeshProUGUI>();
+        textMesh = GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
@@ -22,18 +23,18 @@ public class MinusUIObject : MonoBehaviour
         temp.y += UpSpeed * Time.deltaTime;
         transform.position = temp;
 
-        LifeCount += Time.deltaTime;
+        lifeCount += Time.deltaTime;
 
         // だんだん色を薄くする
-        Color tempColor = Text.color;
-        tempColor.a = Easing.OutSine(LifeCount, LifeTime, 0.0f, 1.0f);
-        Text.color = tempColor;
+        Color tempColor = textMesh.color;
+        tempColor.a = Easing.OutSine(lifeCount, LifeTime, 0.0f, 1.0f);
+        textMesh.color = tempColor;
 
         tempColor = image.color;
-        tempColor.a = Easing.OutSine(LifeCount, LifeTime, 0.0f, 1.0f);
+        tempColor.a = Easing.OutSine(lifeCount, LifeTime, 0.0f, 1.0f);
         image.color = tempColor;
 
-        if (LifeCount >= LifeTime)
+        if (lifeCount >= LifeTime)
         {
             Destroy(this.gameObject);
         }

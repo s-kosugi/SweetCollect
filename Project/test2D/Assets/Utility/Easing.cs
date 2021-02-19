@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// イージングクラス
+/// </summary>
 public class Easing : MonoBehaviour
 {
 	public static float InQuad(float t, float totaltime, float max, float min)

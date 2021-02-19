@@ -8,7 +8,9 @@ public class AchievementSceneManager : BaseScene
     [SerializeField] AchievementParent achivementParent = default;
     [SerializeField] AchievementEquipFrame frame = default;
 
-
+    /// <summary>
+    /// シーン状態
+    /// </summary>
     public enum STATE
     {
         PREPARATION,
@@ -23,9 +25,7 @@ public class AchievementSceneManager : BaseScene
     {
 
         NextSceneName = "ShopScene";
-
         base.Start();
-
         state = STATE.PREPARATION;
 
         // 黒画面にする
@@ -57,7 +57,7 @@ public class AchievementSceneManager : BaseScene
 
             // シーン開始時に現在つけている称号を選択済みにする
             UserDataRecord item = default;
-            if (playFabPlayerData.m_Data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out item))
+            if (playFabPlayerData.data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out item))
             {
                 achivementParent.SelectedAchievement(item.Value);
             }

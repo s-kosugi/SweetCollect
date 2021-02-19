@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// リザルトシーンボタンの有効化クラス
+/// </summary>
 public class EnableResultButton : MonoBehaviour
 {
     private ResultSceneManager resultScene = default;

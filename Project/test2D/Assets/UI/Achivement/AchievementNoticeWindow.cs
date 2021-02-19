@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// 実績通知ウィンドウラス
+/// </summary>
 public class AchievementNoticeWindow : MonoBehaviour
 {
     [SerializeField] float MoveTime = 0.5f;
@@ -11,6 +14,9 @@ public class AchievementNoticeWindow : MonoBehaviour
     float startPos = 0f;
     TextMeshProUGUI titleTextMesh = default;
 
+    /// <summary>
+    /// ウィンドウ状態
+    /// </summary>
     enum State
     {
         Appear,

@@ -1,64 +1,74 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
-using System;
 
+/// <summary>
+/// PlayFab統計情報クラス
+/// </summary>
 public class PlayFabStatistics : MonoBehaviour
 {
-    // 統計情報を取得したかどうか
+    
+    /// <summary>
+    /// 統計情報を取得したかどうか
+    /// </summary>
     public bool isGet{ get; private set;}
-    private PlayFabAutoRequest m_AutoRequest = null;
-    private PlayFabWaitConnect m_WaitConnect = null;
+
+    private PlayFabAutoRequest autoRequest = default;
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
 
     // 統計情報リスト
-    private List<StatisticValue> m_ValueList;
+    private List<StatisticValue> valueList;
 
     void Start()
     {
-        GameObject playFabManager = GameObject.Find("PlayFabManager");
-        m_ValueList = new List<StatisticValue>();
+        valueList = new List<StatisticValue>();
         isGet = false;
-        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
-        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        autoRequest = GetComponent<PlayFabAutoRequest>();
+        if(waitConnect == default)
+        {
+            GameObject playFabManager = GameObject.Find("PlayFabManager");
+            waitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        }
     }
     void Update()
     {
         // 自動でPlayFabから統計情報の取得をしておく
         if(!isGet)
         {
-            if(m_AutoRequest.IsRequest()) GetPlayerStatistics();
+            if(autoRequest.IsRequest()) GetPlayerStatistics();
         }
     }
 
     /// <summary>
-    /// スコア(統計情報)を更新する
+    /// 統計情報を更新する
     /// </summary>
-    public void UpdatePlayerStatistics(string rankingName, int score)
+    /// <param name="rankingName">ランキング名</param>
+    /// <param name="value">更新する値</param>
+    public void UpdatePlayerStatistics(string rankingName, int value)
     {
         // Playfabにログイン済みかを確認する
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
             // 通信待ちでなかったら通信開始
-            if (!m_WaitConnect.GetWait(gameObject.name))
+            if (!waitConnect.GetWait(gameObject.name))
             {
                 // 通信待ちに設定する
-                m_WaitConnect.AddWait(gameObject.name);
+                waitConnect.AddWait(gameObject.name);
 
-                //UpdatePlayerStatisticsRequestのインスタンスを生成
+                // UpdatePlayerStatisticsRequestのインスタンスを生成
                 var request = new UpdatePlayerStatisticsRequest
                 {
                     Statistics = new List<StatisticUpdate>{
                         new StatisticUpdate{
                         StatisticName = rankingName,   //ランキング名(統計情報名)
-                        Value = score, //スコア(int)
+                        Value = value, // スコア(int)
                         }
                     }
                 };
-                Debug.Log($"統計情報名:" + rankingName + " Value:" + score);
+                Debug.Log($"統計情報名:" + rankingName + " Value:" + value);
 
-                //スコア情報の更新
+                // スコア情報の更新
                 Debug.Log($"スコア(統計情報)の更新開始");
                 PlayFabClientAPI.UpdatePlayerStatistics(request,
                     OnUpdatePlayerStatisticsSuccess,
@@ -70,26 +80,33 @@ public class PlayFabStatistics : MonoBehaviour
             Debug.Log("統計情報設定に失敗：PlayFabに未ログイン");
         }
     }
-    //スコア(統計情報)の更新成功
+    
+    /// <summary>
+    /// 統計情報の更新成功
+    /// </summary>
+    /// <param name="result">更新結果</param>
     private void OnUpdatePlayerStatisticsSuccess(UpdatePlayerStatisticsResult result)
     {
         // 通信終了
-        m_WaitConnect.RemoveWait(gameObject.name);
+        waitConnect.RemoveWait(gameObject.name);
 
         Debug.Log($"スコア(統計情報)の更新が成功しました");
     }
 
-    //スコア(統計情報)の更新失敗
+    /// <summary>
+    /// 統計情報の更新失敗
+    /// </summary>
+    /// <param name="error">エラー内容</param>
     private void OnUpdatePlayerStatisticsFailure(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.RemoveWait(gameObject.name);
+        waitConnect.RemoveWait(gameObject.name);
 
         Debug.LogError($"スコア(統計情報)更新に失敗しました\n{error.GenerateErrorReport()}");
     }
 
     /// <summary>
-    /// スコア(統計情報)を取得する
+    /// 統計情報を取得する
     /// </summary>
     public void GetPlayerStatistics()
     {
@@ -97,10 +114,10 @@ public class PlayFabStatistics : MonoBehaviour
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
             // 通信待ちでなかったら通信開始
-            if (!m_WaitConnect.GetWait(gameObject.name))
+            if (!waitConnect.GetWait(gameObject.name))
             {
                 // 通信待ちに設定する
-                m_WaitConnect.AddWait(gameObject.name);
+                waitConnect.AddWait(gameObject.name);
 
                 PlayFabClientAPI.GetPlayerStatistics(
                 new GetPlayerStatisticsRequest(),
@@ -122,25 +139,29 @@ public class PlayFabStatistics : MonoBehaviour
     /// <param name="result"></param>
     private void OnGetStatistics(GetPlayerStatisticsResult result)
     {
-        m_ValueList.Clear();
+        valueList.Clear();
 
         // 通信終了
-        m_WaitConnect.RemoveWait(gameObject.name);
+        waitConnect.RemoveWait(gameObject.name);
 
         Debug.Log("スコア(統計情報)の取得に成功:");
         foreach (var eachStat in result.Statistics)
         {
-            m_ValueList.Add(eachStat);
+            valueList.Add(eachStat);
             Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
         }
 
         isGet = true;
     }
 
-    private void OnGetErrorStatistics(PlayFabError obj)
+    /// <summary>
+    /// 統計情報の取得に失敗
+    /// </summary>
+    /// <param name="error">エラー内容</param>
+    private void OnGetErrorStatistics(PlayFabError error)
     {
         // 通信終了
-        m_WaitConnect.RemoveWait(gameObject.name);
+        waitConnect.RemoveWait(gameObject.name);
         Debug.LogError("統計情報の取得に失敗しました。");
     }
 
@@ -151,7 +172,7 @@ public class PlayFabStatistics : MonoBehaviour
     /// <returns>統計情報名が見つからない場合は0を返す</returns>
     public int GetStatisticValue(string StatisticName)
     {
-        StatisticValue staValue = m_ValueList.Find(n => n.StatisticName == StatisticName);
+        StatisticValue staValue = valueList.Find(n => n.StatisticName == StatisticName);
         if (staValue == null) return 0;
         return staValue.Value;
 

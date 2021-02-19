@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 広告用スライダー制御クラス
+/// </summary>
 public class AdsSlider : MonoBehaviour
 {
     [SerializeField] GameMainManager mainManager = default;

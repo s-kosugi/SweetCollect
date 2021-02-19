@@ -1,8 +1,9 @@
 ﻿using PlayFab.ClientModels;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ショップ実績達成確認クラス
+/// </summary>
 public class ShopAchievement : MonoBehaviour
 {
     [SerializeField] PlayFabInventory inventory = default;
@@ -23,13 +24,13 @@ public class ShopAchievement : MonoBehaviour
     private void SendHaveClothesCount()
     {
         // アイテムを数える
-        if (inventory.m_isGet && playerData.m_isGet && !isHaveClothesCount)
+        if (inventory.isGet && playerData.isGet && !isHaveClothesCount)
         {
             int count = inventory.CountItemsCategory("clothes");
             UserDataRecord record = default;
             isHaveClothesCount = true;
 
-            if (playerData.m_Data.TryGetValue(PlayerDataName.COUNT_HAVECLOTHES, out record))
+            if (playerData.data.TryGetValue(PlayerDataName.COUNT_HAVECLOTHES, out record))
             {
                 // 現在の数と同数だったら送信しない
                 if (int.Parse(record.Value) == count) return;

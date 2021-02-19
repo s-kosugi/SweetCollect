@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// 実績名テキストクラス
+/// </summary>
 public class AchievementTitleText : MonoBehaviour
 {
     [SerializeField] AchievementParent achievementParent = default;

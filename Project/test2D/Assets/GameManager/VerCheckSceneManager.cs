@@ -43,7 +43,7 @@ public class VerCheckSceneManager : MonoBehaviour
 #if UNITY_ANDROID
     private void VerConnecting()
     {
-        if (!waitConnect.IsWait() && titleData.m_isGet)
+        if (!waitConnect.IsWait() && titleData.isGet)
         {
             if (titleData.titleData["GameVersion"] == Application.version)
             {

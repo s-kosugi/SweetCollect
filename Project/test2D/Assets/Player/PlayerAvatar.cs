@@ -25,11 +25,11 @@ public class PlayerAvatar : MonoBehaviour
         if (!m_isAvatarChange)
         {
             // 通信待ちしていないかどうか。
-            if (playerData.m_isGet && !waitConnect.IsWait())
+            if (playerData.isGet && !waitConnect.IsWait())
             {
                 UserDataRecord record;
                 // プレイヤーデータを取得して衣服を変更する
-                if (playerData.m_Data.TryGetValue(PlayerDataName.ECLOTHES, out record))
+                if (playerData.data.TryGetValue(PlayerDataName.ECLOTHES, out record))
                 {
                     Sprite sprite = Resources.Load<Sprite>("Player\\" + record.Value);
                     if (sprite)

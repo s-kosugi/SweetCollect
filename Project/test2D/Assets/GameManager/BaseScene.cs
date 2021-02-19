@@ -6,7 +6,7 @@ public class BaseScene : MonoBehaviour
     private const float FADE_MAX = 1.0f;
     private const float FADE_MIN = 0.0f;
     protected GameObject fadeCanvas = null;
-    private FadeImage m_FadeImage = null;
+    private FadeImage fadeImage = null;
     [SerializeField] public float FadeSpeed = 0.02f;
     [SerializeField] public string NextSceneName = "";
 
@@ -32,10 +32,10 @@ public class BaseScene : MonoBehaviour
                     // 指定されたフェード状態に応じて初期値を代入する
                     switch( value )
                     {
-                        case FADE_STATE.FADEIN: m_FadeImage.Range = FADE_MAX; break;
-                        case FADE_STATE.FADEOUT: m_FadeImage.Range = FADE_MIN; break;
-                        case FADE_STATE.NONE: m_FadeImage.Range = FADE_MIN; break;
-                        case FADE_STATE.BLACK: m_FadeImage.Range = FADE_MAX; break;
+                        case FADE_STATE.FADEIN: fadeImage.Range = FADE_MAX; break;
+                        case FADE_STATE.FADEOUT: fadeImage.Range = FADE_MIN; break;
+                        case FADE_STATE.NONE: fadeImage.Range = FADE_MIN; break;
+                        case FADE_STATE.BLACK: fadeImage.Range = FADE_MAX; break;
                     }
                 }
                     
@@ -50,8 +50,8 @@ public class BaseScene : MonoBehaviour
     {
         fadeCanvas = GameObject.Find("FadeCanvas");
         fadeState = FADE_STATE.FADEIN;
-        m_FadeImage = fadeCanvas.GetComponent<FadeImage>();
-        m_FadeImage.Range = FADE_MAX;
+        fadeImage = fadeCanvas.GetComponent<FadeImage>();
+        fadeImage.Range = FADE_MAX;
     }
 
     virtual protected void Update()
@@ -68,10 +68,10 @@ public class BaseScene : MonoBehaviour
     // フェードイン状態
     void FadeIn()
     {
-        m_FadeImage.Range -= FadeSpeed;
-        if (m_FadeImage.Range <= FADE_MIN)
+        fadeImage.Range -= FadeSpeed;
+        if (fadeImage.Range <= FADE_MIN)
         {
-            m_FadeImage.Range = FADE_MIN;
+            fadeImage.Range = FADE_MIN;
             fadeState = FADE_STATE.NONE;
         }
     }
@@ -79,11 +79,11 @@ public class BaseScene : MonoBehaviour
     // フェードアウト状態
     void FadeOut()
     {
-        m_FadeImage.Range += FadeSpeed;
+        fadeImage.Range += FadeSpeed;
         // フェードが終わったら次のシーンへ
-        if (m_FadeImage.Range >= FADE_MAX)
+        if (fadeImage.Range >= FADE_MAX)
         {
-            m_FadeImage.Range = FADE_MAX;
+            fadeImage.Range = FADE_MAX;
             SceneManager.LoadScene(NextSceneName);
         }
     }

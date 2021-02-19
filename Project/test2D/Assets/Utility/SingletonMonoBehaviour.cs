@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System;
 
+/// <summary>
+/// シングルトンオブジェクトクラス
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 {
 

@@ -51,10 +51,10 @@ public class StageSelectParent : MonoBehaviour
             case STATE.FADEOUT: FadeOut(); break;
         }
 
-        if (playerData.m_isGet && !isDifficultSet)
+        if (playerData.isGet && !isDifficultSet)
         {
             UserDataRecord record;
-            if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+            if (playerData.data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
             {
                 difficultName = record.Value;
             }

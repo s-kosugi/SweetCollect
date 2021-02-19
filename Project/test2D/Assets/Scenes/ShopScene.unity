@@ -207,9 +207,9 @@ GameObject:
   - component: {fileID: 73579821}
   - component: {fileID: 73579820}
   - component: {fileID: 73579819}
-  - component: {fileID: 73579818}
   - component: {fileID: 73579817}
   - component: {fileID: 73579822}
+  - component: {fileID: 73579818}
   m_Layer: 5
   m_Name: AchievementButton
   m_TagString: Untagged
@@ -259,9 +259,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 73579815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &73579819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,7 +1139,7 @@ MonoBehaviour:
   previewsprite: {fileID: 2189110483647629879, guid: 39c4923f42ec8964ebd1600bbe83f11a,
     type: 3}
   curtain: {fileID: 258928816}
-  playerdata: {fileID: 1866403476}
+  PlayerData: {fileID: 1866403476}
   previewparent: {fileID: 827679703}
   SwipeMove_Shop: {fileID: 827679704}
   PreviewParent: {fileID: 827679701}
@@ -1786,7 +1787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5d0c4a91fd8da418cc7982e2e19a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoLoginTime: 1
+  autoLoginTime: 1
   waitConnect: {fileID: 0}
 --- !u!4 &648793400
 Transform:
@@ -1947,12 +1948,12 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 608
+      value: 2960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 472
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -2460,7 +2461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &907776689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,6 +2474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0edc9632e3033a94c856c6593098ec2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitConnect: {fileID: 0}
 --- !u!1 &1062585633
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,7 +2519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &1062585636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2530,6 +2532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28507b671107134480f7d50595d6c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitConnect: {fileID: 0}
 --- !u!1 &1108393595
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,9 +3757,9 @@ GameObject:
   - component: {fileID: 1459840294}
   - component: {fileID: 1459840293}
   - component: {fileID: 1459840292}
-  - component: {fileID: 1459840291}
   - component: {fileID: 1459840295}
   - component: {fileID: 1459840296}
+  - component: {fileID: 1459840291}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -3792,9 +3795,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1459840289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &1459840292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4049,7 +4053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &1509863893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4066,6 +4070,7 @@ MonoBehaviour:
   StoreName: AchivementList
   Inventory: {fileID: 0}
   VirtualCurrency: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &1531512243
 GameObject:
   m_ObjectHideFlags: 0
@@ -4219,7 +4224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &1594986038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4236,6 +4241,7 @@ MonoBehaviour:
   StoreName: StandardStore
   Inventory: {fileID: 907776689}
   VirtualCurrency: {fileID: 1062585636}
+  waitConnect: {fileID: 0}
 --- !u!1 &1629954020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4501,7 +4507,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 2960, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1671069068
 MonoBehaviour:
@@ -4516,7 +4522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 1671069067}
-  referenceResolution: {x: 960, y: 540}
+  referenceResolution: {x: 2960, y: 1440}
   matchWidthOrHeight: 0
 --- !u!1 &1677005746
 GameObject:
@@ -4620,8 +4626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874457232e873564cb593bedf8d105e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 7000
-  JumpInterval: 1.3
+  jumpPower: 7000
+  jumpInterval: 1.3
 --- !u!58 &1706139069
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5034,7 +5040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &1866403476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5047,6 +5053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playFabLogin: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &1875823741
 GameObject:
   m_ObjectHideFlags: 0

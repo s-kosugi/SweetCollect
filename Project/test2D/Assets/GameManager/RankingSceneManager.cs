@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+
+/// <summary>
+/// ランキングシーン
+/// </summary>
 public class RankingSceneManager : BaseScene
 {
     [SerializeField] PlayFabWaitConnect waitConnect = default;
@@ -175,7 +179,7 @@ public class RankingSceneManager : BaseScene
             connectWaitCount++;
             if (connectWaitCount > connectWaitFrame)
             {
-                if (leaderBoard.isGet /*&& selfLeaderBoard.isGet*/)
+                if (leaderBoard.isGet)
                 {
                     connectWaitCount = 0;
                     // ロードが終わったら出現させる

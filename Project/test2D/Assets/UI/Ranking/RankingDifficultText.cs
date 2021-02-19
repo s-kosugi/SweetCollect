@@ -1,7 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// ランキング名テキストクラス
+/// </summary>
 public class RankingDifficultText : MonoBehaviour
 {
     [SerializeField] PlayFabLeaderBoard leaderBoard = default;
@@ -16,7 +18,7 @@ public class RankingDifficultText : MonoBehaviour
         textMesh = GetComponent<TextMeshProUGUI>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // 難易度毎で色とテキストを変更

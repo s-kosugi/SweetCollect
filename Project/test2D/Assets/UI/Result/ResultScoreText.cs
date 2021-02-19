@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// リザルトスコアテキスト
+/// </summary>
 public class ResultScoreText : MonoBehaviour
 {
     private TextMeshProUGUI text = null;

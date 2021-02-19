@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ランキングのアバタークラス
+/// </summary>
 public class RankingAvatar : MonoBehaviour
 {
     [SerializeField] RankingRecord rankingRecord = default;
@@ -13,10 +16,11 @@ public class RankingAvatar : MonoBehaviour
         if (!isSet)
         {
             // データ取得完了していたらスプライトをロードする
-            if (rankingRecord.playerData != default && rankingRecord.playerData.m_isGet)
+            if (rankingRecord.playerData != default && rankingRecord.playerData.isGet)
             {
                 UserDataRecord record = default;
-                if (rankingRecord.playerData.m_Data.TryGetValue(PlayerDataName.ECLOTHES, out record))
+                // ランキングのレコードからプレイヤーの装着している服を取得する
+                if (rankingRecord.playerData.data.TryGetValue(PlayerDataName.ECLOTHES, out record))
                 {
                     image.sprite = Resources.Load<Sprite>("Player\\" + record.Value);
 

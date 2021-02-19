@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// 広告ボタン有効化クラス
+/// </summary>
 public class AdsButtonEnable : MonoBehaviour
 {
     void Start()

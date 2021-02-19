@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+
+/// <summary>
+/// 開始UIクラス
+/// </summary>
 public class StartUI : MonoBehaviour
 {
     [SerializeField] private GameObject LetsTextObject = null;
@@ -10,7 +12,7 @@ public class StartUI : MonoBehaviour
     // 演出終了フラグ
     public bool isEnd { get; private set; }
 
-    // Start is called before the first frame update
+
     void Start()
     {
         isEnd = false;
@@ -19,7 +21,7 @@ public class StartUI : MonoBehaviour
         LetsTextObject.SetActive(true);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (!isEnd)

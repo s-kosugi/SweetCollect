@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// 影の追従処理
+/// </summary>
 public class ChaseShadow : MonoBehaviour
 {
     GameObject GroundObject;

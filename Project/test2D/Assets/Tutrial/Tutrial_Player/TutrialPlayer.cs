@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Effekseer;
 
@@ -8,30 +7,19 @@ public class TutrialPlayer : MonoBehaviour
     [SerializeField] float JumpPower = 250;
     public bool JumpFlag { get; private set; }      // ジャンプ中かどうか
     private bool TwoJumpFlag;   // 2段ジャンプ中かどうか
-    private TutrialSceneManager m_TutrialManager = null;
-    private EffekseerEffectAsset m_JumpEffect = null;
-    private EffekseerEffectAsset m_HeartEffect = null;
-    private EffekseerEffectAsset m_HeartShineEffect = null;
-    private EffekseerEffectAsset m_CoinGetEffect = null;
-    private Rigidbody2D m_RigidBody = null;
-    private CalcDamage m_CalcDamage = null;
-    private BlinkAnimeSpriteRenderer m_Blink = null;
-    private List<EffekseerHandle> m_HeartEffectList = default;
+    [SerializeField] TutrialSceneManager tutrialManager = default;
+    [SerializeField] EffekseerEffectAsset jumpEffect = default;
+    [SerializeField] EffekseerEffectAsset heartEffect = default;
+    private Rigidbody2D rigidBody = default;
+    private List<EffekseerHandle> heartEffectList = default;
 
 
     void Start()
     {
         JumpFlag = true;
         TwoJumpFlag = true;
-        m_TutrialManager = GameObject.Find("TutrialSceneManager").GetComponent<TutrialSceneManager>();
-        m_JumpEffect = Resources.Load<EffekseerEffectAsset>("Effect\\jump");
-        m_HeartEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart");
-        m_HeartShineEffect = Resources.Load<EffekseerEffectAsset>("Effect\\heart_shine");
-        m_CoinGetEffect = Resources.Load<EffekseerEffectAsset>("Effect\\CoinGet");
-        m_RigidBody = GetComponent<Rigidbody2D>();
-        m_CalcDamage = GetComponent<CalcDamage>();
-        m_Blink = GetComponent<BlinkAnimeSpriteRenderer>();
-        m_HeartEffectList = new List<EffekseerHandle>();
+        rigidBody = GetComponent<Rigidbody2D>();
+        heartEffectList = new List<EffekseerHandle>();
     }
 
     void Update()
@@ -39,19 +27,19 @@ public class TutrialPlayer : MonoBehaviour
         // マウスがクリックされたらプレイヤーをジャンプ状態にする。
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_TutrialManager.state == TutrialSceneManager.STATE.MAIN 
-                && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_CHEF 
-                && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_DESCRIPTION
-                && m_TutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_FINISHDESCRIPTION)
+            if (tutrialManager.state == TutrialSceneManager.STATE.MAIN 
+                && tutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_CHEF 
+                && tutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_DESCRIPTION
+                && tutrialManager.tutrial != TutrialSceneManager.TUTRIAL.TUTRIAL_FINISHDESCRIPTION)
             {
                 if (JumpFlag == false)
                 {
                     JumpFlag = true;
-                    m_RigidBody.velocity = Vector2.zero;
-                    m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
+                    rigidBody.velocity = Vector2.zero;
+                    rigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
 
                     // エフェクトの取得
-                    EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
+                    EffekseerSystem.PlayEffect(jumpEffect, transform.position + new Vector3(0f, -10f));
 
                     // ジャンプ音を再生
                     SoundManager.Instance.PlaySE("Jump");
@@ -60,10 +48,10 @@ public class TutrialPlayer : MonoBehaviour
                 {
                     {
                         TwoJumpFlag = true;
-                        m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0.0f);
-                        m_RigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
+                        rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0.0f);
+                        rigidBody.AddForce(new Vector2(0.0f, JumpPower), ForceMode2D.Impulse);
                         // エフェクトの取得
-                        EffekseerSystem.PlayEffect(m_JumpEffect, transform.position + new Vector3(0f, -10f));
+                        EffekseerSystem.PlayEffect(jumpEffect, transform.position + new Vector3(0f, -10f));
 
                         // ジャンプ音を再生
                         SoundManager.Instance.PlaySE("Jump");
@@ -72,7 +60,7 @@ public class TutrialPlayer : MonoBehaviour
             }
         }
         // ハートエフェクトを追従させる
-        foreach (EffekseerHandle handle in m_HeartEffectList)
+        foreach (EffekseerHandle handle in heartEffectList)
         {
             if (handle.enabled)
             {
@@ -81,7 +69,7 @@ public class TutrialPlayer : MonoBehaviour
             else
             {
                 // リストから除去
-                m_HeartEffectList.Remove(handle);
+                heartEffectList.Remove(handle);
             }
         }
     }
@@ -95,11 +83,11 @@ public class TutrialPlayer : MonoBehaviour
 
 
             // エフェクトの取得
-            EffekseerHandle handle = EffekseerSystem.PlayEffect(m_HeartEffect, transform.position);
+            EffekseerHandle handle = EffekseerSystem.PlayEffect(heartEffect, transform.position);
             SoundManager.Instance.PlaySE("Heart");
 
             // エフェクトを更新で追従させるためにリストにいれる
-            m_HeartEffectList.Add(handle);
+            heartEffectList.Add(handle);
 
         }
     }

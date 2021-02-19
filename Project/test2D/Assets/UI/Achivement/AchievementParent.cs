@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 実績生成親クラス
+/// </summary>
 public class AchievementParent : MonoBehaviour
 {
     [SerializeField] PlayFabWaitConnect waitConnect = default;
@@ -25,7 +28,7 @@ public class AchievementParent : MonoBehaviour
     void Update()
     {
         if (!isCreate && !waitConnect.IsWait() && store.m_isStoreGet && store.m_isCatalogGet &&
-            playerData.m_isGet && reach.isSet)
+            playerData.isGet && reach.isSet)
         {
             // アチーブメントボタン生成処理
             CreateAchivementButton();

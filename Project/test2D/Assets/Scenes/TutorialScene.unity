@@ -360,12 +360,12 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2160
+      value: 2960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1080
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -752,11 +752,9 @@ MonoBehaviour:
   - "\u305F\u304F\u3055\u3093\u306E\u30B9\u30A4\u30FC\u30C4\u3092\u30B2\u30C3\u30C8\u3057\u3088\u3046"
   - "\u30B9\u30A4\u30FC\u30C4\u306E\u3068\u308A\u304B\u305F\u3092\u304A\u3057\u3048\u308B\u306D"
   NowWordNumber: 0
-  DisplayTimer: 0
   DISPLAY_TIME: 2
   DisplayDescription: 
   NextState: 1
-  FadeTimer: 0
   FADETIME: 1
   TextAlpha: 0
   State: -1
@@ -1000,11 +998,9 @@ MonoBehaviour:
   - "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u306F\u3000\u3000\u304A\u308F\u308A\u3060\u3088"
   - "\u30B9\u30A4\u30FC\u30C4\u3092\u305F\u304F\u3055\u3093\u30B2\u30C3\u30C8\u3057\u3088\u3046\uFF01"
   NowWordNumber: 0
-  DisplayTimer: 0
   DISPLAY_TIME: 2
   DisplayDescription: 
   NextState: 6
-  FadeTimer: 0
   FADETIME: 1
   TextAlpha: 0
   State: -1
@@ -1168,7 +1164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5d0c4a91fd8da418cc7982e2e19a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoLoginTime: 1
+  autoLoginTime: 1
+  waitConnect: {fileID: 0}
 --- !u!4 &593536963
 Transform:
   m_ObjectHideFlags: 0
@@ -1470,7 +1467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &803977353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,6 +1480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playFabLogin: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &866538843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,7 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f213679909841b41a8d4e2ba07d5758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AchievementEquipFrame: {fileID: 0}
+  achievementequipframe: {fileID: 0}
   textmesh: {fileID: 1024723029}
 --- !u!114 &1024723029
 MonoBehaviour:
@@ -2256,7 +2255,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartScale: 3
   AnimationTime: 2
-  tutrial: {fileID: 1953176358}
 --- !u!114 &1232122976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2343,7 +2341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f213679909841b41a8d4e2ba07d5758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AchievementEquipFrame: {fileID: 0}
+  achievementequipframe: {fileID: 0}
   textmesh: {fileID: 1356055464}
 --- !u!114 &1356055464
 MonoBehaviour:
@@ -2589,6 +2587,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpPower: 225
+  tutrialManager: {fileID: 1953176358}
+  jumpEffect: {fileID: 11400000, guid: e6cb17f67426abf42b739341db90f8f7, type: 2}
+  heartEffect: {fileID: 11400000, guid: 2c416fe4a11650244b65f68a5323d626, type: 2}
 --- !u!50 &1420340929
 Rigidbody2D:
   serializedVersion: 4
@@ -3329,7 +3330,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2160, y: 1080}
+  m_SizeDelta: {x: 2960, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2055297336
 MonoBehaviour:
@@ -3344,7 +3345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 2055297335}
-  referenceResolution: {x: 2160, y: 1080}
+  referenceResolution: {x: 2960, y: 1440}
   matchWidthOrHeight: 0
 --- !u!1 &2072772228
 GameObject:
@@ -3396,7 +3397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f213679909841b41a8d4e2ba07d5758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AchievementEquipFrame: {fileID: 0}
+  achievementequipframe: {fileID: 0}
   textmesh: {fileID: 2072772231}
 --- !u!114 &2072772231
 MonoBehaviour:
@@ -3666,6 +3667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimeSpeed: 8
+  MinAlpha: 0
 --- !u!114 &2144362182
 MonoBehaviour:
   m_ObjectHideFlags: 0

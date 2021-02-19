@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// ランキングでのレコードを表示する為の親クラスプレイヤーデータの情報とリーダーボードを保持しておく

@@ -1,23 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// 入手コイン数字クラス
+/// </summary>
 public class GetPointNumber : MonoBehaviour
 {
-    private ScoreManager m_ScoreManager = null;
-    private TextMeshProUGUI m_Text = null;
+    private ScoreManager scoreManager = default;
+    private TextMeshProUGUI textMesh = default;
 
     void Start()
     {
-        m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        m_Text = gameObject.GetComponent<TextMeshProUGUI>();
-        m_Text.text = "    = " + string.Format("{0:00000}", m_ScoreManager.GetCoinScore());
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        textMesh = gameObject.GetComponent<TextMeshProUGUI>();
+        textMesh.text = "    = " + string.Format("{0:00000}", scoreManager.GetCoinScore());
         
     }
 
-    void Update()
-    {
-        
-    }
 }

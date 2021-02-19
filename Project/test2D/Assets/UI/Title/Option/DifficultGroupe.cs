@@ -44,11 +44,11 @@ public class DifficultGroupe : MonoBehaviour
     }
     private void SelectFirst()
     {
-        if (playerData.m_isGet && !isInit)
+        if (playerData.isGet && !isInit)
         {
             UserDataRecord record = default;
             // 最初に選ばれている難易度選択チェックを入れる
-            if (playerData.m_Data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
+            if (playerData.data.TryGetValue(PlayerDataName.SELECTED_DIFFICULT, out record))
             {
                 switch (record.Value)
                 {

@@ -12,7 +12,7 @@ public class Clothing : MonoBehaviour
     [SerializeField] private SelectClothing selectclothing = null;                                //選択されている服
     [SerializeField] private GameObject previewsprite = default;                                  //服表示オブジェクト
     [SerializeField] private CurtainAnime curtain = null;                                         //カーテンアニメ
-    [SerializeField] private PlayFabPlayerData playerdata = null;                                 //プレイヤーデータ
+    [SerializeField] private PlayFabPlayerData PlayerData = null;                                 //プレイヤーデータ
 
     [SerializeField] PreviewParent previewparent = null;                                          //服表示オブジェクトの親
     [SerializeField] SwipeMove_Shop SwipeMove_Shop = null;                                        //スワイプ
@@ -434,10 +434,10 @@ public class Clothing : MonoBehaviour
     {
         if(!connect.IsWait())
         {
-            if(playerdata.m_isGet)
+            if(PlayerData.isGet)
             {
                 UserDataRecord playerclothingdata = null;
-                if(playerdata.m_Data.TryGetValue(PlayerDataName.ECLOTHES, out playerclothingdata))
+                if(PlayerData.data.TryGetValue(PlayerDataName.ECLOTHES, out playerclothingdata))
                 {
                     SelectNumber = SpriteNumber[playerclothingdata.Value];
                     State = SHELFSTATE.CHANGE;

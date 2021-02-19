@@ -23,6 +23,7 @@ public class ReachAchievement : MonoBehaviour
     }
     void Update()
     {
+        // 実績を達成したかどうか一度だけチェックする
         if (!isSet)
         {
             CheckReachAchievement();
@@ -35,7 +36,7 @@ public class ReachAchievement : MonoBehaviour
     private void CheckReachAchievement()
     {
         // 条件に関するデータが取得済みかどうか
-        if (achievementStore.m_isCatalogGet && achievementStore.m_isStoreGet && playerData.m_isGet)
+        if (achievementStore.m_isCatalogGet && achievementStore.m_isStoreGet && playerData.isGet)
         {
             // チェック前に一度クリアする
             reachDictionary.Clear();
@@ -53,7 +54,7 @@ public class ReachAchievement : MonoBehaviour
                 UserDataRecord playerRecord;
                 string progressString = "0";
                 // 実績内のカスタムデータからキーを取得してプレイヤーデータにアクセスする
-                if (playerData.m_Data.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out playerRecord))
+                if (playerData.data.TryGetValue(jsonDic[AchievementDataName.PROGRESS_KEY], out playerRecord))
                 {
                     double num;
                     // 進捗度が数値ではなかった場合は実績内の該当キーと一致しているかで判断をする

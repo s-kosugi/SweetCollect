@@ -164,7 +164,7 @@ public class ClothingBuyAndWear : MonoBehaviour
                 {
                     playerData.SetPlayerData(PlayerDataName.ECLOTHES, selectclothing.GetItemInfo().catalogItem.ItemId);
                     // ユーザーデータの更新
-                    playerData.RequestGetUserData();
+                    playerData.RequestGetData();
                     Debug.Log(selectclothing.GetItemInfo().catalogItem.ItemId + "を着用しました");
 
                     // プレイヤーの見た目更新

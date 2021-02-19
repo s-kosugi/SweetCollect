@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ランキング順位テキストクラス
+/// </summary>
 public class RankingPositionText : MonoBehaviour
 {
     [SerializeField] RankingRecord rankingRecord = default;

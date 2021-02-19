@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// タイトルのメインボタン共通クラス
+/// </summary>
 public class TitleMainButton : MonoBehaviour
 {
     [SerializeField] TitleManager titleManager = default;

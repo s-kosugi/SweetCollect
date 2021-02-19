@@ -3,15 +3,20 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections.Generic;
 
+/// <summary>
+/// PlayFabプレイヤーデータクラス
+/// </summary>
 public class PlayFabPlayerData : MonoBehaviour
 {
-    // 受信した全データ
-    public Dictionary<string, UserDataRecord> m_Data { get; private set; } = default;
+    /// <summary>
+    /// 受信した全データ
+    /// </summary>
+    public Dictionary<string, UserDataRecord> data { get; private set; } = default;
 
-    private PlayFabLogin m_PlayFabLogin = null;
-    private PlayFabAutoRequest m_AutoRequest = null;
-    private PlayFabWaitConnect m_WaitConnect = null;
-    public bool m_isGet { get; private set; }
+    [SerializeField] PlayFabLogin playFabLogin = default;
+    private PlayFabAutoRequest autoRequest = default;
+    [SerializeField] PlayFabWaitConnect waitConnect = default;
+    public bool isGet { get; private set; }
 
     /// <summary>
     /// ID指定してプレイヤーデータの呼び出し
@@ -21,36 +26,40 @@ public class PlayFabPlayerData : MonoBehaviour
 
     void Start()
     {
-        GameObject playFabManager = GameObject.Find("PlayFabManager");
-        m_PlayFabLogin = playFabManager.GetComponent<PlayFabLogin>();
-        m_WaitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
-        m_AutoRequest = GetComponent<PlayFabAutoRequest>();
-        m_isGet = false;
+        autoRequest = GetComponent<PlayFabAutoRequest>();
+        isGet = false;
+
+        if (playFabLogin == default || waitConnect == default)
+        {
+            GameObject playFabManager = GameObject.Find("PlayFabManager");
+            playFabLogin = playFabManager.GetComponent<PlayFabLogin>();
+            waitConnect = playFabManager.GetComponent<PlayFabWaitConnect>();
+        }
     }
     void Update()
     {
         // ユーザー情報は2回以上自動取得しない
-        if (!m_isGet)
+        if (!isGet)
         {
-            if (m_AutoRequest.IsRequest()) GetUserData();
+            if (autoRequest.IsRequest()) GetData();
         }
     }
 
     /// <summary>
-    /// ユーザーデータの更新
+    /// プレイヤーデータの更新
     /// </summary>
     /// <param name="dataname">データ名</param>
     /// <param name="data">データ内容</param>
     public void SetPlayerData(string dataname,string data)
     {
         // 通信待ちでなかったら通信開始
-        if (!m_WaitConnect.GetWait(gameObject.name + dataname))
+        if (!waitConnect.GetWait(gameObject.name + dataname))
         {
             // 自分のID以外でユーザーデータを更新しようとしていたら止める
-            if (nominationID != m_PlayFabLogin._PlayfabID && nominationID != default) return;
+            if (nominationID != playFabLogin._PlayfabID && nominationID != default) return;
 
             // 通信待ちに設定する
-            m_WaitConnect.AddWait(gameObject.name + dataname);
+            waitConnect.AddWait(gameObject.name + dataname);
 
             var change = new Dictionary<string, string>
             {
@@ -64,40 +73,39 @@ public class PlayFabPlayerData : MonoBehaviour
                 Debug.Log("ユーザーデータの更新に成功");
 
                 // キーがまだない場合には作成
-                if( !m_Data.ContainsKey(dataname) )
+                if( !this.data.ContainsKey(dataname) )
                 {
                     UserDataRecord record = new UserDataRecord();
-                    m_Data.Add(dataname, record);
+                    this.data.Add(dataname, record);
                 }
-                m_Data[dataname].Value = data;
+                this.data[dataname].Value = data;
 
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name + dataname);
+                waitConnect.RemoveWait(gameObject.name + dataname);
             }, error =>
             {
                 Debug.Log(error.GenerateErrorReport());
 
                 // 通信終了
-                m_WaitConnect.RemoveWait(gameObject.name + dataname);
+                waitConnect.RemoveWait(gameObject.name + dataname);
             });
         }
     }
 
     /// <summary>
-    /// ユーザーデータの取得
+    /// プレイヤーデータの取得
     /// </summary>
-    /// <param name="name">データ名</param>
-    private void GetUserData()
+    private void GetData()
     {
         if (PlayFabClientAPI.IsClientLoggedIn())
         {
             // 通信待ちでなかったら通信開始(インスタンスIDを付与して別オブジェクトから同時に取得できるようにする)
-            if (!m_WaitConnect.GetWait(gameObject.name+gameObject.GetInstanceID()))
+            if (!waitConnect.GetWait(gameObject.name+gameObject.GetInstanceID()))
             {
                 // 通信待ちに設定する
-                m_WaitConnect.AddWait(gameObject.name + gameObject.GetInstanceID());
+                waitConnect.AddWait(gameObject.name + gameObject.GetInstanceID());
 
-                string ID = m_PlayFabLogin._PlayfabID;
+                string ID = playFabLogin._PlayfabID;
 
                 // ID指定があった場合には指定したIDで取得する
                 if (nominationID != default) ID = nominationID;
@@ -109,28 +117,28 @@ public class PlayFabPlayerData : MonoBehaviour
                     PlayFabId = ID
                 }, result =>
                 {
-                    m_isGet = true;
-                    m_Data = result.Data;
+                    isGet = true;
+                    data = result.Data;
                     // 通信終了
-                    m_WaitConnect.RemoveWait(gameObject.name + gameObject.GetInstanceID());
+                    waitConnect.RemoveWait(gameObject.name + gameObject.GetInstanceID());
 
                     Debug.Log("ユーザーデータの取得に成功");
                 }, error =>
                 {
                     Debug.Log(error.GenerateErrorReport());
                     // 通信終了
-                    m_WaitConnect.RemoveWait(gameObject.name + gameObject.GetInstanceID());
+                    waitConnect.RemoveWait(gameObject.name + gameObject.GetInstanceID());
                 });
             }
         }
     }
     /// <summary>
-    /// ユーザーデータの取得要求
+    /// プレイヤーデータの取得要求
     /// </summary>
-    public void RequestGetUserData()
+    public void RequestGetData()
     {
-        m_isGet = false;
+        isGet = false;
         // 直ちに一度取得試行をする
-        GetUserData();
+        GetData();
     }
 }

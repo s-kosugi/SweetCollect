@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ハイスコアの点滅クラス
+/// </summary>
 public class HiScoreFlashing : MonoBehaviour
 {
     [SerializeField] FlashingAnimeText textAnime = default;
@@ -17,7 +18,7 @@ public class HiScoreFlashing : MonoBehaviour
         textAnime.enabled = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (!isSet)

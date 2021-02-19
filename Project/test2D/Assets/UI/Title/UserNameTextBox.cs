@@ -1,37 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using PlayFab;
-using PlayFab.ClientModels;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ユーザー名入力テキストボックス
+/// </summary>
 public class UserNameTextBox : MonoBehaviour
 {
     [SerializeField] TitleManager titleManager = default;
-    PlayFabUserProfiel m_PlayFabUserProfiel = null;
+    [SerializeField] PlayFabUserProfiel playFabUserProfiel = default;
     InputField inputField = default;
-    private bool IsNameSet = false;
+    private bool isNameSet = false;
 
     void Start()
     {
-        m_PlayFabUserProfiel = GameObject.Find("PlayFabUserProfiel").GetComponent<PlayFabUserProfiel>();
         inputField = GetComponent<InputField>();
     }
-
 
     void Update()
     {
         // PlayFabから名前未設定の場合はテキストに名前をセットする
-        if (!IsNameSet)
+        if (!isNameSet)
         {
-            if (m_PlayFabUserProfiel.isGet)
+            if (playFabUserProfiel.isGet)
             {
-                string displayName = m_PlayFabUserProfiel.DisplayName;
+                string displayName = playFabUserProfiel.DisplayName;
                 if (displayName != "")
                 {
                     // ログインしてたらユーザーネームをセットする
                     inputField.text = displayName;
-                    IsNameSet = true;
+                    isNameSet = true;
                 }
             }
         }

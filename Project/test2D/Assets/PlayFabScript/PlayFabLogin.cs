@@ -2,22 +2,21 @@
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// PlayFabのログイン処理を行うクラス
 /// </summary>
 public class PlayFabLogin : MonoBehaviour
 {
-    [SerializeField] float AutoLoginTime = 1f;
+    [SerializeField] float autoLoginTime = 1f;
     [SerializeField] PlayFabWaitConnect waitConnect = default;
-    private float AutoLoginCount = 0f;
+    private float autoLoginCount = 0f;
 
     //アカウントを作成するか
-    private bool _shouldCreateAccount;
+    private bool shouldCreateAccount;
 
     //ログイン時に使うID
-    private string _customID;
+    private string customID;
 
     // IDの長さ
     public int idLength { get; private set; } = 32;
@@ -32,6 +31,12 @@ public class PlayFabLogin : MonoBehaviour
         { return this._playfabID; }
     }
 
+    //IDを保存する時のKEY
+    public static readonly string CUSTOM_ID_SAVE_KEY = "CUSTOM_ID_SAVE_KEY";
+
+    //IDに使用する文字
+    private static readonly string ID_CHARACTERS = "0123456789abcdefghijklmnopqrstuvwxyz";
+
     //=================================================================================
     //ログイン処理
     //=================================================================================
@@ -41,7 +46,9 @@ public class PlayFabLogin : MonoBehaviour
         Login();
     }
 
-    //ログイン実行
+    /// <summary>
+    /// ログイン実行
+    /// </summary>
     private void Login()
     {
         // 既にログイン済みだったのでIDを保存して終了
@@ -56,8 +63,8 @@ public class PlayFabLogin : MonoBehaviour
         // 通信待ちでなかったら通信開始
         if (!waitConnect.GetWait(gameObject.name))
         {
-            _customID = LoadCustomID();
-            var request = new LoginWithCustomIDRequest { CustomId = _customID, CreateAccount = _shouldCreateAccount };
+            customID = LoadCustomID();
+            var request = new LoginWithCustomIDRequest { CustomId = customID, CreateAccount = shouldCreateAccount };
             PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
 
             // 通信待ちに設定する
@@ -65,26 +72,29 @@ public class PlayFabLogin : MonoBehaviour
         }
     }
 
-    //ログイン成功
+    /// <summary>
+    /// ログイン成功
+    /// </summary>
+    /// <param name="result">成功結果</param>
     private void OnLoginSuccess(LoginResult result)
     {
         // 通信待ちを解除する
         waitConnect.RemoveWait(gameObject.name);
 
-        //アカウントを作成しようとしたのに、IDが既に使われていて、出来なかった場合
-        if (_shouldCreateAccount && !result.NewlyCreated)
+        // アカウントを作成しようとしたのに、IDが既に使われていて、出来なかった場合
+        if (shouldCreateAccount && !result.NewlyCreated)
         {
-            Debug.LogWarning($"CustomId : {_customID} は既に使われています。");
+            Debug.LogWarning($"CustomId : {customID} は既に使われています。");
             Login();//ログインしなおし
             return;
         }
 
-        //アカウント作成時にIDを保存
+        // アカウント作成時にIDを保存
         if (result.NewlyCreated)
         {
             SaveCustomID();
         }
-        Debug.Log($"PlayFabのログインに成功\nPlayFabId : {result.PlayFabId}, CustomId : {_customID}\nアカウントを作成したか : {result.NewlyCreated}");
+        Debug.Log($"PlayFabのログインに成功\nPlayFabId : {result.PlayFabId}, CustomId : {customID}\nアカウントを作成したか : {result.NewlyCreated}");
         // PlayFabIDを保存
         _playfabID = result.PlayFabId;
     }
@@ -93,15 +103,19 @@ public class PlayFabLogin : MonoBehaviour
         // 未ログインならログインをn秒毎に試行する
         if (!PlayFabClientAPI.IsClientLoggedIn())
         {
-            AutoLoginCount += Time.deltaTime;
-            if (AutoLoginCount >= AutoLoginTime)
+            autoLoginCount += Time.deltaTime;
+            if (autoLoginCount >= autoLoginTime)
             {
-                AutoLoginCount = 0f;
+                autoLoginCount = 0f;
                 Login();
             }
         }
     }
-    //ログイン失敗
+
+    /// <summary>
+    /// ログイン失敗
+    /// </summary>
+    /// <param name="error">エラー内容</param>
     private void OnLoginFailure(PlayFabError error)
     {
 
@@ -116,34 +130,32 @@ public class PlayFabLogin : MonoBehaviour
     //カスタムIDの取得
     //=================================================================================
 
-    //IDを保存する時のKEY
-    public static readonly string CUSTOM_ID_SAVE_KEY = "CUSTOM_ID_SAVE_KEY";
-
-    //IDを取得
+    /// <summary>
+    /// CustomIDの読み込み
+    /// </summary>
+    /// <returns>ID文字列</returns>
     private string LoadCustomID()
     {
         //IDを取得
         string id = PlayerPrefs.GetString(CUSTOM_ID_SAVE_KEY);
 
         //保存されていなければ新規生成
-        _shouldCreateAccount = string.IsNullOrEmpty(id);
-        return _shouldCreateAccount ? GenerateCustomID() : id;
+        shouldCreateAccount = string.IsNullOrEmpty(id);
+        return shouldCreateAccount ? GenerateCustomID() : id;
     }
 
-    //IDの保存
+    /// <summary>
+    /// CustomIDの保存
+    /// </summary>
     private void SaveCustomID()
     {
-        PlayerPrefs.SetString(CUSTOM_ID_SAVE_KEY, _customID);
+        PlayerPrefs.SetString(CUSTOM_ID_SAVE_KEY, customID);
     }
 
-    //=================================================================================
-    //カスタムIDの生成
-    //=================================================================================
-
-    //IDに使用する文字
-    private static readonly string ID_CHARACTERS = "0123456789abcdefghijklmnopqrstuvwxyz";
-
-    //IDを生成する
+    /// <summary>
+    /// CustomIDの生成
+    /// </summary>
+    /// <returns>生成されたID</returns>
     private string GenerateCustomID()
     {
         StringBuilder stringBuilder = new StringBuilder(idLength);
@@ -158,15 +170,20 @@ public class PlayFabLogin : MonoBehaviour
         return stringBuilder.ToString();
     }
 
+    /// <summary>
+    /// ログアウト処理
+    /// </summary>
     public void LogOut()
     {
         // ログアウト処理
         PlayFabClientAPI.ForgetAllCredentials();
     }
 
-    //=================================================================================
-    //取得
-    //=================================================================================
+    
+    /// <summary>
+    /// 保存されているCustomIDの取得
+    /// </summary>
+    /// <returns>CustomID文字列</returns>
     public string GetCustomID()
     {
         return PlayerPrefs.GetString(CUSTOM_ID_SAVE_KEY);

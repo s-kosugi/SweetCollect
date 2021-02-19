@@ -17,14 +17,14 @@ public class AchievementNoticeIcon : MonoBehaviour
     }
     void SetFirstActive()
     {
-        if (playerData.m_isGet && achievementStore.m_isStoreGet &&!isInit)
+        if (playerData.isGet && achievementStore.m_isStoreGet &&!isInit)
         {
             gameObject.SetActive(false);
 
             foreach (var item in achievementStore.StoreItems)
             {
                 UserDataRecord record = default;
-                if (playerData.m_Data.TryGetValue("NOTICE_"+item.ItemId, out record))
+                if (playerData.data.TryGetValue("NOTICE_"+item.ItemId, out record))
                 {
                     // 通知アイコンが表示状態を見て表示
                     if (record.Value == "TRUE")

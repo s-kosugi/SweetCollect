@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5d0c4a91fd8da418cc7982e2e19a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoLoginTime: 1
+  autoLoginTime: 1
   waitConnect: {fileID: 0}
 --- !u!4 &35366911
 Transform:
@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &117304584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,6 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6a91eb060db42438f1a0c9ba03ef2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitConnect: {fileID: 0}
 --- !u!1 &121456307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,7 +1131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &121456310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1147,6 +1148,7 @@ MonoBehaviour:
   StoreName: AchivementList
   Inventory: {fileID: 0}
   VirtualCurrency: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &135104990
 GameObject:
   m_ObjectHideFlags: 0
@@ -3145,7 +3147,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2160, y: 1080}
+  m_SizeDelta: {x: 2960, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &324469459
 MonoBehaviour:
@@ -3160,7 +3162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refRect: {fileID: 324469458}
-  referenceResolution: {x: 2160, y: 1080}
+  referenceResolution: {x: 2960, y: 1440}
   matchWidthOrHeight: 0
 --- !u!1 &367396365
 GameObject:
@@ -4046,10 +4048,10 @@ GameObject:
   - component: {fileID: 508697596}
   - component: {fileID: 508697595}
   - component: {fileID: 508697594}
-  - component: {fileID: 508697593}
   - component: {fileID: 508697592}
   - component: {fileID: 508697597}
   - component: {fileID: 508697598}
+  - component: {fileID: 508697593}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -4100,9 +4102,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 508697590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &508697594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5068,10 +5071,10 @@ GameObject:
   - component: {fileID: 638353207}
   - component: {fileID: 638353206}
   - component: {fileID: 638353205}
-  - component: {fileID: 638353204}
   - component: {fileID: 638353208}
   - component: {fileID: 638353209}
   - component: {fileID: 638353210}
+  - component: {fileID: 638353204}
   m_Layer: 5
   m_Name: Creditbutton
   m_TagString: Untagged
@@ -5108,9 +5111,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 638353202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &638353205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6452,22 +6456,22 @@ PrefabInstance:
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2160
+      value: 2960
       objectReference: {fileID: 0}
     - target: {fileID: 3837631821668827150, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1080
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.x
-      value: 2160
+      value: 2960
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.y
-      value: 1080
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 4384316562705089613, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
@@ -7553,7 +7557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &860361242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7566,6 +7570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d93be019e06f84d8448fcd88c54254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playFabLogin: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &871988584
 GameObject:
   m_ObjectHideFlags: 0
@@ -7946,10 +7952,10 @@ GameObject:
   - component: {fileID: 955371097}
   - component: {fileID: 955371096}
   - component: {fileID: 955371095}
-  - component: {fileID: 955371094}
   - component: {fileID: 955371093}
   - component: {fileID: 955371098}
   - component: {fileID: 955371099}
+  - component: {fileID: 955371094}
   m_Layer: 5
   m_Name: AchievementButton
   m_TagString: Untagged
@@ -8001,9 +8007,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 955371091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &955371095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8819,6 +8826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleManager: {fileID: 675315287}
+  playFabUserProfiel: {fileID: 117304584}
 --- !u!1 &1073045939
 GameObject:
   m_ObjectHideFlags: 0
@@ -9874,9 +9882,9 @@ GameObject:
   - component: {fileID: 1219597543}
   - component: {fileID: 1219597542}
   - component: {fileID: 1219597541}
-  - component: {fileID: 1219597540}
   - component: {fileID: 1219597539}
   - component: {fileID: 1219597544}
+  - component: {fileID: 1219597538}
   m_Layer: 5
   m_Name: StageSelectStartButton
   m_TagString: Untagged
@@ -9904,6 +9912,19 @@ RectTransform:
   m_AnchoredPosition: {x: 295, y: -133}
   m_SizeDelta: {x: 98, y: 98}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1219597538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219597536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &1219597539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9918,18 +9939,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 675315287}
   StartAutoEnabled: 1
---- !u!114 &1219597540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219597536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1219597541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9984,7 +9993,7 @@ MonoBehaviour:
           m_StringArgument: GameMainScene
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1219597540}
+      - m_Target: {fileID: 1219597538}
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -11172,7 +11181,7 @@ GameObject:
   - component: {fileID: 1417279418}
   - component: {fileID: 1417279417}
   m_Layer: 5
-  m_Name: RankingButtonText
+  m_Name: CreditButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11830,10 +11839,10 @@ GameObject:
   - component: {fileID: 1435474774}
   - component: {fileID: 1435474773}
   - component: {fileID: 1435474772}
-  - component: {fileID: 1435474771}
   - component: {fileID: 1435474770}
   - component: {fileID: 1435474775}
   - component: {fileID: 1435474776}
+  - component: {fileID: 1435474771}
   m_Layer: 5
   m_Name: RankingButton
   m_TagString: Untagged
@@ -11884,9 +11893,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1435474768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &1435474772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13073,7 +13083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &1642445172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13086,6 +13096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0edc9632e3033a94c856c6593098ec2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitConnect: {fileID: 0}
 --- !u!1 &1666105139
 GameObject:
   m_ObjectHideFlags: 0
@@ -13098,10 +13109,10 @@ GameObject:
   - component: {fileID: 1666105147}
   - component: {fileID: 1666105146}
   - component: {fileID: 1666105145}
-  - component: {fileID: 1666105144}
   - component: {fileID: 1666105143}
   - component: {fileID: 1666105142}
   - component: {fileID: 1666105141}
+  - component: {fileID: 1666105144}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -13181,9 +13192,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1666105139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &1666105145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13249,17 +13261,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1666105146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13308,7 +13309,7 @@ GameObject:
   - component: {fileID: 1672038604}
   - component: {fileID: 1672038603}
   m_Layer: 5
-  m_Name: RankingButtonText
+  m_Name: AchievementButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16222,7 +16223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &1927461476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16239,6 +16240,7 @@ MonoBehaviour:
   StoreName: StandardStore
   Inventory: {fileID: 0}
   VirtualCurrency: {fileID: 0}
+  waitConnect: {fileID: 0}
 --- !u!1 &2004730548
 GameObject:
   m_ObjectHideFlags: 0
@@ -16743,7 +16745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4178796af6955440b393403c1eadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequestInterval: 1
+  requestInterval: 1
 --- !u!114 &2076619370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17039,10 +17041,10 @@ GameObject:
   - component: {fileID: 2111998592}
   - component: {fileID: 2111998591}
   - component: {fileID: 2111998590}
-  - component: {fileID: 2111998589}
   - component: {fileID: 2111998593}
   - component: {fileID: 2111998594}
   - component: {fileID: 2111998595}
+  - component: {fileID: 2111998589}
   m_Layer: 5
   m_Name: ShopButton
   m_TagString: Untagged
@@ -17079,9 +17081,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2111998587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37303209e065934b84d5d44e23a1738, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad8672cabd20d4d95a6067570f8100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seFileName: Tap
 --- !u!114 &2111998590
 MonoBehaviour:
   m_ObjectHideFlags: 0

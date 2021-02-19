@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MoveCredit : MonoBehaviour
 {
-    [SerializeField] private CreditSceneManager creditscene;            //クレジットシーンマネージャー
-    [SerializeField] private RectTransform recttransform;               //描画範囲トランスフォーム
-    [SerializeField] private CreditDistance creaditdistance;            //距離関係
-    [SerializeField] private GameObject EndPoint;                       //停止位置オブジェクト
+    [SerializeField] private CreditSceneManager creditscene = default;            //クレジットシーンマネージャー
+    [SerializeField] private RectTransform recttransform = default;               //描画範囲トランスフォーム
+    [SerializeField] private CreditDistance creaditdistance = default;            //距離関係
+    [SerializeField] private GameObject EndPoint = default;                       //停止位置オブジェクト
 
     private Vector3 StartPosition = Vector3.zero;      //スタート地点
     [SerializeField] private float MoveSpeed = 150.0f;                  //移動速度
