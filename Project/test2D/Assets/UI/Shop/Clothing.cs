@@ -80,7 +80,7 @@ public class Clothing : MonoBehaviour
         //PlayFabのストアとカタログ情報が入手できればロード状態
         if (!connect.IsWait())
         {
-            if (playfabstore.m_isCatalogGet && playfabstore.m_isStoreGet)
+            if (playfabstore.isCatalogGet && playfabstore.isStoreGet)
             {
                 State = SHELFSTATE.LOAD;
             }

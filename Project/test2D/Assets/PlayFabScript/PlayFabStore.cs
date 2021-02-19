@@ -3,16 +3,19 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
+/// <summary>
+/// PlayFabストアクラス
+/// </summary>
 public class PlayFabStore : MonoBehaviour
 {
     /// <summary>
     /// カタログを取得済みかどうか
     /// </summary>
-    public bool m_isCatalogGet { get; private set; }
+    public bool isCatalogGet { get; private set; }
     /// <summary>
     /// ストアを取得済みかどうか
     /// </summary>
-    public bool m_isStoreGet { get; private set; }
+    public bool isStoreGet { get; private set; }
     /// <summary>
     /// カタログアイテムリスト
     /// </summary>
@@ -43,8 +46,8 @@ public class PlayFabStore : MonoBehaviour
 
     void Start()
     {
-        m_isCatalogGet = false;
-        m_isStoreGet = false;
+        isCatalogGet = false;
+        isStoreGet = false;
         autoRequest = GetComponent<PlayFabAutoRequest>();
         if(waitConnect == default)
         {
@@ -56,12 +59,12 @@ public class PlayFabStore : MonoBehaviour
     void Update()
     {
         // ストア情報は2回以上取得しない
-        if (m_isCatalogGet == false && m_isStoreGet == false)
+        if (isCatalogGet == false && isStoreGet == false)
         {
             if(autoRequest.IsRequest())
             {
-                if ( !m_isCatalogGet ) GetCatalogData();
-                if ( !m_isStoreGet ) GetStoreData();
+                if ( !isCatalogGet ) GetCatalogData();
+                if ( !isStoreGet ) GetStoreData();
             }
         }
     }
@@ -86,7 +89,7 @@ public class PlayFabStore : MonoBehaviour
             {
                 Debug.Log("カタログデータ取得成功！");
                 CatalogItems = result.Catalog;
-                m_isCatalogGet = true;
+                isCatalogGet = true;
 
             // 通信終了
             waitConnect.RemoveWait(taskName);
@@ -122,7 +125,7 @@ public class PlayFabStore : MonoBehaviour
             {
                 Debug.Log("ストアデータ取得成功！");
                 StoreItems = result.Store;
-                m_isStoreGet = true;
+                isStoreGet = true;
 
                 // 通信終了
                 waitConnect.RemoveWait(taskName);

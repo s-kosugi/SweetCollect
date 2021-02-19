@@ -17,7 +17,7 @@ public class AchievementNoticeIcon : MonoBehaviour
     }
     void SetFirstActive()
     {
-        if (playerData.isGet && achievementStore.m_isStoreGet &&!isInit)
+        if (playerData.isGet && achievementStore.isStoreGet &&!isInit)
         {
             gameObject.SetActive(false);
 

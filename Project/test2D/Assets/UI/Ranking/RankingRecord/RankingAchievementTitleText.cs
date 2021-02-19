@@ -20,7 +20,7 @@ public class RankingAchievementTitleText : MonoBehaviour
             {
                 UserDataRecord userData;
 
-                if (rankingRecord.store.m_isCatalogGet)
+                if (rankingRecord.store.isCatalogGet)
                 {
                     // ランキングのレコードから選択実績を取得する
                     if (rankingRecord.playerData.data.TryGetValue(PlayerDataName.ACHIEVEMENT_SELECT, out userData))

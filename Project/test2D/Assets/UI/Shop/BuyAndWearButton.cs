@@ -46,7 +46,7 @@ public class BuyAndWearButton : MonoBehaviour
     {
         // 通信中または下記状態ならボタン選択不可
         if (connect.IsWait() ||
-            !playfabstore.m_isStoreGet ||
+            !playfabstore.isStoreGet ||
             clothing.GetState() != Clothing.SHELFSTATE.PREVIEW ||
             clothingbuyandwear.GetState() != ClothingBuyAndWear.STATE.RECEPTION
             || curtainanime.state != CurtainAnime.STATE.WAIT
@@ -66,8 +66,8 @@ public class BuyAndWearButton : MonoBehaviour
 
 
         //取得完了
-        if (!connect.IsWait() && playfabstore.m_isCatalogGet 
-            && storeachivement.m_isStoreGet && playfabstore.m_isStoreGet)
+        if (!connect.IsWait() && playfabstore.isCatalogGet 
+            && storeachivement.isStoreGet && playfabstore.isStoreGet)
         {
             if (selectclothing.GetItemInfo().catalogItem.CustomData != null)
             {

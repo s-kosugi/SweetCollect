@@ -16,7 +16,7 @@ public class NoticeAchievement : MonoBehaviour
 
     void Update()
     {
-        if (playerData.isGet && reachAchievement.isSet && store.m_isStoreGet && !isSend)
+        if (playerData.isGet && reachAchievement.isSet && store.isStoreGet && !isSend)
         {
             foreach( var item in store.StoreItems)
             {

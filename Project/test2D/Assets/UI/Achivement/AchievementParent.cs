@@ -27,7 +27,7 @@ public class AchievementParent : MonoBehaviour
 
     void Update()
     {
-        if (!isCreate && !waitConnect.IsWait() && store.m_isStoreGet && store.m_isCatalogGet &&
+        if (!isCreate && !waitConnect.IsWait() && store.isStoreGet && store.isCatalogGet &&
             playerData.isGet && reach.isSet)
         {
             // アチーブメントボタン生成処理

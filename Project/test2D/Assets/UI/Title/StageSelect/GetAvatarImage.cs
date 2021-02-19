@@ -22,7 +22,7 @@ public class GetAvatarImage : MonoBehaviour
         // 難易度が変更された時に画像を変更する
         if (parent.difficultName != oldDifficutName)
         {
-            if (achievementStore.m_isCatalogGet)
+            if (achievementStore.isCatalogGet)
             {
                 string achievementName = default;
 

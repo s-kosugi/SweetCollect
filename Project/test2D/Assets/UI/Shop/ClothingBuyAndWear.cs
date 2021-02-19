@@ -269,7 +269,7 @@ public class ClothingBuyAndWear : MonoBehaviour
         }
 
         //取得完了
-        if (!connect.IsWait() && store.m_isCatalogGet && storeachivement.m_isStoreGet && store.m_isStoreGet)
+        if (!connect.IsWait() && store.isCatalogGet && storeachivement.isStoreGet && store.isStoreGet)
         {
             //選択されている服のカスタムデータがある
             if (selectclothing.GetItemInfo().catalogItem.CustomData != null)

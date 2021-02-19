@@ -22,7 +22,7 @@ public class StageSelectRewordScore : MonoBehaviour
         // 難易度が変更された時に得点を変更する
         if (parent.difficultName != oldDifficutName)
         {
-            if (achievementStore.m_isCatalogGet)
+            if (achievementStore.isCatalogGet)
             {
                 string achievementName = default;
 

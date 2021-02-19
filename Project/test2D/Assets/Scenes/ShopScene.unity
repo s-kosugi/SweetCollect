@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805f24d00e28b8c4fab4628878ab9c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palyfabstore: {fileID: 0}
+  playfabstore: {fileID: 1594986038}
   SelectItem:
     storeItem:
       ItemId: 
@@ -1143,7 +1143,7 @@ MonoBehaviour:
   previewparent: {fileID: 827679703}
   swipemoveshop: {fileID: 827679704}
   PreviewParent: {fileID: 827679701}
-  SpriteSizeWight: 144
+  SpriteSizeWidth: 144
   Margin: 24
   MOVETIMENORMAL: 0.15
   MOVETIMEACHIEVEMENT: 0.1
@@ -1973,12 +1973,12 @@ PrefabInstance:
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.x
-      value: 608
+      value: 2960
       objectReference: {fileID: 0}
     - target: {fileID: 4274442143751715381, guid: 581ccab5d4f2d434d8a1ae9519e8158a,
         type: 3}
       propertyPath: referenceResolution.y
-      value: 472
+      value: 1440
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581ccab5d4f2d434d8a1ae9519e8158a, type: 3}
@@ -2386,10 +2386,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clothing: {fileID: 321649656}
-  swipeMove_shop: {fileID: 827679704}
+  swipemoveshop: {fileID: 827679704}
   SpriteSize: 0
   MarginSize: 0
-  StartPosWight: 0
+  StartPosWidth: 0
 --- !u!114 &827679704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2412,7 +2412,7 @@ MonoBehaviour:
   MinmoveLimitRect: {x: 0, y: 0}
   MaxmoveLimitRect: {x: 0, y: 0}
   InertiaMove: {x: 0, y: 0, z: 0}
-  Max_Wight: 0
+  MaxWidth: 0
   TouchPos: {x: 0, y: 0, z: 0}
   MinMoveDistance: 4
   HalfScreenSizeHeight: 0
@@ -2865,11 +2865,11 @@ MonoBehaviour:
   connect: {fileID: 648793398}
   storeachivement: {fileID: 1509863893}
   reachachievement: {fileID: 1677005749}
-  previewParent: {fileID: 827679703}
+  previewparent: {fileID: 827679703}
   selectclothing: {fileID: 271441498}
   playermoney: {fileID: 1158271998}
   clothing: {fileID: 321649656}
-  curtainAnime: {fileID: 258928816}
+  curtainanime: {fileID: 258928816}
 --- !u!114 &1139846102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3031,7 +3031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5adb2604c2233f41ab9042c32cd0702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playFabVirtualCurrency: {fileID: 1062585636}
+  virtualcurrency: {fileID: 1062585636}
   connect: {fileID: 648793398}
   TextMoney: {fileID: 1158271999}
 --- !u!114 &1158271999
@@ -4557,8 +4557,8 @@ MonoBehaviour:
   connect: {fileID: 648793398}
   inventory: {fileID: 907776689}
   reachachievement: {fileID: 1677005749}
-  PlayFabStore: {fileID: 1594986038}
-  PlayFabStoreAchivement: {fileID: 1509863893}
+  store: {fileID: 1594986038}
+  storeachivement: {fileID: 1509863893}
   shop: {fileID: 1726004099}
   clothing: {fileID: 321649656}
   buyandwearbutton: {fileID: 1637784988}

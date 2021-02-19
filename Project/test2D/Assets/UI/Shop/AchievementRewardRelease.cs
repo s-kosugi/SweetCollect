@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AchievementRewardRelease : MonoBehaviour
 {
@@ -161,7 +158,7 @@ public class AchievementRewardRelease : MonoBehaviour
         if(!connect.IsWait())
         {
             //取得完了
-            if(store.m_isCatalogGet && storeachivement.m_isStoreGet && store.m_isStoreGet)
+            if(store.isCatalogGet && storeachivement.isStoreGet && store.isStoreGet)
             {
                 foreach (var value in store.CatalogItems)
                 {

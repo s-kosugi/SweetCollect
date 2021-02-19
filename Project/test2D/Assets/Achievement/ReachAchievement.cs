@@ -36,7 +36,7 @@ public class ReachAchievement : MonoBehaviour
     private void CheckReachAchievement()
     {
         // 条件に関するデータが取得済みかどうか
-        if (achievementStore.m_isCatalogGet && achievementStore.m_isStoreGet && playerData.isGet)
+        if (achievementStore.isCatalogGet && achievementStore.isStoreGet && playerData.isGet)
         {
             // チェック前に一度クリアする
             reachDictionary.Clear();
