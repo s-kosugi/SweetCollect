@@ -7,31 +7,30 @@ using UnityEngine.UI;
 
 public class ClothingBuyAndWear : MonoBehaviour
 {
-    [SerializeField] private PlayFabStore store = null;                     //ストア
-    [SerializeField] private PlayFabInventory inventory = null;             //インベントリ
-    [SerializeField] private PlayFabWaitConnect connect = null;             //通信
-    [SerializeField] private PlayFabPlayerData playerData = null;           //プレイヤーデータ
-    [SerializeField] private PlayFabStore storeachivement = null;           //達成ストア
-    [SerializeField] private ReachAchievement reachachievement = null;      //実績達成管理
-    [SerializeField]private AchievementRewardRelease rewardrelease = null;  //達成服解放
-    [SerializeField]private PreviewParent previewparent = null;             //表示衣服の親
+    [SerializeField] private PlayFabStore               playfabstore = null;          //ストア
+    [SerializeField] private PlayFabInventory           inventory = null;             //インベントリ
+    [SerializeField] private PlayFabWaitConnect         connect = null;               //通信
+    [SerializeField] private PlayFabPlayerData          playerData = null;            //プレイヤーデータ
+    [SerializeField] private PlayFabStore               storeachivement = null;       //達成ストア
+    [SerializeField] private ReachAchievement           reachachievement = null;      //実績達成管理
+    [SerializeField]private AchievementRewardRelease    rewardrelease = null;         //達成服解放
+    [SerializeField]private PreviewParent               previewparent = null;         //表示衣服の親
+    [SerializeField] private SelectClothing             selectclothing = null;        //選択されている服
+    [SerializeField] private Money_Text                 playermoney = null;           //プレイヤー所持金
+    [SerializeField] private Clothing                   clothing = null;              //服
+    [SerializeField] private AchievementName            achievementtext = null;       //実績名
 
-    [SerializeField] private SelectClothing selectclothing = null;          //選択されている服
-    [SerializeField] private Money_Text playermoney = null;                 //プレイヤー所持金
-    [SerializeField] private Clothing clothing = null;                      //服
-    [SerializeField] private AchievementName achievementtext = null;        //実績名
+    private bool                                        IsPush;                       //ボタンを押したかどうか
+    private bool                                        IsAction;                     //行動できるかどうか
+    private bool                                        IsSelect;                     //選択中(購入または着用)
+    private bool                                        IsUpdate;                     //更新中
+    [SerializeField] private bool                       IsPreviewHint;                //ヒント表示
+    private bool                                        IsClothingRelease;            //実績服の解放
 
-    private bool IsPush;                                                    //ボタンを押したかどうか
-    private bool IsAction;                                                  //行動できるかどうか
-    private bool IsSelect;                                                  //選択中(購入または着用)
-    private bool IsUpdate;                                                  //更新中
-    [SerializeField] private bool IsPreviewHint;                            //ヒント表示
-    private bool IsClothingRelease;                                         //実績服の解放
-
-    [SerializeField] private PlayerAvatar playerAvatar = default;           //プレイヤーアバター
-    [SerializeField] private CurtainAnime curtainAnime = default;           //カーテン
-    [SerializeField] private string PriceName = default;                    //価格名
-    [SerializeField] ShopAchievement achievement = default;                 //実績
+    [SerializeField] private PlayerAvatar               playerAvatar = default;       //プレイヤーアバター
+    [SerializeField] private CurtainAnime               curtainAnime = default;       //カーテン
+    [SerializeField] private string                     PriceName = default;          //価格
+    [SerializeField] ShopAchievement                    achievement = default;        //実績
 
     //サウンド
     [SerializeField] private string sefilename = "Tap";
@@ -74,8 +73,8 @@ public class ClothingBuyAndWear : MonoBehaviour
             case STATE.RECEPTION: Reception(); break;
             case STATE.PUSH: Push(); break;
             case STATE.BUYorWEAR: BuyorWear(); break;
-            case STATE.UPDATE: Button_Update(); break;
-            case STATE.REWARDRELEASE: AchievementRewardRelease(); break;
+            case STATE.UPDATE: InfoUpdate(); break;
+            case STATE.REWARDRELEASE: RewardRelease(); break;
             case STATE.PREVIEWHINT: ; break;
         }
 
@@ -100,7 +99,7 @@ public class ClothingBuyAndWear : MonoBehaviour
         }
 
         //服開放実行
-        if (rewardrelease.AchievementFlag && rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CHECK_CLOTHING_RELEASE)
+        if (rewardrelease.AchievementFlag && rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CHECK)
         {
             State = STATE.REWARDRELEASE;
         }
@@ -127,7 +126,7 @@ public class ClothingBuyAndWear : MonoBehaviour
                     SoundManager.Instance.PlaySE(sefilename);
 
                     // アイテムがカタログ内にあるのかを探し、それに対応する説明を設定
-                    var catalogItem = store.CatalogItems.Find(x => x.ItemId == selectclothing.GetItemInfo().catalogItem.ItemId);
+                    var catalogItem = playfabstore.CatalogItems.Find(x => x.ItemId == selectclothing.GetItemInfo().catalogItem.ItemId);
                     if (catalogItem.CustomData != null)
                     {
                         //データがあれば、そのデータを表示
@@ -156,7 +155,7 @@ public class ClothingBuyAndWear : MonoBehaviour
                 //インベントリ内にアイテムがなければ購入
                 if (!inventory.IsHaveItem(selectclothing.GetItemInfo().storeItem.ItemId))
                 {
-                    store.BuyItem(selectclothing.GetItemInfo().storeItem.ItemId, PriceName);
+                    playfabstore.BuyItem(selectclothing.GetItemInfo().storeItem.ItemId, PriceName);
                     Debug.Log(selectclothing.GetItemInfo().storeItem.ItemId + "を購入しました");
                 }
                 //持っていれば着用
@@ -187,7 +186,7 @@ public class ClothingBuyAndWear : MonoBehaviour
         }
     }
     //更新
-    private void Button_Update()
+    private void InfoUpdate()
     {
         if (!IsUpdate)
         {
@@ -214,7 +213,7 @@ public class ClothingBuyAndWear : MonoBehaviour
     }
 
     //実績達成
-    private void AchievementRewardRelease()
+    private void RewardRelease()
     {
         //服開放オブジェクトが服購入
         if (rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CLOTHING_BUY)
@@ -230,7 +229,7 @@ public class ClothingBuyAndWear : MonoBehaviour
                         //インベントリ内にアイテムがなければ購入
                         if (!inventory.IsHaveItem(selectclothing.GetItemInfo().storeItem.ItemId))
                         {
-                            store.BuyItem(selectclothing.GetItemInfo().storeItem.ItemId, PriceName);
+                            playfabstore.BuyItem(selectclothing.GetItemInfo().storeItem.ItemId, PriceName);
                             Debug.Log(selectclothing.GetItemInfo().storeItem.ItemId + "を購入しました");
                         }
                         //プレイヤー所持金を確認
@@ -269,7 +268,7 @@ public class ClothingBuyAndWear : MonoBehaviour
         }
 
         //取得完了
-        if (!connect.IsWait() && store.isCatalogGet && storeachivement.isStoreGet && store.isStoreGet)
+        if (!connect.IsWait() && playfabstore.isCatalogGet && storeachivement.isStoreGet && playfabstore.isStoreGet)
         {
             //選択されている服のカスタムデータがある
             if (selectclothing.GetItemInfo().catalogItem.CustomData != null)

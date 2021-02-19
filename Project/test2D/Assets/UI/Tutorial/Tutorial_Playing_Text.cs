@@ -57,7 +57,7 @@ public class Tutorial_Playing_Text : MonoBehaviour
         switch (State)
         {
             case STATE.CHECK: ChangeDisplayText(); break;
-            case STATE.DISPLAY: Dispaly(); break;
+            case STATE.DISPLAY: Display(); break;
             case STATE.FADEIN: FadeIn(); break;
             case STATE.FADEOUT: FadeOut(); break;
             case STATE.WAIT:   ; break;
@@ -87,7 +87,7 @@ public class Tutorial_Playing_Text : MonoBehaviour
 
     }
     //表示
-    private void Dispaly()
+    private void Display()
     {
         if (FadeFlag)
         {

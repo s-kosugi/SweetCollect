@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class BuyAndWear_Text : MonoBehaviour
 {
-    [SerializeField] string BuyText = "-2000";
+    [SerializeField] string             BuyText = "-2000";
 
-    [SerializeField] TextMeshProUGUI Text;          //文字
-    [SerializeField] private bool IsHaving;     //取得済み
+    [SerializeField] TextMeshProUGUI    Text;          //文字
+    [SerializeField] private bool       IsHaving;     //取得済み
 
 
     private void Start()

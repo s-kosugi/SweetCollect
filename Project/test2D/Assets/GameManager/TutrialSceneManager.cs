@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class TutrialSceneManager : BaseScene
 {
-    [SerializeField] PlayFabWaitConnect WaitConnect = default;
-    [SerializeField] PlayFabPlayerData PlayerData = default;
+    [SerializeField] PlayFabWaitConnect WaitConnect = default;     //通信
+    [SerializeField] PlayFabPlayerData PlayerData = default;       //プレイヤーデータ
 
     public enum STATE
     {
@@ -24,10 +24,10 @@ public class TutrialSceneManager : BaseScene
     }
 
 
-    [SerializeField] Tutrial_EquipFrame Discription_Start = null; //開始時説明
-    [SerializeField] Tutrial_EquipFrame Discription_Play = null; //説明
-    [SerializeField] Tutrial_EquipFrame Discription_End = null; //終了後説明
-    [SerializeField] Tutorial_Playing_Text Palying_Test = null;     //プレイ中テキスト
+    [SerializeField] Tutrial_EquipFrame Discription_Start = null;   //開始時説明
+    [SerializeField] Tutrial_EquipFrame Discription_Play = null;    //説明
+    [SerializeField] Tutrial_EquipFrame Discription_End = null;     //終了後説明
+    [SerializeField] Tutorial_Playing_Text Playing_Test = null;     //プレイ中テキスト
 
     public enum TUTRIAL
     {
@@ -45,7 +45,7 @@ public class TutrialSceneManager : BaseScene
 
 
     float TutrialFinishMarginTimer = 0.0f;                                      //チュートリアル終了後の余白時間 
-    [SerializeField] private float TUTRIAL_FINISH_MARGIN_TIME = 2.0f;                   //チュートリアル終了後の余白時間 
+    [SerializeField] private float TUTRIAL_FINISH_MARGIN_TIME = 2.0f;           //チュートリアル終了後の余白時間 
     private bool FinishMargin = false;
 
     public TUTRIAL tutrial
@@ -122,7 +122,7 @@ public class TutrialSceneManager : BaseScene
         
     }
 
-    // チュートリアル
+    //説明
     private void Tutrial_Description()
     {
         if (m_NextTutrial == TUTRIAL.TUTRIAL_JUMP)
@@ -133,41 +133,41 @@ public class TutrialSceneManager : BaseScene
         else
             m_NextTutrial = TUTRIAL.TUTRIAL_DESCRIPTION;
     } 
-    // チュートリアル
+    // ジャンプ説明
     private void Tutrial_Jump()
     {
         if (m_NextTutrial == TUTRIAL.TUTRIAL_DOUBLEJUMP)
         {
             m_Tutrial = m_NextTutrial;
-            Palying_Test.StartFade();
+            Playing_Test.StartFade();
         }
         else
             m_NextTutrial = TUTRIAL.TUTRIAL_JUMP;
     } 
-    // チュートリアル
+    // 二回ジャンプ説明
     private void Tutrial_DoubleJump()
     {
         if (m_NextTutrial == TUTRIAL.TUTRIAL_SYOKUDAI)
         {
             m_Tutrial = m_NextTutrial;
-            Palying_Test.StartFade();
+            Playing_Test.StartFade();
         }
         else
             m_NextTutrial = TUTRIAL.TUTRIAL_DOUBLEJUMP;
     }  
-    // チュートリアル
+    // 燭台説明
     private void Tutrial_Syokudai()
     {
         if (m_NextTutrial == TUTRIAL.TUTRIAL_CHEF)
         {
             m_Tutrial = m_NextTutrial;
-            Palying_Test.StartFade();
+            Playing_Test.StartFade();
         }
         else
             m_NextTutrial = TUTRIAL.TUTRIAL_SYOKUDAI;
 
     }
-    // チュートリアル
+    //店員説明
     private void Tutrial_Chef()
     {
         if (m_NextTutrial == TUTRIAL.TUTRIAL_FINISHDESCRIPTION)
@@ -178,7 +178,7 @@ public class TutrialSceneManager : BaseScene
         else
             m_NextTutrial = TUTRIAL.TUTRIAL_CHEF;
     }
-
+    //説明終了
     private void Tutrial_FinishDescription()
     {
         if(!FinishMargin)
@@ -194,7 +194,7 @@ public class TutrialSceneManager : BaseScene
         if(m_NextTutrial == TUTRIAL.TUTRIAL_END)
             m_Tutrial = m_NextTutrial;
     }
-     
+    //チュートリアル終了
     private void End()
     {
         m_State = STATE.FADEOUT;
@@ -202,7 +202,7 @@ public class TutrialSceneManager : BaseScene
         PlayerData.SetPlayerData(PlayerDataName.TUTORIAL, "End");
     }
 
-    //チュートリアル
+    //状態変更
     public void TutrialChange(TUTRIAL Id)
     {
         m_NextTutrial = Id;

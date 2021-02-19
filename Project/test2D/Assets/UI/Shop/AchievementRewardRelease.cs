@@ -5,7 +5,7 @@ public class AchievementRewardRelease : MonoBehaviour
     [SerializeField] private PlayFabWaitConnect connect = null;                               //通信
     [SerializeField] private PlayFabInventory inventory = null;                               //インベントリ
     [SerializeField] private ReachAchievement reachachievement = null;                        //実績達成管理
-    [SerializeField] private PlayFabStore store = null;                                       //服ストア
+    [SerializeField] private PlayFabStore playfabstore = null;                                //服ストア
     [SerializeField] private PlayFabStore storeachivement = null;                             //実績ストア
     [SerializeField] private ShopSceneManager shop = null;                                    //ショップマネージャー
     [SerializeField] private Clothing clothing = null;                                        //洋服
@@ -26,7 +26,7 @@ public class AchievementRewardRelease : MonoBehaviour
     public enum REWARDRELEASE
     {
         NONE = -1,     //
-        CHECK_CLOTHING_RELEASE = 0,     //服開放
+        CHECK = 0,                      //確認
         CLOTHING_MOVE,                  //服の移動
         CLOTHING_BUY,                   //衣服の購入
         UPDATA,                         //購入情報を更新
@@ -57,10 +57,10 @@ public class AchievementRewardRelease : MonoBehaviour
     {
         switch (State)
         {
-            case REWARDRELEASE.CHECK_CLOTHING_RELEASE: Check(); break;
-            case REWARDRELEASE.CLOTHING_MOVE: Clothing_Move(); break;
-            case REWARDRELEASE.CLOTHING_BUY: Clothig_Buy(); break;
-            case REWARDRELEASE.UPDATA: Data_Update(); break;
+            case REWARDRELEASE.CHECK: Check(); break;
+            case REWARDRELEASE.CLOTHING_MOVE: ClothingMove(); break;
+            case REWARDRELEASE.CLOTHING_BUY: ClothigBuy(); break;
+            case REWARDRELEASE.UPDATA: DataUpdate(); break;
             case REWARDRELEASE.PREVIEW: Preview(); break;
             case REWARDRELEASE.SEARCH: Search(); break;
             case REWARDRELEASE.WAIT: Wait(); break;
@@ -84,13 +84,13 @@ public class AchievementRewardRelease : MonoBehaviour
 
     }
     //服の移動
-    private void Clothing_Move()
+    private void ClothingMove()
     {
         if(ClotingMoveEndFlag)
             State = REWARDRELEASE.CLOTHING_BUY;
     }
     //服の購入
-    private void Clothig_Buy()
+    private void ClothigBuy()
     {
         if(BuyEndFlag)
         {
@@ -102,7 +102,7 @@ public class AchievementRewardRelease : MonoBehaviour
 
     }
     //更新
-    private void Data_Update()
+    private void DataUpdate()
     {
         if (!connect.IsWait())
         {
@@ -158,11 +158,11 @@ public class AchievementRewardRelease : MonoBehaviour
         if(!connect.IsWait())
         {
             //取得完了
-            if(store.isCatalogGet && storeachivement.isStoreGet && store.isStoreGet)
+            if(playfabstore.isCatalogGet && storeachivement.isStoreGet && playfabstore.isStoreGet)
             {
-                foreach (var value in store.CatalogItems)
+                foreach (var value in playfabstore.CatalogItems)
                 {
-                    var StoreItem = store.StoreItems.Find(x => x.ItemId == value.ItemId);
+                    var StoreItem = playfabstore.StoreItems.Find(x => x.ItemId == value.ItemId);
                     //ストアアイテム内になく、Dummyでなければ
                     //検索処理を終了する
                     if(StoreItem == null && value.ItemId != "-1")
@@ -184,7 +184,7 @@ public class AchievementRewardRelease : MonoBehaviour
                                 AchievementClotingName = value.ItemId;
                                 ClotingName = value.DisplayName;
                                 AchievementFlag = true;
-                                State = REWARDRELEASE.CHECK_CLOTHING_RELEASE;
+                                State = REWARDRELEASE.CHECK;
                                 break;
                             }
                         }

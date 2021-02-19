@@ -3,20 +3,20 @@ using UnityEngine.UI;
 
 public class BuyAndWearButton : MonoBehaviour
 {
-    [SerializeField]ClothingBuyAndWear clothingbuyandwear = null;           //服の着用購入
-    private Button button;                                                  //ボタン
+    [SerializeField]ClothingBuyAndWear                      clothingbuyandwear = null;           //服の着用購入
+    private Button                                          button;                              //ボタン
 
-    [SerializeField] private PlayFabStore playfabstore = null;              //ストア
-    [SerializeField] private PlayFabInventory inventory = null;             //インベントリ
-    [SerializeField] private PlayFabWaitConnect connect = null;             //通信
-    [SerializeField] private PlayFabStore storeachivement = null;           //達成ストア
-    [SerializeField] private ReachAchievement reachachievement = null;      //実績達成管理
-    [SerializeField] private PreviewParent previewparent = null;            //表示衣服の親
+    [SerializeField] private PlayFabStore                   playfabstore = null;                 //ストア
+    [SerializeField] private PlayFabInventory               inventory = null;                    //インベントリ
+    [SerializeField] private PlayFabWaitConnect             connect = null;                      //通信
+    [SerializeField] private PlayFabStore                   storeachivement = null;              //達成ストア
+    [SerializeField] private ReachAchievement               reachachievement = null;             //実績達成管理
+    [SerializeField] private PreviewParent                  previewparent = null;                //表示衣服の親
 
-    [SerializeField] private SelectClothing selectclothing = null;          //選択衣服
-    [SerializeField] private Money_Text playermoney = null;                 //プレイヤー所持金
-    [SerializeField] private Clothing clothing = null;                      //衣服
-    [SerializeField] private CurtainAnime curtainanime = default;           //カーテン
+    [SerializeField] private SelectClothing                 selectclothing = null;               //選択衣服
+    [SerializeField] private Money_Text                     playermoney = null;                  //プレイヤー所持金
+    [SerializeField] private Clothing                       clothing = null;                     //衣服
+    [SerializeField] private CurtainAnime                   curtainanime = default;              //カーテン
 
     // Start is called before the first frame update
     void Start()

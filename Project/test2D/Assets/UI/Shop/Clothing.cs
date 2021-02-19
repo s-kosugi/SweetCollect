@@ -69,7 +69,7 @@ public class Clothing : MonoBehaviour
             case SHELFSTATE.LOAD: Load(); break;
             case SHELFSTATE.CHANGE: Change(); break;
             case SHELFSTATE.PREVIEW: Preview(); break;
-            case SHELFSTATE.REWARDRELEASE: AchievementRewardRelease(); break;
+            case SHELFSTATE.REWARDRELEASE: RewardRelease(); break;
         }
     }
 
@@ -159,7 +159,7 @@ public class Clothing : MonoBehaviour
     private void Preview()
     {
         //服開放実行
-        if(rewardrelease.AchievementFlag && rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CHECK_CLOTHING_RELEASE)
+        if(rewardrelease.AchievementFlag && rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CHECK)
         {
             State = SHELFSTATE.REWARDRELEASE;
         }
@@ -171,7 +171,7 @@ public class Clothing : MonoBehaviour
 
     }
     //実績達成演出
-    private void AchievementRewardRelease()
+    private void RewardRelease()
     {
         if(rewardrelease.GetState() == global::AchievementRewardRelease.REWARDRELEASE.CLOTHING_MOVE)
         {

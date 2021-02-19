@@ -8,10 +8,10 @@ public class SelectClothing : MonoBehaviour
     [System.Serializable]
     public struct SelectItem_Info
     {
-        public StoreItem storeItem;
-        public CatalogItem catalogItem;
+        public StoreItem storeItem;                                //ストアアイテム
+        public CatalogItem catalogItem;                            //カタログアイテム
     }
-    [SerializeField] public SelectItem_Info SelectItem = default;
+    [SerializeField] public SelectItem_Info SelectItem = default;  //選択アイテム
 
     // Start is called before the first frame update
     void Start()
