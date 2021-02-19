@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class SelectClothing : MonoBehaviour
 {
-    //[SerializeField] StoreItem SelectItem;                          //選択しているアイテム
-    [SerializeField] PlayFabStore PalyFabStore;                     //プレイハブのストア系統の処理
+    [SerializeField] PlayFabStore playfabstore;                     //プレイハブのストア系統の処理
 
     [System.Serializable]
     public struct SelectItem_Info
@@ -17,7 +16,7 @@ public class SelectClothing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PalyFabStore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
+        playfabstore = GameObject.Find("PlayFabStore").GetComponent<PlayFabStore>();
     }
 
     // Update is called once per frame
@@ -33,12 +32,13 @@ public class SelectClothing : MonoBehaviour
     //===========================================================================================================
     //設定(Setter)
     //現在選択しているUI
+    //info : 確認したストアアイテムの情報
     public void SetSelectItem(StoreItem info)
     {
         //SelectItem.StoreItem
         SelectItem.storeItem = info;
         
-        SelectItem.catalogItem = PalyFabStore.CatalogItems.Find(x => x.ItemId == SelectItem.storeItem.ItemId);
+        SelectItem.catalogItem = playfabstore.CatalogItems.Find(x => x.ItemId == SelectItem.storeItem.ItemId);
     }
     //===========================================================================================================
 

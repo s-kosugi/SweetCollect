@@ -26,7 +26,7 @@ public class ClothingBuyAndWear : MonoBehaviour
     private bool IsSelect;                                                  //選択中(購入または着用)
     private bool IsUpdate;                                                  //更新中
     [SerializeField] private bool IsPreviewHint;                            //ヒント表示
-    private bool IsAchievementsClothingRelease;                             //実績服の解放
+    private bool IsClothingRelease;                                         //実績服の解放
 
     [SerializeField] private PlayerAvatar playerAvatar = default;           //プレイヤーアバター
     [SerializeField] private CurtainAnime curtainAnime = default;           //カーテン
@@ -59,7 +59,7 @@ public class ClothingBuyAndWear : MonoBehaviour
         IsSelect = false;
         IsUpdate = false;
         IsPreviewHint = false;
-        IsAchievementsClothingRelease = false;
+        IsClothingRelease = false;
 
         PriceName = "HA";
 
@@ -163,7 +163,7 @@ public class ClothingBuyAndWear : MonoBehaviour
                 else
                 {
                     playerData.SetPlayerData(PlayerDataName.ECLOTHES, selectclothing.GetItemInfo().catalogItem.ItemId);
-                    // ユーザーデータの更新
+                    // プレイヤーデータの更新
                     playerData.RequestGetData();
                     Debug.Log(selectclothing.GetItemInfo().catalogItem.ItemId + "を着用しました");
 
@@ -224,7 +224,7 @@ public class ClothingBuyAndWear : MonoBehaviour
                 if (!rewardrelease.BuyEndFlag)
                 {
                     //解放服が解放されていなければ解放
-                    if (!IsAchievementsClothingRelease)
+                    if (!IsClothingRelease)
                     {
 
                         //インベントリ内にアイテムがなければ購入
@@ -236,7 +236,7 @@ public class ClothingBuyAndWear : MonoBehaviour
                         //プレイヤー所持金を確認
                         playermoney.RequestMoney();
                         //実績服解放済み
-                        IsAchievementsClothingRelease = true;
+                        IsClothingRelease = true;
                         clothing.BuyButtonPush();
                     }
                     else
@@ -252,7 +252,7 @@ public class ClothingBuyAndWear : MonoBehaviour
         if (!rewardrelease.AchievementFlag)
         {
             State = STATE.RECEPTION;
-            IsAchievementsClothingRelease = false;
+            IsClothingRelease = false;
         }
     }
     //ヒント表示
@@ -271,6 +271,7 @@ public class ClothingBuyAndWear : MonoBehaviour
         //取得完了
         if (!connect.IsWait() && store.m_isCatalogGet && storeachivement.m_isStoreGet && store.m_isStoreGet)
         {
+            //選択されている服のカスタムデータがある
             if (selectclothing.GetItemInfo().catalogItem.CustomData != null)
             {
                 //実績達成アイテムを所持しているか

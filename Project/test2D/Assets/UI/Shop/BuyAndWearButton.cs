@@ -11,12 +11,12 @@ public class BuyAndWearButton : MonoBehaviour
     [SerializeField] private PlayFabWaitConnect connect = null;             //通信
     [SerializeField] private PlayFabStore storeachivement = null;           //達成ストア
     [SerializeField] private ReachAchievement reachachievement = null;      //実績達成管理
-    [SerializeField] private PreviewParent previewParent = null;            //表示衣服の親
+    [SerializeField] private PreviewParent previewparent = null;            //表示衣服の親
 
     [SerializeField] private SelectClothing selectclothing = null;          //選択衣服
     [SerializeField] private Money_Text playermoney = null;                 //プレイヤー所持金
     [SerializeField] private Clothing clothing = null;                      //衣服
-    [SerializeField] private CurtainAnime curtainAnime = default;           //カーテン
+    [SerializeField] private CurtainAnime curtainanime = default;           //カーテン
 
     // Start is called before the first frame update
     void Start()
@@ -49,8 +49,8 @@ public class BuyAndWearButton : MonoBehaviour
             !playfabstore.m_isStoreGet ||
             clothing.GetState() != Clothing.SHELFSTATE.PREVIEW ||
             clothingbuyandwear.GetState() != ClothingBuyAndWear.STATE.RECEPTION
-            || curtainAnime.state != CurtainAnime.STATE.WAIT
-            || previewParent.State != PreviewParent.STATE.WAIT
+            || curtainanime.state != CurtainAnime.STATE.WAIT
+            || previewparent.State != PreviewParent.STATE.WAIT
             )
         {
             button.enabled = false;

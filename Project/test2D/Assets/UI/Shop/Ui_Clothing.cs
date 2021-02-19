@@ -8,7 +8,7 @@ public class Ui_Clothing : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer PreviewImage = null;    //表示する画像
 
-    private SpriteRenderer spriteRenderer = default;               //画像
+    private SpriteRenderer SpriteRenderer = default;               //画像
 
     private void Awake()
     {
@@ -16,7 +16,7 @@ public class Ui_Clothing : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -25,6 +25,7 @@ public class Ui_Clothing : MonoBehaviour
     }
 
     //自分の表示する画像の設定
+    //preveiw:表示する画像
     public void SetPreviewImage(Sprite preveiw)
     {
         PreviewImage = this.GetComponent<SpriteRenderer>();
@@ -37,6 +38,6 @@ public class Ui_Clothing : MonoBehaviour
     /// <param name="color"></param>
     public void SetColor( Color color)
     {
-        spriteRenderer.color = color;
+        SpriteRenderer.color = color;
     }
 }

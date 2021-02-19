@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class Money_Text : MonoBehaviour
 {
-    [SerializeField] private PlayFabVirtualCurrency playFabVirtualCurrency = null;  //仮想通貨
-    [SerializeField] PlayFabWaitConnect connect = null;                             //通信関連
-    uint MyMoney = default;                                                         //所持金
-    [SerializeField] TextMeshProUGUI Text_Money = default;                          //表示テキスト
-    bool IsCheck = default;                                                         //確認中
-    bool IsRequest = default;                                                       //リクエスト中
+    [SerializeField] private PlayFabVirtualCurrency virtualcurrency = null;         //仮想通貨
+    [SerializeField] PlayFabWaitConnect             connect = null;                 //通信関連
+    [SerializeField] TextMeshProUGUI                TextMoney = default;            //表示テキスト
+    uint                                            MyMoney;                        //所持金
+    bool                                            IsCheck;                        //確認中
+    bool                                            IsRequest;                      //リクエスト中
     private void Awake()
     {
         IsRequest = true;
-        Text_Money.text = "??????";
+        TextMoney.text = "??????";
         RequestMoney();
     }
-
 
     void Update()
     {
@@ -27,7 +26,7 @@ public class Money_Text : MonoBehaviour
     //描画関連 
     private void PreviewMoney()
     {
-        Text_Money.text = MyMoney.ToString();
+        TextMoney.text = MyMoney.ToString();
     }
     //===========================================================================================================
 
@@ -43,16 +42,16 @@ public class Money_Text : MonoBehaviour
                 //リクエストしていなければリクエスト
                 if(!IsRequest)
                 {
-                    playFabVirtualCurrency.RequestUpdate();
+                    virtualcurrency.RequestUpdate();
                     IsRequest = true;
                 }
 
                 // 仮想通貨情報が取得済みかどうか
-                if (playFabVirtualCurrency.isGet)
+                if (virtualcurrency.isGet)
                 {
-                    if (playFabVirtualCurrency.VirtualCurrency.ContainsKey("HA"))
+                    if (virtualcurrency.VirtualCurrency.ContainsKey("HA"))
                     {
-                        MyMoney = (uint)playFabVirtualCurrency.VirtualCurrency["HA"];
+                        MyMoney = (uint)virtualcurrency.VirtualCurrency["HA"];
                         IsCheck = false;
                         IsRequest = false;
                         Debug.Log("所持金" + MyMoney);

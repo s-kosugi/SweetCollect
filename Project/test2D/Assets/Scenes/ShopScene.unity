@@ -207,9 +207,9 @@ GameObject:
   - component: {fileID: 73579821}
   - component: {fileID: 73579820}
   - component: {fileID: 73579819}
+  - component: {fileID: 73579818}
   - component: {fileID: 73579817}
   - component: {fileID: 73579822}
-  - component: {fileID: 73579818}
   m_Layer: 5
   m_Name: AchievementButton
   m_TagString: Untagged
@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805f24d00e28b8c4fab4628878ab9c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PalyFabStore: {fileID: 0}
+  palyfabstore: {fileID: 0}
   SelectItem:
     storeItem:
       ItemId: 
@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacc028deafc7754fa02a6cea2a26971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playFabStore: {fileID: 1594986038}
+  playfabstore: {fileID: 1594986038}
   inventory: {fileID: 907776689}
   connect: {fileID: 648793398}
   rewardrelease: {fileID: 1677005747}
@@ -1139,11 +1139,11 @@ MonoBehaviour:
   previewsprite: {fileID: 2189110483647629879, guid: 39c4923f42ec8964ebd1600bbe83f11a,
     type: 3}
   curtain: {fileID: 258928816}
-  PlayerData: {fileID: 1866403476}
+  playerdata: {fileID: 1866403476}
   previewparent: {fileID: 827679703}
-  SwipeMove_Shop: {fileID: 827679704}
+  swipemoveshop: {fileID: 827679704}
   PreviewParent: {fileID: 827679701}
-  SpriteSize_Wight: 144
+  SpriteSizeWight: 144
   Margin: 24
   MOVETIMENORMAL: 0.15
   MOVETIMEACHIEVEMENT: 0.1
@@ -2403,8 +2403,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clothing: {fileID: 321649656}
-  BuyAndWearButton: {fileID: 1637784988}
-  curtainAnime: {fileID: 258928816}
+  buyandwearbutton: {fileID: 1637784988}
+  curtainanime: {fileID: 258928816}
   HorizontalRateAndroid: 0.5
   VerticalRate: 1
   FrictionAndroid: 0.88
@@ -3033,7 +3033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playFabVirtualCurrency: {fileID: 1062585636}
   connect: {fileID: 648793398}
-  Text_Money: {fileID: 1158271999}
+  TextMoney: {fileID: 1158271999}
 --- !u!114 &1158271999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3757,9 +3757,9 @@ GameObject:
   - component: {fileID: 1459840294}
   - component: {fileID: 1459840293}
   - component: {fileID: 1459840292}
+  - component: {fileID: 1459840291}
   - component: {fileID: 1459840295}
   - component: {fileID: 1459840296}
-  - component: {fileID: 1459840291}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -5480,8 +5480,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disable: {fileID: 1908391127}
-  buyAndWear: {fileID: 1637784988}
-  curtainAnime: {fileID: 258928816}
+  buyandwear: {fileID: 1637784988}
+  curtainanime: {fileID: 258928816}
 --- !u!114 &1908391129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6145,8 +6145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disable: {fileID: 2121321511}
-  buyAndWear: {fileID: 1637784988}
-  curtainAnime: {fileID: 258928816}
+  buyandwear: {fileID: 1637784988}
+  curtainanime: {fileID: 258928816}
 --- !u!114 &2121321513
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,8 +8,8 @@ public class AchievementRewardRelease : MonoBehaviour
     [SerializeField] private PlayFabWaitConnect connect = null;                               //通信
     [SerializeField] private PlayFabInventory inventory = null;                               //インベントリ
     [SerializeField] private ReachAchievement reachachievement = null;                        //実績達成管理
-    [SerializeField] private PlayFabStore PlayFabStore = null;                                //服ストア
-    [SerializeField] private PlayFabStore PlayFabStoreAchivement = null;                      //実績ストア
+    [SerializeField] private PlayFabStore store = null;                                       //服ストア
+    [SerializeField] private PlayFabStore storeachivement = null;                             //実績ストア
     [SerializeField] private ShopSceneManager shop = null;                                    //ショップマネージャー
     [SerializeField] private Clothing clothing = null;                                        //洋服
     [SerializeField] private ClothingBuyAndWear buyandwearbutton = null;                       //購入または着用
@@ -161,11 +161,11 @@ public class AchievementRewardRelease : MonoBehaviour
         if(!connect.IsWait())
         {
             //取得完了
-            if(PlayFabStore.m_isCatalogGet && PlayFabStoreAchivement.m_isStoreGet && PlayFabStore.m_isStoreGet)
+            if(store.m_isCatalogGet && storeachivement.m_isStoreGet && store.m_isStoreGet)
             {
-                foreach (var value in PlayFabStore.CatalogItems)
+                foreach (var value in store.CatalogItems)
                 {
-                    var StoreItem = PlayFabStore.StoreItems.Find(x => x.ItemId == value.ItemId);
+                    var StoreItem = store.StoreItems.Find(x => x.ItemId == value.ItemId);
                     //ストアアイテム内になく、Dummyでなければ
                     //検索処理を終了する
                     if(StoreItem == null && value.ItemId != "-1")
@@ -177,7 +177,7 @@ public class AchievementRewardRelease : MonoBehaviour
                     if (value.CustomData != null)
                     {
                         //実績達成アイテムを所持しているか
-                        var achievementItem = PlayFabStoreAchivement.StoreItems.Find(x => x.ItemId == value.CustomData.ToString());
+                        var achievementItem = storeachivement.StoreItems.Find(x => x.ItemId == value.CustomData.ToString());
                         //実績達成
                         if(reachachievement.IsReachAchievement(achievementItem.ItemId.ToString()))
                         {

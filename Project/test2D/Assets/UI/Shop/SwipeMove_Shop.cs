@@ -5,33 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class SwipeMove_Shop : MonoBehaviour
 {
-    [SerializeField] private Clothing clothing = null;                          //服
-    [SerializeField] private ClothingBuyAndWear BuyAndWearButton = null;        //着用購入ボタン
-    [SerializeField] private CurtainAnime curtainAnime = null;                  //カーテン
+    [SerializeField] private Clothing               clothing = null;                //服
+    [SerializeField] private ClothingBuyAndWear     buyandwearbutton = null;        //着用購入ボタン
+    [SerializeField] private CurtainAnime           curtainanime = null;            //カーテン
 
-    float HorizontalRate = 1.0f;                                                //水平方向レート
-    [SerializeField] float HorizontalRateAndroid = 0.5f;                        //アンドロイド版水平方向レート
-    [SerializeField] float VerticalRate = 1.0f;                                 //垂直方向レート
-    float Friction = 0.9f;                                                      //摩擦力
-    [SerializeField] float FrictionAndroid = 0.88f;                             //アンドロイド版摩擦力
-    [SerializeField] float StopThreshold = 0.01f;                               //停止速度
-    [SerializeField] public Vector2 MinmoveLimitRect = default;                 //最小範囲
-    [SerializeField] public Vector2 MaxmoveLimitRect = default;                 //最大範囲
+    float                                           HorizontalRate = 1.0f;          //水平方向レート
+    [SerializeField] float                          HorizontalRateAndroid = 0.5f;   //アンドロイド版水平方向レート
+    [SerializeField] float                          VerticalRate = 1.0f;            //垂直方向レート
+    float                                           Friction = 0.9f;                //摩擦力
+    [SerializeField] float                          FrictionAndroid = 0.88f;        //アンドロイド版摩擦力
+    [SerializeField] float                          StopThreshold = 0.01f;          //停止速度
+    [SerializeField] public Vector2                 MinmoveLimitRect = default;     //最小範囲
+    [SerializeField] public Vector2                 MaxmoveLimitRect = default;     //最大範囲
 
-    public bool TouchFlag { get; private set; }                                 //タッチフラグ
-    private bool PrevtouchFlag = false;                                         //一つ前フレームのタッチフラグ
-    private Vector3 OldTouchPos = Vector3.zero;                                 //過去位置
-    [SerializeField] private Vector3 InertiaMove = Vector3.zero;                //移動量
+    public bool                                     TouchFlag { get; private set; } //タッチフラグ
+    private bool                                    PrevtouchFlag = false;          //一つ前フレームのタッチフラグ
+    private Vector3                                 OldTouchPos = Vector3.zero;     //過去位置
+    [SerializeField] private Vector3                InertiaMove = Vector3.zero;     //移動量
 
-    //移動したい値の最大値関連
-    [SerializeField] private float Max_Wight = 0;
+    [SerializeField] private float                  MaxWidth = 0;                   //最大移動値
 
     //移動距離
-    [SerializeField] private Vector3 TouchPos = Vector3.zero;                   //押された瞬間の位置
-    [SerializeField] private float MinMoveDistance = 1.0f;                      //最小移動距離
+    [SerializeField] private Vector3                TouchPos = Vector3.zero;        //押された瞬間の位置
+    [SerializeField] private float                  MinMoveDistance = 1.0f;         //最小移動距離
     //画面
-    [SerializeField] private int HalfScreenSizeHeight = 0;                      //高さのサイズ()
-    [SerializeField] private int ScreenSizeHeight = 0;                          //高さのサイズ
+    [SerializeField] private int                    HalfScreenSizeHeight = 0;       //高さの半分サイズ
+    [SerializeField] private int                    ScreenSizeHeight = 0;           //高さのサイズ
 
     private void Start()
     {
@@ -50,7 +49,8 @@ public class SwipeMove_Shop : MonoBehaviour
 
     void Update()
     {
-        if (clothing.GetState() == Clothing.SHELFSTATE.PREVIEW && BuyAndWearButton.GetState() == ClothingBuyAndWear.STATE.RECEPTION && curtainAnime.state == CurtainAnime.STATE.WAIT)
+        if (clothing.GetState() == Clothing.SHELFSTATE.PREVIEW
+            && buyandwearbutton.GetState() == ClothingBuyAndWear.STATE.RECEPTION && curtainanime.state == CurtainAnime.STATE.WAIT)
         {
             if (Input.GetMouseButton(0))
             {  
@@ -62,6 +62,7 @@ public class SwipeMove_Shop : MonoBehaviour
                     TouchFlag = true;
                 }
 
+                //移動量が一定値に達しているなら
                 if (CheckDistance())
                 {
                     Vector3 velocity = Input.mousePosition - OldTouchPos;
@@ -140,8 +141,8 @@ public class SwipeMove_Shop : MonoBehaviour
     //maxspritenum : 最大スプライト数
     public void MaxMoveCalculation(float size, float margin, int maxspritenum)
     {
-        Max_Wight = (size * (maxspritenum)) + (margin * maxspritenum);
-        MinmoveLimitRect.x = -Max_Wight;
+        MaxWidth = (size * (maxspritenum)) + (margin * maxspritenum);
+        MinmoveLimitRect.x = -MaxWidth;
     }
 
     //離した瞬間

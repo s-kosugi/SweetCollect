@@ -9,16 +9,16 @@ public class BuyButtonPicture : MonoBehaviour
     [SerializeField] Sprite WearSprite = default;
     [SerializeField] Sprite BuySprite = default;
     [SerializeField] Sprite AchievementSprite = default;
-    BuyAndWear_Text buyAndWear_Text = default;
-    private Image buttonImage;
-    private GameObject coinIconObject = default;
+    BuyAndWear_Text BuyAndWearText = default;
+    private Image ButtonImage;
+    private GameObject CoinIconObject = default;
 
 
     void Start()
     {
-        buyAndWear_Text = transform.Find("BuyAndWear_Text").GetComponent<BuyAndWear_Text>();
-        buttonImage = GetComponent<Image>();
-        coinIconObject = transform.Find("CoinIcon").gameObject;
+        BuyAndWearText = transform.Find("BuyAndWear_Text").GetComponent<BuyAndWear_Text>();
+        ButtonImage = GetComponent<Image>();
+        CoinIconObject = transform.Find("CoinIcon").gameObject;
 
     }
 
@@ -27,27 +27,27 @@ public class BuyButtonPicture : MonoBehaviour
     /// </summary>
     public void ChangeWearState( )
     {
-        buttonImage.sprite = WearSprite;
-        coinIconObject.SetActive(false);
-        buyAndWear_Text.SetTextFlag(false);
+        ButtonImage.sprite = WearSprite;
+        CoinIconObject.SetActive(false);
+        BuyAndWearText.SetTextFlag(false);
     }
     /// <summary>
     /// ボタン画像を購入状態へ変更する
     /// </summary>
     public void ChangeBuyState(string priceText)
     {
-        buttonImage.sprite = BuySprite;
-        coinIconObject.SetActive(true);
-        buyAndWear_Text.SetTextFlag(true);
-        buyAndWear_Text.SetBuyText("-"+priceText);
+        ButtonImage.sprite = BuySprite;
+        CoinIconObject.SetActive(true);
+        BuyAndWearText.SetTextFlag(true);
+        BuyAndWearText.SetBuyText("-"+priceText);
     }
     /// <summary>
     /// ボタン画像を？状態へ変更する
     /// </summary>
     public void ChangeQuestionState()
     {
-        buttonImage.sprite = AchievementSprite;
-        coinIconObject.SetActive(false);
-        buyAndWear_Text.SetTextFlag(false);
+        ButtonImage.sprite = AchievementSprite;
+        CoinIconObject.SetActive(false);
+        BuyAndWearText.SetTextFlag(false);
     }
 }
