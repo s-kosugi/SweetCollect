@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 /// </summary>
 public class TwitterButton : MonoBehaviour
 {
-#if UNITY_WEBGL
+#if UNITY_WEBGL && !UNITY_EDITOR
     // Assets/Plugins/WebGLにあるOpenNewTabPluginをインポートする
     [DllImport("__Internal")] private static extern void OpenNewTab(string URL);
 #endif
