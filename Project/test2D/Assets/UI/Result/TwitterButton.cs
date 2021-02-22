@@ -8,7 +8,7 @@ public class TwitterButton : MonoBehaviour
 {
 #if UNITY_WEBGL && !UNITY_EDITOR
     // Assets/Plugins/WebGLにあるOpenNewTabPluginをインポートする
-    [DllImport("__Internal")] private static extern void OpenNewTab(string URL);
+    [System.Runtime.InteropServices.DllImport("__Internal")] private static extern void OpenNewTab(string URL);
 #endif
 
     private ScoreManager scoreManager = default;
